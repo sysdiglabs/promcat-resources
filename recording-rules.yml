@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: RecordingRules
+labels: 
+  - aws
+  - serverless
+  - fargate
+data: |
+  - record: job:aws_ecs_containerinsights_cpu_utilization_rate:avg
+    expr: avg by (dimension_ServiceName)(aws_ecs_containerinsights_cpu_utilized_average / aws_ecs_containerinsights_cpu_reserved_average)
+  - record: job:aws_ecs_containerinsights_memory_utilization_rate:avg
+    expr: avg by (dimension_ServiceName)(aws_ecs_containerinsights_memory_utilized_average / aws_ecs_containerinsights_memory_reserved_average)

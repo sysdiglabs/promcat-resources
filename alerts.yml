@@ -1,0 +1,29 @@
+---
+apiVersion: v1
+kind: ExporterConfig
+labels: 
+  - aws
+  - serverless
+  - fargate
+data: |
+  - alert: HighCpuUtlizationRate
+    expr: job:aws_ecs_containerinsights_cpu_utilization_rate:avg > 0.75
+    for: 10m
+    labels: 
+      severity: page
+    annotations:
+      summary: High CPU utilization rate on {{$labels.dimension_ServiceName}}
+  - alert: HighMemoryUtlizationRate
+    expr: job:aws_ecs_containerinsights_memory_utilization_rate:avg > 0.75
+    for: 10m
+    labels: 
+      severity: page
+    annotations:
+      summary: High memory utilization rate on {{$labels.dimension_ServiceName}}
+  - alert: HighMemoryUtlizationRate
+    expr: aws_ecs_containerinsights_pending_task_count_average > 0
+    for: 10m
+    labels: 
+      severity: page
+    annotations:
+      summary: Recurrent pending task on {{$labels.dimension_ServiceName}}
