@@ -20,7 +20,7 @@ data: |
       severity: page
     annotations:
       summary: High memory utilization rate on {{$labels.dimension_ServiceName}}
-  - alert: HighMemoryUtlizationRate
+  - alert: RecurringPendingTasks
     expr: aws_ecs_containerinsights_pending_task_count_average > 0
     for: 10m
     labels: 

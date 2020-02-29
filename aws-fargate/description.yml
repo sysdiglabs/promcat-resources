@@ -6,7 +6,65 @@ labels:
   - serverless
   - fargate
 data: |
-  # AWS fargate
-  Fargate is a serverless service from AWS that allows to create containers in...
-
+  # AWS Fargate
+  AWS Fargate is a serverless compute engine for containers that  works with both Amazon Elastic Container Service (ECS) and   Amazon Elastic Kubernetes Service (EKS).
   
+  The metrics for AWS Fargate are obtained through AWS Cloudwatch.  Using the [YACE exporter](https://github.com/ivx/  yet-another-cloudwatch-exporter). 
+  
+  # Exporter configuration
+  ## AWS permissions
+  The exporter needs permissions to access the resources from the   AWS account. 
+  On your AWS infrastructure, you need to create an AWS IAM policy  that allows read CloudWatch metrics and get resources by tags.   Here is a AWS IAM configuration example:
+  
+  ```
+  {
+      "Version": "2012-10-17",
+      "Statement": [
+          {
+              "Sid": "CloudWatchExporterPolicy",
+              "Effect": "Allow",
+              "Action": [
+                  "tag:GetResources",
+                  "cloudwatch:ListTagsForResource",
+                  "cloudwatch:GetMetricStatistics",
+                  "cloudwatch:ListMetrics"
+              ],
+              "Resource": "*"
+          }
+      ]
+  }
+  ```
+        
+  You will also need to supply credentials to the CloudWatch  exporter. This can be done creating a file $HOME/.aws/ credentials as the following, substituting the values with your  key and password: 
+  
+  ```
+  # CREDENTIALS FOR AWS ACCOUNT
+  aws_region = us-east-1
+  aws_access_key_id = AKIAQ33BWUG3BLXXXXX
+  aws_secret_access_key = bXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  ```
+  ## Cloudwatch free tier considerations
+  AWS Cloudwatch in its free tier provide metrics with certain  limit of granularity and a number of free requests per month.  Exceeding this limit will increase the billing of your AWS   account. 
+  
+  Please, check the [AWS Cloudwatch documentation](https://docs.  aws.amazon.com/AmazonCloudWatch/latest/monitoring/  cloudwatch_limits.html) for further details. 
+  
+  # Metrics
+  Cloudwatch offers the following metrics for AWS Fargate: 
+  - ContainerInstanceCount
+  - CpuUtilized
+  - CpuReserved
+  - DeploymentCount
+  - DesiredTaskCount
+  - MemoryUtilized
+  - MemoryReserved
+  - NetworkRxBytes
+  - NetworkTxBytes
+  - PendingTaskCount
+  - RunningTaskCount
+  - ServiceCount
+  - StorageReadBytes
+  - StorageWriteBytes
+  - TaskCount
+  - TaskSetCount
+  
+  For further information, consult the [Cloudwatch documentation  on Fargate metrics](https://docs.aws.amazon.com/AmazonCloudWatch/  latest/monitoring/Container-Insights-metrics-ECS.html). 
