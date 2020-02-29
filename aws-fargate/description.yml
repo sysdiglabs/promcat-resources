@@ -7,14 +7,14 @@ labels:
   - fargate
 data: |
   # AWS Fargate
-  AWS Fargate is a serverless compute engine for containers that  works with both Amazon Elastic Container Service (ECS) and   Amazon Elastic Kubernetes Service (EKS).
+  AWS Fargate is a serverless compute engine for containers that works with both Amazon Elastic Container Service (ECS) and Amazon Elastic Kubernetes Service (EKS).
   
-  The metrics for AWS Fargate are obtained through AWS Cloudwatch.  Using the [YACE exporter](https://github.com/ivx/  yet-another-cloudwatch-exporter). 
+  The metrics for AWS Fargate are obtained through AWS Cloudwatch. Using the [YACE exporter](https://github.com/ivx/yet-another-cloudwatch-exporter). 
   
   # Exporter configuration
   ## AWS permissions
-  The exporter needs permissions to access the resources from the   AWS account. 
-  On your AWS infrastructure, you need to create an AWS IAM policy  that allows read CloudWatch metrics and get resources by tags.   Here is a AWS IAM configuration example:
+  The exporter needs permissions to access the resources from the AWS account. 
+  On your AWS infrastructure, you need to create an AWS IAM policy that allows read CloudWatch metrics and get resources by tags. Here is a AWS IAM configuration example:
   
   ```
   {
@@ -35,7 +35,7 @@ data: |
   }
   ```
         
-  You will also need to supply credentials to the CloudWatch  exporter. This can be done creating a file $HOME/.aws/ credentials as the following, substituting the values with your  key and password: 
+  You will also need to supply credentials to the CloudWatch exporter. This can be done creating a file $HOME/.aws/credentials as the following, substituting the values with your key and password: 
   
   ```
   # CREDENTIALS FOR AWS ACCOUNT
@@ -44,9 +44,9 @@ data: |
   aws_secret_access_key = bXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   ```
   ## Cloudwatch free tier considerations
-  AWS Cloudwatch in its free tier provide metrics with certain  limit of granularity and a number of free requests per month.  Exceeding this limit will increase the billing of your AWS   account. 
+  AWS Cloudwatch in its free tier provide metrics with certain limit of granularity and a number of free requests per month. Exceeding this limit will increase the billing of your AWS account. 
   
-  Please, check the [AWS Cloudwatch documentation](https://docs.  aws.amazon.com/AmazonCloudWatch/latest/monitoring/  cloudwatch_limits.html) for further details. 
+  Please, check the [AWS Cloudwatch documentation](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_limits.html) for further details. 
   
   # Metrics
   Cloudwatch offers the following metrics for AWS Fargate: 
@@ -67,4 +67,4 @@ data: |
   - TaskCount
   - TaskSetCount
   
-  For further information, consult the [Cloudwatch documentation  on Fargate metrics](https://docs.aws.amazon.com/AmazonCloudWatch/  latest/monitoring/Container-Insights-metrics-ECS.html). 
+  For further information, consult the [Cloudwatch documentation on Fargate metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Container-Insights-metrics-ECS.html). 
