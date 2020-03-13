@@ -1,0 +1,1289 @@
+---
+apiVersion: v1
+kind: SysdigDashboards
+app: "AWS Fargate"
+version: 1.0.0
+appVersion: 
+    - 1.0.0
+    - 1.0.1
+maintainers:
+  - name: sysdiglabs
+    link: https://github.com/sysdiglabs
+description: 
+data: |
+  - name: "Fargate Golden Signals"
+    image: "images/fargate-sysdig-golden-signals.jpg"
+    data: |
+      {
+      "dashboard": {
+        "id": 1715277,
+        "teamId": 67844,
+        "userId": 42224,
+        "name": "Fargate PromQL",
+        "panels": [
+            {
+                "id": 4,
+                "type": "advancedTimechart",
+                "name": "Running tasks",
+                "description": "",
+                "advancedQueries": [
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "auto"
+                        },
+                        "query": "sum by (dimension_ServiceName)(aws_ecs_containerinsights_running_task_count_average)"
+                    }
+                ],
+                "legendConfiguration": {
+                    "enabled": true,
+                    "position": "bottom",
+                    "layout": "table",
+                    "showCurrent": true
+                },
+                "axesConfiguration": {
+                    "bottom": {
+                        "enabled": true
+                    },
+                    "left": {
+                        "enabled": true,
+                        "displayName": null,
+                        "unit": "auto",
+                        "displayFormat": "auto",
+                        "decimals": 2,
+                        "minValue": 0,
+                        "maxValue": null,
+                        "minInputFormat": "1",
+                        "maxInputFormat": "1",
+                        "scale": "linear"
+                    },
+                    "right": {
+                        "enabled": true,
+                        "displayName": null,
+                        "unit": "auto",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "minValue": null,
+                        "maxValue": null,
+                        "minInputFormat": "1",
+                        "maxInputFormat": "1",
+                        "scale": "linear"
+                    }
+                }
+            },
+            {
+                "id": 5,
+                "type": "advancedNumber",
+                "name": "CPU utilization",
+                "description": "",
+                "advancedQueries": [
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "%",
+                            "inputFormat": "0-100",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "auto"
+                        },
+                        "query": "avg (aws_ecs_containerinsights_cpu_utilized_average)"
+                    }
+                ],
+                "numberThresholds": {
+                    "values": [
+                        {
+                            "severity": "high",
+                            "value": 85,
+                            "inputFormat": "0-100",
+                            "displayText": ""
+                        },
+                        {
+                            "severity": "medium",
+                            "value": 75,
+                            "inputFormat": "0-100",
+                            "displayText": ""
+                        }
+                    ],
+                    "base": {
+                        "severity": "ok",
+                        "displayText": ""
+                    }
+                }
+            },
+            {
+                "id": 6,
+                "type": "advancedNumber",
+                "name": "Memory utilization",
+                "description": "",
+                "advancedQueries": [
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "%",
+                            "inputFormat": "0-100",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "auto"
+                        },
+                        "query": "avg(aws_ecs_containerinsights_memory_utilized_average)"
+                    }
+                ],
+                "numberThresholds": {
+                    "values": [
+                        {
+                            "severity": "high",
+                            "value": 85,
+                            "inputFormat": "0-100",
+                            "displayText": ""
+                        },
+                        {
+                            "severity": "medium",
+                            "value": 75,
+                            "inputFormat": "0-100",
+                            "displayText": ""
+                        }
+                    ],
+                    "base": {
+                        "severity": "ok",
+                        "displayText": ""
+                    }
+                }
+            },
+            {
+                "id": 7,
+                "type": "basicToplist",
+                "name": "CPU usage by container",
+                "description": "",
+                "basicQueries": [
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "auto"
+                        },
+                        "scope": {
+                            "expressions": [],
+                            "extendsDashboardScope": true
+                        },
+                        "compareTo": {
+                            "enabled": false,
+                            "delta": 1,
+                            "timeFormat": "day"
+                        },
+                        "metrics": [
+                            {
+                                "id": "aws_ecs_containerinsights_cpu_utilized_average",
+                                "timeAggregation": "avg",
+                                "groupAggregation": "avg",
+                                "descriptor": null,
+                                "sorting": null
+                            }
+                        ],
+                        "segmentation": {
+                            "labels": [
+                                {
+                                    "id": "dimension_ServiceName",
+                                    "descriptor": null,
+                                    "displayName": null,
+                                    "sorting": null
+                                }
+                            ],
+                            "limit": 10,
+                            "direction": "desc"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 8,
+                "type": "basicToplist",
+                "name": "Mem. usage by service",
+                "description": "",
+                "basicQueries": [
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "auto"
+                        },
+                        "scope": {
+                            "expressions": [],
+                            "extendsDashboardScope": true
+                        },
+                        "compareTo": {
+                            "enabled": false,
+                            "delta": 1,
+                            "timeFormat": "day"
+                        },
+                        "metrics": [
+                            {
+                                "id": "aws_ecs_containerinsights_memory_utilized_average",
+                                "timeAggregation": "avg",
+                                "groupAggregation": "avg",
+                                "descriptor": null,
+                                "sorting": null
+                            }
+                        ],
+                        "segmentation": {
+                            "labels": [
+                                {
+                                    "id": "dimension_ServiceName",
+                                    "descriptor": null,
+                                    "displayName": "",
+                                    "sorting": null
+                                }
+                            ],
+                            "limit": 10,
+                            "direction": "desc"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 9,
+                "type": "advancedNumber",
+                "name": "$ Cloudwatch API cost",
+                "description": "",
+                "advancedQueries": [
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "auto"
+                        },
+                        "query": "sum ((increase(yace_cloudwatch_requests_total[10m]) * 6 * 24 * 32) - 100000) / 1000 * 0.01"
+                    }
+                ],
+                "numberThresholds": {
+                    "values": [
+                        {
+                            "severity": "high",
+                            "value": 100,
+                            "inputFormat": "1",
+                            "displayText": ""
+                        },
+                        {
+                            "severity": "medium",
+                            "value": 10,
+                            "inputFormat": "1",
+                            "displayText": ""
+                        }
+                    ],
+                    "base": {
+                        "severity": "ok",
+                        "displayText": ""
+                    }
+                }
+            },
+            {
+                "id": 10,
+                "type": "advancedNumber",
+                "name": "Total API calls",
+                "description": "",
+                "advancedQueries": [
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "auto"
+                        },
+                        "query": "sum (yace_cloudwatch_requests_total)"
+                    }
+                ],
+                "numberThresholds": {
+                    "values": [],
+                    "base": {
+                        "severity": "none",
+                        "displayText": ""
+                    }
+                }
+            },
+            {
+                "id": 11,
+                "type": "advancedTimechart",
+                "name": "Cloudwatch API requests",
+                "description": "",
+                "advancedQueries": [
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "auto"
+                        },
+                        "query": "sum (rate(yace_cloudwatch_requests_total[15m]))"
+                    }
+                ],
+                "legendConfiguration": {
+                    "enabled": true,
+                    "position": "bottom",
+                    "layout": "table",
+                    "showCurrent": true
+                },
+                "axesConfiguration": {
+                    "bottom": {
+                        "enabled": true
+                    },
+                    "left": {
+                        "enabled": true,
+                        "displayName": null,
+                        "unit": "auto",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "minValue": 0,
+                        "maxValue": null,
+                        "minInputFormat": "1",
+                        "maxInputFormat": "1",
+                        "scale": "linear"
+                    },
+                    "right": {
+                        "enabled": true,
+                        "displayName": null,
+                        "unit": "auto",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "minValue": null,
+                        "maxValue": null,
+                        "minInputFormat": "1",
+                        "maxInputFormat": "1",
+                        "scale": "linear"
+                    }
+                }
+            },
+            {
+                "id": 12,
+                "type": "advancedTimechart",
+                "name": "Storage read / write",
+                "description": "",
+                "advancedQueries": [
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "left"
+                        },
+                        "query": "sum by (dimension_ServiceName) (aws_ecs_containerinsights_storage_read_bytes_average)"
+                    },
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "right"
+                        },
+                        "query": "sum by (dimension_ServiceName) (aws_ecs_containerinsights_storage_write_bytes_average)"
+                    }
+                ],
+                "legendConfiguration": {
+                    "enabled": true,
+                    "position": "bottom",
+                    "layout": "table",
+                    "showCurrent": true
+                },
+                "axesConfiguration": {
+                    "bottom": {
+                        "enabled": true
+                    },
+                    "left": {
+                        "enabled": true,
+                        "displayName": null,
+                        "unit": "auto",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "minValue": 0,
+                        "maxValue": null,
+                        "minInputFormat": "1",
+                        "maxInputFormat": "1",
+                        "scale": "linear"
+                    },
+                    "right": {
+                        "enabled": true,
+                        "displayName": null,
+                        "unit": "auto",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "minValue": 0,
+                        "maxValue": null,
+                        "minInputFormat": "1",
+                        "maxInputFormat": "1",
+                        "scale": "linear"
+                    }
+                }
+            },
+            {
+                "id": 13,
+                "type": "advancedTimechart",
+                "name": "CPU / memory usage",
+                "description": "",
+                "advancedQueries": [
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "left"
+                        },
+                        "query": "avg by (dimension_ServiceName) (aws_ecs_containerinsights_cpu_utilized_average)"
+                    },
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "right"
+                        },
+                        "query": "avg by (dimension_ServiceName) (aws_ecs_containerinsights_memory_utilized_average)"
+                    }
+                ],
+                "legendConfiguration": {
+                    "enabled": true,
+                    "position": "bottom",
+                    "layout": "table",
+                    "showCurrent": true
+                },
+                "axesConfiguration": {
+                    "bottom": {
+                        "enabled": true
+                    },
+                    "left": {
+                        "enabled": true,
+                        "displayName": null,
+                        "unit": "auto",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "minValue": 0,
+                        "maxValue": null,
+                        "minInputFormat": "1",
+                        "maxInputFormat": "1",
+                        "scale": "linear"
+                    },
+                    "right": {
+                        "enabled": true,
+                        "displayName": null,
+                        "unit": "auto",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "minValue": 0,
+                        "maxValue": null,
+                        "minInputFormat": "1",
+                        "maxInputFormat": "1",
+                        "scale": "linear"
+                    }
+                }
+            },
+            {
+                "id": 14,
+                "type": "advancedNumber",
+                "name": "Pending tasks",
+                "description": "",
+                "advancedQueries": [
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "auto"
+                        },
+                        "query": "sum (aws_ecs_containerinsights_pending_task_count_average)"
+                    }
+                ],
+                "numberThresholds": {
+                    "values": [
+                        {
+                            "severity": "medium",
+                            "value": 1,
+                            "inputFormat": "1",
+                            "displayText": ""
+                        }
+                    ],
+                    "base": {
+                        "severity": "ok",
+                        "displayText": ""
+                    }
+                }
+            },
+            {
+                "id": 15,
+                "type": "advancedNumber",
+                "name": "Desired tasks",
+                "description": "",
+                "advancedQueries": [
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "auto"
+                        },
+                        "query": "sum (aws_ecs_containerinsights_desired_task_count_average)"
+                    }
+                ],
+                "numberThresholds": {
+                    "values": [],
+                    "base": {
+                        "severity": "none",
+                        "displayText": ""
+                    }
+                }
+            },
+            {
+                "id": 16,
+                "type": "advancedNumber",
+                "name": "Running tasks",
+                "description": "",
+                "advancedQueries": [
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "auto"
+                        },
+                        "query": "sum (aws_ecs_containerinsights_running_task_count_average)"
+                    }
+                ],
+                "numberThresholds": {
+                    "values": [],
+                    "base": {
+                        "severity": "none",
+                        "displayText": ""
+                    }
+                }
+            },
+            {
+                "id": 17,
+                "type": "advancedNumber",
+                "name": "HTTP connections",
+                "description": "",
+                "advancedQueries": [
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "auto"
+                        },
+                        "query": "nginx_connections_active"
+                    }
+                ],
+                "numberThresholds": {
+                    "values": [],
+                    "base": {
+                        "severity": "none",
+                        "displayText": ""
+                    }
+                }
+            },
+            {
+                "id": 18,
+                "type": "advancedNumber",
+                "name": "Redis connections",
+                "description": "",
+                "advancedQueries": [
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "auto"
+                        },
+                        "query": "redis_connected_clients"
+                    }
+                ],
+                "numberThresholds": {
+                    "values": [],
+                    "base": {
+                        "severity": "none",
+                        "displayText": ""
+                    }
+                }
+            },
+            {
+                "id": 19,
+                "type": "advancedTimechart",
+                "name": "HTTP Connections / latency",
+                "description": "",
+                "advancedQueries": [
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "left"
+                        },
+                        "query": "sum (rate(http_requests_total[15m]))"
+                    },
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "right"
+                        },
+                        "query": "sum (http_request_duration_microseconds_sum / 10000) / sum (http_requests_total)"
+                    }
+                ],
+                "legendConfiguration": {
+                    "enabled": true,
+                    "position": "bottom",
+                    "layout": "inline",
+                    "showCurrent": true
+                },
+                "axesConfiguration": {
+                    "bottom": {
+                        "enabled": true
+                    },
+                    "left": {
+                        "enabled": true,
+                        "displayName": null,
+                        "unit": "auto",
+                        "displayFormat": "auto",
+                        "decimals": 2,
+                        "minValue": 0,
+                        "maxValue": null,
+                        "minInputFormat": "1",
+                        "maxInputFormat": "1",
+                        "scale": "linear"
+                    },
+                    "right": {
+                        "enabled": true,
+                        "displayName": null,
+                        "unit": "auto",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "minValue": null,
+                        "maxValue": null,
+                        "minInputFormat": "1",
+                        "maxInputFormat": "1",
+                        "scale": "linear"
+                    }
+                }
+            },
+            {
+                "id": 20,
+                "type": "advancedTimechart",
+                "name": "REDIS clients connected",
+                "description": "",
+                "advancedQueries": [
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "auto"
+                        },
+                        "query": "redis_connected_clients"
+                    }
+                ],
+                "legendConfiguration": {
+                    "enabled": true,
+                    "position": "bottom",
+                    "layout": "inline",
+                    "showCurrent": true
+                },
+                "axesConfiguration": {
+                    "bottom": {
+                        "enabled": true
+                    },
+                    "left": {
+                        "enabled": true,
+                        "displayName": null,
+                        "unit": "auto",
+                        "displayFormat": "auto",
+                        "decimals": 2,
+                        "minValue": 0,
+                        "maxValue": null,
+                        "minInputFormat": "1",
+                        "maxInputFormat": "1",
+                        "scale": "linear"
+                    },
+                    "right": {
+                        "enabled": true,
+                        "displayName": null,
+                        "unit": "auto",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "minValue": null,
+                        "maxValue": null,
+                        "minInputFormat": "1",
+                        "maxInputFormat": "1",
+                        "scale": "linear"
+                    }
+                }
+            },
+            {
+                "id": 21,
+                "type": "advancedTimechart",
+                "name": "HTTP I/O Traffic",
+                "description": "",
+                "advancedQueries": [
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "auto"
+                        },
+                        "query": "sum (rate(http_response_size_bytes_sum[15m]))"
+                    },
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "auto"
+                        },
+                        "query": "sum (rate(http_request_size_bytes_sum[15m]))"
+                    }
+                ],
+                "legendConfiguration": {
+                    "enabled": true,
+                    "position": "bottom",
+                    "layout": "inline",
+                    "showCurrent": true
+                },
+                "axesConfiguration": {
+                    "bottom": {
+                        "enabled": true
+                    },
+                    "left": {
+                        "enabled": true,
+                        "displayName": null,
+                        "unit": "auto",
+                        "displayFormat": "auto",
+                        "decimals": 2,
+                        "minValue": 0,
+                        "maxValue": null,
+                        "minInputFormat": "1",
+                        "maxInputFormat": "1",
+                        "scale": "linear"
+                    },
+                    "right": {
+                        "enabled": true,
+                        "displayName": null,
+                        "unit": "auto",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "minValue": null,
+                        "maxValue": null,
+                        "minInputFormat": "1",
+                        "maxInputFormat": "1",
+                        "scale": "linear"
+                    }
+                }
+            },
+            {
+                "id": 22,
+                "type": "advancedTimechart",
+                "name": "REDIS Response time (ms)",
+                "description": "",
+                "advancedQueries": [
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "auto"
+                        },
+                        "query": "redis_commands_duration_seconds_total / redis_commands_total * 1000"
+                    }
+                ],
+                "legendConfiguration": {
+                    "enabled": true,
+                    "position": "bottom",
+                    "layout": "inline",
+                    "showCurrent": true
+                },
+                "axesConfiguration": {
+                    "bottom": {
+                        "enabled": true
+                    },
+                    "left": {
+                        "enabled": true,
+                        "displayName": null,
+                        "unit": "auto",
+                        "displayFormat": "auto",
+                        "decimals": 2,
+                        "minValue": 0,
+                        "maxValue": null,
+                        "minInputFormat": "1",
+                        "maxInputFormat": "1",
+                        "scale": "linear"
+                    },
+                    "right": {
+                        "enabled": true,
+                        "displayName": null,
+                        "unit": "auto",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "minValue": null,
+                        "maxValue": null,
+                        "minInputFormat": "1",
+                        "maxInputFormat": "1",
+                        "scale": "linear"
+                    }
+                }
+            },
+            {
+                "id": 23,
+                "type": "advancedNumber",
+                "name": "Redis avg. response time (ms)",
+                "description": "",
+                "advancedQueries": [
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "auto"
+                        },
+                        "query": "avg(redis_commands_duration_seconds_total / redis_commands_total) * 1000"
+                    }
+                ],
+                "numberThresholds": {
+                    "values": [],
+                    "base": {
+                        "severity": "none",
+                        "displayText": ""
+                    }
+                }
+            },
+            {
+                "id": 24,
+                "type": "advancedNumber",
+                "name": "HTTP Latency (s)",
+                "description": "",
+                "advancedQueries": [
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "number",
+                            "inputFormat": "1",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "auto"
+                        },
+                        "query": "sum (http_request_duration_microseconds_sum / 10000) / sum (http_requests_total)"
+                    }
+                ],
+                "numberThresholds": {
+                    "values": [],
+                    "base": {
+                        "severity": "none",
+                        "displayText": ""
+                    }
+                }
+            },
+            {
+                "id": 25,
+                "type": "advancedNumber",
+                "name": "HTTP Error rate",
+                "description": "",
+                "advancedQueries": [
+                    {
+                        "enabled": true,
+                        "displayInfo": {
+                            "displayName": "",
+                            "timeSeriesDisplayNameTemplate": "",
+                            "type": "lines"
+                        },
+                        "format": {
+                            "unit": "%",
+                            "inputFormat": "0-100",
+                            "displayFormat": "auto",
+                            "decimals": null,
+                            "yAxis": "auto"
+                        },
+                        "query": "(1 - sum (http_requests_total{status!~\"2..\"}) / sum ( http_requests_total)) * 100"
+                    }
+                ],
+                "numberThresholds": {
+                    "values": [
+                        {
+                            "severity": "high",
+                            "value": 50,
+                            "inputFormat": "0-100",
+                            "displayText": ""
+                        },
+                        {
+                            "severity": "medium",
+                            "value": 25,
+                            "inputFormat": "0-100",
+                            "displayText": ""
+                        },
+                        {
+                            "severity": "low",
+                            "value": 5,
+                            "inputFormat": "0-100",
+                            "displayText": ""
+                        }
+                    ],
+                    "base": {
+                        "severity": "ok",
+                        "displayText": ""
+                    }
+                }
+            }
+        ],
+        "scopeExpressionList": [],
+        "shared": true,
+        "public": false,
+        "version": 102,
+        "createdOn": 1582217017000,
+        "modifiedOn": 1582314644000,
+        "description": "",
+        "layout": [
+            {
+                "panelId": 4,
+                "x": 0,
+                "y": 3,
+                "w": 5,
+                "h": 6
+            },
+            {
+                "panelId": 5,
+                "x": 5,
+                "y": 0,
+                "w": 6,
+                "h": 2
+            },
+            {
+                "panelId": 6,
+                "x": 11,
+                "y": 0,
+                "w": 6,
+                "h": 2
+            },
+            {
+                "panelId": 7,
+                "x": 5,
+                "y": 2,
+                "w": 6,
+                "h": 7
+            },
+            {
+                "panelId": 8,
+                "x": 11,
+                "y": 2,
+                "w": 6,
+                "h": 7
+            },
+            {
+                "panelId": 9,
+                "x": 17,
+                "y": 0,
+                "w": 3,
+                "h": 2
+            },
+            {
+                "panelId": 10,
+                "x": 20,
+                "y": 0,
+                "w": 3,
+                "h": 2
+            },
+            {
+                "panelId": 11,
+                "x": 17,
+                "y": 2,
+                "w": 6,
+                "h": 7
+            },
+            {
+                "panelId": 12,
+                "x": 0,
+                "y": 9,
+                "w": 11,
+                "h": 7
+            },
+            {
+                "panelId": 13,
+                "x": 11,
+                "y": 9,
+                "w": 12,
+                "h": 7
+            },
+            {
+                "panelId": 14,
+                "x": 0,
+                "y": 0,
+                "w": 5,
+                "h": 1
+            },
+            {
+                "panelId": 15,
+                "x": 0,
+                "y": 1,
+                "w": 5,
+                "h": 1
+            },
+            {
+                "panelId": 16,
+                "x": 0,
+                "y": 2,
+                "w": 5,
+                "h": 1
+            },
+            {
+                "panelId": 17,
+                "x": 0,
+                "y": 16,
+                "w": 3,
+                "h": 2
+            },
+            {
+                "panelId": 18,
+                "x": 11,
+                "y": 16,
+                "w": 6,
+                "h": 2
+            },
+            {
+                "panelId": 19,
+                "x": 0,
+                "y": 18,
+                "w": 11,
+                "h": 4
+            },
+            {
+                "panelId": 20,
+                "x": 11,
+                "y": 18,
+                "w": 12,
+                "h": 4
+            },
+            {
+                "panelId": 21,
+                "x": 0,
+                "y": 22,
+                "w": 11,
+                "h": 4
+            },
+            {
+                "panelId": 22,
+                "x": 11,
+                "y": 22,
+                "w": 12,
+                "h": 4
+            },
+            {
+                "panelId": 23,
+                "x": 17,
+                "y": 16,
+                "w": 6,
+                "h": 2
+            },
+            {
+                "panelId": 24,
+                "x": 7,
+                "y": 16,
+                "w": 4,
+                "h": 2
+            },
+            {
+                "panelId": 25,
+                "x": 3,
+                "y": 16,
+                "w": 4,
+                "h": 2
+            }
+        ],
+        "sharingSettings": [
+            {
+                "role": "ROLE_RESOURCE_EDIT",
+                "member": {
+                    "type": "USER_TEAMS",
+                    "id": null,
+                    "name": null,
+                    "teamTheme": null
+                }
+            }
+        ],
+        "publicToken": "",
+        "schema": 3,
+        "favorite": false,
+        "username": "",
+        "permissions": [
+            "dashboards.edit",
+            "dashboards.read",
+            "dashboards.sharing",
+            "dashboards.delete"
+        ]
+    }
+  }
