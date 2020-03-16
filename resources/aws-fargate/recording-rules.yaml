@@ -9,7 +9,11 @@ appVersion:
 maintainers:
   - name: sysdiglabs
     link: https://github.com/sysdiglabs
-description: 
+description: |
+  # job:aws_ecs_containerinsights_cpu_utilization_rate:avg
+  This rule calculates the CPU utilization by service.
+  # job:aws_ecs_containerinsights_memory_utilization_rate:avg
+  This rule calculates the memory utilization by service.
 data: |
   - record: job:aws_ecs_containerinsights_cpu_utilization_rate:avg
     expr: avg by (dimension_ServiceName)(aws_ecs_containerinsights_cpu_utilized_average / aws_ecs_containerinsights_cpu_reserved_average)
