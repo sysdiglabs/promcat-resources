@@ -9,26 +9,83 @@ appVersion:
 maintainers:
   - name: sysdiglabs
     link: https://github.com/sysdiglabs
-description: 
-data: |
-  - alert: HighCpuUtlizationRate
-    expr: job:aws_ecs_containerinsights_cpu_utilization_rate:avg > 0.75
-    for: 10m
-    labels: 
-      severity: page
-    annotations:
-      summary: High CPU utilization rate on {{$labels.dimension_ServiceName}}
-  - alert: HighMemoryUtlizationRate
-    expr: job:aws_ecs_containerinsights_memory_utilization_rate:avg > 0.75
-    for: 10m
-    labels: 
-      severity: page
-    annotations:
-      summary: High memory utilization rate on {{$labels.dimension_ServiceName}}
-  - alert: RecurringPendingTasks
-    expr: aws_ecs_containerinsights_pending_task_count_average > 0
-    for: 10m
-    labels: 
-      severity: page
-    annotations:
-      summary: Recurrent pending task on {{$labels.dimension_ServiceName}}
+description: |
+  # Alerts
+  ## HighCpuUtilizationRate
+  In the definition of the Fargate tasks you can reserve the CPU units that it will be able to use. If the task demands more CPU that reserved the it can affect the performance of the services running in it.
+  
+  This alert triggers when a threshold for CPU utilization is passed for a certain period of time. 
+  
+  The recommended value for this alert is 75% of the reserved CPU for the task for 10 minutes.
+  
+  ## HighMemoryUtilizationRate
+  In the definition of the Fargate tasks you can reserve the memory that it will be able to use. If the task demands more memory that reserved the it can affect the performance of the services running in it.
+  
+  This alert triggers when a threshold for memory utilization is passed for a certain period of time. 
+  
+  The recommended value for this alert is 75% of the reserved memory for the task for 10 minutes. 
+  
+  ## RecurringPendingTasks
+  When a task is launched in Fargate it stays in 'pending' state until it pass to 'running' state. If a task cannot be launched properly, it will stay in 'pending' state. 
+  
+  Errors in the definition of the task or in the code can cause some tasks to stay in 'pending' state indefinitely. 
+  
+  This alert triggers when there are pending tasks in the cluster for more than 10 minutes. 
+  
+  # Installing the alerts
+  ## In Prometheus
+  Copy the alerts for Prometheus and paste them inside of the configuration file in the groups section:
+  ```yaml
+  [...]
+  groups:
+  - name: example
+      rules: 
+      # Insert here the alerts
+  ``` 
+  ## In Sysdig Monitor
+  To install these alerts in Sysdig Monitor, contact with the support service. 
+data: 
+  prometheusAlerts: |
+    - alert: HighCpuUtilizationRate
+      expr: job:aws_ecs_containerinsights_cpu_utilization_rate:avg > 0.75
+      for: 10m
+      labels: 
+        severity: page
+      annotations:
+        summary: High CPU utilization rate on {{$labels.dimension_ServiceName}}
+    - alert: HighMemoryUtilizationRate
+      expr: job:aws_ecs_containerinsights_memory_utilization_rate:avg > 0.75
+      for: 10m
+      labels: 
+        severity: page
+      annotations:
+        summary: High memory utilization rate on {{$labels.dimension_ServiceName}}
+    - alert: RecurringPendingTasks
+      expr: aws_ecs_containerinsights_pending_task_count_average > 0
+      for: 10m
+      labels: 
+        severity: page
+      annotations:
+        summary: Recurrent pending task on {{$labels.dimension_ServiceName}}
+  sysdigAlerts: |
+    - alert: HighCpuUtilizationRate
+      expr: avg by (dimension_ServiceName)(aws_ecs_containerinsights_cpu_utilized_average / aws_ecs_containerinsights_cpu_reserved_average) > 0.75
+      for: 10m
+      labels: 
+        severity: page
+      annotations:
+        summary: High CPU utilization rate on {{$labels.dimension_ServiceName}}
+    - alert: HighMemoryUtilizationRate
+      expr: avg by (dimension_ServiceName)(aws_ecs_containerinsights_memory_utilized_average / aws_ecs_containerinsights_memory_reserved_average) > 0.75
+      for: 10m
+      labels: 
+        severity: page
+      annotations:
+        summary: High memory utilization rate on {{$labels.dimension_ServiceName}}
+    - alert: RecurringPendingTasks
+      expr: aws_ecs_containerinsights_pending_task_count_average > 0
+      for: 10m
+      labels: 
+        severity: page
+      annotations:
+        summary: Recurrent pending task on {{$labels.dimension_ServiceName}}
