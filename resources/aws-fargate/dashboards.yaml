@@ -4,16 +4,15 @@ kind: Dashboards
 app: "AWS Fargate"
 version: 1.0.0
 appVersion: 
-    - 1.0.0
-    - 1.0.1
+  - 1.3.0
 maintainers:
   - name: sysdiglabs
     link: https://github.com/sysdiglabs
 description: 
-data: 
+dashboards: 
   - name: "Fargate Golden Signals"
     kind: grafana
-    image: "images/fargate-grafana-golden-signals.jpg"
+    image: "aws-fargate/images/fargate-grafana-golden-signals.jpg"
     description: |
       This dashboard offers information on: 
       * Number of tasks in the cluster by state (desired, pending, running)
@@ -692,7 +691,7 @@ data:
       }
   - name: "Fargate Golden Signals"
     kind: sysdig
-    image: "images/fargate-sysdig-golden-signals.jpg"
+    image: "aws-fargate/images/fargate-sysdig-golden-signals.jpg"
     description: |
       This dashboard offers information on: 
       * Number of tasks in the cluster by state (desired, pending, running)
