@@ -1,0 +1,1346 @@
+---
+apiVersion: v1
+kind: Dashboards
+app: "AWS Lambda"
+version: 1.0.0
+appVersion: 
+  - 1.0.0
+maintainers:
+  - name: sysdiglabs
+    link: https://github.com/sysdiglabs
+description: 
+dashboards: 
+  - name: "Lambda Golden Signals"
+    kind: grafana
+    image: "aws-lambda/images/lambda-grafana-golden-signals.png"
+    description: |
+      This dashboard offers information on: 
+      * Number of tasks in the cluster by state (desired, pending, running)
+      * CPU utilization by service
+      * Memory utilization by service
+      * Disk read and write throughput
+    data: |
+      {
+        "annotations": {
+          "list": [
+            {
+              "builtIn": 1,
+              "datasource": "-- Grafana --",
+              "enable": true,
+              "hide": true,
+              "iconColor": "rgba(0, 211, 255, 1)",
+              "name": "Annotations & Alerts",
+              "type": "dashboard"
+            }
+          ]
+        },
+        "editable": true,
+        "gnetId": null,
+        "graphTooltip": 0,
+        "id": 2,
+        "links": [],
+        "panels": [
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 8,
+              "w": 8,
+              "x": 0,
+              "y": 0
+            },
+            "hiddenSeries": false,
+            "id": 2,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "aws_lambda_errors_sum / aws_lambda_invocations_sum",
+                "legendFormat": "Function: {{dimension_FunctionName}}",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Error rate",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "percentunit",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 8,
+              "w": 8,
+              "x": 8,
+              "y": 0
+            },
+            "hiddenSeries": false,
+            "id": 13,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "aws_lambda_errors_sum",
+                "legendFormat": "Function: {{dimension_FunctionName}}",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Errors",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 8,
+              "w": 8,
+              "x": 16,
+              "y": 0
+            },
+            "hiddenSeries": false,
+            "id": 4,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "aws_lambda_throttles_sum",
+                "legendFormat": "Function: {{dimension_FunctionName}}",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Throttles",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 0,
+              "y": 8
+            },
+            "hiddenSeries": false,
+            "id": 6,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": true,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "aws_lambda_invocations_sum",
+                "legendFormat": "Function: {{dimension_FunctionName}}",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Invocations",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 12,
+              "y": 8
+            },
+            "hiddenSeries": false,
+            "id": 7,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": true,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "aws_lambda_duration_sum",
+                "legendFormat": "Function: {{dimension_FunctionName}}",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Duration total",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 9,
+              "w": 8,
+              "x": 0,
+              "y": 17
+            },
+            "hiddenSeries": false,
+            "id": 10,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": true,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "aws_lambda_duration_minimum",
+                "legendFormat": "Function: {{dimension_FunctionName}}",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Duration (minimum)",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 9,
+              "w": 8,
+              "x": 8,
+              "y": 17
+            },
+            "hiddenSeries": false,
+            "id": 11,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": true,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "aws_lambda_duration_average",
+                "legendFormat": "Function: {{dimension_FunctionName}}",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Duration (average)",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 9,
+              "w": 8,
+              "x": 16,
+              "y": 17
+            },
+            "hiddenSeries": false,
+            "id": 12,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": true,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "aws_lambda_duration_maximum",
+                "legendFormat": "Function: {{dimension_FunctionName}}",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Duration (maximum)",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          }
+        ],
+        "schemaVersion": 22,
+        "style": "dark",
+        "tags": [],
+        "templating": {
+          "list": []
+        },
+        "time": {
+          "from": "now-5m",
+          "to": "now"
+        },
+        "timepicker": {
+          "refresh_intervals": [
+            "5s",
+            "10s",
+            "30s",
+            "1m",
+            "5m",
+            "15m",
+            "30m",
+            "1h",
+            "2h",
+            "1d"
+          ]
+        },
+        "timezone": "",
+        "title": "AWS Lambda Golden Signals",
+        "uid": "BpK8lnlZz",
+        "version": 6
+      }
+  - name: "Lambda Golden Signals"
+    kind: sysdig
+    image: "aws-lambda/images/lambda-sysdig-golden-signals.png"
+    description: |
+      This dashboard offers information on: 
+      * Number of tasks in the cluster by state (desired, pending, running)
+      * CPU utilization by service
+      * Memory utilization by service
+      * Disk read and write throughput
+    data: |
+      {
+        "dashboard": {
+          "id": 154497,
+          "teamId": 21616,
+          "userId": 34713,
+          "name": "AWS Lambda - Golden Signals",
+          "panels": [
+            {
+              "id": 1,
+              "type": "advancedTimechart",
+              "name": "Error rate %",
+              "description": "",
+              "advancedQueries": [
+                {
+                  "enabled": true,
+                  "displayInfo": {
+                    "displayName": "",
+                    "timeSeriesDisplayNameTemplate": "Function: {{dimension_FunctionName}}",
+                    "type": "lines"
+                  },
+                  "format": {
+                    "unit": "number",
+                    "inputFormat": "1",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "yAxis": "auto"
+                  },
+                  "query": "aws_lambda_errors_sum / aws_lambda_invocations_sum  * 100"
+                }
+              ],
+              "legendConfiguration": {
+                "enabled": true,
+                "position": "bottom",
+                "layout": "table",
+                "showCurrent": true
+              },
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "enabled": true,
+                  "displayName": null,
+                  "unit": "%",
+                  "displayFormat": "auto",
+                  "decimals": null,
+                  "minValue": null,
+                  "maxValue": null,
+                  "minInputFormat": "0-100",
+                  "maxInputFormat": "0-100",
+                  "scale": "linear"
+                },
+                "right": {
+                  "enabled": true,
+                  "displayName": null,
+                  "unit": "auto",
+                  "displayFormat": "auto",
+                  "decimals": null,
+                  "minValue": null,
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "maxInputFormat": "1",
+                  "scale": "linear"
+                }
+              }
+            },
+            {
+              "id": 2,
+              "type": "advancedTimechart",
+              "name": "Invocations",
+              "description": "",
+              "advancedQueries": [
+                {
+                  "enabled": true,
+                  "displayInfo": {
+                    "displayName": "",
+                    "timeSeriesDisplayNameTemplate": "Function: {{dimension_FunctionName}}",
+                    "type": "lines"
+                  },
+                  "format": {
+                    "unit": "number",
+                    "inputFormat": "1",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "yAxis": "auto"
+                  },
+                  "query": "aws_lambda_invocations_sum"
+                }
+              ],
+              "legendConfiguration": {
+                "enabled": true,
+                "position": "bottom",
+                "layout": "table",
+                "showCurrent": true
+              },
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "enabled": true,
+                  "displayName": null,
+                  "unit": "auto",
+                  "displayFormat": "auto",
+                  "decimals": 2,
+                  "minValue": null,
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "maxInputFormat": "1",
+                  "scale": "linear"
+                },
+                "right": {
+                  "enabled": true,
+                  "displayName": null,
+                  "unit": "auto",
+                  "displayFormat": "auto",
+                  "decimals": null,
+                  "minValue": null,
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "maxInputFormat": "1",
+                  "scale": "linear"
+                }
+              }
+            },
+            {
+              "id": 3,
+              "type": "advancedTimechart",
+              "name": "Throttles",
+              "description": "",
+              "advancedQueries": [
+                {
+                  "enabled": true,
+                  "displayInfo": {
+                    "displayName": "",
+                    "timeSeriesDisplayNameTemplate": "Function: {{dimension_FunctionName}}",
+                    "type": "lines"
+                  },
+                  "format": {
+                    "unit": "number",
+                    "inputFormat": "1",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "yAxis": "auto"
+                  },
+                  "query": "aws_lambda_throttles_sum"
+                }
+              ],
+              "legendConfiguration": {
+                "enabled": true,
+                "position": "bottom",
+                "layout": "table",
+                "showCurrent": true
+              },
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "enabled": true,
+                  "displayName": null,
+                  "unit": "auto",
+                  "displayFormat": "auto",
+                  "decimals": 0,
+                  "minValue": 0.0,
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "maxInputFormat": "1",
+                  "scale": "linear"
+                },
+                "right": {
+                  "enabled": true,
+                  "displayName": null,
+                  "unit": "auto",
+                  "displayFormat": "auto",
+                  "decimals": null,
+                  "minValue": null,
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "maxInputFormat": "1",
+                  "scale": "linear"
+                }
+              }
+            },
+            {
+              "id": 4,
+              "type": "advancedTimechart",
+              "name": "Duration (minimum)",
+              "description": "",
+              "advancedQueries": [
+                {
+                  "enabled": true,
+                  "displayInfo": {
+                    "displayName": "",
+                    "timeSeriesDisplayNameTemplate": "Function: {{dimension_FunctionName}}",
+                    "type": "lines"
+                  },
+                  "format": {
+                    "unit": "number",
+                    "inputFormat": "1",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "yAxis": "auto"
+                  },
+                  "query": "aws_lambda_duration_minimum"
+                }
+              ],
+              "legendConfiguration": {
+                "enabled": true,
+                "position": "bottom",
+                "layout": "table",
+                "showCurrent": true
+              },
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "enabled": true,
+                  "displayName": null,
+                  "unit": "%",
+                  "displayFormat": "auto",
+                  "decimals": null,
+                  "minValue": null,
+                  "maxValue": null,
+                  "minInputFormat": "0-100",
+                  "maxInputFormat": "0-100",
+                  "scale": "linear"
+                },
+                "right": {
+                  "enabled": true,
+                  "displayName": null,
+                  "unit": "auto",
+                  "displayFormat": "auto",
+                  "decimals": null,
+                  "minValue": null,
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "maxInputFormat": "1",
+                  "scale": "linear"
+                }
+              }
+            },
+            {
+              "id": 5,
+              "type": "advancedTimechart",
+              "name": "Duration total",
+              "description": "",
+              "advancedQueries": [
+                {
+                  "enabled": true,
+                  "displayInfo": {
+                    "displayName": "",
+                    "timeSeriesDisplayNameTemplate": "Function: {{dimension_FunctionName}}",
+                    "type": "lines"
+                  },
+                  "format": {
+                    "unit": "number",
+                    "inputFormat": "1",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "yAxis": "auto"
+                  },
+                  "query": "aws_lambda_duration_sum"
+                }
+              ],
+              "legendConfiguration": {
+                "enabled": true,
+                "position": "bottom",
+                "layout": "table",
+                "showCurrent": true
+              },
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "enabled": true,
+                  "displayName": null,
+                  "unit": "auto",
+                  "displayFormat": "auto",
+                  "decimals": 2,
+                  "minValue": null,
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "maxInputFormat": "1",
+                  "scale": "linear"
+                },
+                "right": {
+                  "enabled": true,
+                  "displayName": null,
+                  "unit": "auto",
+                  "displayFormat": "auto",
+                  "decimals": null,
+                  "minValue": null,
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "maxInputFormat": "1",
+                  "scale": "linear"
+                }
+              }
+            },
+            {
+              "id": 6,
+              "type": "advancedTimechart",
+              "name": "Erros total",
+              "description": "",
+              "advancedQueries": [
+                {
+                  "enabled": true,
+                  "displayInfo": {
+                    "displayName": "",
+                    "timeSeriesDisplayNameTemplate": "Function: {{dimension_FunctionName}}",
+                    "type": "lines"
+                  },
+                  "format": {
+                    "unit": "number",
+                    "inputFormat": "1",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "yAxis": "auto"
+                  },
+                  "query": "aws_lambda_errors_sum"
+                }
+              ],
+              "legendConfiguration": {
+                "enabled": true,
+                "position": "bottom",
+                "layout": "table",
+                "showCurrent": true
+              },
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "enabled": true,
+                  "displayName": null,
+                  "unit": "%",
+                  "displayFormat": "auto",
+                  "decimals": null,
+                  "minValue": null,
+                  "maxValue": null,
+                  "minInputFormat": "0-100",
+                  "maxInputFormat": "0-100",
+                  "scale": "linear"
+                },
+                "right": {
+                  "enabled": true,
+                  "displayName": null,
+                  "unit": "auto",
+                  "displayFormat": "auto",
+                  "decimals": null,
+                  "minValue": null,
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "maxInputFormat": "1",
+                  "scale": "linear"
+                }
+              }
+            },
+            {
+              "id": 7,
+              "type": "advancedTimechart",
+              "name": "Duration (average)",
+              "description": "",
+              "advancedQueries": [
+                {
+                  "enabled": true,
+                  "displayInfo": {
+                    "displayName": "",
+                    "timeSeriesDisplayNameTemplate": "Function: {{dimension_FunctionName}}",
+                    "type": "lines"
+                  },
+                  "format": {
+                    "unit": "number",
+                    "inputFormat": "1",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "yAxis": "auto"
+                  },
+                  "query": "aws_lambda_duration_average"
+                }
+              ],
+              "legendConfiguration": {
+                "enabled": true,
+                "position": "bottom",
+                "layout": "table",
+                "showCurrent": true
+              },
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "enabled": true,
+                  "displayName": null,
+                  "unit": "%",
+                  "displayFormat": "auto",
+                  "decimals": null,
+                  "minValue": null,
+                  "maxValue": null,
+                  "minInputFormat": "0-100",
+                  "maxInputFormat": "0-100",
+                  "scale": "linear"
+                },
+                "right": {
+                  "enabled": true,
+                  "displayName": null,
+                  "unit": "auto",
+                  "displayFormat": "auto",
+                  "decimals": null,
+                  "minValue": null,
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "maxInputFormat": "1",
+                  "scale": "linear"
+                }
+              }
+            },
+            {
+              "id": 8,
+              "type": "advancedTimechart",
+              "name": "Duration (maximum)",
+              "description": "",
+              "advancedQueries": [
+                {
+                  "enabled": true,
+                  "displayInfo": {
+                    "displayName": "",
+                    "timeSeriesDisplayNameTemplate": "Function: {{dimension_FunctionName}}",
+                    "type": "lines"
+                  },
+                  "format": {
+                    "unit": "number",
+                    "inputFormat": "1",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "yAxis": "auto"
+                  },
+                  "query": "aws_lambda_duration_maximum"
+                }
+              ],
+              "legendConfiguration": {
+                "enabled": true,
+                "position": "bottom",
+                "layout": "table",
+                "showCurrent": true
+              },
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "enabled": true,
+                  "displayName": null,
+                  "unit": "%",
+                  "displayFormat": "auto",
+                  "decimals": null,
+                  "minValue": null,
+                  "maxValue": null,
+                  "minInputFormat": "0-100",
+                  "maxInputFormat": "0-100",
+                  "scale": "linear"
+                },
+                "right": {
+                  "enabled": true,
+                  "displayName": null,
+                  "unit": "auto",
+                  "displayFormat": "auto",
+                  "decimals": null,
+                  "minValue": null,
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "maxInputFormat": "1",
+                  "scale": "linear"
+                }
+              }
+            }
+          ],
+          "scopeExpressionList": [],
+          "shared": true,
+          "public": false,
+          "version": 50,
+          "createdOn": 1584433631000,
+          "modifiedOn": 1584437988000,
+          "description": "",
+          "layout": [
+            {
+              "panelId": 1,
+              "x": 0,
+              "y": 0,
+              "w": 8,
+              "h": 6
+            },
+            {
+              "panelId": 2,
+              "x": 0,
+              "y": 6,
+              "w": 12,
+              "h": 6
+            },
+            {
+              "panelId": 3,
+              "x": 16,
+              "y": 0,
+              "w": 8,
+              "h": 6
+            },
+            {
+              "panelId": 4,
+              "x": 0,
+              "y": 12,
+              "w": 8,
+              "h": 6
+            },
+            {
+              "panelId": 5,
+              "x": 12,
+              "y": 6,
+              "w": 12,
+              "h": 6
+            },
+            {
+              "panelId": 6,
+              "x": 8,
+              "y": 0,
+              "w": 8,
+              "h": 6
+            },
+            {
+              "panelId": 7,
+              "x": 8,
+              "y": 12,
+              "w": 8,
+              "h": 6
+            },
+            {
+              "panelId": 8,
+              "x": 16,
+              "y": 12,
+              "w": 8,
+              "h": 6
+            }
+          ],
+          "sharingSettings": [
+            {
+              "role": "ROLE_RESOURCE_EDIT",
+              "member": {
+                "type": "USER_TEAMS",
+                "id": null,
+                "name": null,
+                "teamTheme": null
+              }
+            }
+          ],
+          "publicToken": "f3f3dd1102e641a39976d513441497ac",
+          "schema": 3,
+          "favorite": false,
+          "username": "david.detorres+carillan@sysdig.com",
+          "permissions": [
+            "dashboards.delete",
+            "dashboards.edit",
+            "dashboards.sharing",
+            "dashboards.read"
+          ]
+        }
+      }
