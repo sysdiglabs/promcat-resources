@@ -8,7 +8,23 @@ appVersion:
 maintainers:
   - name: sysdiglabs
     link: https://github.com/sysdiglabs
-description: 
+description: |
+  # Installing the exporter
+  To install the exporter follow this steps:
+
+  1. Download the yaml to a local file named 'fargate-deploy.yaml'
+  2. Change the field 'credentials' of the secret 'yace-fargate-credentials' and paste the content of the following command:
+  ```bash
+  cat ~/.aws/credentials | base64
+  ```
+  3. Apply the deployment:
+  ```
+  kubectl apply -f fargate-deploy.yaml
+  ```
+  4. You can check that the exporter is working checking that the pods are running:
+  ```bash
+  kubectl -n yace get pods
+  ```
 data: |
   apiVersion: v1
   kind: Namespace
