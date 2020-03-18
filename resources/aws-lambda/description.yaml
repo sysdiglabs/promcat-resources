@@ -1,7 +1,7 @@
 ---
 apiVersion: v1
 kind: Description
-app: "AWS Fargate"
+app: "AWS Lambda"
 version: 1.0.0
 appVersion: 
   - 1.3.0
@@ -10,17 +10,12 @@ maintainers:
     link: https://github.com/sysdiglabs
 description: 
 data: |
-    # AWS Fargate
-    AWS Fargate is a serverless compute engine for containers that works with both Amazon Elastic Container Service (ECS) and Amazon Elastic Kubernetes Service (EKS).
+    # AWS Lambda
+    AWS Lambda lets you run code without provisioning or managing servers.With Lambda, you can run code for virtually any type of application or backend service - all with zero administration. Just upload your code and Lambda takes care of everything required to run and scale your code with high availability. You can set up your code to automatically trigger from other AWS services or call it directly from any web or mobile app..
     
     The metrics for AWS Fargate are obtained through AWS Cloudwatch. Using the [YACE exporter](https://github.com/ivx/yet-another-cloudwatch-exporter). 
     
     # Exporter configuration
-    ## Enabling Container Insights
-    You need to enable Container Insights to gather metrics for Fargate instance:
-    - [How to set up Container Insights on AWS ECS](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/deploy-container-insights-ECS.html)
-    - [How to set up Container Insights on AWS EKS and Kubernetes](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/deploy-container-insights-EKS.html)
-    
     ## AWS permissions
     The exporter needs permissions to access the resources from the AWS account. 
     
@@ -44,7 +39,7 @@ data: |
         ]
     }
     ```
-    
+        
     Then, create a file $HOME/.aws/credentials as the following, substituting the values with your key and password: 
     
     ```
@@ -57,24 +52,11 @@ data: |
     Using AWS Cloudwatch for monitoring can incur in additional costs in your AWS billing. Check the [AWS Cloudwatch documentation](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_limits.html) for further details. 
     
     # Metrics
-    Cloudwatch offers the following metrics for AWS Fargate: 
-    - ContainerInstanceCount
-    - CpuUtilized
-    - CpuReserved
-    - DeploymentCount
-    - DesiredTaskCount
-    - MemoryUtilized
-    - MemoryReserved
-    - NetworkRxBytes
-    - NetworkTxBytes
-    - PendingTaskCount
-    - RunningTaskCount
-    - ServiceCount
-    - StorageReadBytes
-    - StorageWriteBytes
-    - TaskCount
-    - TaskSetCount
+    Cloudwatch offers the following metrics for AWS Lambda: 
+    - Invocations
+    - Errors
+    - Throttles
+    - Duration
     
-    > Note: The metrics NetworkRxBytes and NetworkTxBytes are available only for containers in bridge network mode. 
     
-    For further information, consult the [Cloudwatch documentation on Fargate metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Container-Insights-metrics-ECS.html). 
+    For further information, consult the [Cloudwatch documentation on Lambda metrics](https://docs.aws.amazon.com/lambda/latest/dg/monitoring-metrics.html). 
