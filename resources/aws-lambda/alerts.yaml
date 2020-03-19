@@ -35,34 +35,36 @@ description: |
   ``` 
   ## In Sysdig Monitor
   To install these alerts in Sysdig Monitor, contact with the support service. 
-alerts: 
-  prometheusAlerts: |
-    - alert: HighFunctionErrorRate
-      expr: job:aws_lambda_error_rate:avg > 0.15
-      for: 10m
-      labels: 
-        severity: page
-      annotations:
-        summary: High error rate on function {{$labels.dimension_FunctionName}}
-    - alert: ThrottlingFunction
-      expr: aws_lambda_throttles_sum  > 0
-      for: 10m
-      labels: 
-        severity: page
-      annotations:
-        summary: Detected throttling in function {{$labels.dimension_FunctionName}}
-  sysdigAlerts: |
-    - alert: HighFunctionErrorRate
-      expr: (aws_lambda_errors_sum / aws_lambda_invocations_sum) > 0.15
-      for: 10m
-      labels: 
-        severity: page
-      annotations:
-        summary: High error rate on function {{$labels.dimension_FunctionName}}
-    - alert: ThrottlingFunction
-      expr: aws_lambda_throttles_sum > 0
-      for: 10m
-      labels: 
-        severity: page
-      annotations:
-        summary: Detected throttling in function {{$labels.dimension_FunctionName}}
+configurations: 
+  - kind: Prometheus
+    data: |
+      - alert: HighFunctionErrorRate
+        expr: job:aws_lambda_error_rate:avg > 0.15
+        for: 10m
+        labels: 
+          severity: page
+        annotations:
+          summary: High error rate on function {{$labels.dimension_FunctionName}}
+      - alert: ThrottlingFunction
+        expr: aws_lambda_throttles_sum  > 0
+        for: 10m
+        labels: 
+          severity: page
+        annotations:
+          summary: Detected throttling in function {{$labels.dimension_FunctionName}}
+  - kind: Sysdig
+    data: |
+      - alert: HighFunctionErrorRate
+        expr: (aws_lambda_errors_sum / aws_lambda_invocations_sum) > 0.15
+        for: 10m
+        labels: 
+          severity: page
+        annotations:
+          summary: High error rate on function {{$labels.dimension_FunctionName}}
+      - alert: ThrottlingFunction
+        expr: aws_lambda_throttles_sum > 0
+        for: 10m
+        labels: 
+          severity: page
+        annotations:
+          summary: Detected throttling in function {{$labels.dimension_FunctionName}}
