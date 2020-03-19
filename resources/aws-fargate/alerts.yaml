@@ -43,48 +43,50 @@ description: |
   ``` 
   ## In Sysdig Monitor
   To install these alerts in Sysdig Monitor, contact with the support service. 
-alerts: 
-  prometheusAlerts: |
-    - alert: HighCpuUtilizationRate
-      expr: job:aws_ecs_containerinsights_cpu_utilization_rate:avg > 0.75
-      for: 10m
-      labels: 
-        severity: page
-      annotations:
-        summary: High CPU utilization rate on {{$labels.dimension_ServiceName}}
-    - alert: HighMemoryUtilizationRate
-      expr: job:aws_ecs_containerinsights_memory_utilization_rate:avg > 0.75
-      for: 10m
-      labels: 
-        severity: page
-      annotations:
-        summary: High memory utilization rate on {{$labels.dimension_ServiceName}}
-    - alert: RecurringPendingTasks
-      expr: aws_ecs_containerinsights_pending_task_count_average > 0
-      for: 10m
-      labels: 
-        severity: page
-      annotations:
-        summary: Recurrent pending task on {{$labels.dimension_ServiceName}}
-  sysdigAlerts: |
-    - alert: HighCpuUtilizationRate
-      expr: avg by (dimension_ServiceName)(aws_ecs_containerinsights_cpu_utilized_average / aws_ecs_containerinsights_cpu_reserved_average) > 0.75
-      for: 10m
-      labels: 
-        severity: page
-      annotations:
-        summary: High CPU utilization rate on {{$labels.dimension_ServiceName}}
-    - alert: HighMemoryUtilizationRate
-      expr: avg by (dimension_ServiceName)(aws_ecs_containerinsights_memory_utilized_average / aws_ecs_containerinsights_memory_reserved_average) > 0.75
-      for: 10m
-      labels: 
-        severity: page
-      annotations:
-        summary: High memory utilization rate on {{$labels.dimension_ServiceName}}
-    - alert: RecurringPendingTasks
-      expr: aws_ecs_containerinsights_pending_task_count_average > 0
-      for: 10m
-      labels: 
-        severity: page
-      annotations:
-        summary: Recurrent pending task on {{$labels.dimension_ServiceName}}
+configurations: 
+  - kind: Prometheus
+    data: |
+      - alert: HighCpuUtilizationRate
+        expr: job:aws_ecs_containerinsights_cpu_utilization_rate:avg > 0.75
+        for: 10m
+        labels: 
+          severity: page
+        annotations:
+          summary: High CPU utilization rate on {{$labels.dimension_ServiceName}}
+      - alert: HighMemoryUtilizationRate
+        expr: job:aws_ecs_containerinsights_memory_utilization_rate:avg > 0.75
+        for: 10m
+        labels: 
+          severity: page
+        annotations:
+          summary: High memory utilization rate on {{$labels.dimension_ServiceName}}
+      - alert: RecurringPendingTasks
+        expr: aws_ecs_containerinsights_pending_task_count_average > 0
+        for: 10m
+        labels: 
+          severity: page
+        annotations:
+          summary: Recurrent pending task on {{$labels.dimension_ServiceName}}
+  - kind: Sysdig
+    data: |
+      - alert: HighCpuUtilizationRate
+        expr: avg by (dimension_ServiceName)(aws_ecs_containerinsights_cpu_utilized_average / aws_ecs_containerinsights_cpu_reserved_average) > 0.75
+        for: 10m
+        labels: 
+          severity: page
+        annotations:
+          summary: High CPU utilization rate on {{$labels.dimension_ServiceName}}
+      - alert: HighMemoryUtilizationRate
+        expr: avg by (dimension_ServiceName)(aws_ecs_containerinsights_memory_utilized_average / aws_ecs_containerinsights_memory_reserved_average) > 0.75
+        for: 10m
+        labels: 
+          severity: page
+        annotations:
+          summary: High memory utilization rate on {{$labels.dimension_ServiceName}}
+      - alert: RecurringPendingTasks
+        expr: aws_ecs_containerinsights_pending_task_count_average > 0
+        for: 10m
+        labels: 
+          severity: page
+        annotations:
+          summary: Recurrent pending task on {{$labels.dimension_ServiceName}}

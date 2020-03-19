@@ -1,0 +1,70 @@
+---
+apiVersion: v1
+kind: Alerts
+app: "AWS Lambda"
+version: 1.0.0
+appVersion: 
+  - 1.0.0
+maintainers:
+  - name: sysdiglabs
+    link: https://github.com/sysdiglabs
+description: |
+  # Alerts
+  ## HighFunctionErrorRate
+  A Lambda function can end with an error.   
+  This alert triggers when the percentage of executions of a function excess a threshold for a certain period of time. 
+  
+  The recommended value for this alert is 15% of the functions ended with error for 10 minutes.
+  
+  ## ThrottlingFunction
+  Lambda has a limited number of concurrent executions per function. 
+  When you reach this limit, the function cannot be executed. The metric 'throttled' gives information of the executions that were not executed because they reached the concurrency limit. 
+  Constant throttling can indicate that a function is called more times that its reserved concurrency.  
+
+  The recommended value for this alert is to alert when throttling for more than 10 minutes. 
+
+  # Installing the alerts
+  ## In Prometheus
+  Copy the alerts for Prometheus and paste them inside of the configuration file in the groups section:
+  ```yaml
+  [...]
+  groups:
+  - name: example
+      # Insert here the alerts
+      rules: 
+  ``` 
+  ## In Sysdig Monitor
+  To install these alerts in Sysdig Monitor, contact with the support service. 
+configurations: 
+  - kind: Prometheus
+    data: |
+      - alert: HighFunctionErrorRate
+        expr: job:aws_lambda_error_rate:avg > 0.15
+        for: 10m
+        labels: 
+          severity: page
+        annotations:
+          summary: High error rate on function {{$labels.dimension_FunctionName}}
+      - alert: ThrottlingFunction
+        expr: aws_lambda_throttles_sum  > 0
+        for: 10m
+        labels: 
+          severity: page
+        annotations:
+          summary: Detected throttling in function {{$labels.dimension_FunctionName}}
+  - kind: Sysdig
+    data: |
+      - alert: HighFunctionErrorRate
+        expr: (aws_lambda_errors_sum / aws_lambda_invocations_sum) > 0.15
+        for: 10m
+        labels: 
+          severity: page
+        annotations:
+          summary: High error rate on function {{$labels.dimension_FunctionName}}
+      - alert: ThrottlingFunction
+        expr: aws_lambda_throttles_sum > 0
+        for: 10m
+        labels: 
+          severity: page
+        annotations:
+          summary: Detected throttling in function {{$labels.dimension_FunctionName}}
