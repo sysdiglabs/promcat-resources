@@ -1,16 +1,14 @@
 ---
 apiVersion: v1
 kind: App
-name: "vmware-esxi"
-keywords: 
-  - vmware
-  - esxi
+name: "Nvidia GPU"
+keywords:
   - Host
 availableVersions: 
   - 1
-shortDescription: "Collect metrics from ESXi Host."
+shortDescription: "Prometheus Exporter for exporting NVIDIA GPU metrics."
 description: |
-  Collect metrics from VmWare ESXi Host.
-icon: 
-website: https://github.com/devinotelecom/prometheus-vmware-exporter
+  Prometheus Exporter for exporting NVIDIA GPU metrics.
+icon: https://upload.wikimedia.org/wikipedia/en/6/6d/Nvidia_image_logo.svg
+website: https://github.com/mindprince/nvidia_gpu_prometheus_exporter
 available: false
