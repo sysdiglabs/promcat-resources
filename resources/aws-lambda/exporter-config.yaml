@@ -13,16 +13,20 @@ description: |
   To install the exporter follow this steps:
 
   1. Download the yaml to a local file named 'lambda-deploy.yaml'
-  2. Change the field 'credentials' of the secret 'yace-lambda-credentials' and paste the content of the following command:
-  ```bash
+  2. Change the following line in the configmap with the AWS region where the resources to monitor are located:
+  ```
+  region: us-east-1
+  ```
+  3. Change the field 'credentials' of the secret 'yace-lambda-credentials' and paste the content of the following command:
+  ```
   cat ~/.aws/credentials | base64
   ```
-  3. Apply the deployment:
+  4. Apply the deployment:
   ```
   kubectl apply -f lambda-deploy.yaml
   ```
-  4. You can check that the exporter is working checking that the pods are running:
-  ```bash
+  5. You can check that the exporter is working checking that the pods are running:
+  ```
   kubectl -n yace get pods
   ```
 data: |

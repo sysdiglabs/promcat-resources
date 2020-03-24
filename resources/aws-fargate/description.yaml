@@ -24,7 +24,8 @@ data: |
     ## AWS permissions
     The exporter needs permissions to access the resources from the AWS account. 
     
-    First, create an AWS IAM policy on your AWS infrastructure allowing read CloudWatch metrics and get resources by tags. Here is a AWS IAM configuration example:
+    First, create an AWS IAM policy on your AWS infrastructure allowing read CloudWatch metrics and get resources by tags. 
+    Here is a AWS IAM configuration example:
     
     ```
     {
@@ -37,6 +38,7 @@ data: |
                     "tag:GetResources",
                     "cloudwatch:ListTagsForResource",
                     "cloudwatch:GetMetricStatistics",
+                    "cloudwatch:GetMetricData",
                     "cloudwatch:ListMetrics"
                 ],
                 "Resource": "*"
@@ -54,7 +56,8 @@ data: |
     aws_secret_access_key = bXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     ```
     ## Cloudwatch billing considerations
-    Using AWS Cloudwatch for monitoring can incur in additional costs in your AWS billing. Check the [AWS Cloudwatch documentation](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_limits.html) for further details. 
+    Using AWS Cloudwatch for monitoring can incur in additional costs in your AWS billing. 
+    Check the [AWS Cloudwatch documentation](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_limits.html) for further details. 
     
     # Metrics
     Cloudwatch offers the following metrics for AWS Fargate: 
