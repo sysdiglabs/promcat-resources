@@ -1,7 +1,7 @@
 ---
 apiVersion: v1
 kind: Description
-app: "AWS EC2"
+app: "AWS S3"
 version: 1.0.0
 appVersion: 
   - 1.0.0
@@ -52,7 +52,7 @@ data: |
     ```
     ## Enabling requests metrics for S3 Buckets
     If you want to get the CloudWatch request metrics for the objects in a bucket, you must create a metrics configuration for the bucket.
-    When enabled, request metrics are reported for all object operations
+    When enabled, request metrics are reported for all object operations.
 
     ## Cloudwatch billing considerations
     Using AWS Cloudwatch for monitoring can incur in additional costs in your AWS billing. 
