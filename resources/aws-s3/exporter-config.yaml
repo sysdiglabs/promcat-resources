@@ -21,11 +21,16 @@ description: |
   ```
   cat ~/.aws/credentials | base64
   ```
-  4. Apply the deployment:
+  4. You can uncomment the metrics not used in the configmap to make them available
+  5. The daily metrics are refreshed by the exporter every 2 hours. To change it, modify the following line in the deployment:
+  ```
+  - "--scraping-interval=7200"
+  ```
+  6. Apply the deployment:
   ```
   kubectl apply -f s3-deploy.yaml
   ```
-  5. You can check that the exporter is working checking that the pods are running:
+  7. You can check that the exporter is working checking that the pods are running:
   ```
   kubectl -n yace get pods
   ```
@@ -38,28 +43,32 @@ data: |
   apiVersion: apps/v1
   kind: Deployment
   metadata:
-    name: yace-s3
+    name: yace-s3-daily
     namespace: yace    
   spec:
     selector:
       matchLabels:
-        app: yace-s3
+        app: yace-s3-daily
     replicas: 1
     template:
       metadata:
         labels:
-          app: yace-s3
+          app: yace-s3-daily
         annotations:
           prometheus.io/scrape: "true"
           prometheus.io/port: "5000"
       spec:
         containers:
         - name: yace
-          image: quay.io/invisionag/yet-another-cloudwatch-exporter:v0.15.0-alpha
+          #image: quay.io/invisionag/yet-another-cloudwatch-exporter:v0.15.0-alpha
+          image: daviddetorres/yace-exporter:promcat0.15.0
+          args:
+            - "--scraping-interval=7200"
+            - "--config.file=/tmp/config.yml"
           ports:
           - containerPort: 5000
           volumeMounts:
-            - name: yace-s3-config
+            - name: yace-s3-daily-config
               mountPath: /tmp/config.yml
               subPath: config.yml
             - name: yace-s3-credentials
@@ -72,8 +81,53 @@ data: |
         volumes:
           - configMap:
               defaultMode: 420
-              name: yace-s3-config
-            name: yace-s3-config
+              name: yace-s3-daily-config
+            name: yace-s3-daily-config
+          - secret:
+              defaultMode: 420
+              secretName: yace-s3-credentials
+            name: yace-s3-credentials
+  ---
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: yace-s3-minute
+    namespace: yace    
+  spec:
+    selector:
+      matchLabels:
+        app: yace-s3-minute
+    replicas: 1
+    template:
+      metadata:
+        labels:
+          app: yace-s3-minute
+        annotations:
+          prometheus.io/scrape: "true"
+          prometheus.io/port: "5000"
+      spec:
+        containers:
+        - name: yace
+          #image: quay.io/invisionag/yet-another-cloudwatch-exporter:v0.15.0-alpha
+          image: daviddetorres/yace-exporter:promcat0.15.0
+          ports:
+          - containerPort: 5000
+          volumeMounts:
+            - name: yace-s3-minute-config
+              mountPath: /tmp/config.yml
+              subPath: config.yml
+            - name: yace-s3-credentials
+              mountPath: /exporter/.aws/credentials
+              subPath: credentials
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+        volumes:
+          - configMap:
+              defaultMode: 420
+              name: yace-s3-minute-config
+            name: yace-s3-minute-config
           - secret:
               defaultMode: 420
               secretName: yace-s3-credentials
@@ -82,7 +136,7 @@ data: |
   apiVersion: v1
   kind: ConfigMap
   metadata:
-    name: yace-s3-config
+    name: yace-s3-daily-config
     namespace: yace
   data:
     config.yml: |
@@ -107,110 +161,118 @@ data: |
               additionalDimensions:
                 - name: StorageType
                   value: StandardStorage
+  ---
+  apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    name: yace-s3-minute-config
+    namespace: yace
+  data:
+    config.yml: |
+      discovery:
+        jobs:
         - region: us-east-1
           type: s3
           awsDimensions: 
             - FilterId
           metrics: 
-            - name: AllRequests
-              statistics:
-                - Sum
-              period: 60  
-              length: 3600
-            - name: GetRequests
-              statistics:
-                - Sum
-              period: 60  
-              length: 3600
-            - name: PutRequests
-              statistics:
-                - Sum
-              period: 60  
-              length: 3600
-            - name: DeleteRequests
-              statistics:
-                - Sum
-              period: 60  
-              length: 3600
-            - name: HeadRequests
-              statistics:
-                - Sum
-              period: 60  
-              length: 3600
-            - name: PostRequests
-              statistics:
-                - Sum
-              period: 60  
-              length: 3600
-            - name: SelectRequests
-              statistics:
-                - Sum
-              period: 60  
-              length: 3600
-            - name: SelectScannedBytes
-              statistics:
-                - Sum
-              period: 60  
-              length: 3600
-            - name: SelectReturnedBytes
-              statistics:
-                - Sum
-              period: 60  
-              length: 3600
-            - name: ListRequests
-              statistics:
-                - Sum
-              period: 60  
-              length: 3600
+      #      - name: AllRequests
+      #        statistics:
+      #          - Average
+      #        period: 300  
+      #        length: 36000
+      #      - name: GetRequests
+      #        statistics:
+      #          - Sum
+      #        period: 300  
+      #        length: 3600
+      #      - name: PutRequests
+      #        statistics:
+      #          - Sum
+      #        period: 300  
+      #        length: 3600
+      #      - name: DeleteRequests
+      #        statistics:
+      #          - Sum
+      #        period: 300  
+      #        length: 3600
+      #      - name: HeadRequests
+      #        statistics:
+      #          - Sum
+      #        period: 300  
+      #        length: 3600
+      #      - name: PostRequests
+      #        statistics:
+      #          - Sum
+      #        period: 300  
+      #        length: 3600
+      #      - name: SelectRequests
+      #        statistics:
+      #          - Sum
+      #        period: 300  
+      #        length: 3600
+      #      - name: SelectScannedBytes
+      #        statistics:
+      #          - Sum
+      #        period: 300  
+      #        length: 3600
+      #      - name: SelectReturnedBytes
+      #        statistics:
+      #          - Sum
+      #        period: 300  
+      #        length: 3600
+      #      - name: ListRequests
+      #        statistics:
+      #          - Sum
+      #        period: 300  
+      #        length: 3600
             - name: BytesDownloaded
               statistics:
                 - Sum
                 - Average
-              period: 60  
+              period: 300  
               length: 3600
             - name: BytesUploaded
               statistics:
                 - Sum
                 - Average
-              period: 60  
+              period: 300  
               length: 3600
             - name: 4xxErrors
               statistics:
-                - Sum
                 - Average
-              period: 60  
+              period: 300  
               length: 3600
             - name: 5xxErrors
               statistics:
-                - Sum
                 - Average
-              period: 60  
+              period: 300  
               length: 3600
             - name: FirstByteLatency
               statistics:
                 - Average
-              period: 60  
+              period: 300  
               length: 3600
             - name: TotalRequestLatency
               statistics:
                 - Average
-              period: 60  
+              period: 300  
               length: 3600
-            - name: ReplicationLatency
-              statistics:
-                - Maximum
-              period: 60  
-              length: 3600
-            - name: BytesPendingReplication
-              statistics:
-                - Maximum
-              period: 60  
-              length: 3600
-            - name: OperationsPendingReplication
-              statistics:
-                - Maximum
-              period: 60  
-              length: 3600      
+      #      - name: ReplicationLatency
+      #        statistics:
+      #          - Maximum
+      #        period: 300  
+      #        length: 3600
+      #      - name: BytesPendingReplication
+      #        statistics:
+      #          - Maximum
+      #        period: 300  
+      #        length: 3600
+      #      - name: OperationsPendingReplication
+      #        statistics:
+      #          - Maximum
+      #        period: 300  
+      #        length: 3600      
   ---
   apiVersion: v1
   kind: Secret
