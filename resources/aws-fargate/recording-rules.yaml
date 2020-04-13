@@ -9,12 +9,12 @@ maintainers:
   - name: Sysdig team
     link: https://sysdig.com/
 description: |
-  # job:aws_ecs_containerinsights_cpu_utilization_rate:avg
+  # aws_ecs_containerinsights_cpu_utilization_rate_average
   This rule calculates the CPU utilization by service.
-  # job:aws_ecs_containerinsights_memory_utilization_rate:avg
+  # aws_ecs_containerinsights_memory_utilization_rate_average
   This rule calculates the memory utilization by service.
 data: |
-  - record: job:aws_ecs_containerinsights_cpu_utilization_rate:avg
+  - record: aws_ecs_containerinsights_cpu_utilization_rate_average
     expr: avg by (dimension_ServiceName)(aws_ecs_containerinsights_cpu_utilized_average / aws_ecs_containerinsights_cpu_reserved_average)
-  - record: job:aws_ecs_containerinsights_memory_utilization_rate:avg
+  - record: aws_ecs_containerinsights_memory_utilization_rate_average
     expr: avg by (dimension_ServiceName)(aws_ecs_containerinsights_memory_utilized_average / aws_ecs_containerinsights_memory_reserved_average)
