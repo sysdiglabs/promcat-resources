@@ -1,0 +1,2502 @@
+---
+apiVersion: v1
+kind: Dashboards
+app: "AWS ELB"
+version: 1.0.0
+appVersion: 
+  - 1.0.0
+maintainers:
+  - name: Sysdig team
+    link: https://sysdig.com/
+description: 
+configurations: 
+  - name: "ELB Golden Signals"
+    kind: grafana
+    image: "aws-elb/images/aws-elb-grafana-golden-signals.png"
+    description: |
+      This dashboard offers information on: 
+      * Error from load balancer for 4XX and 5XX codes
+      * Error from the backend for 4XX and 5XX codes
+      * Unhealthy hosts
+      * Queue spillovers rejections
+      * Top 5 response time target groups (list and graphic)
+      * Top surge queue length (list and graphic)
+      * Number of load balancers
+      * Requests per second with 2XX and 3XX code
+      * Top requests / second load balancers 
+      * Total requests per second
+      * Top healthy hosts (list and graphic)
+    data: |
+      {
+        "annotations": {
+          "list": [
+            {
+              "builtIn": 1,
+              "datasource": "-- Grafana --",
+              "enable": true,
+              "hide": true,
+              "iconColor": "rgba(0, 211, 255, 1)",
+              "name": "Annotations & Alerts",
+              "type": "dashboard"
+            }
+          ]
+        },
+        "editable": true,
+        "gnetId": null,
+        "graphTooltip": 0,
+        "id": 5,
+        "links": [],
+        "panels": [
+          {
+            "content": "\n# Title\n\nFor markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)\n\n\n\n",
+            "datasource": null,
+            "gridPos": {
+              "h": 1,
+              "w": 12,
+              "x": 0,
+              "y": 0
+            },
+            "id": 2,
+            "mode": "markdown",
+            "options": {},
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Errors",
+            "type": "text"
+          },
+          {
+            "content": "\n# Title\n\nFor markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)\n\n\n\n",
+            "datasource": null,
+            "gridPos": {
+              "h": 1,
+              "w": 12,
+              "x": 12,
+              "y": 0
+            },
+            "id": 12,
+            "mode": "markdown",
+            "options": {},
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Latency",
+            "type": "text"
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 7,
+              "w": 6,
+              "x": 0,
+              "y": 1
+            },
+            "hiddenSeries": false,
+            "id": 5,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "aws_elb_error_rate_4_xx_from_elb_count_sum",
+                "legendFormat": "4XX",
+                "refId": "A"
+              },
+              {
+                "expr": "aws_elb_error_rate_5_xx_from_elb_count_sum",
+                "legendFormat": "5XX",
+                "refId": "B"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Error Rate From the Load Balancer",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "decimals": null,
+                "format": "percentunit",
+                "label": null,
+                "logBase": 1,
+                "max": "1",
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 7,
+              "w": 6,
+              "x": 6,
+              "y": 1
+            },
+            "hiddenSeries": false,
+            "id": 6,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "aws_elb_error_rate_4_xx_from_backend_count_sum",
+                "legendFormat": "4XX",
+                "refId": "A"
+              },
+              {
+                "expr": "aws_elb_error_rate_5_xx_from_backend_count_sum",
+                "legendFormat": "5XX",
+                "refId": "B"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Error Rate From the Backend",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "decimals": null,
+                "format": "percentunit",
+                "label": null,
+                "logBase": 1,
+                "max": "1",
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "datasource": null,
+            "gridPos": {
+              "h": 7,
+              "w": 12,
+              "x": 12,
+              "y": 1
+            },
+            "id": 10,
+            "options": {
+              "displayMode": "lcd",
+              "fieldOptions": {
+                "calcs": [
+                  "max"
+                ],
+                "defaults": {
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      }
+                    ]
+                  },
+                  "unit": "s"
+                },
+                "overrides": [],
+                "values": false
+              },
+              "orientation": "horizontal",
+              "showUnfilled": true
+            },
+            "pluginVersion": "6.6.2",
+            "targets": [
+              {
+                "expr": "topk(5,aws_elb_latency_p95)",
+                "legendFormat": "{{dimension_LoadBalancerName}}",
+                "refId": "A"
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Top P95 Latency",
+            "type": "bargauge"
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 7,
+              "w": 6,
+              "x": 0,
+              "y": 8
+            },
+            "hiddenSeries": false,
+            "id": 7,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "sum(aws_elb_un_healthy_host_count_minimum)",
+                "legendFormat": "Unhealthy Hosts",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Unhealthy Hosts",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "decimals": null,
+                "format": "none",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 7,
+              "w": 6,
+              "x": 6,
+              "y": 8
+            },
+            "hiddenSeries": false,
+            "id": 8,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "sum(aws_elb_spillover_count_sum or vector(0))",
+                "legendFormat": "Spillovers",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Queue Spillovers Rejections",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "decimals": null,
+                "format": "none",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 7,
+              "w": 12,
+              "x": 12,
+              "y": 8
+            },
+            "hiddenSeries": false,
+            "id": 11,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "topk(5,aws_elb_latency_p95)",
+                "legendFormat": "{{dimension_LoadBalancerName}}",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Top P95 Latency",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "s",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "content": "\n# Title\n\nFor markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)\n\n\n\n",
+            "datasource": null,
+            "gridPos": {
+              "h": 1,
+              "w": 24,
+              "x": 0,
+              "y": 15
+            },
+            "id": 3,
+            "mode": "markdown",
+            "options": {},
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Saturation",
+            "type": "text"
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 7,
+              "w": 12,
+              "x": 0,
+              "y": 16
+            },
+            "hiddenSeries": false,
+            "id": 14,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "topk(5,aws_elb_surge_queue_length_maximum)",
+                "legendFormat": "{{dimension_LoadBalancerName}}",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Top Surge Queue Length",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "none",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "datasource": null,
+            "gridPos": {
+              "h": 7,
+              "w": 12,
+              "x": 12,
+              "y": 16
+            },
+            "id": 13,
+            "options": {
+              "displayMode": "lcd",
+              "fieldOptions": {
+                "calcs": [
+                  "max"
+                ],
+                "defaults": {
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      }
+                    ]
+                  },
+                  "unit": "none"
+                },
+                "overrides": [],
+                "values": false
+              },
+              "orientation": "horizontal",
+              "showUnfilled": true
+            },
+            "pluginVersion": "6.6.2",
+            "targets": [
+              {
+                "expr": "topk(5,aws_elb_surge_queue_length_maximum)",
+                "legendFormat": "{{dimension_LoadBalancerName}}",
+                "refId": "A"
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Top Surge Queue Length",
+            "type": "bargauge"
+          },
+          {
+            "content": "\n# Title\n\nFor markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)\n\n\n\n",
+            "datasource": null,
+            "gridPos": {
+              "h": 1,
+              "w": 24,
+              "x": 0,
+              "y": 23
+            },
+            "id": 15,
+            "mode": "markdown",
+            "options": {},
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Utilization",
+            "type": "text"
+          },
+          {
+            "datasource": null,
+            "description": "",
+            "gridPos": {
+              "h": 7,
+              "w": 12,
+              "x": 0,
+              "y": 24
+            },
+            "id": 16,
+            "options": {
+              "colorMode": "value",
+              "fieldOptions": {
+                "calcs": [
+                  "last"
+                ],
+                "defaults": {
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      }
+                    ]
+                  }
+                },
+                "overrides": [],
+                "values": false
+              },
+              "graphMode": "none",
+              "justifyMode": "auto",
+              "orientation": "auto"
+            },
+            "pluginVersion": "6.6.2",
+            "targets": [
+              {
+                "expr": "count(aws_elb_info)",
+                "legendFormat": "",
+                "refId": "A"
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Load Balancers",
+            "type": "stat"
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 7,
+              "w": 12,
+              "x": 12,
+              "y": 24
+            },
+            "hiddenSeries": false,
+            "id": 19,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "sum(aws_elb_httpcode_backend_2_xx_count_sum or vector(0)) / 300",
+                "legendFormat": "2XX",
+                "refId": "A"
+              },
+              {
+                "expr": "sum(aws_elb_httpcode_backend_3_xx_count_sum or vector(0)) / 300",
+                "legendFormat": "3XX",
+                "refId": "B"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Requests/sec With 2XX and 3XX Codes",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "reqps",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 7,
+              "w": 12,
+              "x": 0,
+              "y": 31
+            },
+            "hiddenSeries": false,
+            "id": 18,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "topk(5,aws_elb_request_count_sum / 300)",
+                "legendFormat": "{{dimension_LoadBalancerName}}",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Top Requests / Second",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "reqps",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 7,
+              "w": 12,
+              "x": 12,
+              "y": 31
+            },
+            "hiddenSeries": false,
+            "id": 20,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "sum(aws_elb_request_count_sum)/  300",
+                "legendFormat": "{{dimension_LoadBalancerName}}",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Total Requests / Second",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "reqps",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 7,
+              "w": 12,
+              "x": 0,
+              "y": 38
+            },
+            "hiddenSeries": false,
+            "id": 21,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "topk(5,aws_elb_healthy_host_count_sum)",
+                "legendFormat": "{{dimension_LoadBalancerName}}",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Top Healthy Hosts",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "none",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 7,
+              "w": 12,
+              "x": 12,
+              "y": 38
+            },
+            "hiddenSeries": false,
+            "id": 22,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "sum(aws_elb_healthy_host_count_sum)",
+                "legendFormat": "Total Healthy Hosts",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Total Healthy Hosts",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "none",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          }
+        ],
+        "schemaVersion": 22,
+        "style": "dark",
+        "tags": [],
+        "templating": {
+          "list": []
+        },
+        "time": {
+          "from": "now-15m",
+          "to": "now"
+        },
+        "timepicker": {
+          "refresh_intervals": [
+            "5s",
+            "10s",
+            "30s",
+            "1m",
+            "5m",
+            "15m",
+            "30m",
+            "1h",
+            "2h",
+            "1d"
+          ]
+        },
+        "timezone": "",
+        "title": "AWS ELB Golden Signals",
+        "uid": "W8KFBkqWk",
+        "version": 6
+      }
+  - name: "ALB Golden Signals"
+    kind: sysdig
+    image: "aws-elb/images/aws-elb-sysdig-golden-signals.png"
+    description: |
+      This dashboard offers information on: 
+      * Error from load balancer for 4XX and 5XX codes
+      * Error from the backend for 4XX and 5XX codes
+      * Unhealthy hosts
+      * Queue spillovers rejections
+      * Top 5 response time target groups (list and graphic)
+      * Top surge queue length (list and graphic)
+      * Number of load balancers
+      * Requests per second with 2XX and 3XX code
+      * Top requests / second load balancers 
+      * Total requests per second
+      * Top healthy hosts (list and graphic)
+    data: |
+      {
+        "dashboard": {
+          "description": "",
+          "layout": [
+            {
+              "h": 4,
+              "panelId": 1,
+              "w": 6,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "h": 4,
+              "panelId": 2,
+              "w": 6,
+              "x": 0,
+              "y": 4
+            },
+            {
+              "h": 4,
+              "panelId": 3,
+              "w": 6,
+              "x": 6,
+              "y": 0
+            },
+            {
+              "h": 4,
+              "panelId": 4,
+              "w": 6,
+              "x": 6,
+              "y": 4
+            },
+            {
+              "h": 4,
+              "panelId": 5,
+              "w": 12,
+              "x": 12,
+              "y": 0
+            },
+            {
+              "h": 4,
+              "panelId": 6,
+              "w": 12,
+              "x": 12,
+              "y": 4
+            },
+            {
+              "h": 4,
+              "panelId": 7,
+              "w": 12,
+              "x": 0,
+              "y": 8
+            },
+            {
+              "h": 4,
+              "panelId": 8,
+              "w": 12,
+              "x": 12,
+              "y": 8
+            },
+            {
+              "h": 4,
+              "panelId": 9,
+              "w": 12,
+              "x": 0,
+              "y": 12
+            },
+            {
+              "h": 4,
+              "panelId": 10,
+              "w": 12,
+              "x": 12,
+              "y": 12
+            },
+            {
+              "h": 4,
+              "panelId": 11,
+              "w": 12,
+              "x": 0,
+              "y": 16
+            },
+            {
+              "h": 4,
+              "panelId": 12,
+              "w": 12,
+              "x": 12,
+              "y": 16
+            },
+            {
+              "h": 4,
+              "panelId": 13,
+              "w": 12,
+              "x": 0,
+              "y": 20
+            },
+            {
+              "h": 4,
+              "panelId": 14,
+              "w": 12,
+              "x": 12,
+              "y": 20
+            }
+          ],
+          "name": "AWS ELB Golden Signals",
+          "panels": [
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": " ",
+                    "timeSeriesDisplayNameTemplate": "4XX",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "0-100",
+                    "unit": "%",
+                    "yAxis": "auto"
+                  },
+                  "query": "100 * sum(aws_elb_httpcode_elb_4_xx_count_sum or vector(0)) / sum(aws_elb_request_count_sum)"
+                },
+                {
+                  "displayInfo": {
+                    "displayName": " ",
+                    "timeSeriesDisplayNameTemplate": "5XX",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "0-100",
+                    "unit": "%",
+                    "yAxis": "auto"
+                  },
+                  "query": "100 * sum(aws_elb_httpcode_elb_5_xx_count_sum or vector(0)) / sum(aws_elb_request_count_sum)"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "0-100",
+                  "maxValue": 100.0,
+                  "minInputFormat": "0-100",
+                  "minValue": 0.0,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 1,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "inline",
+                "position": "bottom",
+                "showCurrent": true
+              },
+              "name": "Error Rate From the Load Balancer",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": " ",
+                    "timeSeriesDisplayNameTemplate": "Unhealthy hosts",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "sum(aws_elb_un_healthy_host_count_minimum)"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": 0,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": 0.0,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": false,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 2,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "inline",
+                "position": "bottom",
+                "showCurrent": true
+              },
+              "name": "Unhealthy Hosts",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": " ",
+                    "timeSeriesDisplayNameTemplate": "4XX",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "0-100",
+                    "unit": "%",
+                    "yAxis": "auto"
+                  },
+                  "query": "100 * sum(aws_elb_httpcode_backend_4_xx_count_sum or vector(0)) / sum(aws_elb_request_count_sum)"
+                },
+                {
+                  "displayInfo": {
+                    "displayName": " ",
+                    "timeSeriesDisplayNameTemplate": "5XX",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "0-100",
+                    "unit": "%",
+                    "yAxis": "auto"
+                  },
+                  "query": "100 * sum(aws_elb_httpcode_backend_5_xx_count_sum or vector(0)) / sum(aws_elb_request_count_sum)"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "0-100",
+                  "maxValue": null,
+                  "minInputFormat": "0-100",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 3,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "inline",
+                "position": "bottom",
+                "showCurrent": true
+              },
+              "name": "Error Rate From the Backend",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": " ",
+                    "timeSeriesDisplayNameTemplate": "TLS errors",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "sum(aws_elb_spillover_count_sum or vector(0))"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": 2,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": 0.0,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 4,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "inline",
+                "position": "bottom",
+                "showCurrent": true
+              },
+              "name": "Queue Spillovers Rejections",
+              "type": "advancedTimechart"
+            },
+            {
+              "basicQueries": [
+                {
+                  "compareTo": {
+                    "delta": 1,
+                    "enabled": false,
+                    "timeFormat": "day"
+                  },
+                  "displayInfo": {
+                    "displayName": "",
+                    "timeSeriesDisplayNameTemplate": "",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": 0,
+                    "displayFormat": "auto",
+                    "inputFormat": "s",
+                    "unit": "relativeTime",
+                    "yAxis": "auto"
+                  },
+                  "metrics": [
+                    {
+                      "descriptor": {
+                        "aggregationForGroup": "avg",
+                        "canFilter": false,
+                        "canGroupBy": false,
+                        "canMonitor": false,
+                        "category": "prometheus",
+                        "createdAt": 1586983031574,
+                        "customerId": 25008,
+                        "deferred": false,
+                        "documentId": "25008-4078750526823039455",
+                        "documentTimestamp": 1586983031574,
+                        "documentType": "metric",
+                        "experimental": false,
+                        "firstSeen": 1586958995639,
+                        "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                        "groupAggregations": [
+                          "avg",
+                          "sum",
+                          "min",
+                          "max"
+                        ],
+                        "heuristic": false,
+                        "hidden": false,
+                        "id": "promraw.aws_elb_latency_p95",
+                        "identity": false,
+                        "lastSeen": 1586972430008,
+                        "metricType": "gauge",
+                        "name": "aws_elb_latency_p95",
+                        "namespaces": [
+                          "host",
+                          "host.process",
+                          "host.container",
+                          "cloudProvider",
+                          "mesos",
+                          "ecs",
+                          "kubernetes.cluster",
+                          "kubernetes.namespace",
+                          "kubernetes.deployment",
+                          "kubernetes.job",
+                          "kubernetes.daemonSet",
+                          "kubernetes.service",
+                          "kubernetes.node",
+                          "kubernetes.replicaSet",
+                          "kubernetes.statefulSet",
+                          "kubernetes.resourcequota",
+                          "kubernetes.persistentvolume",
+                          "kubernetes.persistentvolumeclaim",
+                          "kubernetes.pod"
+                        ],
+                        "routingInfo": {
+                          "customerId": 25008,
+                          "routing": "25008"
+                        },
+                        "scale": 1.0,
+                        "scopes": [],
+                        "segment": false,
+                        "segmentations": [
+                          "agent.tag",
+                          "cloudProvider.tag",
+                          "container.id",
+                          "container.image",
+                          "container.label",
+                          "container.name",
+                          "dimension_LoadBalancerName",
+                          "host.hostName",
+                          "host.mac",
+                          "name",
+                          "proc.commandLine",
+                          "proc.name",
+                          "region"
+                        ],
+                        "timeAggregations": [
+                          "avg",
+                          "sum",
+                          "min",
+                          "max"
+                        ],
+                        "type": "number"
+                      },
+                      "groupAggregation": "max",
+                      "id": "promraw.aws_elb_latency_p95",
+                      "sorting": null,
+                      "timeAggregation": "avg"
+                    }
+                  ],
+                  "scope": {
+                    "expressions": [],
+                    "extendsDashboardScope": true
+                  },
+                  "segmentation": {
+                    "direction": "desc",
+                    "labels": [
+                      {
+                        "descriptor": {
+                          "aggregationForGroup": "none",
+                          "canFilter": true,
+                          "canGroupBy": false,
+                          "canMonitor": false,
+                          "category": "prometheus",
+                          "createdAt": 1586983031574,
+                          "customerId": 25008,
+                          "deferred": false,
+                          "documentId": "25008-6021229269581261122",
+                          "documentTimestamp": 1586983031574,
+                          "documentType": "metric",
+                          "experimental": false,
+                          "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
+                          "groupAggregations": [
+                            "concat",
+                            "distinct",
+                            "count"
+                          ],
+                          "heuristic": false,
+                          "hidden": false,
+                          "id": "dimension_LoadBalancerName",
+                          "identity": false,
+                          "lastSeen": 1586972430008,
+                          "metricType": "tag",
+                          "namespaces": [
+                            "host",
+                            "host.process",
+                            "host.container",
+                            "cloudProvider",
+                            "mesos",
+                            "ecs",
+                            "kubernetes.cluster",
+                            "kubernetes.namespace",
+                            "kubernetes.deployment",
+                            "kubernetes.job",
+                            "kubernetes.daemonSet",
+                            "kubernetes.service",
+                            "kubernetes.node",
+                            "kubernetes.replicaSet",
+                            "kubernetes.statefulSet",
+                            "kubernetes.resourcequota",
+                            "kubernetes.persistentvolume",
+                            "kubernetes.persistentvolumeclaim",
+                            "kubernetes.pod"
+                          ],
+                          "routingInfo": {
+                            "customerId": 25008,
+                            "routing": "25008"
+                          },
+                          "scale": 1.0,
+                          "scopes": [],
+                          "segment": false,
+                          "segmentations": [],
+                          "timeAggregations": [
+                            "concat",
+                            "distinct",
+                            "count"
+                          ],
+                          "type": "string"
+                        },
+                        "displayName": "",
+                        "id": "dimension_LoadBalancerName",
+                        "sorting": null
+                      }
+                    ],
+                    "limit": 10
+                  }
+                }
+              ],
+              "description": "",
+              "id": 5,
+              "name": "Top 5 P95 Latency",
+              "type": "basicToplist"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": "",
+                    "timeSeriesDisplayNameTemplate": "{{dimension_LoadBalancerName}}",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "s",
+                    "unit": "relativeTime",
+                    "yAxis": "auto"
+                  },
+                  "query": "topk(10,aws_elb_latency_p95)"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "ns",
+                  "maxValue": null,
+                  "minInputFormat": "ns",
+                  "minValue": 0.0,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": false,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 6,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "inline",
+                "position": "bottom",
+                "showCurrent": true
+              },
+              "name": "Top P95 Latency",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": " ",
+                    "timeSeriesDisplayNameTemplate": "{{dimension_LoadBalancerName}}",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "topk(5,aws_elb_surge_queue_length_maximum)"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": 0.0,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": false,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 7,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "inline",
+                "position": "bottom",
+                "showCurrent": true
+              },
+              "name": "Top Surge Queue Length",
+              "type": "advancedTimechart"
+            },
+            {
+              "basicQueries": [
+                {
+                  "compareTo": {
+                    "delta": 1,
+                    "enabled": false,
+                    "timeFormat": "day"
+                  },
+                  "displayInfo": {
+                    "displayName": "",
+                    "timeSeriesDisplayNameTemplate": "",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "metrics": [
+                    {
+                      "descriptor": {
+                        "aggregationForGroup": "avg",
+                        "canFilter": false,
+                        "canGroupBy": false,
+                        "canMonitor": false,
+                        "category": "prometheus",
+                        "createdAt": 1586983031574,
+                        "customerId": 25008,
+                        "deferred": false,
+                        "documentId": "25008-1206714501938620174",
+                        "documentTimestamp": 1586983031574,
+                        "documentType": "metric",
+                        "experimental": false,
+                        "firstSeen": 1586958995639,
+                        "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                        "groupAggregations": [
+                          "avg",
+                          "sum",
+                          "min",
+                          "max"
+                        ],
+                        "heuristic": false,
+                        "hidden": false,
+                        "id": "promraw.aws_elb_surge_queue_length_maximum",
+                        "identity": false,
+                        "lastSeen": 1586972430008,
+                        "metricType": "gauge",
+                        "name": "aws_elb_surge_queue_length_maximum",
+                        "namespaces": [
+                          "host",
+                          "host.process",
+                          "host.container",
+                          "cloudProvider",
+                          "mesos",
+                          "ecs",
+                          "kubernetes.cluster",
+                          "kubernetes.namespace",
+                          "kubernetes.deployment",
+                          "kubernetes.job",
+                          "kubernetes.daemonSet",
+                          "kubernetes.service",
+                          "kubernetes.node",
+                          "kubernetes.replicaSet",
+                          "kubernetes.statefulSet",
+                          "kubernetes.resourcequota",
+                          "kubernetes.persistentvolume",
+                          "kubernetes.persistentvolumeclaim",
+                          "kubernetes.pod"
+                        ],
+                        "routingInfo": {
+                          "customerId": 25008,
+                          "routing": "25008"
+                        },
+                        "scale": 1.0,
+                        "scopes": [],
+                        "segment": false,
+                        "segmentations": [
+                          "agent.tag",
+                          "cloudProvider.tag",
+                          "container.id",
+                          "container.image",
+                          "container.label",
+                          "container.name",
+                          "dimension_LoadBalancerName",
+                          "host.hostName",
+                          "host.mac",
+                          "name",
+                          "proc.commandLine",
+                          "proc.name",
+                          "region"
+                        ],
+                        "timeAggregations": [
+                          "avg",
+                          "sum",
+                          "min",
+                          "max"
+                        ],
+                        "type": "number"
+                      },
+                      "groupAggregation": "max",
+                      "id": "promraw.aws_elb_surge_queue_length_maximum",
+                      "sorting": null,
+                      "timeAggregation": "max"
+                    }
+                  ],
+                  "scope": {
+                    "expressions": [],
+                    "extendsDashboardScope": true
+                  },
+                  "segmentation": {
+                    "direction": "desc",
+                    "labels": [
+                      {
+                        "descriptor": {
+                          "aggregationForGroup": "none",
+                          "canFilter": true,
+                          "canGroupBy": false,
+                          "canMonitor": false,
+                          "category": "prometheus",
+                          "createdAt": 1586983031574,
+                          "customerId": 25008,
+                          "deferred": false,
+                          "documentId": "25008-6021229269581261122",
+                          "documentTimestamp": 1586983031574,
+                          "documentType": "metric",
+                          "experimental": false,
+                          "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
+                          "groupAggregations": [
+                            "concat",
+                            "distinct",
+                            "count"
+                          ],
+                          "heuristic": false,
+                          "hidden": false,
+                          "id": "dimension_LoadBalancerName",
+                          "identity": false,
+                          "lastSeen": 1586972430008,
+                          "metricType": "tag",
+                          "namespaces": [
+                            "host",
+                            "host.process",
+                            "host.container",
+                            "cloudProvider",
+                            "mesos",
+                            "ecs",
+                            "kubernetes.cluster",
+                            "kubernetes.namespace",
+                            "kubernetes.deployment",
+                            "kubernetes.job",
+                            "kubernetes.daemonSet",
+                            "kubernetes.service",
+                            "kubernetes.node",
+                            "kubernetes.replicaSet",
+                            "kubernetes.statefulSet",
+                            "kubernetes.resourcequota",
+                            "kubernetes.persistentvolume",
+                            "kubernetes.persistentvolumeclaim",
+                            "kubernetes.pod"
+                          ],
+                          "routingInfo": {
+                            "customerId": 25008,
+                            "routing": "25008"
+                          },
+                          "scale": 1.0,
+                          "scopes": [],
+                          "segment": false,
+                          "segmentations": [],
+                          "timeAggregations": [
+                            "concat",
+                            "distinct",
+                            "count"
+                          ],
+                          "type": "string"
+                        },
+                        "displayName": "",
+                        "id": "dimension_LoadBalancerName",
+                        "sorting": null
+                      }
+                    ],
+                    "limit": 10
+                  }
+                }
+              ],
+              "description": "",
+              "id": 8,
+              "name": "Top Surge Queue Length",
+              "type": "basicToplist"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": " ",
+                    "timeSeriesDisplayNameTemplate": "{{dimension_LoadBalancerName}}",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "count(aws_elb_info)"
+                }
+              ],
+              "description": "",
+              "id": 9,
+              "name": "Load Balancers",
+              "numberThresholds": {
+                "base": {
+                  "displayText": "",
+                  "severity": "none"
+                },
+                "values": []
+              },
+              "type": "advancedNumber"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": " ",
+                    "timeSeriesDisplayNameTemplate": "2XX",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "sum(aws_elb_httpcode_backend_2_xx_count_sum or vector(0)) / 300"
+                },
+                {
+                  "displayInfo": {
+                    "displayName": " ",
+                    "timeSeriesDisplayNameTemplate": "3XX",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "sum(aws_elb_httpcode_backend_3_xx_count_sum or vector(0)) / 300"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": false,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 10,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "inline",
+                "position": "bottom",
+                "showCurrent": true
+              },
+              "name": "Requests/sec With 2XX and 3XX Codes",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": " ",
+                    "timeSeriesDisplayNameTemplate": "{{dimension_LoadBalancerName}}",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "topk(5,aws_elb_request_count_sum / 300)"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": 0.0,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": false,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 11,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "inline",
+                "position": "bottom",
+                "showCurrent": true
+              },
+              "name": "Top Requests / Second",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": " ",
+                    "timeSeriesDisplayNameTemplate": "Reqs/sec",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "sum(aws_elb_request_count_sum)/  300"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": 0.0,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": false,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 12,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "inline",
+                "position": "bottom",
+                "showCurrent": true
+              },
+              "name": "Total Requests / Second",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": " ",
+                    "timeSeriesDisplayNameTemplate": "{{dimension_LoadBalancerName}}",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "topk(5,aws_elb_healthy_host_count_sum)"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": 0.0,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": false,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 13,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "inline",
+                "position": "bottom",
+                "showCurrent": true
+              },
+              "name": "Top Healthy Hosts",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": " ",
+                    "timeSeriesDisplayNameTemplate": "Total Healthy Hosts",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "sum(aws_elb_healthy_host_count_sum)"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": 0.0,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": false,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 14,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "inline",
+                "position": "bottom",
+                "showCurrent": true
+              },
+              "name": "Total Healthy Hosts",
+              "type": "advancedTimechart"
+            }
+          ],
+          "schema": 3,
+          "scopeExpressionList": []
+        }
+      }
