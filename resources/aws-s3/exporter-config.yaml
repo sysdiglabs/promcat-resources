@@ -60,8 +60,7 @@ data: |
       spec:
         containers:
         - name: yace
-          #image: quay.io/invisionag/yet-another-cloudwatch-exporter:v0.15.0-alpha
-          image: daviddetorres/yace-exporter:promcat0.15.0
+          image: quay.io/invisionag/yet-another-cloudwatch-exporter:v0.16.0-alpha
           args:
             - "--scraping-interval=7200"
             - "--config.file=/tmp/config.yml"
@@ -108,8 +107,7 @@ data: |
       spec:
         containers:
         - name: yace
-          #image: quay.io/invisionag/yet-another-cloudwatch-exporter:v0.15.0-alpha
-          image: daviddetorres/yace-exporter:promcat0.15.0
+          image: quay.io/invisionag/yet-another-cloudwatch-exporter:v0.16.0-alpha
           ports:
           - containerPort: 5000
           volumeMounts:
@@ -250,12 +248,12 @@ data: |
               length: 3600
             - name: FirstByteLatency
               statistics:
-                - Average
+                - p95
               period: 300  
               length: 3600
             - name: TotalRequestLatency
               statistics:
-                - Average
+                - p95
               period: 300  
               length: 3600
       #      - name: ReplicationLatency

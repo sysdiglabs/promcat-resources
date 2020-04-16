@@ -9,9 +9,9 @@ maintainers:
   - name: Sysdig team
     link: https://sysdig.com/
 description: |
-  # job:aws_lambda_error_rate:avg
+  # aws_lambda_error_rate_average
   This rule calculates the error rate by function.
 data: |
-  - record: job:aws_lambda_error_rate:avg
+  - record: aws_lambda_error_rate_average
     expr: avg by (dimension_FunctionName)(aws_lambda_errors_sum / aws_lambda_invocations_sum)
   
