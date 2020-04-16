@@ -19,8 +19,8 @@ description: |
   ## HighFirstByteLatency
   The first byte latency is the time that pass since S3 receives a request of a resource and serves the first byte.
   A high latency in the first byte can be caused a high number of petitions in a single bucket, making it slowing down the petitions.
-  This alert triggers when the average of the latency of the first byte excess a threshold for a certain period of time. 
-  The recommended value for this alert is a latency of 250ms for 10 minutes.
+  This alert triggers when the P95 of the latency of the first byte excess a threshold for a certain period of time. 
+  The recommended value for this alert is a latency over 250ms for 10 minutes.
   
   # Installing the alerts
   ## In Prometheus
@@ -52,7 +52,7 @@ configurations:
         annotations:
           summary: High 5XX error rate on bucket {{$labels.dimension_BucketName}}
       - alert: HighFirstByteLatency
-        expr: avg(aws_s3_first_byte_latency_average) > 250
+        expr: avg(aws_s3_first_byte_latency_p95) > 250
         for: 10m
         labels: 
           severity: page
@@ -101,7 +101,7 @@ configurations:
         },
         {
             "alert": {
-                "condition": "avg(aws_s3_first_byte_latency_average) > 250",
+                "condition": "avg(aws_s3_first_byte_latency_p95) > 250",
                 "customNotification": {
                     "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
                     "useNewTemplate": false

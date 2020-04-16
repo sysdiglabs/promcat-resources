@@ -221,7 +221,7 @@ configurations:
             "pluginVersion": "6.6.2",
             "targets": [
               {
-                "expr": "topk(5,aws_s3_first_byte_latency_average)",
+                "expr": "topk(5,aws_s3_first_byte_latency_p95)",
                 "legendFormat": "{{dimension_BucketName}}",
                 "refId": "A"
               }
@@ -268,7 +268,7 @@ configurations:
             "pluginVersion": "6.6.2",
             "targets": [
               {
-                "expr": "topk(5,aws_s3_total_request_latency_average)",
+                "expr": "topk(5,aws_s3_total_request_latency_p95)",
                 "legendFormat": "{{dimension_BucketName}}",
                 "refId": "B"
               }
@@ -406,26 +406,16 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "avg(aws_s3_first_byte_latency_average)",
-                "legendFormat": "Average",
+                "expr": "topk(5,aws_s3_first_byte_latency_p95)",
+                "legendFormat": "{{dimension_BucketName}}",
                 "refId": "A"
-              },
-              {
-                "expr": "max(aws_s3_first_byte_latency_average)",
-                "legendFormat": "Max",
-                "refId": "B"
-              },
-              {
-                "expr": "quantile(0.9,aws_s3_first_byte_latency_average)",
-                "legendFormat": "P90",
-                "refId": "C"
               }
             ],
             "thresholds": [],
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "First Byte Latency ",
+            "title": "Top 5 First Byte Latency ",
             "tooltip": {
               "shared": true,
               "sort": 0,
@@ -590,26 +580,16 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "avg(aws_s3_total_request_latency_average)",
-                "legendFormat": "Average",
+                "expr": "topk(5,aws_s3_total_request_latency_p95)",
+                "legendFormat": "{{dimension_BucketName}}",
                 "refId": "A"
-              },
-              {
-                "expr": "max(aws_s3_total_request_latency_average)",
-                "legendFormat": "Max",
-                "refId": "B"
-              },
-              {
-                "expr": "quantile(0.9,aws_s3_total_request_latency_average)",
-                "legendFormat": "P90",
-                "refId": "C"
               }
             ],
             "thresholds": [],
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Total Request Latency ",
+            "title": "Top 5 Request Latency ",
             "tooltip": {
               "shared": true,
               "sort": 0,
@@ -1207,8 +1187,8 @@ configurations:
           "list": []
         },
         "time": {
-          "from": "2020-03-31T05:55:48.785Z",
-          "to": "2020-03-31T17:55:48.787Z"
+          "from": "now-5m",
+          "to": "now"
         },
         "timepicker": {
           "refresh_intervals": [
@@ -1401,11 +1381,11 @@ configurations:
                         "canGroupBy": false,
                         "canMonitor": false,
                         "category": "prometheus",
-                        "createdAt": 1585842199491,
+                        "createdAt": 1586780686448,
                         "customerId": 25008,
                         "deferred": false,
                         "documentId": "25008-1332518845881279698",
-                        "documentTimestamp": 1585842199491,
+                        "documentTimestamp": 1586780686448,
                         "documentType": "metric",
                         "experimental": false,
                         "firstSeen": 1585758599222,
@@ -1420,7 +1400,7 @@ configurations:
                         "hidden": false,
                         "id": "promraw.aws_s3_4xx_errors_average",
                         "identity": false,
-                        "lastSeen": 1585839549795,
+                        "lastSeen": 1586775914386,
                         "metricType": "gauge",
                         "name": "aws_s3_4xx_errors_average",
                         "namespaces": [
@@ -1495,11 +1475,11 @@ configurations:
                           "canGroupBy": false,
                           "canMonitor": false,
                           "category": "prometheus",
-                          "createdAt": 1585842199491,
+                          "createdAt": 1586780686448,
                           "customerId": 25008,
                           "deferred": false,
                           "documentId": "25008--8385877760260155735",
-                          "documentTimestamp": 1585842199491,
+                          "documentTimestamp": 1586780686448,
                           "documentType": "metric",
                           "experimental": false,
                           "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
@@ -1512,7 +1492,7 @@ configurations:
                           "hidden": false,
                           "id": "dimension_BucketName",
                           "identity": false,
-                          "lastSeen": 1585839549795,
+                          "lastSeen": 1586775915897,
                           "metricType": "tag",
                           "namespaces": [
                             "host",
@@ -1593,11 +1573,11 @@ configurations:
                         "canGroupBy": false,
                         "canMonitor": false,
                         "category": "prometheus",
-                        "createdAt": 1585842199491,
+                        "createdAt": 1586780686448,
                         "customerId": 25008,
                         "deferred": false,
                         "documentId": "25008-1999327771329532305",
-                        "documentTimestamp": 1585842199491,
+                        "documentTimestamp": 1586780686448,
                         "documentType": "metric",
                         "experimental": false,
                         "firstSeen": 1585758599222,
@@ -1612,7 +1592,7 @@ configurations:
                         "hidden": false,
                         "id": "promraw.aws_s3_5xx_errors_average",
                         "identity": false,
-                        "lastSeen": 1585839549795,
+                        "lastSeen": 1586775914386,
                         "metricType": "gauge",
                         "name": "aws_s3_5xx_errors_average",
                         "namespaces": [
@@ -1687,11 +1667,11 @@ configurations:
                           "canGroupBy": false,
                           "canMonitor": false,
                           "category": "prometheus",
-                          "createdAt": 1585842199491,
+                          "createdAt": 1586780686448,
                           "customerId": 25008,
                           "deferred": false,
                           "documentId": "25008--8385877760260155735",
-                          "documentTimestamp": 1585842199491,
+                          "documentTimestamp": 1586780686448,
                           "documentType": "metric",
                           "experimental": false,
                           "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
@@ -1704,7 +1684,7 @@ configurations:
                           "hidden": false,
                           "id": "dimension_BucketName",
                           "identity": false,
-                          "lastSeen": 1585839549795,
+                          "lastSeen": 1586775915897,
                           "metricType": "tag",
                           "namespaces": [
                             "host",
@@ -1772,9 +1752,9 @@ configurations:
                   "enabled": true,
                   "format": {
                     "decimals": null,
-                    "displayFormat": "ms",
-                    "inputFormat": "ms",
-                    "unit": "relativeTime",
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
                     "yAxis": "auto"
                   },
                   "metrics": [
@@ -1785,14 +1765,14 @@ configurations:
                         "canGroupBy": false,
                         "canMonitor": false,
                         "category": "prometheus",
-                        "createdAt": 1585842199491,
+                        "createdAt": 1586780686447,
                         "customerId": 25008,
                         "deferred": false,
-                        "documentId": "25008--1944920751459115138",
-                        "documentTimestamp": 1585842199491,
+                        "documentId": "25008-6538382594603110313",
+                        "documentTimestamp": 1586780686447,
                         "documentType": "metric",
                         "experimental": false,
-                        "firstSeen": 1585758599222,
+                        "firstSeen": 1586775914386,
                         "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
                         "groupAggregations": [
                           "avg",
@@ -1802,11 +1782,11 @@ configurations:
                         ],
                         "heuristic": false,
                         "hidden": false,
-                        "id": "promraw.aws_s3_first_byte_latency_average",
+                        "id": "promraw.aws_s3_first_byte_latency_p95",
                         "identity": false,
-                        "lastSeen": 1585839549795,
+                        "lastSeen": 1586775914386,
                         "metricType": "gauge",
-                        "name": "aws_s3_first_byte_latency_average",
+                        "name": "aws_s3_first_byte_latency_p95",
                         "namespaces": [
                           "host",
                           "host.process",
@@ -1860,7 +1840,7 @@ configurations:
                         "type": "number"
                       },
                       "groupAggregation": "avg",
-                      "id": "promraw.aws_s3_first_byte_latency_average",
+                      "id": "promraw.aws_s3_first_byte_latency_p95",
                       "sorting": null,
                       "timeAggregation": "avg"
                     }
@@ -1879,11 +1859,11 @@ configurations:
                           "canGroupBy": false,
                           "canMonitor": false,
                           "category": "prometheus",
-                          "createdAt": 1585842199491,
+                          "createdAt": 1586780686448,
                           "customerId": 25008,
                           "deferred": false,
                           "documentId": "25008--8385877760260155735",
-                          "documentTimestamp": 1585842199491,
+                          "documentTimestamp": 1586780686448,
                           "documentType": "metric",
                           "experimental": false,
                           "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
@@ -1896,7 +1876,7 @@ configurations:
                           "hidden": false,
                           "id": "dimension_BucketName",
                           "identity": false,
-                          "lastSeen": 1585839549795,
+                          "lastSeen": 1586775915897,
                           "metricType": "tag",
                           "namespaces": [
                             "host",
@@ -1964,9 +1944,9 @@ configurations:
                   "enabled": true,
                   "format": {
                     "decimals": null,
-                    "displayFormat": "ms",
-                    "inputFormat": "ms",
-                    "unit": "relativeTime",
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
                     "yAxis": "auto"
                   },
                   "metrics": [
@@ -1977,14 +1957,14 @@ configurations:
                         "canGroupBy": false,
                         "canMonitor": false,
                         "category": "prometheus",
-                        "createdAt": 1585842199491,
+                        "createdAt": 1586780686448,
                         "customerId": 25008,
                         "deferred": false,
-                        "documentId": "25008-8847695282859567932",
-                        "documentTimestamp": 1585842199491,
+                        "documentId": "25008-3460542545864515488",
+                        "documentTimestamp": 1586780686448,
                         "documentType": "metric",
                         "experimental": false,
-                        "firstSeen": 1585758599222,
+                        "firstSeen": 1586775914386,
                         "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
                         "groupAggregations": [
                           "avg",
@@ -1994,11 +1974,11 @@ configurations:
                         ],
                         "heuristic": false,
                         "hidden": false,
-                        "id": "promraw.aws_s3_total_request_latency_average",
+                        "id": "promraw.aws_s3_total_request_latency_p95",
                         "identity": false,
-                        "lastSeen": 1585839549795,
+                        "lastSeen": 1586775914386,
                         "metricType": "gauge",
-                        "name": "aws_s3_total_request_latency_average",
+                        "name": "aws_s3_total_request_latency_p95",
                         "namespaces": [
                           "host",
                           "host.process",
@@ -2052,7 +2032,7 @@ configurations:
                         "type": "number"
                       },
                       "groupAggregation": "avg",
-                      "id": "promraw.aws_s3_total_request_latency_average",
+                      "id": "promraw.aws_s3_total_request_latency_p95",
                       "sorting": null,
                       "timeAggregation": "avg"
                     }
@@ -2071,11 +2051,11 @@ configurations:
                           "canGroupBy": false,
                           "canMonitor": false,
                           "category": "prometheus",
-                          "createdAt": 1585842199491,
+                          "createdAt": 1586780686448,
                           "customerId": 25008,
                           "deferred": false,
                           "documentId": "25008--8385877760260155735",
-                          "documentTimestamp": 1585842199491,
+                          "documentTimestamp": 1586780686448,
                           "documentType": "metric",
                           "experimental": false,
                           "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
@@ -2088,7 +2068,7 @@ configurations:
                           "hidden": false,
                           "id": "dimension_BucketName",
                           "identity": false,
-                          "lastSeen": 1585839549795,
+                          "lastSeen": 1586775915897,
                           "metricType": "tag",
                           "namespaces": [
                             "host",
@@ -2263,7 +2243,7 @@ configurations:
                 {
                   "displayInfo": {
                     "displayName": " ",
-                    "timeSeriesDisplayNameTemplate": "Average",
+                    "timeSeriesDisplayNameTemplate": "{{dimension_BucketName}}",
                     "type": "lines"
                   },
                   "enabled": true,
@@ -2274,39 +2254,7 @@ configurations:
                     "unit": "relativeTime",
                     "yAxis": "auto"
                   },
-                  "query": "avg(aws_s3_first_byte_latency_average)"
-                },
-                {
-                  "displayInfo": {
-                    "displayName": " ",
-                    "timeSeriesDisplayNameTemplate": "Max",
-                    "type": "lines"
-                  },
-                  "enabled": true,
-                  "format": {
-                    "decimals": null,
-                    "displayFormat": "auto",
-                    "inputFormat": "ms",
-                    "unit": "relativeTime",
-                    "yAxis": "auto"
-                  },
-                  "query": "max(aws_s3_first_byte_latency_average)"
-                },
-                {
-                  "displayInfo": {
-                    "displayName": " ",
-                    "timeSeriesDisplayNameTemplate": "P90",
-                    "type": "lines"
-                  },
-                  "enabled": true,
-                  "format": {
-                    "decimals": null,
-                    "displayFormat": "auto",
-                    "inputFormat": "ms",
-                    "unit": "relativeTime",
-                    "yAxis": "auto"
-                  },
-                  "query": "quantile(0.9,aws_s3_first_byte_latency_average)"
+                  "query": "topk(5,aws_s3_first_byte_latency_p95)"
                 }
               ],
               "axesConfiguration": {
@@ -2346,7 +2294,7 @@ configurations:
                 "position": "bottom",
                 "showCurrent": true
               },
-              "name": "First Byte Latency",
+              "name": "Top 5 First Byte Latency",
               "type": "advancedTimechart"
             },
             {
@@ -2354,7 +2302,7 @@ configurations:
                 {
                   "displayInfo": {
                     "displayName": " ",
-                    "timeSeriesDisplayNameTemplate": "Average",
+                    "timeSeriesDisplayNameTemplate": "{{dimension_BucketName}}",
                     "type": "lines"
                   },
                   "enabled": true,
@@ -2365,39 +2313,7 @@ configurations:
                     "unit": "relativeTime",
                     "yAxis": "auto"
                   },
-                  "query": "avg(aws_s3_total_request_latency_average)"
-                },
-                {
-                  "displayInfo": {
-                    "displayName": " ",
-                    "timeSeriesDisplayNameTemplate": "Max",
-                    "type": "lines"
-                  },
-                  "enabled": true,
-                  "format": {
-                    "decimals": null,
-                    "displayFormat": "auto",
-                    "inputFormat": "ms",
-                    "unit": "relativeTime",
-                    "yAxis": "auto"
-                  },
-                  "query": "max(aws_s3_total_request_latency_average)"
-                },
-                {
-                  "displayInfo": {
-                    "displayName": " ",
-                    "timeSeriesDisplayNameTemplate": "P90",
-                    "type": "lines"
-                  },
-                  "enabled": true,
-                  "format": {
-                    "decimals": null,
-                    "displayFormat": "auto",
-                    "inputFormat": "ms",
-                    "unit": "relativeTime",
-                    "yAxis": "auto"
-                  },
-                  "query": "quantile(0.9,aws_s3_total_request_latency_average)"
+                  "query": "topk(5,aws_s3_total_request_latency_p95)"
                 }
               ],
               "axesConfiguration": {
@@ -2437,7 +2353,7 @@ configurations:
                 "position": "bottom",
                 "showCurrent": true
               },
-              "name": "Total Request Latency",
+              "name": "Top 5 Total Request Latency",
               "type": "advancedTimechart"
             },
             {
@@ -2544,11 +2460,11 @@ configurations:
                         "canGroupBy": false,
                         "canMonitor": false,
                         "category": "prometheus",
-                        "createdAt": 1585842199491,
+                        "createdAt": 1586780686448,
                         "customerId": 25008,
                         "deferred": false,
                         "documentId": "25008--8637475063100877538",
-                        "documentTimestamp": 1585842199491,
+                        "documentTimestamp": 1586780686448,
                         "documentType": "metric",
                         "experimental": false,
                         "firstSeen": 1585758599222,
@@ -2563,7 +2479,7 @@ configurations:
                         "hidden": false,
                         "id": "promraw.aws_s3_bytes_uploaded_sum",
                         "identity": false,
-                        "lastSeen": 1585839549795,
+                        "lastSeen": 1586775914386,
                         "metricType": "gauge",
                         "name": "aws_s3_bytes_uploaded_sum",
                         "namespaces": [
@@ -2638,11 +2554,11 @@ configurations:
                           "canGroupBy": false,
                           "canMonitor": false,
                           "category": "prometheus",
-                          "createdAt": 1585842199491,
+                          "createdAt": 1586780686448,
                           "customerId": 25008,
                           "deferred": false,
                           "documentId": "25008--8385877760260155735",
-                          "documentTimestamp": 1585842199491,
+                          "documentTimestamp": 1586780686448,
                           "documentType": "metric",
                           "experimental": false,
                           "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
@@ -2655,7 +2571,7 @@ configurations:
                           "hidden": false,
                           "id": "dimension_BucketName",
                           "identity": false,
-                          "lastSeen": 1585839549795,
+                          "lastSeen": 1586775915897,
                           "metricType": "tag",
                           "namespaces": [
                             "host",
@@ -2736,11 +2652,11 @@ configurations:
                         "canGroupBy": false,
                         "canMonitor": false,
                         "category": "prometheus",
-                        "createdAt": 1585842199491,
+                        "createdAt": 1586780686448,
                         "customerId": 25008,
                         "deferred": false,
                         "documentId": "25008--2259348250926769171",
-                        "documentTimestamp": 1585842199491,
+                        "documentTimestamp": 1586780686448,
                         "documentType": "metric",
                         "experimental": false,
                         "firstSeen": 1585758599222,
@@ -2755,7 +2671,7 @@ configurations:
                         "hidden": false,
                         "id": "promraw.aws_s3_bytes_downloaded_sum",
                         "identity": false,
-                        "lastSeen": 1585839549795,
+                        "lastSeen": 1586775914386,
                         "metricType": "gauge",
                         "name": "aws_s3_bytes_downloaded_sum",
                         "namespaces": [
@@ -2830,11 +2746,11 @@ configurations:
                           "canGroupBy": false,
                           "canMonitor": false,
                           "category": "prometheus",
-                          "createdAt": 1585842199491,
+                          "createdAt": 1586780686448,
                           "customerId": 25008,
                           "deferred": false,
                           "documentId": "25008--8385877760260155735",
-                          "documentTimestamp": 1585842199491,
+                          "documentTimestamp": 1586780686448,
                           "documentType": "metric",
                           "experimental": false,
                           "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
@@ -2847,7 +2763,7 @@ configurations:
                           "hidden": false,
                           "id": "dimension_BucketName",
                           "identity": false,
-                          "lastSeen": 1585839549795,
+                          "lastSeen": 1586775915897,
                           "metricType": "tag",
                           "namespaces": [
                             "host",
@@ -3052,11 +2968,11 @@ configurations:
                         "canGroupBy": false,
                         "canMonitor": false,
                         "category": "prometheus",
-                        "createdAt": 1585842199491,
+                        "createdAt": 1586780686448,
                         "customerId": 25008,
                         "deferred": false,
                         "documentId": "25008-9066500891702764433",
-                        "documentTimestamp": 1585842199491,
+                        "documentTimestamp": 1586780686448,
                         "documentType": "metric",
                         "experimental": false,
                         "firstSeen": 1585758598624,
@@ -3071,7 +2987,7 @@ configurations:
                         "hidden": false,
                         "id": "promraw.aws_s3_bucket_size_bytes_average",
                         "identity": false,
-                        "lastSeen": 1585839549182,
+                        "lastSeen": 1586775915897,
                         "metricType": "gauge",
                         "name": "aws_s3_bucket_size_bytes_average",
                         "namespaces": [
@@ -3146,11 +3062,11 @@ configurations:
                           "canGroupBy": false,
                           "canMonitor": false,
                           "category": "prometheus",
-                          "createdAt": 1585842199491,
+                          "createdAt": 1586780686448,
                           "customerId": 25008,
                           "deferred": false,
                           "documentId": "25008--8385877760260155735",
-                          "documentTimestamp": 1585842199491,
+                          "documentTimestamp": 1586780686448,
                           "documentType": "metric",
                           "experimental": false,
                           "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
@@ -3163,7 +3079,7 @@ configurations:
                           "hidden": false,
                           "id": "dimension_BucketName",
                           "identity": false,
-                          "lastSeen": 1585839549795,
+                          "lastSeen": 1586775915897,
                           "metricType": "tag",
                           "namespaces": [
                             "host",
