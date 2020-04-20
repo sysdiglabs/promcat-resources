@@ -1,0 +1,95 @@
+---
+apiVersion: v1
+kind: Alerts
+app: "AWS EBS"
+version: 1.0.0
+appVersion: 
+  - 1.0.0
+maintainers:
+  - name: Sysdig team
+    link: https://sysdig.com/
+description: |
+  # Alerts
+  ## LowVolumePerformance
+  Provisioned IOPS SSD volumes deliver their provisioned performance 99.9 percent of the time.
+
+  This alert triggers when the performance of a Provisioned IOPS SSD volume is below 99.9 for 10 minutes. 
+  
+  ## ZeroVolumeBurstBalance
+  This alerts triggers when the burst balance of a volume is zero for 30 minutes. 
+
+  # Installing the alerts
+  ## In Prometheus
+  Copy the alerts for Prometheus and paste them inside of the configuration file in the groups section:
+  ```yaml
+  [...]
+  groups:
+  - name: example
+      # Insert here the alerts
+      rules: 
+  ``` 
+  ## In Sysdig Monitor
+  To install these alerts in Sysdig Monitor, contact with the support service. 
+configurations: 
+  - kind: Prometheus
+    data: |
+      - alert: LowVolumePerformance
+        expr: |
+          aws_ebs_volume_throughput_percentage_average < 99.9
+        for: 10m
+        labels: 
+          severity: page
+        annotations:
+          summary: The IOPS SSD Performance is under 99.9% in volume: {{$labels.dimension_VolumeId}}
+      - alert: ZeroVolumeBurstBalance
+        expr: |
+          aws_ebs_burst_balance_minimum == 0
+        for: 30m
+        labels: 
+          severity: page
+        annotations:
+          summary: The Burst Balance is zero in volume: {{$labels.dimension_VolumeId}}
+          
+  - kind: Sysdig
+    data: |
+      [
+      {
+        "alert": {
+          "condition": "aws_ebs_volume_throughput_percentage_average < 99.9\n",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "[AWS EBS] Low Volume Performance",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": 30,
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
+        }
+      }
+        ,
+      {
+        "alert": {
+          "condition": "aws_ebs_burst_balance_minimum == 0",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "[AWS EBS] Zero Volume Burst Balance",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": 30,
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 1800000000,
+          "type": "PROMETHEUS"
+        }
+      }
+      ]
