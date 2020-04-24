@@ -9,402 +9,267 @@ maintainers:
   - name: Sysdig team
     link: https://sysdig.com/
 description: |
-  # namespace:container_cpu_usage_seconds_total:sum_rate
-
-  # namespace_pod_container:container_cpu_usage_seconds_total:sum_rate
-
-  # namespace:container_cpu_usage_seconds_total:sum_rate
-
-  # namespace:container_memory_usage_bytes:sum
-
-  # namespace:kube_pod_container_resource_requests_memory_bytes:sum
-
-  # namespace:kube_pod_container_resource_requests_cpu_cores:sum
-
-  # mixin_pod_workload
-
-  # cluster_quantile:scheduler_e2e_scheduling_duration_seconds:histogram_quantile
-
-  # cluster_quantile:scheduler_scheduling_algorithm_duration_seconds:histogram_quantile
-
-  # cluster_quantile:scheduler_binding_duration_seconds:histogram_quantile
-
-  # cluster_quantile:apiserver_request_duration_seconds:histogram_quantile
-
-  # node_namespace_pod:kube_pod_info:
-
-  # node:node_num_cpu:sum
-
-  # node:node_cpu_utilisation:avg1m
-
-  # node:cluster_cpu_utilisation:ratio
-
-  # :node_cpu_saturation_load1:
-
-  # node:node_cpu_saturation_load1:
-
-  # :node_memory_utilisation:
-
-  # :node_memory_MemFreeCachedBuffers_bytes:sum
-
-  # :node_memory_MemTotal_bytes:sum
-
-  # node:node_memory_bytes_available:sum
-
-  # node:node_memory_bytes_total:sum
-
-  # node:node_memory_utilisation:ratio
-
-  # node:cluster_memory_utilisation:ratio
-
-  # :node_memory_swap_io_bytes:sum_rate
-
-  # node:node_memory_utilisation:
-
-  # node:node_memory_swap_io_bytes:sum_rate
-
-  # node:node_disk_utilisation:avg_irate
-
-  # node:node_disk_saturation:avg_irate
-
-  # node:node_filesystem_usage:
-
-  # node:node_filesystem_avail:
-
-  # :node_net_utilisation:sum_irate
-
-  # node:node_net_utilisation:sum_irate
-
-  # ":node_net_saturation:sum_irate
-
-  # node:node_net_saturation:sum_irate
-
-  # node:node_inodes_total:
-
-  # node:node_inodes_free:
+  
 data: |
   "groups":
-    - "name": "k8s.rules"
-      "rules":
-      - "expr": |
-          sum(rate(container_cpu_usage_seconds_total{job="kubernetes-nodes-cadvisor", image!="", container!="POD"}[5m])) by (namespace)
-        "record": "namespace:container_cpu_usage_seconds_total:sum_rate"
-      - "expr": |
-          sum by (namespace, pod, container) (
-            rate(container_cpu_usage_seconds_total{job="kubernetes-nodes-cadvisor", image!="", container!="POD"}[5m])
-          )
-        "record": "namespace_pod_container:container_cpu_usage_seconds_total:sum_rate"
-      - "expr": |
-          sum(container_memory_usage_bytes{job="kubernetes-nodes-cadvisor", image!="", container!="POD"}) by (namespace)
-        "record": "namespace:container_memory_usage_bytes:sum"
-      - "expr": |
-          sum by (namespace, label_name) (
-              sum(rate(container_cpu_usage_seconds_total{job="kubernetes-nodes-cadvisor", image!="", container!="POD"}[5m])) by (namespace, pod)
-            * on (namespace, pod)
-              group_left(label_name) kube_pod_labels{job="kubernetes-service-endpoints"}
-          )
-        "record": "namespace:container_cpu_usage_seconds_total:sum_rate"
-      - "expr": |
-          sum by (namespace, label_name) (
-              sum(container_memory_usage_bytes{job="kubernetes-nodes-cadvisor",image!="", container!="POD"}) by (pod, namespace)
-            * on (namespace, pod)
-              group_left(label_name) kube_pod_labels{job="kubernetes-service-endpoints"}
-          )
-        "record": "namespace:container_memory_usage_bytes:sum"
-      - "expr": |
-          sum by (namespace, label_name) (
-              sum(kube_pod_container_resource_requests_memory_bytes{job="kubernetes-service-endpoints"} * on (endpoint, instance, job, namespace, pod, service) group_left(phase) (kube_pod_status_phase{phase=~"^(Pending|Running)$"} == 1)) by (namespace, pod)
-            * on (namespace, pod)
-              group_left(label_name) kube_pod_labels{job="kubernetes-service-endpoints"}
-          )
-        "record": "namespace:kube_pod_container_resource_requests_memory_bytes:sum"
-      - "expr": |
-          sum by (namespace, label_name) (
-              sum(kube_pod_container_resource_requests_cpu_cores{job="kubernetes-service-endpoints"} * on (endpoint, instance, job, namespace, pod, service) group_left(phase) (kube_pod_status_phase{phase=~"^(Pending|Running)$"} == 1)) by (namespace, pod)
-            * on (namespace, pod)
-              group_left(label_name) kube_pod_labels{job="kubernetes-service-endpoints"}
-          )
-        "record": "namespace:kube_pod_container_resource_requests_cpu_cores:sum"
-      - "expr": |
-          sum(
-            label_replace(
-              label_replace(
-                kube_pod_owner{job="kubernetes-service-endpoints", owner_kind="ReplicaSet"},
-                "replicaset", "$1", "owner_name", "(.*)"
-              ) * on(replicaset, namespace) group_left(owner_name) kube_replicaset_owner{job="kubernetes-service-endpoints"},
-              "workload", "$1", "owner_name", "(.*)"
-            )
-          ) by (namespace, workload, pod)
-        "labels":
-          "workload_type": "deployment"
-        "record": "mixin_pod_workload"
-      - "expr": |
-          sum(
-            label_replace(
-              kube_pod_owner{job="kubernetes-service-endpoints", owner_kind="DaemonSet"},
-              "workload", "$1", "owner_name", "(.*)"
-            )
-          ) by (namespace, workload, pod)
-        "labels":
-          "workload_type": "daemonset"
-        "record": "mixin_pod_workload"
-      - "expr": |
-          sum(
-            label_replace(
-              kube_pod_owner{job="kubernetes-service-endpoints", owner_kind="StatefulSet"},
-              "workload", "$1", "owner_name", "(.*)"
-            )
-          ) by (namespace, workload, pod)
-        "labels":
-          "workload_type": "statefulset"
-        "record": "mixin_pod_workload"
-    - "name": "kube-scheduler.rules"
-      "rules":
-      - "expr": |
-          histogram_quantile(0.99, sum(rate(scheduler_e2e_scheduling_duration_seconds_bucket{job="kubernetes-nodes"}[5m])) without(instance, pod))
-        "labels":
-          "quantile": "0.99"
-        "record": "cluster_quantile:scheduler_e2e_scheduling_duration_seconds:histogram_quantile"
-      - "expr": |
-          histogram_quantile(0.99, sum(rate(scheduler_scheduling_algorithm_duration_seconds_bucket{job="kubernetes-nodes"}[5m])) without(instance, pod))
-        "labels":
-          "quantile": "0.99"
-        "record": "cluster_quantile:scheduler_scheduling_algorithm_duration_seconds:histogram_quantile"
-      - "expr": |
-          histogram_quantile(0.99, sum(rate(scheduler_binding_duration_seconds_bucket{job="kubernetes-nodes"}[5m])) without(instance, pod))
-        "labels":
-          "quantile": "0.99"
-        "record": "cluster_quantile:scheduler_binding_duration_seconds:histogram_quantile"
-      - "expr": |
-          histogram_quantile(0.9, sum(rate(scheduler_e2e_scheduling_duration_seconds_bucket{job="kubernetes-nodes"}[5m])) without(instance, pod))
-        "labels":
-          "quantile": "0.9"
-        "record": "cluster_quantile:scheduler_e2e_scheduling_duration_seconds:histogram_quantile"
-      - "expr": |
-          histogram_quantile(0.9, sum(rate(scheduler_scheduling_algorithm_duration_seconds_bucket{job="kubernetes-nodes"}[5m])) without(instance, pod))
-        "labels":
-          "quantile": "0.9"
-        "record": "cluster_quantile:scheduler_scheduling_algorithm_duration_seconds:histogram_quantile"
-      - "expr": |
-          histogram_quantile(0.9, sum(rate(scheduler_binding_duration_seconds_bucket{job="kubernetes-nodes"}[5m])) without(instance, pod))
-        "labels":
-          "quantile": "0.9"
-        "record": "cluster_quantile:scheduler_binding_duration_seconds:histogram_quantile"
-      - "expr": |
-          histogram_quantile(0.5, sum(rate(scheduler_e2e_scheduling_duration_seconds_bucket{job="kubernetes-nodes"}[5m])) without(instance, pod))
-        "labels":
-          "quantile": "0.5"
-        "record": "cluster_quantile:scheduler_e2e_scheduling_duration_seconds:histogram_quantile"
-      - "expr": |
-          histogram_quantile(0.5, sum(rate(scheduler_scheduling_algorithm_duration_seconds_bucket{job="kubernetes-nodes"}[5m])) without(instance, pod))
-        "labels":
-          "quantile": "0.5"
-        "record": "cluster_quantile:scheduler_scheduling_algorithm_duration_seconds:histogram_quantile"
-      - "expr": |
-          histogram_quantile(0.5, sum(rate(scheduler_binding_duration_seconds_bucket{job="kubernetes-nodes"}[5m])) without(instance, pod))
-        "labels":
-          "quantile": "0.5"
-        "record": "cluster_quantile:scheduler_binding_duration_seconds:histogram_quantile"
-    - "name": "kube-apiserver.rules"
-      "rules":
-      - "expr": |
-          histogram_quantile(0.99, sum(rate(apiserver_request_duration_seconds_bucket{job="kubernetes-apiservers"}[5m])) without(instance, pod))
-        "labels":
-          "quantile": "0.99"
-        "record": "cluster_quantile:apiserver_request_duration_seconds:histogram_quantile"
-      - "expr": |
-          histogram_quantile(0.9, sum(rate(apiserver_request_duration_seconds_bucket{job="kubernetes-apiservers"}[5m])) without(instance, pod))
-        "labels":
-          "quantile": "0.9"
-        "record": "cluster_quantile:apiserver_request_duration_seconds:histogram_quantile"
-      - "expr": |
-          histogram_quantile(0.5, sum(rate(apiserver_request_duration_seconds_bucket{job="kubernetes-apiservers"}[5m])) without(instance, pod))
-        "labels":
-          "quantile": "0.5"
-        "record": "cluster_quantile:apiserver_request_duration_seconds:histogram_quantile"
-    - "name": "node.rules"
-      "rules":
-      - "expr": "sum(min(kube_pod_info) by (kubernetes_node))"
-        "record": ":kube_pod_info_node_count:"
-      - "expr": |
-          max by(kubernetes_node, namespace, pod) (label_replace(kube_pod_info{job="kubernetes-service-endpoints"}, "kubernetes_node", "$1", "node", "(.*)"))
-        "record": "node_namespace_pod:kube_pod_info:"
-      - "expr": |
-          count by (kubernetes_node) (sum by (kubernetes_node, cpu) (
-            node_cpu_seconds_total{job="kubernetes-service-endpoints"}
-          * on (namespace, pod) group_left(kubernetes_node)
-            node_namespace_pod:kube_pod_info:
-          ))
-        "record": "node:node_num_cpu:sum"
-      - "expr": |
-          1 - avg(rate(node_cpu_seconds_total{job="kubernetes-service-endpoints",mode="idle"}[1m]))
-        "record": ":node_cpu_utilisation:avg1m"
-      - "expr": |
-          1 - avg by (kubernetes_node) (
-            rate(node_cpu_seconds_total{job="kubernetes-service-endpoints",mode="idle"}[1m])
-          * on (namespace, pod) group_left(kubernetes_node)
-            node_namespace_pod:kube_pod_info:)
-        "record": "node:node_cpu_utilisation:avg1m"
-      - "expr": |
-          node:node_cpu_utilisation:avg1m
-            *
-          node:node_num_cpu:sum
-            /
-          scalar(sum(node:node_num_cpu:sum))
-        "record": "node:cluster_cpu_utilisation:ratio"
-      - "expr": |
-          sum(node_load1{job="kubernetes-service-endpoints"})
-          /
-          sum(node:node_num_cpu:sum)
-        "record": ":node_cpu_saturation_load1:"
-      - "expr": |
-          sum by (kubernetes_node) (
-            node_load1{job="kubernetes-service-endpoints"}
-          * on (namespace, pod) group_left(kubernetes_node)
-            node_namespace_pod:kube_pod_info:
-          )
-          /
-          node:node_num_cpu:sum
-        "record": "node:node_cpu_saturation_load1:"
-      - "expr": |
-          1 -
-          sum(node_memory_MemFree_bytes{job="kubernetes-service-endpoints"} + node_memory_Cached_bytes{job="kubernetes-service-endpoints"} + node_memory_Buffers_bytes{job="kubernetes-service-endpoints"})
-          /
-          sum(node_memory_MemTotal_bytes{job="kubernetes-service-endpoints"})
-        "record": ":node_memory_utilisation:"
-      - "expr": |
-          sum(node_memory_MemFree_bytes{job="kubernetes-service-endpoints"} + node_memory_Cached_bytes{job="kubernetes-service-endpoints"} + node_memory_Buffers_bytes{job="kubernetes-service-endpoints"})
-        "record": ":node_memory_MemFreeCachedBuffers_bytes:sum"
-      - "expr": |
-          sum(node_memory_MemTotal_bytes{job="kubernetes-service-endpoints"})
-        "record": ":node_memory_MemTotal_bytes:sum"
-      - "expr": |
-          sum by (kubernetes_node) (
-            (node_memory_MemFree_bytes{job="kubernetes-service-endpoints"} + node_memory_Cached_bytes{job="kubernetes-service-endpoints"} + node_memory_Buffers_bytes{job="kubernetes-service-endpoints"})
-            * on (namespace, pod) group_left(kubernetes_node)
-              node_namespace_pod:kube_pod_info:
-          )
-        "record": "node:node_memory_bytes_available:sum"
-      - "expr": |
-          sum by (kubernetes_node) (
-            node_memory_MemTotal_bytes{job="kubernetes-service-endpoints"}
-            * on (namespace, pod) group_left(kubernetes_node)
-              node_namespace_pod:kube_pod_info:
-          )
-        "record": "node:node_memory_bytes_total:sum"
-      - "expr": |
-          (node:node_memory_bytes_total:sum - node:node_memory_bytes_available:sum)
-          /
-          node:node_memory_bytes_total:sum
-        "record": "node:node_memory_utilisation:ratio"
-      - "expr": |
-          (node:node_memory_bytes_total:sum - node:node_memory_bytes_available:sum)
-          /
-          scalar(sum(node:node_memory_bytes_total:sum))
-        "record": "node:cluster_memory_utilisation:ratio"
-      - "expr": |
-          1e3 * sum(
-            (rate(node_vmstat_pgpgin{job="kubernetes-service-endpoints"}[1m])
-          + rate(node_vmstat_pgpgout{job="kubernetes-service-endpoints"}[1m]))
-          )
-        "record": ":node_memory_swap_io_bytes:sum_rate"
-      - "expr": |
-          1 -
-          sum by (kubernetes_node) (
-            (node_memory_MemFree_bytes{job="kubernetes-service-endpoints"} + node_memory_Cached_bytes{job="kubernetes-service-endpoints"} + node_memory_Buffers_bytes{job="kubernetes-service-endpoints"})
-          * on (namespace, pod) group_left(kubernetes_node)
-            node_namespace_pod:kube_pod_info:
-          )
-          /
-          sum by (kubernetes_node) (
-            node_memory_MemTotal_bytes{job="kubernetes-service-endpoints"}
-          * on (namespace, pod) group_left(kubernetes_node)
-            node_namespace_pod:kube_pod_info:
-          )
-        "record": "node:node_memory_utilisation:"
-      - "expr": |
-          1 - (node:node_memory_bytes_available:sum / node:node_memory_bytes_total:sum)
-        "record": "node:node_memory_utilisation_2:"
-      - "expr": |
-          1e3 * sum by (kubernetes_node) (
-            (rate(node_vmstat_pgpgin{job="kubernetes-service-endpoints"}[1m])
-          + rate(node_vmstat_pgpgout{job="kubernetes-service-endpoints"}[1m]))
-          * on (namespace, pod) group_left(kubernetes_node)
-            node_namespace_pod:kube_pod_info:
-          )
-        "record": "node:node_memory_swap_io_bytes:sum_rate"
-      - "expr": |
-          avg(irate(node_disk_io_time_seconds_total{job="kubernetes-service-endpoints",device=~"nvme.+|rbd.+|sd.+|vd.+|xvd.+|dm-.+"}[1m]))
-        "record": ":node_disk_utilisation:avg_irate"
-      - "expr": |
-          avg by (kubernetes_node) (
-            irate(node_disk_io_time_seconds_total{job="kubernetes-service-endpoints",device=~"nvme.+|rbd.+|sd.+|vd.+|xvd.+|dm-.+"}[1m])
-          * on (namespace, pod) group_left(kubernetes_node)
-            node_namespace_pod:kube_pod_info:
-          )
-        "record": "node:node_disk_utilisation:avg_irate"
-      - "expr": |
-          avg(irate(node_disk_io_time_weighted_seconds_total{job="kubernetes-service-endpoints",device=~"nvme.+|rbd.+|sd.+|vd.+|xvd.+|dm-.+"}[1m]))
-        "record": ":node_disk_saturation:avg_irate"
-      - "expr": |
-          avg by (kubernetes_node) (
-            irate(node_disk_io_time_weighted_seconds_total{job="kubernetes-service-endpoints",device=~"nvme.+|rbd.+|sd.+|vd.+|xvd.+|dm-.+"}[1m])
-          * on (namespace, pod) group_left(kubernetes_node)
-            node_namespace_pod:kube_pod_info:
-          )
-        "record": "node:node_disk_saturation:avg_irate"
-      - "expr": |
-          max by (instance, namespace, pod, device) ((node_filesystem_size_bytes{fstype=~"ext[234]|btrfs|xfs|zfs"}
-          - node_filesystem_avail_bytes{fstype=~"ext[234]|btrfs|xfs|zfs"})
-          / node_filesystem_size_bytes{fstype=~"ext[234]|btrfs|xfs|zfs"})
-        "record": "node:node_filesystem_usage:"
-      - "expr": |
-          max by (instance, namespace, pod, device) (node_filesystem_avail_bytes{fstype=~"ext[234]|btrfs|xfs|zfs"} / node_filesystem_size_bytes{fstype=~"ext[234]|btrfs|xfs|zfs"})
-        "record": "node:node_filesystem_avail:"
-      - "expr": |
-          sum(irate(node_network_receive_bytes_total{job="kubernetes-service-endpoints",device!~"veth.+"}[1m])) +
-          sum(irate(node_network_transmit_bytes_total{job="kubernetes-service-endpoints",device!~"veth.+"}[1m]))
-        "record": ":node_net_utilisation:sum_irate"
-      - "expr": |
-          sum by (kubernetes_node) (
-            (irate(node_network_receive_bytes_total{job="kubernetes-service-endpoints",device!~"veth.+"}[1m]) +
-            irate(node_network_transmit_bytes_total{job="kubernetes-service-endpoints",device!~"veth.+"}[1m]))
-          * on (namespace, pod) group_left(kubernetes_node)
-            node_namespace_pod:kube_pod_info:
-          )
-        "record": "node:node_net_utilisation:sum_irate"
-      - "expr": |
-          sum(irate(node_network_receive_drop_total{job="kubernetes-service-endpoints",device!~"veth.+"}[1m])) +
-          sum(irate(node_network_transmit_drop_total{job="kubernetes-service-endpoints",device!~"veth.+"}[1m]))
-        "record": ":node_net_saturation:sum_irate"
-      - "expr": |
-          sum by (kubernetes_node) (
-            (irate(node_network_receive_drop_total{job="kubernetes-service-endpoints",device!~"veth.+"}[1m]) +
-            irate(node_network_transmit_drop_total{job="kubernetes-service-endpoints",device!~"veth.+"}[1m]))
-          * on (namespace, pod) group_left(kubernetes_node)
-            node_namespace_pod:kube_pod_info:
-          )
-        "record": "node:node_net_saturation:sum_irate"
-      - "expr": |
-          max(
-            max(
-              kube_pod_info{job="kubernetes-service-endpoints", host_ip!=""}
-            ) by (node, host_ip)
-            * on (host_ip) group_right (kubernetes_node)
-            label_replace(
-              (max(node_filesystem_files{job="kubernetes-service-endpoints", mountpoint="/"}) by (instance)), "host_ip", "$1", "instance", "(.*):.*"
-            )
-          ) by (kubernetes_node)
-        "record": "node:node_inodes_total:"
-      - "expr": |
-          max(
-            max(
-              kube_pod_info{job="kubernetes-service-endpoints", host_ip!=""}
-            ) by (kubernetes_node, host_ip)
-            * on (host_ip) group_right (kubernetes_node)
-            label_replace(
-              (max(node_filesystem_files_free{job="kubernetes-service-endpoints", mountpoint="/"}) by (instance)), "host_ip", "$1", "instance", "(.*):.*"
-            )
-          ) by (kubernetes_node)
-        "record": "node:node_inodes_free:"
+  - "name": "Sysdig.general.rules"
+    "rules":
+    - "expr": up{job=~"kubernetes-nodes|kubernetes-apiservers"}
+      "record": "up:kubernetes"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        process_resident_memory_bytes{job=~"kubernetes-nodes|kubernetes-apiservers"}
+      "record": "process_resident_memory_bytes:kubernetes"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        process_cpu_seconds_total{job=~"kubernetes-nodes|kubernetes-apiservers"}
+      "record": "process_cpu_seconds_total:kubernetes"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        go_goroutines{job=~"kubernetes-nodes|kubernetes-apiservers"}
+      "record": "go_goroutines:kubernetes"
+      "labels":
+        "sysdig": "true"
+  - "name": "Sysdig.kubelet.rules"
+    "rules":
+    - "expr": kubelet_running_pod_count{job="kubernetes-nodes"}
+      "record": "kubelet_running_pod_count:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": kubelet_running_container_count{job="kubernetes-nodes"}
+      "record": "kubelet_running_container_count:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": volume_manager_total_volumes{job="kubernetes-nodes"}
+      "record": "volume_manager_total_volumes:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": volume_manager_total_volumes{job="kubernetes-nodes",state="desired_state_of_world"}
+      "record": "volume_manager_total_volumes:desired:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": kubelet_node_config_error{job="kubernetes-nodes"}
+      "record": "kubelet_node_config_error:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": kubelet_runtime_operations_total{job="kubernetes-nodes"}
+      "record": "kubelet_runtime_operations_total:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": kubelet_runtime_operations_errors_total{job="kubernetes-nodes"}
+      "record": "kubelet_runtime_operations_errors_total:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        histogram_quantile(0.99, sum(rate(kubelet_runtime_operations_duration_seconds_bucket{job="kubernetes-nodes"}[5m])) by (instance, operation_type, le)) 
+      "record": "operation_duration_seconds:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        kubelet_pod_start_duration_seconds_count{job="kubernetes-nodes"}    
+      "record": "kubelet_pod_start_duration_seconds_count:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        kubelet_pod_worker_duration_seconds_count{job="kubernetes-nodes"}       
+      "record": "kubelet_pod_worker_duration_seconds_count:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        histogram_quantile(0.99, sum(rate(kubelet_pod_start_duration_seconds_bucket{job="kubernetes-nodes"}[5m])) by (instance, le))
+      "record": "pod_start_duration_seconds:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        histogram_quantile(0.99, sum(rate(kubelet_pod_worker_duration_seconds_bucket{job="kubernetes-nodes"}[5m])) by (instance, le))
+      "record": "pod_worker_duration_seconds:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        storage_operation_duration_seconds_count{job="kubernetes-nodes"}
+      "record": "storage_operation_duration_seconds_count:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        storage_operation_errors_total{job="kubernetes-nodes"}
+      "record": "storage_operation_errors_total:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        histogram_quantile(0.99, sum(rate(storage_operation_duration_seconds_bucket{job="kubernetes-nodes"}[5m])) by (instance, operation_name, volume_plugin, le))
+      "record": "storage_operation_duration_seconds:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+
+    - "expr": |
+        kubelet_cgroup_manager_duration_seconds_count{job="kubernetes-nodes"}
+      "record": "kubelet_cgroup_manager_duration_seconds_count:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        histogram_quantile(0.99, sum(rate(kubelet_cgroup_manager_duration_seconds_bucket{job="kubernetes-nodes"}[5m])) by (instance, operation_type, le))
+      "record": "cgroup_manager_duration_seconds:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        kubelet_pleg_relist_duration_seconds_count{job="kubernetes-nodes"}
+      "record": "kubelet_pleg_relist_duration_seconds_count:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        histogram_quantile(0.99, sum(rate(kubelet_pleg_relist_interval_seconds_bucket{job="kubernetes-nodes"}[5m])) by (instance, le))
+      "record": "pleg_relist_interval_seconds:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        histogram_quantile(0.99, sum(rate(kubelet_pleg_relist_duration_seconds_bucket{job="kubernetes-nodes"}[5m])) by (instance, le))
+      "record": "pleg_relist_duration_seconds:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        rest_client_requests_total{job="kubernetes-nodes",code=~"2.."}
+      "record": "rest_client_requests_total_2code:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        rest_client_requests_total{job="kubernetes-nodes",code=~"3.."}
+      "record": "rest_client_requests_total_3code:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        rest_client_requests_total{job="kubernetes-nodes",code=~"4.."}
+      "record": "rest_client_requests_total_4code:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        rest_client_requests_total{job="kubernetes-nodes",code=~"5.."}
+      "record": "rest_client_requests_total_5code:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job="kubernetes-nodes"}[5m])) by (instance, verb, url, le))
+      "record": "request_duration_seconds:kubernetes_nodes"
+      "labels":
+        "sysdig": "true"
+  - "name": "Sysdig.scheduler.rules"
+    "rules":
+    - "expr": up{k8s_app="kube-scheduler"}
+      "record": "up:kube_scheduler"
+      "labels":
+        "sysdig": "true"
+    - "expr": scheduler_e2e_scheduling_duration_seconds_count{k8s_app="kube-scheduler"}
+      "record": "scheduler_e2e_scheduling_duration_seconds_count:kube_scheduler"
+      "labels":
+        "sysdig": "true"
+    - "expr": scheduler_binding_duration_seconds_count{k8s_app="kube-scheduler"}
+      "record": "scheduler_binding_duration_seconds_count:kube_scheduler"
+      "labels":
+        "sysdig": "true"
+    - "expr": scheduler_scheduling_algorithm_duration_seconds_count{k8s_app="kube-scheduler"}
+      "record": "scheduler_scheduling_algorithm_duration_seconds_count:kube_scheduler"
+      "labels":
+        "sysdig": "true"
+    - "expr": scheduler_volume_scheduling_duration_seconds_count{k8s_app="kube-scheduler"}
+      "record": "scheduler_volume_scheduling_duration_seconds_count:kube_scheduler"
+      "labels":
+        "sysdig": "true"
+    - "expr": histogram_quantile(0.99, sum(rate(scheduler_e2e_scheduling_duration_seconds_bucket{k8s_app="kube-scheduler"}[5m])) by (instance, le))
+      "record": "scheduler_volume_scheduling_duration_seconds_count:kube_scheduler"
+      "labels":
+        "sysdig": "true"
+    - "expr": histogram_quantile(0.99, sum(rate(scheduler_binding_duration_seconds_bucket{k8s_app="kube-scheduler"}[5m])) by (instance, le))
+      "record": "scheduler_binding_duration_seconds_bucket:kube_scheduler"
+      "labels":
+        "sysdig": "true"
+    - "expr": histogram_quantile(0.99, sum(rate(scheduler_scheduling_algorithm_duration_seconds_bucket{k8s_app="kube-scheduler"}[5m])) by (instance, le))
+      "record": "scheduler_scheduling_algorithm_duration_seconds_bucket:kube_scheduler"
+      "labels":
+        "sysdig": "true"
+    - "expr": histogram_quantile(0.99, sum(rate(scheduler_volume_scheduling_duration_seconds_bucket{k8s_app="kube-scheduler"}[5m])) by (instance, le))
+      "record": "scheduler_volume_scheduling_duration_seconds_bucket:kube_scheduler"
+      "labels":
+        "sysdig": "true"
+    - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{k8s_app="kube-scheduler"}[5m])) by (verb, url, le))
+      "record": "rest_client_request_latency_seconds_bucket:kube_scheduler"
+      "labels":
+        "sysdig": "true"
+    - "expr": rest_client_requests_total{k8s_app="kube-scheduler"}
+      "record": "rest_client_requests_total:kube_scheduler"
+      "labels":
+        "sysdig": "true"
   
+  - "name": "Sysdig.api.rules"
+    "rules":
+    - "expr": apiserver_request_total{job="kubernetes-apiservers"}
+      "record": "apiserver_request_total:kubernetes_apiservers"
+      "labels":
+        "sysdig": "true"
+    - "expr": histogram_quantile(0.99, sum(rate(apiserver_request_duration_seconds_bucket{job="kubernetes-apiservers"}[5m])) by (verb, le))
+      "record": "apiserver_request_duration_seconds_bucket:kubernetes_apiservers"
+      "labels":
+        "sysdig": "true"
+    - "expr": workqueue_adds_total{job="kubernetes-apiservers"}
+      "record": "workqueue_adds_total:kubernetes_apiservers"
+      "labels":
+        "sysdig": "true"
+    - "expr": workqueue_depth{job="kubernetes-apiservers"}
+      "record": "workqueue_depth:kubernetes_apiservers"
+      "labels":
+        "sysdig": "true"
+    - "expr": histogram_quantile(0.99, sum(rate(workqueue_queue_duration_seconds_bucket{job="kubernetes-apiservers"}[5m])) by (instance, name, le))
+      "record": "workqueue_queue_duration_seconds_bucket:kubernetes_apiservers"
+      "labels":
+        "sysdig": "true"
+    - "expr": etcd_helper_cache_entry_total{job="kubernetes-apiservers"}
+      "record": "etcd_helper_cache_entry_total:kubernetes_apiservers"
+      "labels":
+        "sysdig": "true"
+    - "expr": etcd_helper_cache_hit_total{job="kubernetes-apiservers"}
+      "record": "etcd_helper_cache_hit_total:kubernetes_apiservers"
+      "labels":
+        "sysdig": "true"
+    - "expr": etcd_helper_cache_miss_total{job="kubernetes-apiservers"}
+      "record": "etcd_helper_cache_miss_total:kubernetes_apiservers"
+      "labels":
+        "sysdig": "true"
+    - "expr": histogram_quantile(0.99,sum(rate(etcd_request_cache_get_duration_seconds_bucket{job="kubernetes-apiservers"}[5m])) by (instance, le))
+      "record": "etcd_request_cache_get_duration_seconds_bucket:kubernetes_apiservers"
+      "labels":
+        "sysdig": "true"
+    - "expr": histogram_quantile(0.99,sum(rate(etcd_request_cache_add_duration_seconds_bucket{job="kubernetes-apiservers"}[5m])) by (instance, le))
+      "record": "etcd_request_cache_add_duration_seconds_bucket:kubernetes_apiservers"
+      "labels":
+        "sysdig": "true"
+  - "name": "k8s.Sysdig.controllermanager"
+    "rules":
+    - "expr": up{k8s_app="kube-controller-manager"}
+      "record": "up:controllermanager"
+      "labels":
+        "sysdig": "true"
+    - "expr": workqueue_adds_total{k8s_app="kube-controller-manager"}
+      "record": "workqueue_adds_total:kubernetes_control_manager"
+      "labels":
+        "sysdig": "true"
+    - "expr": workqueue_depth{k8s_app="kube-controller-manager"}
+      "record": "workqueue_depth:kubernetes_control_manager"
+      "labels":
+        "sysdig": "true"
+    - "expr": histogram_quantile(0.99, sum(rate(workqueue_queue_duration_seconds_bucket{k8s_app="kube-controller-manager"}[5m])) by (instance, name, le))
+      "record": "workqueue_queue_duration_seconds_bucket:kubernetes_control_manager"
+      "labels":
+        "sysdig": "true"
+    - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{k8s_app="kube-controller-manager", verb="POST"}[5m])) by (verb, url, le))
+      "record": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:post"
+      "labels":
+        "sysdig": "true"
+    - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{k8s_app="kube-controller-manager", verb="GET"}[5m])) by (verb, url, le))
+      "record": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:get"
+      "labels":
+        "sysdig": "true"
+    - "expr": rest_client_requests_total{k8s_app="kube-controller-manager"}
+      "record": "rest_client_requests_total:kubernetes_control_manager"
+      "labels":
+        "sysdig": "true"
