@@ -19,7 +19,7 @@ description: |
     ```
   2. Install the helm chart for Prometheus
     ```
-    helm install -n monitoring stable/prometheus
+    helm install prometheus -n monitoring stable/prometheus
     ```
   3. Annotate the manifest of kube-controller-manager located in */etc/kubernetes/manifests/kube-controller-manager.manifest*
     ```
@@ -42,7 +42,7 @@ description: |
     ```
     kubectl apply -f config.yaml
     ```
-    
+
 data: |
   apiVersion: v1
   kind: ConfigMap
