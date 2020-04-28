@@ -32,6 +32,24 @@ description: |
     kubectl apply -f prometheus-cm.yaml
     ```
 
+    ---
+    **NOTE**
+
+    If you are using kops, you will have to change the cluster spec to expose the port for the proxy
+    ````
+    kops --state s3://name-of-s3 --name cluster-name edit cluster
+    ```
+    And add the follow
+    ```
+    kubeProxy:
+      metricsBindAddress: 0.0.0.0
+    ```
+    And update the cluster
+    ```
+    kops --state s3://name-of-s3 --name cluster-name rolling-update cluster --yes
+    ```
+    ---
+
   If we want to use the Sysdig agent too, we have to create the recording rules for only scrape the metrics we will use in our dashboards.
 
   1. Apply the rules
