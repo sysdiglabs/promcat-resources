@@ -21,16 +21,17 @@ description: |
     ```
     helm install prometheus -n monitoring stable/prometheus
     ```
-  3. Annotate the manifest of kube-controller-manager located in */etc/kubernetes/manifests/kube-controller-manager.manifest*
+  3. Apply the configuration for prometheus, is the configmap prometheus-server, the configuration has the recording rules and the alerts added if we only want 
+     the prometheus part we have to delete this lines:
     ```
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "10252"
+    - /opt/rules/rules.yaml
+    - /opt/alerts/alerts.yaml
     ```
-  4. Annotate the manifest of kube-scheduler located in */etc/kubernetes/manifest/kube-scheduler.manifest*
+    Once we have the file with only the configmap for prometheus we have to apply, if we have save it as prometheus-cm.yaml then execute the next command:
     ```
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "10251"
+    kubectl apply -f prometheus-cm.yaml
     ```
+
   If we want to use the Sysdig agent too, we have to create the recording rules for only scrape the metrics we will use in our dashboards.
 
   1. Apply the rules
@@ -267,7 +268,7 @@ data: |
   apiVersion: v1
   kind: ConfigMap
   metadata:
-    name: rules
+    name: prometheus-server
     namespace: monitoring
   data:
     alerting_rules.yml: |
@@ -284,6 +285,8 @@ data: |
       - /etc/config/alerting_rules.yml
       - /etc/config/rules
       - /etc/config/alerts
+      - /opt/rules/rules.yaml
+      - /opt/alerts/alerts.yaml
       scrape_configs:
       - job_name: prometheus
         static_configs:
@@ -446,6 +449,75 @@ data: |
           source_labels:
           - __meta_kubernetes_pod_name
           target_label: kubernetes_pod_name
+      - job_name: kubernetes-kube-controller-manager
+        honor_labels: true
+        kubernetes_sd_configs:
+        - role: pod
+        relabel_configs:
+        - action: keep
+          source_labels: 
+          - __meta_kubernetes_namespace
+          - __meta_kubernetes_pod_label_k8s_app
+          separator: '/'
+          regex: 'kube-system/kube-controller-manager'
+        - source_labels: 
+          - __address__
+          action: replace
+          target_label: __address__
+          regex: (.+?)(\\:\\d+)?
+          replacement: $1:10252
+        - source_labels: 
+          - __meta_kubernetes_pod_name
+          action: replace
+          target_label: instance
+        - action: labelmap
+          regex: __meta_kubernetes_pod_label_(.+)
+      - job_name: kubernetes-kube-scheduler
+        honor_labels: true
+        kubernetes_sd_configs:
+        - role: pod
+        relabel_configs:
+        - action: keep
+          source_labels: 
+          - __meta_kubernetes_namespace
+          - __meta_kubernetes_pod_label_k8s_app
+          separator: '/'
+          regex: 'kube-system/kube-scheduler'
+        - source_labels: 
+          - __address__
+          action: replace
+          target_label: __address__
+          regex: (.+?)(\\:\\d+)?
+          replacement: $1:10251
+        - source_labels: 
+          - __meta_kubernetes_pod_name
+          action: replace
+          target_label: instance
+        - action: labelmap
+          regex: __meta_kubernetes_pod_label_(.+)
+      - job_name: kubernetes-kube-proxy
+        honor_labels: true
+        kubernetes_sd_configs:
+        - role: pod
+        relabel_configs:
+        - action: keep
+          source_labels: 
+          - __meta_kubernetes_namespace
+          - __meta_kubernetes_pod_label_k8s_app
+          separator: '/'
+          regex: 'kube-system/kube-proxy'
+        - source_labels: 
+          - __address__
+          action: replace
+          target_label: __address__
+          regex: (.+?)(\\:\\d+)?
+          replacement: $1:10249
+        - source_labels: 
+          - __meta_kubernetes_pod_name
+          action: replace
+          target_label: instance
+        - action: labelmap
+          regex: __meta_kubernetes_pod_label_(.+)
       alerting:
         alertmanagers:
         - kubernetes_sd_configs:

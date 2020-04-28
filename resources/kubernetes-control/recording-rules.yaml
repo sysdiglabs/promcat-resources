@@ -12,7 +12,7 @@ description: |
   
 data: |
   "groups":
-  - "name": "Sysdig.general.rules"
+  - "name": "Sysdig.k8s.general.rules"
     "rules":
     - "expr": up{job=~"kubernetes-nodes|kubernetes-apiservers"}
       "record": "up:kubernetes"
@@ -33,7 +33,8 @@ data: |
       "record": "go_goroutines:kubernetes"
       "labels":
         "sysdig": "true"
-  - "name": "Sysdig.kubelet.rules"
+
+  - "name": "Sysdig.k8s.kubelet.rules"
     "rules":
     - "expr": kubelet_running_pod_count{job="kubernetes-nodes"}
       "record": "kubelet_running_pod_count:kubernetes_nodes"
@@ -103,7 +104,6 @@ data: |
       "record": "storage_operation_duration_seconds:kubernetes_nodes"
       "labels":
         "sysdig": "true"
-
     - "expr": |
         kubelet_cgroup_manager_duration_seconds_count{job="kubernetes-nodes"}
       "record": "kubelet_cgroup_manager_duration_seconds_count:kubernetes_nodes"
@@ -154,54 +154,70 @@ data: |
       "record": "request_duration_seconds:kubernetes_nodes"
       "labels":
         "sysdig": "true"
-  - "name": "Sysdig.scheduler.rules"
+
+  - "name": "Sysdig.k8s.scheduler.rules"
     "rules":
-    - "expr": up{k8s_app="kube-scheduler"}
+    - "expr": up{job="kubernetes-kube-scheduler"}
       "record": "up:kube_scheduler"
       "labels":
         "sysdig": "true"
-    - "expr": scheduler_e2e_scheduling_duration_seconds_count{k8s_app="kube-scheduler"}
+    - "expr": scheduler_e2e_scheduling_duration_seconds_count{job="kubernetes-kube-scheduler"}
       "record": "scheduler_e2e_scheduling_duration_seconds_count:kube_scheduler"
       "labels":
         "sysdig": "true"
-    - "expr": scheduler_binding_duration_seconds_count{k8s_app="kube-scheduler"}
+    - "expr": scheduler_binding_duration_seconds_count{job="kubernetes-kube-scheduler"}
       "record": "scheduler_binding_duration_seconds_count:kube_scheduler"
       "labels":
         "sysdig": "true"
-    - "expr": scheduler_scheduling_algorithm_duration_seconds_count{k8s_app="kube-scheduler"}
+    - "expr": scheduler_scheduling_algorithm_duration_seconds_count{job="kubernetes-kube-scheduler"}
       "record": "scheduler_scheduling_algorithm_duration_seconds_count:kube_scheduler"
       "labels":
         "sysdig": "true"
-    - "expr": scheduler_volume_scheduling_duration_seconds_count{k8s_app="kube-scheduler"}
+    - "expr": scheduler_volume_scheduling_duration_seconds_count{job="kubernetes-kube-scheduler"}
       "record": "scheduler_volume_scheduling_duration_seconds_count:kube_scheduler"
       "labels":
         "sysdig": "true"
-    - "expr": histogram_quantile(0.99, sum(rate(scheduler_e2e_scheduling_duration_seconds_bucket{k8s_app="kube-scheduler"}[5m])) by (instance, le))
+    - "expr": histogram_quantile(0.99, sum(rate(scheduler_e2e_scheduling_duration_seconds_bucket{job="kubernetes-kube-scheduler"}[5m])) by (instance, le))
       "record": "scheduler_volume_scheduling_duration_seconds_count:kube_scheduler"
       "labels":
         "sysdig": "true"
-    - "expr": histogram_quantile(0.99, sum(rate(scheduler_binding_duration_seconds_bucket{k8s_app="kube-scheduler"}[5m])) by (instance, le))
+    - "expr": histogram_quantile(0.99, sum(rate(scheduler_binding_duration_seconds_bucket{job="kubernetes-kube-scheduler"}[5m])) by (instance, le))
       "record": "scheduler_binding_duration_seconds_bucket:kube_scheduler"
       "labels":
         "sysdig": "true"
-    - "expr": histogram_quantile(0.99, sum(rate(scheduler_scheduling_algorithm_duration_seconds_bucket{k8s_app="kube-scheduler"}[5m])) by (instance, le))
+    - "expr": histogram_quantile(0.99, sum(rate(scheduler_scheduling_algorithm_duration_seconds_bucket{job="kubernetes-kube-scheduler"}[5m])) by (instance, le))
       "record": "scheduler_scheduling_algorithm_duration_seconds_bucket:kube_scheduler"
       "labels":
         "sysdig": "true"
-    - "expr": histogram_quantile(0.99, sum(rate(scheduler_volume_scheduling_duration_seconds_bucket{k8s_app="kube-scheduler"}[5m])) by (instance, le))
+    - "expr": histogram_quantile(0.99, sum(rate(scheduler_volume_scheduling_duration_seconds_bucket{job="kubernetes-kube-scheduler"}[5m])) by (instance, le))
       "record": "scheduler_volume_scheduling_duration_seconds_bucket:kube_scheduler"
       "labels":
         "sysdig": "true"
-    - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{k8s_app="kube-scheduler"}[5m])) by (verb, url, le))
+    - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job="kubernetes-kube-scheduler"}[5m])) by (verb, url, le))
       "record": "rest_client_request_latency_seconds_bucket:kube_scheduler"
       "labels":
         "sysdig": "true"
-    - "expr": rest_client_requests_total{k8s_app="kube-scheduler"}
+    - "expr": rest_client_requests_total{job="kubernetes-kube-scheduler"}
       "record": "rest_client_requests_total:kube_scheduler"
       "labels":
         "sysdig": "true"
+    - "expr": |
+        process_resident_memory_bytes{job="kubernetes-kube-scheduler"}
+      "record": "process_resident_memory_bytes:kube_scheduler"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        process_cpu_seconds_total{job="kubernetes-kube-scheduler"}
+      "record": "process_cpu_seconds_total:kube_scheduler"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        go_goroutines{job="kubernetes-kube-scheduler"}
+      "record": "go_goroutines:kube_scheduler"
+      "labels":
+        "sysdig": "true"
   
-  - "name": "Sysdig.api.rules"
+  - "name": "Sysdig.k8s.api.rules"
     "rules":
     - "expr": apiserver_request_total{job="kubernetes-apiservers"}
       "record": "apiserver_request_total:kubernetes_apiservers"
@@ -243,33 +259,99 @@ data: |
       "record": "etcd_request_cache_add_duration_seconds_bucket:kubernetes_apiservers"
       "labels":
         "sysdig": "true"
-  - "name": "k8s.Sysdig.controllermanager"
+
+  - "name": "Sysdig.k8s.controller_manager.rules"
     "rules":
-    - "expr": up{k8s_app="kube-controller-manager"}
+    - "expr": up{job="kubernetes-kube-controller-manager"}
       "record": "up:controllermanager"
       "labels":
         "sysdig": "true"
-    - "expr": workqueue_adds_total{k8s_app="kube-controller-manager"}
+    - "expr": workqueue_adds_total{job="kubernetes-kube-controller-manager"}
       "record": "workqueue_adds_total:kubernetes_control_manager"
       "labels":
         "sysdig": "true"
-    - "expr": workqueue_depth{k8s_app="kube-controller-manager"}
+    - "expr": workqueue_depth{job="kubernetes-kube-controller-manager"}
       "record": "workqueue_depth:kubernetes_control_manager"
       "labels":
         "sysdig": "true"
-    - "expr": histogram_quantile(0.99, sum(rate(workqueue_queue_duration_seconds_bucket{k8s_app="kube-controller-manager"}[5m])) by (instance, name, le))
+    - "expr": histogram_quantile(0.99, sum(rate(workqueue_queue_duration_seconds_bucket{job="kubernetes-kube-controller-manager"}[5m])) by (instance, name, le))
       "record": "workqueue_queue_duration_seconds_bucket:kubernetes_control_manager"
       "labels":
         "sysdig": "true"
-    - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{k8s_app="kube-controller-manager", verb="POST"}[5m])) by (verb, url, le))
+    - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job="kubernetes-kube-controller-manager", verb="POST"}[5m])) by (verb, url, le))
       "record": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:post"
       "labels":
         "sysdig": "true"
-    - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{k8s_app="kube-controller-manager", verb="GET"}[5m])) by (verb, url, le))
+    - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job="kubernetes-kube-controller-manager", verb="GET"}[5m])) by (verb, url, le))
       "record": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:get"
       "labels":
         "sysdig": "true"
-    - "expr": rest_client_requests_total{k8s_app="kube-controller-manager"}
+    - "expr": rest_client_requests_total{job="kubernetes-kube-controller-manager"}
       "record": "rest_client_requests_total:kubernetes_control_manager"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        process_resident_memory_bytes{job="kubernetes-kube-controller-manager"}
+      "record": "process_resident_memory_bytes:kubernetes_control_manager"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        process_cpu_seconds_total{job="kubernetes-kube-controller-manager"}
+      "record": "process_cpu_seconds_total:kubernetes_control_manager"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        go_goroutines{job="kubernetes-kube-controller-manager"}
+      "record": "go_goroutines:kubernetes_control_manager"
+      "labels":
+        "sysdig": "true"
+  
+  - "name": "Sysdig.k8s.kube_proxy.rules"
+    "rules":
+    - "expr": up{job="kubernetes-kube-proxy"}
+      "record": "up:kube_proxy"
+      "labels":
+        "sysdig": "true"
+    - "expr" : kubeproxy_sync_proxy_rules_duration_seconds_count{job="kubernetes-kube-proxy"}
+      "record": "kubeproxy_sync_proxy_rules_duration_seconds_count:kube_proxy"
+      "labels":
+        "sysdig": "true"
+    - "expr" : histogram_quantile(0.99,rate(kubeproxy_sync_proxy_rules_duration_seconds_bucket{job="kubernetes-kube-proxy"}[5m]))
+      "record": "kubeproxy_sync_proxy_rules_duration_seconds_bucket:kube_proxy"
+      "labels":
+        "sysdig": "true"
+    - "expr" : kubeproxy_network_programming_duration_seconds_count{job="kubernetes-kube-proxy"}
+      "record": "kubeproxy_network_programming_duration_seconds_count:kube_proxy"
+      "labels":
+        "sysdig": "true"
+    - "expr" : histogram_quantile(0.99, sum(rate(kubeproxy_network_programming_duration_seconds_bucket{job="kubernetes-kube-proxy"}[5m])) by (instance, le))
+      "record": "kubeproxy_network_programming_duration_seconds_bucket:kube_proxy"
+      "labels":
+        "sysdig": "true"
+    - "expr": rest_client_requests_total{job="kubernetes-kube-proxy"}
+      "record": "rest_client_requests_total:kube_proxy"
+      "labels":
+        "sysdig": "true"
+    - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job="kubernetes-kube-proxy",verb="POST"}[5m])) by (verb, url, le))
+      "record": "rest_client_request_latency_seconds_bucket:post:kube_proxy"
+      "labels":
+        "sysdig": "true"
+    - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job="kubernetes-kube-proxy",verb="GET"}[5m])) by (verb, url, le))
+      "record": "rest_client_request_latency_seconds_bucket:get:kube_proxy"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        process_resident_memory_bytes{job="kubernetes-kube-proxy"}
+      "record": "process_resident_memory_bytes:kube_proxy"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        process_cpu_seconds_total{job="kubernetes-kube-proxy"}
+      "record": "process_cpu_seconds_total:kube_proxy"
+      "labels":
+        "sysdig": "true"
+    - "expr": |
+        go_goroutines{job="kubernetes-kube-proxy"}
+      "record": "go_goroutines:kube_proxy"
       "labels":
         "sysdig": "true"
