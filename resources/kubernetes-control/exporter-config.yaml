@@ -53,7 +53,7 @@ description: |
     ```
     kops --state s3://name-of-s3 --name cluster-name rolling-update cluster --yes
     ```
-    
+
     ---
 
   If we want to use the Sysdig agent too, we have to create the recording rules for only scrape the metrics we will use in our dashboards.
@@ -295,20 +295,12 @@ data: |
     name: prometheus-server
     namespace: monitoring
   data:
-    alerting_rules.yml: |
-      {}
-    alerts: |
-      {}
     prometheus.yml: |
       global:
         evaluation_interval: 1m
         scrape_interval: 1m
         scrape_timeout: 10s
       rule_files:
-      - /etc/config/recording_rules.yml
-      - /etc/config/alerting_rules.yml
-      - /etc/config/rules
-      - /etc/config/alerts
       - /opt/rules/rules.yaml
       - /opt/alerts/alerts.yaml
       scrape_configs:
@@ -481,9 +473,9 @@ data: |
         - action: keep
           source_labels: 
           - __meta_kubernetes_namespace
-          - __meta_kubernetes_pod_label_k8s_app
+          - __meta_kubernetes_pod_name
           separator: '/'
-          regex: 'kube-system/kube-controller-manager'
+          regex: 'kube-system/kube-controller-manager.+'
         - source_labels: 
           - __address__
           action: replace
@@ -504,9 +496,9 @@ data: |
         - action: keep
           source_labels: 
           - __meta_kubernetes_namespace
-          - __meta_kubernetes_pod_label_k8s_app
+          - __meta_kubernetes_pod_name
           separator: '/'
-          regex: 'kube-system/kube-scheduler'
+          regex: 'kube-system/kube-scheduler.+'
         - source_labels: 
           - __address__
           action: replace
@@ -527,9 +519,9 @@ data: |
         - action: keep
           source_labels: 
           - __meta_kubernetes_namespace
-          - __meta_kubernetes_pod_label_k8s_app
+          - __meta_kubernetes_pod_name
           separator: '/'
-          regex: 'kube-system/kube-proxy'
+          regex: 'kube-system/kube-proxy.+'
         - source_labels: 
           - __address__
           action: replace
@@ -565,7 +557,3 @@ data: |
           - source_labels: [__meta_kubernetes_pod_container_port_number]
             regex:
             action: drop
-    recording_rules.yml: |
-      {}
-    rules: |
-      {}

@@ -1370,7 +1370,7 @@ configurations:
         "gnetId": null,
         "graphTooltip": 0,
         "id": null,
-        "iteration": 1587567848022,
+        "iteration": 1588166204205,
         "links": [],
         "panels": [
           {
@@ -1434,7 +1434,7 @@ configurations:
             "tableColumn": "",
             "targets": [
               {
-                "expr": "sum(up{job=\"kubernetes-kube-controller-manager\"})",
+                "expr": "sum(up:controllermanager)",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -1475,15 +1475,15 @@ configurations:
             "hiddenSeries": false,
             "id": 3,
             "legend": {
-              "alignAsTable": true,
+              "alignAsTable": "true",
               "avg": false,
-              "current": true,
+              "current": "true",
               "max": false,
               "min": false,
-              "rightSide": true,
-              "show": true,
+              "rightSide": "true",
+              "show": "true",
               "total": false,
-              "values": true
+              "values": "true"
             },
             "lines": true,
             "linewidth": 1,
@@ -1503,7 +1503,7 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "sum(rate(workqueue_adds_total{job=\"kubernetes-kube-controller-manager\", instance=~\"$instance\"}[5m])) by (instance, name)",
+                "expr": "sum(rate(workqueue_adds_total:kubernetes_control_manager[5m])) by (instance, name)",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -1569,15 +1569,15 @@ configurations:
             "hiddenSeries": false,
             "id": 4,
             "legend": {
-              "alignAsTable": true,
+              "alignAsTable": "true",
               "avg": false,
-              "current": true,
+              "current": "true",
               "max": false,
               "min": false,
-              "rightSide": true,
-              "show": true,
+              "rightSide": "true",
+              "show": "true",
               "total": false,
-              "values": true
+              "values": "true"
             },
             "lines": true,
             "linewidth": 1,
@@ -1597,7 +1597,7 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "sum(rate(workqueue_depth{job=\"kubernetes-kube-controller-manager\", instance=~\"$instance\"}[5m])) by (instance, name)",
+                "expr": "sum(rate(workqueue_depth:kubernetes_control_manager[5m])) by (instance, name)",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -1663,15 +1663,15 @@ configurations:
             "hiddenSeries": false,
             "id": 5,
             "legend": {
-              "alignAsTable": true,
+              "alignAsTable": "true",
               "avg": false,
-              "current": true,
+              "current": "true",
               "max": false,
               "min": false,
-              "rightSide": true,
-              "show": true,
+              "rightSide": "true",
+              "show": "true",
               "total": false,
-              "values": true
+              "values": "true"
             },
             "lines": true,
             "linewidth": 1,
@@ -1691,7 +1691,7 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "histogram_quantile(0.99, sum(rate(workqueue_queue_duration_seconds_bucket{job=\"kubernetes-kube-controller-manager\", instance=~\"$instance\"}[5m])) by (instance, name, le))",
+                "expr": "workqueue_queue_duration_seconds_bucket:kubernetes_apiservers",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -1785,7 +1785,7 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "sum(rate(rest_client_requests_total{job=\"kubernetes-kube-controller-manager\", instance=~\"$instance\",code=~\"2..\"}[5m]))",
+                "expr": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"2..\"}[5m]))",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -1793,7 +1793,7 @@ configurations:
                 "refId": "A"
               },
               {
-                "expr": "sum(rate(rest_client_requests_total{job=\"kubernetes-kube-controller-manager\", instance=~\"$instance\",code=~\"3..\"}[5m]))",
+                "expr": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"3..\"}[5m]))",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -1801,7 +1801,7 @@ configurations:
                 "refId": "B"
               },
               {
-                "expr": "sum(rate(rest_client_requests_total{job=\"kubernetes-kube-controller-manager\", instance=~\"$instance\",code=~\"4..\"}[5m]))",
+                "expr": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"4..\"}[5m]))",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -1809,7 +1809,7 @@ configurations:
                 "refId": "C"
               },
               {
-                "expr": "sum(rate(rest_client_requests_total{job=\"kubernetes-kube-controller-manager\", instance=~\"$instance\",code=~\"5..\"}[5m]))",
+                "expr": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"5..\"}[5m]))",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -1903,7 +1903,7 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job=\"kubernetes-kube-controller-manager\", instance=~\"$instance\", verb=\"POST\"}[5m])) by (verb, url, le))",
+                "expr": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:post",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -1969,15 +1969,15 @@ configurations:
             "hiddenSeries": false,
             "id": 8,
             "legend": {
-              "alignAsTable": true,
+              "alignAsTable": "true",
               "avg": false,
-              "current": true,
+              "current": "true",
               "max": false,
               "min": false,
-              "rightSide": true,
-              "show": true,
+              "rightSide": "true",
+              "show": "true",
               "total": false,
-              "values": true
+              "values": "true"
             },
             "lines": true,
             "linewidth": 1,
@@ -1997,7 +1997,7 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job=\"kubernetes-kube-controller-manager\", instance=~\"$instance\", verb=\"GET\"}[5m])) by (verb, url, le))",
+                "expr": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:get",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -2091,7 +2091,7 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "process_resident_memory_bytes{job=\"kubernetes-kube-controller-manager\",instance=~\"$instance\"}",
+                "expr": "process_resident_memory_bytes:kubernetes_control_manager",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -2185,7 +2185,7 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "rate(process_cpu_seconds_total{job=\"kubernetes-kube-controller-manager\",instance=~\"$instance\"}[5m])",
+                "expr": "rate(process_cpu_seconds_total:kubernetes_control_manager[5m])",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -2279,7 +2279,7 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "go_goroutines{job=\"kubernetes-kube-controller-manager\",instance=~\"$instance\"}",
+                "expr": "go_goroutines:kubernetes_control_manager",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -2329,7 +2329,7 @@ configurations:
             }
           }
         ],
-        "refresh": "10s",
+        "refresh": "",
         "schemaVersion": 22,
         "style": "dark",
         "tags": [
@@ -2357,13 +2357,9 @@ configurations:
             },
             {
               "allValue": null,
-              "current": {
-                "selected": false,
-                "text": "All",
-                "value": "$__all"
-              },
+              "current": {},
               "datasource": "$datasource",
-              "definition": "label_values(process_cpu_seconds_total{job=\"kubernetes-kube-controller-manager\"}, instance)",
+              "definition": "label_values(up:kubernetes{job=\"kubernetes-nodes\"}, instance)",
               "hide": 0,
               "includeAll": true,
               "index": -1,
@@ -2371,11 +2367,11 @@ configurations:
               "multi": false,
               "name": "instance",
               "options": [],
-              "query": "label_values(process_cpu_seconds_total{job=\"kubernetes-kube-controller-manager\"}, instance)",
+              "query": "label_values(up:kubernetes{job=\"kubernetes-nodes\"}, instance)",
               "refresh": 2,
               "regex": "",
               "skipUrlSync": false,
-              "sort": 1,
+              "sort": 0,
               "tagValuesQuery": "",
               "tags": [],
               "tagsQuery": "",
@@ -2415,12 +2411,12 @@ configurations:
         },
         "timezone": "",
         "title": "Kubernetes / Controller Manager",
-        "uid": "Hh-f16jWz",
+        "uid": "72e0e05bef5099e5f049b05fdc429ed4",
         "variables": {
           "list": []
         },
-        "version": 6
-      } 
+        "version": 13
+      }
   - name: "Kubernetes / Kubelet"
     kind: grafana
     image: "kubernetes-control/images/kubelet_grafana.png"
@@ -2473,7 +2469,7 @@ configurations:
         "gnetId": null,
         "graphTooltip": 0,
         "id": null,
-        "iteration": 1587570130977,
+        "iteration": 1588153468987,
         "links": [],
         "panels": [
           {
@@ -2537,7 +2533,7 @@ configurations:
             "tableColumn": "",
             "targets": [
               {
-                "expr": "sum(up{cluster=\"$cluster\", job=\"kubernetes-nodes\"})",
+                "expr": "sum(up:kubernetes{job=\"kubernetes-nodes\"})",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -2622,8 +2618,9 @@ configurations:
             "tableColumn": "",
             "targets": [
               {
-                "expr": "sum(kubelet_running_pod_count{cluster=\"$cluster\", job=\"kubernetes-nodes\", instance=~\"$instance\"})",
+                "expr": "sum(kubelet_running_pod_count:kubernetes_nodes)",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}}",
                 "refId": "A"
@@ -2706,8 +2703,9 @@ configurations:
             "tableColumn": "",
             "targets": [
               {
-                "expr": "sum(kubelet_running_container_count{cluster=\"$cluster\", job=\"kubernetes-nodes\", instance=~\"$instance\"})",
+                "expr": "sum(kubelet_running_container_count:kubernetes_nodes)",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}}",
                 "refId": "A"
@@ -2790,8 +2788,9 @@ configurations:
             "tableColumn": "",
             "targets": [
               {
-                "expr": "sum(volume_manager_total_volumes{cluster=\"$cluster\", job=\"kubernetes-nodes\", instance=~\"$instance\", state=\"actual_state_of_world\"})",
+                "expr": "sum(volume_manager_total_volumes:kubernetes_nodes{state=\"actual_state_of_world\"})",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}}",
                 "refId": "A"
@@ -2874,8 +2873,9 @@ configurations:
             "tableColumn": "",
             "targets": [
               {
-                "expr": "sum(volume_manager_total_volumes{cluster=\"$cluster\", job=\"kubernetes-nodes\", instance=~\"$instance\",state=\"desired_state_of_world\"})",
+                "expr": "sum(volume_manager_total_volumes:desired:kubernetes_nodes{job=\"kubernetes-nodes\",state=\"desired_state_of_world\"})",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}}",
                 "refId": "A"
@@ -2958,8 +2958,9 @@ configurations:
             "tableColumn": "",
             "targets": [
               {
-                "expr": "sum(rate(kubelet_node_config_error{cluster=\"$cluster\", job=\"kubernetes-nodes\", instance=~\"$instance\"}[5m]))",
+                "expr": "sum(rate(kubelet_node_config_error:kubernetes_nodes[5m]))",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}}",
                 "refId": "A"
@@ -3026,8 +3027,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "sum(rate(kubelet_runtime_operations_total{cluster=\"$cluster\",job=\"kubernetes-nodes\",instance=~\"$instance\"}[5m])) by (operation_type, instance)",
+                "expr": "sum(rate(kubelet_runtime_operations_total:kubernetes_nodes[5m])) by (operation_type, instance)",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}} {{operation_type}}",
                 "refId": "A"
@@ -3119,8 +3121,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "sum(rate(kubelet_runtime_operations_errors_total{cluster=\"$cluster\",job=\"kubernetes-nodes\",instance=~\"$instance\"}[5m])) by (instance, operation_type)",
+                "expr": "sum(rate(kubelet_runtime_operations_errors_total:kubernetes_nodes[5m])) by (instance, operation_type)",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}} {{operation_type}}",
                 "refId": "A"
@@ -3212,8 +3215,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "histogram_quantile(0.99, sum(rate(kubelet_runtime_operations_duration_seconds_bucket{cluster=\"$cluster\",job=\"kubernetes-nodes\",instance=~\"$instance\"}[5m])) by (instance, operation_type, le))",
+                "expr": "operation_duration_seconds:kubernetes_nodes",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}} {{operation_type}}",
                 "refId": "A"
@@ -3305,15 +3309,17 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "sum(rate(kubelet_pod_start_duration_seconds_count{cluster=\"$cluster\",job=\"kubernetes-nodes\",instance=~\"$instance\"}[5m])) by (instance)",
+                "expr": "sum(rate(kubelet_pod_start_duration_seconds_count:kubernetes_nodes[5m])) by (instance)",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}} pod",
                 "refId": "A"
               },
               {
-                "expr": "sum(rate(kubelet_pod_worker_duration_seconds_count{cluster=\"$cluster\",job=\"kubernetes-nodes\",instance=~\"$instance\"}[5m])) by (instance)",
+                "expr": "sum(rate(kubelet_pod_worker_duration_seconds_count:kubernetes_nodes[5m])) by (instance)",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}} worker",
                 "refId": "B"
@@ -3405,15 +3411,17 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "histogram_quantile(0.99, sum(rate(kubelet_pod_start_duration_seconds_count{cluster=\"$cluster\",job=\"kubernetes-nodes\",instance=~\"$instance\"}[5m])) by (instance, le))",
+                "expr": "pod_start_duration_seconds:kubernetes_nodes",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}} pod",
                 "refId": "A"
               },
               {
-                "expr": "histogram_quantile(0.99, sum(rate(kubelet_pod_worker_duration_seconds_bucket{cluster=\"$cluster\",job=\"kubernetes-nodes\",instance=~\"$instance\"}[5m])) by (instance, le))",
+                "expr": "pod_worker_duration_seconds:kubernetes_nodes",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}} worker",
                 "refId": "B"
@@ -3507,8 +3515,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "sum(rate(storage_operation_duration_seconds_count{cluster=\"$cluster\",job=\"kubernetes-nodes\",instance=~\"$instance\"}[5m])) by (instance, operation_name, volume_plugin)",
+                "expr": "sum(rate(storage_operation_duration_seconds_count:kubernetes_nodes[5m])) by (instance, operation_name, volume_plugin)",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}} {{operation_name}} {{volume_plugin}}",
                 "refId": "A"
@@ -3602,8 +3611,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "sum(rate(storage_operation_errors_total{cluster=\"$cluster\",job=\"kubernetes-nodes\",instance=~\"$instance\"}[5m])) by (instance, operation_name, volume_plugin)",
+                "expr": "sum(rate(storage_operation_errors_total:kubernetes_nodes[5m])) by (instance, operation_name, volume_plugin)",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}} {{operation_name}} {{volume_plugin}}",
                 "refId": "A"
@@ -3697,8 +3707,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "histogram_quantile(0.99, sum(rate(storage_operation_duration_seconds_bucket{cluster=\"$cluster\", job=\"kubernetes-nodes\", instance=~\"$instance\"}[5m])) by (instance, operation_name, volume_plugin, le))",
+                "expr": "storage_operation_duration_seconds:kubernetes_nodes",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}} {{operation_name}} {{volume_plugin}}",
                 "refId": "A"
@@ -3790,8 +3801,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "sum(rate(kubelet_cgroup_manager_duration_seconds_count{cluster=\"$cluster\", job=\"kubernetes-nodes\", instance=~\"$instance\"}[5m])) by (instance, operation_type)",
+                "expr": "sum(rate(kubelet_cgroup_manager_duration_seconds_count:kubernetes_nodes[5m])) by (instance, operation_type)",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{operation_type}}",
                 "refId": "A"
@@ -3883,8 +3895,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "histogram_quantile(0.99, sum(rate(kubelet_cgroup_manager_duration_seconds_bucket{cluster=\"$cluster\", job=\"kubernetes-nodes\", instance=~\"$instance\"}[5m])) by (instance, operation_type, le))",
+                "expr": "cgroup_manager_duration_seconds:kubernetes_nodes",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}} {{operation_type}}",
                 "refId": "A"
@@ -3977,8 +3990,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "sum(rate(kubelet_pleg_relist_duration_seconds_count{cluster=\"$cluster\", job=\"kubernetes-nodes\", instance=~\"$instance\"}[5m])) by (instance)",
+                "expr": "sum(rate(pleg_relist_duration_seconds:kubernetes_nodes[5m])) by (instance)",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}}",
                 "refId": "A"
@@ -4070,8 +4084,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "histogram_quantile(0.99, sum(rate(kubelet_pleg_relist_interval_seconds_bucket{cluster=\"$cluster\",job=\"kubernetes-nodes\",instance=~\"$instance\"}[5m])) by (instance, le))",
+                "expr": "pleg_relist_interval_seconds:kubernetes_nodes",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}}",
                 "refId": "A"
@@ -4163,8 +4178,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "histogram_quantile(0.99, sum(rate(kubelet_pleg_relist_duration_seconds_bucket{cluster=\"$cluster\",job=\"kubernetes-nodes\",instance=~\"$instance\"}[5m])) by (instance, le))",
+                "expr": "pleg_relist_duration_seconds:kubernetes_nodes",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}}",
                 "refId": "A"
@@ -4256,29 +4272,33 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "sum(rate(rest_client_requests_total{cluster=\"$cluster\",job=\"kubernetes-nodes\", instance=~\"$instance\",code=~\"2..\"}[5m]))",
+                "expr": "sum(rate(rest_client_requests_total_2code:kubernetes_nodes[5m]))",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "2xx",
                 "refId": "A"
               },
               {
-                "expr": "sum(rate(rest_client_requests_total{cluster=\"$cluster\",job=\"kubernetes-nodes\", instance=~\"$instance\",code=~\"3..\"}[5m]))",
+                "expr": "sum(rate(rest_client_requests_total_3code:kubernetes_nodes[5m]))",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "3xx",
                 "refId": "B"
               },
               {
-                "expr": "sum(rate(rest_client_requests_total{cluster=\"$cluster\",job=\"kubernetes-nodes\", instance=~\"$instance\",code=~\"4..\"}[5m]))",
+                "expr": "sum(rate(rest_client_requests_total_4code:kubernetes_nodes[5m]))",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "4xx",
                 "refId": "C"
               },
               {
-                "expr": "sum(rate(rest_client_requests_total{cluster=\"$cluster\",job=\"kubernetes-nodes\", instance=~\"$instance\",code=~\"5..\"}[5m]))",
+                "expr": "sum(rate(rest_client_requests_total_5code:kubernetes_nodes[5m]))",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "5xx",
                 "refId": "D"
@@ -4370,8 +4390,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{cluster=\"$cluster\",job=\"kubernetes-nodes\", instance=~\"$instance\"}[5m])) by (instance, verb, url, le))",
+                "expr": "request_duration_seconds:kubernetes_nodes",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}} {{verb}} {{url}}",
                 "refId": "A"
@@ -4463,8 +4484,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "process_resident_memory_bytes{cluster=\"$cluster\",job=\"kubernetes-nodes\",instance=~\"$instance\"}",
+                "expr": "process_resident_memory_bytes:kubernetes{job=\"kubernetes-nodes\"}",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}}",
                 "refId": "A"
@@ -4556,8 +4578,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "rate(process_cpu_seconds_total{cluster=\"$cluster\",job=\"kubernetes-nodes\",instance=~\"$instance\"}[5m])",
+                "expr": "rate(process_cpu_seconds_total:kubernetes{job=\"kubernetes-nodes\"}[5m])",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}}",
                 "refId": "A"
@@ -4649,8 +4672,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "go_goroutines{cluster=\"$cluster\",job=\"kubernetes-nodes\",instance=~\"$instance\"}",
+                "expr": "go_goroutines:kubernetes{job=\"kubernetes-nodes\"}",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}}",
                 "refId": "A"
@@ -4807,7 +4831,7 @@ configurations:
         "variables": {
           "list": []
         },
-        "version": 3
+        "version": 11
       }
   - name: "Kubernetes / Scheduler"
     kind: grafana
@@ -4861,7 +4885,7 @@ configurations:
         "gnetId": null,
         "graphTooltip": 0,
         "id": null,
-        "iteration": 1587569556576,
+        "iteration": 1588167537492,
         "links": [],
         "panels": [
           {
@@ -4925,7 +4949,7 @@ configurations:
             "tableColumn": "",
             "targets": [
               {
-                "expr": "sum(up{job=\"kubernetes-kube-scheduler\"})",
+                "expr": "sum(up:kube_scheduler)",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -4966,15 +4990,15 @@ configurations:
             "hiddenSeries": false,
             "id": 3,
             "legend": {
-              "alignAsTable": true,
+              "alignAsTable": "true",
               "avg": false,
-              "current": true,
+              "current": "true",
               "max": false,
               "min": false,
-              "rightSide": true,
-              "show": true,
+              "rightSide": "true",
+              "show": "true",
               "total": false,
-              "values": true
+              "values": "true"
             },
             "lines": true,
             "linewidth": 1,
@@ -4994,29 +5018,33 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "sum(rate(scheduler_e2e_scheduling_duration_seconds_count{job=\"kubernetes-kube-scheduler\", instance=~\"$instance\"}[5m])) by (instance)",
+                "expr": "sum(rate(scheduler_e2e_scheduling_duration_seconds_count:kube_scheduler[5m])) by (instance)",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}} e2e",
                 "refId": "A"
               },
               {
-                "expr": "sum(rate(scheduler_binding_duration_seconds_count{job=\"kubernetes-kube-scheduler\", instance=~\"$instance\"}[5m])) by (instance)",
+                "expr": "sum(rate(scheduler_binding_duration_seconds_count:kube_scheduler[5m])) by (instance)",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}} binding",
                 "refId": "B"
               },
               {
-                "expr": "sum(rate(scheduler_scheduling_algorithm_duration_seconds_count{job=\"kubernetes-kube-scheduler\", instance=~\"$instance\"}[5m])) by (instance)",
+                "expr": "sum(rate(scheduler_scheduling_algorithm_duration_seconds_count:kube_scheduler[5m])) by (instance)",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}} scheduling algorithm",
                 "refId": "C"
               },
               {
-                "expr": "sum(rate(scheduler_volume_scheduling_duration_seconds_count{job=\"kubernetes-kube-scheduler\", instance=~\"$instance\"}[5m])) by (instance)",
+                "expr": "sum(rate(scheduler_volume_scheduling_duration_seconds_count:kube_scheduler[5m])) by (instance)",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}} volume",
                 "refId": "D"
@@ -5080,15 +5108,15 @@ configurations:
             "hiddenSeries": false,
             "id": 4,
             "legend": {
-              "alignAsTable": true,
+              "alignAsTable": "true",
               "avg": false,
-              "current": true,
+              "current": "true",
               "max": false,
               "min": false,
-              "rightSide": true,
-              "show": true,
+              "rightSide": "true",
+              "show": "true",
               "total": false,
-              "values": true
+              "values": "true"
             },
             "lines": true,
             "linewidth": 1,
@@ -5108,29 +5136,33 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "histogram_quantile(0.99, sum(rate(scheduler_e2e_scheduling_duration_seconds_bucket{job=\"kubernetes-kube-scheduler\",instance=~\"$instance\"}[5m])) by (instance, le))",
+                "expr": "scheduler_volume_scheduling_duration_seconds_count:kube_scheduler",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}} e2e",
                 "refId": "A"
               },
               {
-                "expr": "histogram_quantile(0.99, sum(rate(scheduler_binding_duration_seconds_bucket{job=\"kubernetes-kube-scheduler\",instance=~\"$instance\"}[5m])) by (instance, le))",
+                "expr": "scheduler_binding_duration_seconds_bucket:kube_scheduler",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}} binding",
                 "refId": "B"
               },
               {
-                "expr": "histogram_quantile(0.99, sum(rate(scheduler_scheduling_algorithm_duration_seconds_bucket{job=\"kubernetes-kube-scheduler\",instance=~\"$instance\"}[5m])) by (instance, le))",
+                "expr": "scheduler_scheduling_algorithm_duration_seconds_bucket:kube_scheduler",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}} scheduling algorithm",
                 "refId": "C"
               },
               {
-                "expr": "histogram_quantile(0.99, sum(rate(scheduler_volume_scheduling_duration_seconds_bucket{job=\"kubernetes-kube-scheduler\",instance=~\"$instance\"}[5m])) by (instance, le))",
+                "expr": "scheduler_volume_scheduling_duration_seconds_bucket:kube_scheduler",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}} volume",
                 "refId": "D"
@@ -5222,29 +5254,33 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "sum(rate(rest_client_requests_total{job=\"kubernetes-kube-scheduler\", instance=~\"$instance\",code=~\"2..\"}[5m]))",
+                "expr": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"2..\"}[5m]))",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "2xx",
                 "refId": "A"
               },
               {
-                "expr": "sum(rate(rest_client_requests_total{job=\"kubernetes-kube-scheduler\", instance=~\"$instance\",code=~\"3..\"}[5m]))",
+                "expr": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"3..\"}[5m]))",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "3xx",
                 "refId": "B"
               },
               {
-                "expr": "sum(rate(rest_client_requests_total{job=\"kubernetes-kube-scheduler\", instance=~\"$instance\",code=~\"4..\"}[5m]))",
+                "expr": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"4..\"}[5m]))",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "4xx",
                 "refId": "C"
               },
               {
-                "expr": "sum(rate(rest_client_requests_total{job=\"kubernetes-kube-scheduler\", instance=~\"$instance\",code=~\"5..\"}[5m]))",
+                "expr": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"5..\"}[5m]))",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "5xx",
                 "refId": "D"
@@ -5336,8 +5372,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job=\"kubernetes-kube-scheduler\", instance=~\"$instance\", verb=\"POST\"}[5m])) by (verb, url, le))",
+                "expr": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:post",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{verb}} {{url}}",
                 "refId": "A"
@@ -5401,15 +5438,15 @@ configurations:
             "hiddenSeries": false,
             "id": 7,
             "legend": {
-              "alignAsTable": true,
+              "alignAsTable": "true",
               "avg": false,
-              "current": true,
+              "current": "true",
               "max": false,
               "min": false,
-              "rightSide": true,
-              "show": true,
+              "rightSide": "true",
+              "show": "true",
               "total": false,
-              "values": true
+              "values": "true"
             },
             "lines": true,
             "linewidth": 1,
@@ -5429,8 +5466,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job=\"kubernetes-kube-scheduler\", instance=~\"$instance\", verb=\"GET\"}[5m])) by (verb, url, le))",
+                "expr": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:get",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{verb}} {{url}}",
                 "refId": "A"
@@ -5522,8 +5560,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "process_resident_memory_bytes{job=\"kubernetes-kube-scheduler\", instance=~\"$instance\"}",
+                "expr": "process_resident_memory_bytes:kube_scheduler",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}}",
                 "refId": "A"
@@ -5615,8 +5654,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "rate(process_cpu_seconds_total{job=\"kubernetes-kube-scheduler\", instance=~\"$instance\"}[5m])",
+                "expr": "rate(process_cpu_seconds_total:kube_scheduler[5m])",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}}",
                 "refId": "A"
@@ -5708,8 +5748,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "go_goroutines{job=\"kubernetes-kube-scheduler\",instance=~\"$instance\"}",
+                "expr": "go_goroutines:kube_scheduler",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}}",
                 "refId": "A"
@@ -5757,7 +5798,7 @@ configurations:
             }
           }
         ],
-        "refresh": "10s",
+        "refresh": "",
         "schemaVersion": 22,
         "style": "dark",
         "tags": [
@@ -5787,7 +5828,7 @@ configurations:
               "allValue": null,
               "current": {},
               "datasource": "$datasource",
-              "definition": "label_values(process_cpu_seconds_total{job=\"kubernetes-kube-scheduler\"}, instance)",
+              "definition": "label_values(kubelet_running_pod_count:kubernetes_nodes, instance)",
               "hide": 0,
               "includeAll": true,
               "index": -1,
@@ -5795,11 +5836,11 @@ configurations:
               "multi": false,
               "name": "instance",
               "options": [],
-              "query": "label_values(process_cpu_seconds_total{job=\"kubernetes-kube-scheduler\"}, instance)",
+              "query": "label_values(kubelet_running_pod_count:kubernetes_nodes, instance)",
               "refresh": 2,
               "regex": "",
               "skipUrlSync": false,
-              "sort": 1,
+              "sort": 0,
               "tagValuesQuery": "",
               "tags": [],
               "tagsQuery": "",
@@ -5839,11 +5880,11 @@ configurations:
         },
         "timezone": "",
         "title": "Kubernetes / Scheduler",
-        "uid": "LMJZd13Zz",
+        "uid": "2e6b6a3b4bddf1427b3a55aa1311c656",
         "variables": {
           "list": []
         },
-        "version": 5
+        "version": 6
       }
   - name: "Kubernetes / Proxy"
     kind: grafana
@@ -5897,7 +5938,7 @@ configurations:
         "gnetId": null,
         "graphTooltip": 0,
         "id": null,
-        "iteration": 1588075084341,
+        "iteration": 1588088156451,
         "links": [],
         "panels": [
           {
@@ -5961,7 +6002,7 @@ configurations:
             "tableColumn": "",
             "targets": [
               {
-                "expr": "sum(up{job=\"kubernetes-kube-proxy\"})",
+                "expr": "sum(sum(up:kube_proxy))",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -6030,8 +6071,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "sum(rate(kubeproxy_sync_proxy_rules_duration_seconds_count{job=\"kubernetes-kube-proxy\", instance=~\"$instance\"}[5m]))",
+                "expr": "sum(rate(kubeproxy_sync_proxy_rules_duration_seconds_count:kube_proxy{instance=~\"$instance\"}[5m]))",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "rate",
                 "refId": "A"
@@ -6123,8 +6165,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "histogram_quantile(0.99,rate(kubeproxy_sync_proxy_rules_duration_seconds_bucket{job=\"kubernetes-kube-proxy\", instance=~\"$instance\"}[5m]))",
+                "expr": "kubeproxy_sync_proxy_rules_duration_seconds_bucket:kube_proxy{instance=~\"$instance\"}",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}}",
                 "refId": "A"
@@ -6216,10 +6259,11 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "sum(rate(kubeproxy_network_programming_duration_seconds_count{job=\"kubernetes-kube-proxy\", instance=~\"$instance\"}[5m]))",
+                "expr": "kubeproxy_network_programming_duration_seconds_count:kube_proxy{instance=~\"$instance\"}",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
-                "legendFormat": "rate",
+                "legendFormat": "{{instance}}",
                 "refId": "A"
               }
             ],
@@ -6309,8 +6353,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "histogram_quantile(0.99, sum(rate(kubeproxy_network_programming_duration_seconds_bucket{job=\"kubernetes-kube-proxy\", instance=~\"$instance\"}[5m])) by (instance, le))",
+                "expr": "kubeproxy_network_programming_duration_seconds_bucket:kube_proxy{instance=~\"$instance\"}",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}}",
                 "refId": "A"
@@ -6402,29 +6447,33 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "sum(rate(rest_client_requests_total{job=\"kubernetes-kube-proxy\", instance=~\"$instance\",code=~\"2..\"}[5m]))",
+                "expr": "sum(rate(rest_client_requests_total:kube_proxy{code=~\"2..\", instance=~\"$instance\"}[5m]))",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "2xx",
                 "refId": "A"
               },
               {
-                "expr": "sum(rate(rest_client_requests_total{job=\"kubernetes-kube-proxy\", instance=~\"$instance\",code=~\"3..\"}[5m]))",
+                "expr": "sum(rate(rest_client_requests_total:kube_proxy{code=~\"3..\", instance=~\"$instance\"}[5m]))",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "3xx",
                 "refId": "B"
               },
               {
-                "expr": "sum(rate(rest_client_requests_total{job=\"kubernetes-kube-proxy\", instance=~\"$instance\",code=~\"4..\"}[5m]))",
+                "expr": "sum(rate(rest_client_requests_total:kube_proxy{code=~\"4..\", instance=~\"$instance\"}[5m]))",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "4xx",
                 "refId": "C"
               },
               {
-                "expr": "sum(rate(rest_client_requests_total{job=\"kubernetes-kube-proxy\", instance=~\"$instance\",code=~\"5..\"}[5m]))",
+                "expr": "sum(rate(rest_client_requests_total:kube_proxy{code=~\"5..\", instance=~\"$instance\"}[5m]))",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "5xx",
                 "refId": "D"
@@ -6516,8 +6565,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job=\"kubernetes-kube-proxy\",instance=~\"$instance\",verb=\"POST\"}[5m])) by (verb, url, le))",
+                "expr": "rest_client_request_latency_seconds_bucket:post:kube_proxy{instance=~\"$instance\"}",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{verb}} {{url}}",
                 "refId": "A"
@@ -6609,8 +6659,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job=\"kubernetes-kube-proxy\", instance=~\"$instance\", verb=\"GET\"}[5m])) by (verb, url, le))",
+                "expr": "rest_client_request_latency_seconds_bucket:get:kube_proxy{instance=~\"$instance\"}",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{verb}} {{url}}",
                 "refId": "A"
@@ -6702,8 +6753,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "process_resident_memory_bytes{job=\"kubernetes-kube-proxy\",instance=~\"$instance\"}",
+                "expr": "process_resident_memory_bytes:kube_proxy{instance=~\"$instance\"}",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}}",
                 "refId": "A"
@@ -6795,8 +6847,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "rate(process_cpu_seconds_total{job=\"kubernetes-kube-proxy\",instance=~\"$instance\"}[5m])",
+                "expr": "rate(process_cpu_seconds_total:kube_proxy{instance=~\"$instance\"}[5m])",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}}",
                 "refId": "A"
@@ -6888,8 +6941,9 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "go_goroutines{job=\"kubernetes-kube-proxy\",instance=~\"$instance\"}",
+                "expr": "go_goroutines:kube_proxy{instance=~\"$instance\"}",
                 "format": "time_series",
+                "interval": "",
                 "intervalFactor": 2,
                 "legendFormat": "{{instance}}",
                 "refId": "A"
@@ -6989,7 +7043,7 @@ configurations:
           ]
         },
         "time": {
-          "from": "now-1h",
+          "from": "now-15m",
           "to": "now"
         },
         "timepicker": {
@@ -7023,7 +7077,7 @@ configurations:
         "variables": {
           "list": []
         },
-        "version": 4
+        "version": 7
       }
   - name: "Kubernetes / Api"
     kind: sysdig
@@ -7954,7 +8008,7 @@ configurations:
                           "decimals":null,
                           "yAxis":"auto"
                         },
-                        "query":"process_resident_memory_bytes:kubernetes{job=\"kubernetes-nodes\"}"
+                        "query":"process_resident_memory_bytes:kubernetes_control_manager"
                     }
                   ],
                   "legendConfiguration":{
@@ -8013,7 +8067,7 @@ configurations:
                           "decimals":null,
                           "yAxis":"auto"
                         },
-                        "query":"rate(process_cpu_seconds_total:kubernetes{job=\"kubernetes-nodes\"}[5m])"
+                        "query":"rate(process_cpu_seconds_total:kubernetes_control_manager[5m])"
                     }
                   ],
                   "legendConfiguration":{
@@ -8072,7 +8126,7 @@ configurations:
                           "decimals":null,
                           "yAxis":"auto"
                         },
-                        "query":"go_goroutines:kubernetes{job=\"kubernetes-nodes\"}"
+                        "query":"go_goroutines:kubernetes_control_manager"
                     }
                   ],
                   "legendConfiguration":{
@@ -8131,7 +8185,7 @@ configurations:
                           "decimals":null,
                           "yAxis":"auto"
                         },
-                        "query":"rest_client_request_latency_seconds_bucket:kubernetes_nodes{verb=\"GET\"}"
+                        "query":"rest_client_request_latency_seconds_bucket:kubernetes_control_manager:get"
                     }
                   ],
                   "legendConfiguration":{
@@ -8190,7 +8244,7 @@ configurations:
                           "decimals":null,
                           "yAxis":"auto"
                         },
-                        "query":"sum(rate(rest_client_requests_total_2code:kubernetes_nodes{job=\"kubernetes-nodes\"}[5m]))"
+                        "query":"sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"2..\"}[5m]))"
                     },
                     {
                         "enabled":true,
@@ -8206,7 +8260,7 @@ configurations:
                           "decimals":null,
                           "yAxis":"auto"
                         },
-                        "query":"sum(rate(rest_client_requests_total_3code:kubernetes_nodes{job=\"kubernetes-nodes\"}[5m]))"
+                        "query":"sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"3..\"}[5m]))"
                     },
                     {
                         "enabled":true,
@@ -8222,7 +8276,7 @@ configurations:
                           "decimals":null,
                           "yAxis":"auto"
                         },
-                        "query":"sum(rate(rest_client_requests_total_4code:kubernetes_nodes{job=\"kubernetes-nodes\"}[5m]))"
+                        "query":"sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"4..\"}[5m]))"
                     },
                     {
                         "enabled":true,
@@ -8238,7 +8292,7 @@ configurations:
                           "decimals":null,
                           "yAxis":"auto"
                         },
-                        "query":"sum(rate(rest_client_requests_total_5code:kubernetes_nodes{job=\"kubernetes-nodes\"}[5m]))"
+                        "query":"sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"5..\"}[5m]))"
                     }
                   ],
                   "legendConfiguration":{
@@ -8297,7 +8351,7 @@ configurations:
                           "decimals":null,
                           "yAxis":"auto"
                         },
-                        "query":"request_duration_seconds:kubernetes_nodes{verb=\"POST\"}"
+                        "query":"rest_client_request_latency_seconds_bucket:kubernetes_control_manager:post"
                     }
                   ],
                   "legendConfiguration":{
@@ -8552,9 +8606,9 @@ configurations:
             ],
             "shared":true,
             "public":false,
-            "version":31,
+            "version":38,
             "createdOn":1586881542000,
-            "modifiedOn":1587481792000,
+            "modifiedOn":1588166954000,
             "description":"",
             "layout":[
               {
@@ -8644,8 +8698,8 @@ configurations:
             "favorite":false,
             "username":"david.lorite+carillan@sysdig.com",
             "permissions":[
-              "dashboards.read",
               "dashboards.sharing",
+              "dashboards.read",
               "dashboards.delete",
               "dashboards.edit"
             ]
@@ -10299,7 +10353,7 @@ configurations:
                           "decimals":null,
                           "yAxis":"auto"
                         },
-                        "query":"process_resident_memory_bytes:kubernetes{job=\"kubernetes-nodes\"}"
+                        "query":"process_resident_memory_bytes:kube_scheduler"
                     }
                   ],
                   "legendConfiguration":{
@@ -10358,7 +10412,7 @@ configurations:
                           "decimals":null,
                           "yAxis":"auto"
                         },
-                        "query":"rate(process_cpu_seconds_total:kubernetes{job=\"kubernetes-nodes\"}[5m])"
+                        "query":"rate(process_cpu_seconds_total:kube_scheduler[5m])"
                     }
                   ],
                   "legendConfiguration":{
@@ -10417,7 +10471,7 @@ configurations:
                           "decimals":null,
                           "yAxis":"auto"
                         },
-                        "query":"go_goroutines:kubernetes{job=\"kubernetes-nodes\"}"
+                        "query":"go_goroutines:kube_scheduler"
                     }
                   ],
                   "legendConfiguration":{
@@ -10675,6 +10729,22 @@ configurations:
                           "yAxis":"auto"
                         },
                         "query":"scheduler_volume_scheduling_duration_seconds_bucket:kube_scheduler"
+                    },
+                    {
+                        "enabled":true,
+                        "displayInfo":{
+                          "displayName":"",
+                          "timeSeriesDisplayNameTemplate":"{{instance}} binding",
+                          "type":"lines"
+                        },
+                        "format":{
+                          "unit":"number",
+                          "inputFormat":"1",
+                          "displayFormat":"auto",
+                          "decimals":null,
+                          "yAxis":"auto"
+                        },
+                        "query":"scheduler_binding_duration_seconds_bucket:kube_scheduler"
                     }
                   ],
                   "legendConfiguration":{
@@ -10755,7 +10825,7 @@ configurations:
                     {
                         "enabled":true,
                         "displayInfo":{
-                          "displayName":"",
+                          "displayName":"Scheduling Rate e2e",
                           "timeSeriesDisplayNameTemplate":"{{instance}} e2e",
                           "type":"lines"
                         },
@@ -10771,7 +10841,7 @@ configurations:
                     {
                         "enabled":true,
                         "displayInfo":{
-                          "displayName":"",
+                          "displayName":"Scheduling Rate binding",
                           "timeSeriesDisplayNameTemplate":"{{instance}} binding",
                           "type":"lines"
                         },
@@ -10787,7 +10857,7 @@ configurations:
                     {
                         "enabled":true,
                         "displayInfo":{
-                          "displayName":"",
+                          "displayName":"Scheduling Rate algorithm",
                           "timeSeriesDisplayNameTemplate":"{{instance}} scheduling algorithm",
                           "type":"lines"
                         },
@@ -10803,7 +10873,7 @@ configurations:
                     {
                         "enabled":true,
                         "displayInfo":{
-                          "displayName":"",
+                          "displayName":"Scheduling Rate volume",
                           "timeSeriesDisplayNameTemplate":"{{instance}} volume",
                           "type":"lines"
                         },
@@ -10918,9 +10988,9 @@ configurations:
             ],
             "shared":true,
             "public":false,
-            "version":22,
+            "version":27,
             "createdOn":1587484838000,
-            "modifiedOn":1587544132000,
+            "modifiedOn":1588168944000,
             "description":"",
             "layout":[
               {
@@ -11003,8 +11073,8 @@ configurations:
             "favorite":false,
             "username":"david.lorite+carillan@sysdig.com",
             "permissions":[
-              "dashboards.read",
               "dashboards.sharing",
+              "dashboards.read",
               "dashboards.delete",
               "dashboards.edit"
             ]
