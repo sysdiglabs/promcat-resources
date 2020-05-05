@@ -10,9 +10,1061 @@ maintainers:
     link: https://sysdig.com/
 description: 
 configurations: 
-  - name: "Fargate Golden Signals"
+  - name: "Fargate Cluster Overview"
+    kind: sysdig
+    image: "aws-fargate/images/fargate-sysdig-cluster-overview.png"
+    description: |
+      This dashboard offers information on: 
+      * Number of tasks in the cluster by state (desired, pending, running)
+      * CPU utilization by service
+      * Memory utilization by service
+      * Disk read and write throughput
+    data: |
+      {
+        "dashboard": {
+          "description": "",
+          "layout": [
+            {
+              "h": 2,
+              "panelId": 1,
+              "w": 4,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "h": 1,
+              "panelId": 2,
+              "w": 4,
+              "x": 4,
+              "y": 0
+            },
+            {
+              "h": 1,
+              "panelId": 3,
+              "w": 4,
+              "x": 4,
+              "y": 1
+            },
+            {
+              "h": 5,
+              "panelId": 4,
+              "w": 8,
+              "x": 0,
+              "y": 2
+            },
+            {
+              "h": 7,
+              "panelId": 5,
+              "w": 8,
+              "x": 8,
+              "y": 0
+            },
+            {
+              "h": 7,
+              "panelId": 6,
+              "w": 8,
+              "x": 16,
+              "y": 0
+            },
+            {
+              "h": 7,
+              "panelId": 7,
+              "w": 24,
+              "x": 0,
+              "y": 7
+            }
+          ],
+          "name": "AWS Fargate Cluster Overview",
+          "panels": [
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": "",
+                    "timeSeriesDisplayNameTemplate": "",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "sum (aws_ecs_containerinsights_pending_task_count_average)"
+                }
+              ],
+              "description": "",
+              "id": 1,
+              "name": "Pending tasks",
+              "numberThresholds": {
+                "base": {
+                  "displayText": "",
+                  "severity": "ok"
+                },
+                "values": [
+                  {
+                    "displayText": "",
+                    "inputFormat": "1",
+                    "severity": "medium",
+                    "value": 1.0
+                  }
+                ]
+              },
+              "type": "advancedNumber"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": "",
+                    "timeSeriesDisplayNameTemplate": "",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "sum(aws_ecs_containerinsights_running_task_count_average)"
+                }
+              ],
+              "description": "",
+              "id": 2,
+              "name": "Running tasks",
+              "numberThresholds": {
+                "base": {
+                  "displayText": "",
+                  "severity": "none"
+                },
+                "values": []
+              },
+              "type": "advancedNumber"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": "",
+                    "timeSeriesDisplayNameTemplate": "",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "sum(aws_ecs_containerinsights_desired_task_count_average)"
+                }
+              ],
+              "description": "",
+              "id": 3,
+              "name": "Desired tasks",
+              "numberThresholds": {
+                "base": {
+                  "displayText": "",
+                  "severity": "none"
+                },
+                "values": []
+              },
+              "type": "advancedNumber"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": "",
+                    "timeSeriesDisplayNameTemplate": "Service: {{dimension_ServiceName}}",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "sum by (dimension_ServiceName)(aws_ecs_containerinsights_running_task_count_average)"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": 2,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": 0.0,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 4,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "table",
+                "position": "bottom",
+                "showCurrent": true
+              },
+              "name": "Task by Service",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": "",
+                    "timeSeriesDisplayNameTemplate": "Service: {{dimension_ServiceName}}",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "0-100",
+                    "unit": "%",
+                    "yAxis": "auto"
+                  },
+                  "query": "avg by (dimension_ServiceName)(aws_ecs_containerinsights_cpu_utilized_average / aws_ecs_containerinsights_cpu_reserved_average) * 100"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "0-100",
+                  "maxValue": 100.0,
+                  "minInputFormat": "0-100",
+                  "minValue": 0.0,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 5,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "table",
+                "position": "bottom",
+                "showCurrent": true
+              },
+              "name": "CPU utilization",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": "",
+                    "timeSeriesDisplayNameTemplate": "Service: {{dimension_ServiceName}}",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "0-100",
+                    "unit": "%",
+                    "yAxis": "auto"
+                  },
+                  "query": "avg by (dimension_ServiceName)(aws_ecs_containerinsights_memory_utilized_average / aws_ecs_containerinsights_memory_reserved_average) * 100"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "0-100",
+                  "maxValue": 100.0,
+                  "minInputFormat": "0-100",
+                  "minValue": 0.0,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 6,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "table",
+                "position": "bottom",
+                "showCurrent": true
+              },
+              "name": "Memory utilization",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": "Storage Read",
+                    "timeSeriesDisplayNameTemplate": "Storage read service: {{dimension_ServiceName}}",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "sum by (dimension_ServiceName)(rate(aws_ecs_containerinsights_storage_read_bytes_average[15m]))"
+                },
+                {
+                  "displayInfo": {
+                    "displayName": "Storage Write",
+                    "timeSeriesDisplayNameTemplate": "Storage write service: {{dimension_ServiceName}}",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "sum by (dimension_ServiceName)(rate(aws_ecs_containerinsights_storage_write_bytes_average[15m]))"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": 2,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": 0.0,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 7,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "table",
+                "position": "right",
+                "showCurrent": true
+              },
+              "name": "Storage read / write",
+              "type": "advancedTimechart"
+            }
+          ],
+          "schema": 3,
+          "scopeExpressionList": []
+        }
+      }
+  - name: "Fargate Service Detail"
+    kind: sysdig
+    image: "aws-fargate/images/fargate-sysdig-service-detail.png"
+    description: |
+      This dashboard has variables for cluster and service. It offers information on: 
+      * CPU utilization
+      * Memory utilization
+      * Disk read and write throughput
+      * Running and pending tasks
+    data: |
+      {
+        "dashboard": {
+          "description": "",
+          "eventDisplaySettings": {
+            "enabled": false,
+            "queryParams": {
+              "alertStatuses": [],
+              "categories": [],
+              "filter": "",
+              "severities": [],
+              "teamScope": false
+            }
+          },
+          "layout": [
+            {
+              "h": 6,
+              "panelId": 2,
+              "w": 12,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "h": 6,
+              "panelId": 3,
+              "w": 12,
+              "x": 12,
+              "y": 0
+            },
+            {
+              "h": 6,
+              "panelId": 4,
+              "w": 12,
+              "x": 0,
+              "y": 6
+            },
+            {
+              "h": 6,
+              "panelId": 5,
+              "w": 12,
+              "x": 12,
+              "y": 6
+            }
+          ],
+          "name": "AWS Fargate Service Detail",
+          "panels": [
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": " ",
+                    "timeSeriesDisplayNameTemplate": "CPU Reserved",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "aws_ecs_containerinsights_cpu_reserved_average{dimension_ClusterName=$cluster, dimension_ServiceName=$service}"
+                },
+                {
+                  "displayInfo": {
+                    "displayName": " ",
+                    "timeSeriesDisplayNameTemplate": "CPU Utilized",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "aws_ecs_containerinsights_cpu_utilized_average{dimension_ClusterName=$cluster, dimension_ServiceName=$service}"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": 2,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": 0.0,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 2,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "table",
+                "position": "right",
+                "showCurrent": true
+              },
+              "name": "CPU Reserved vs Utilized",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": " ",
+                    "timeSeriesDisplayNameTemplate": "CPU Reserved",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "MiB",
+                    "unit": "byte",
+                    "yAxis": "auto"
+                  },
+                  "query": "aws_ecs_containerinsights_memory_reserved_average{dimension_ClusterName=$cluster, dimension_ServiceName=$service}"
+                },
+                {
+                  "displayInfo": {
+                    "displayName": " ",
+                    "timeSeriesDisplayNameTemplate": "CPU Reserved",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "MiB",
+                    "unit": "byte",
+                    "yAxis": "auto"
+                  },
+                  "query": "aws_ecs_containerinsights_memory_utilized_average{dimension_ClusterName=$cluster, dimension_ServiceName=$service}"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "B",
+                  "maxValue": null,
+                  "minInputFormat": "B",
+                  "minValue": 0.0,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 3,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "table",
+                "position": "right",
+                "showCurrent": true
+              },
+              "name": "Memory Reserved vs Utilized",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": " ",
+                    "timeSeriesDisplayNameTemplate": "Storage Read",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "B",
+                    "unit": "byte",
+                    "yAxis": "auto"
+                  },
+                  "query": "rate(aws_ecs_containerinsights_storage_read_bytes_average{dimension_ClusterName=$cluster, dimension_ServiceName=$service}[15m])"
+                },
+                {
+                  "displayInfo": {
+                    "displayName": " ",
+                    "timeSeriesDisplayNameTemplate": "Storage Write",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "B",
+                    "unit": "byte",
+                    "yAxis": "auto"
+                  },
+                  "query": "rate(aws_ecs_containerinsights_storage_write_bytes_average{dimension_ClusterName=$cluster, dimension_ServiceName=$service}[15m])"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "B",
+                  "maxValue": null,
+                  "minInputFormat": "B",
+                  "minValue": 0.0,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 4,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "table",
+                "position": "right",
+                "showCurrent": true
+              },
+              "name": "Storage Throughput ",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": " ",
+                    "timeSeriesDisplayNameTemplate": "Running",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "aws_ecs_containerinsights_running_task_count_average{dimension_ClusterName=$cluster, dimension_ServiceName=$service}"
+                },
+                {
+                  "displayInfo": {
+                    "displayName": " ",
+                    "timeSeriesDisplayNameTemplate": "Pending",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "aws_ecs_containerinsights_pending_task_count_average{dimension_ClusterName=$cluster, dimension_ServiceName=$service}"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": 0.0,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "B",
+                  "maxValue": null,
+                  "minInputFormat": "B",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 5,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "table",
+                "position": "right",
+                "showCurrent": true
+              },
+              "name": "Running vs Pending Tasks",
+              "type": "advancedTimechart"
+            }
+          ],
+          "schema": 3,
+          "scopeExpressionList": [
+            {
+              "descriptor": {
+                "aggregationForGroup": "none",
+                "canFilter": true,
+                "canGroupBy": false,
+                "canMonitor": false,
+                "category": "prometheus",
+                "createdAt": 1588679282463,
+                "customerId": 995,
+                "deferred": false,
+                "documentId": "995-7174107566356551535",
+                "documentTimestamp": 1588679282463,
+                "documentType": "metric",
+                "experimental": false,
+                "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
+                "generator": {
+                  "aggregationForGroup": "none",
+                  "aggregations": [
+                    "distinct"
+                  ],
+                  "avg": false,
+                  "canCalculate": false,
+                  "canFilter": true,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "concat": false,
+                  "context": [],
+                  "count": false,
+                  "countDistinct": false,
+                  "deferred": false,
+                  "experimental": false,
+                  "groupAggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                  ],
+                  "groupBy": [],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "dimension_ClusterName",
+                  "identity": false,
+                  "label": true,
+                  "lastSeen": 1588608774279,
+                  "max": false,
+                  "metricType": "segmentBy",
+                  "min": false,
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "rateOfChange": false,
+                  "scale": 1.0,
+                  "scopes": [],
+                  "sum": false,
+                  "timeAggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                  ],
+                  "timeAvg": false,
+                  "type": "string"
+                },
+                "groupAggregations": [
+                  "concat",
+                  "distinct",
+                  "count"
+                ],
+                "heuristic": false,
+                "hidden": false,
+                "id": "dimension_ClusterName",
+                "identity": false,
+                "lastSeen": 1588608774279,
+                "metricType": "tag",
+                "namespaces": [
+                  "host",
+                  "host.process",
+                  "host.container",
+                  "cloudProvider",
+                  "mesos",
+                  "ecs",
+                  "kubernetes.cluster",
+                  "kubernetes.namespace",
+                  "kubernetes.deployment",
+                  "kubernetes.job",
+                  "kubernetes.daemonSet",
+                  "kubernetes.service",
+                  "kubernetes.node",
+                  "kubernetes.replicaSet",
+                  "kubernetes.statefulSet",
+                  "kubernetes.resourcequota",
+                  "kubernetes.persistentvolume",
+                  "kubernetes.persistentvolumeclaim",
+                  "kubernetes.pod"
+                ],
+                "routingInfo": {
+                  "customerId": 995,
+                  "routing": "995"
+                },
+                "scale": 1.0,
+                "scopes": [],
+                "segment": false,
+                "segmentations": [],
+                "timeAggregations": [
+                  "concat",
+                  "distinct",
+                  "count"
+                ],
+                "type": "string"
+              },
+              "displayName": "cluster",
+              "isVariable": true,
+              "operand": "dimension_ClusterName",
+              "operator": "equals",
+              "value": [],
+              "variable": true
+            },
+            {
+              "descriptor": {
+                "aggregationForGroup": "none",
+                "canFilter": true,
+                "canGroupBy": false,
+                "canMonitor": false,
+                "category": "prometheus",
+                "createdAt": 1588679282463,
+                "customerId": 995,
+                "deferred": false,
+                "documentId": "995--1249961131704159062",
+                "documentTimestamp": 1588679282463,
+                "documentType": "metric",
+                "experimental": false,
+                "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
+                "generator": {
+                  "aggregationForGroup": "none",
+                  "aggregations": [
+                    "distinct"
+                  ],
+                  "avg": false,
+                  "canCalculate": false,
+                  "canFilter": true,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "concat": false,
+                  "context": [],
+                  "count": false,
+                  "countDistinct": false,
+                  "deferred": false,
+                  "experimental": false,
+                  "groupAggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                  ],
+                  "groupBy": [],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "dimension_ServiceName",
+                  "identity": false,
+                  "label": true,
+                  "lastSeen": 1588608774279,
+                  "max": false,
+                  "metricType": "segmentBy",
+                  "min": false,
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "rateOfChange": false,
+                  "scale": 1.0,
+                  "scopes": [],
+                  "sum": false,
+                  "timeAggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                  ],
+                  "timeAvg": false,
+                  "type": "string"
+                },
+                "groupAggregations": [
+                  "concat",
+                  "distinct",
+                  "count"
+                ],
+                "heuristic": false,
+                "hidden": false,
+                "id": "dimension_ServiceName",
+                "identity": false,
+                "lastSeen": 1588608774279,
+                "metricType": "tag",
+                "namespaces": [
+                  "host",
+                  "host.process",
+                  "host.container",
+                  "cloudProvider",
+                  "mesos",
+                  "ecs",
+                  "kubernetes.cluster",
+                  "kubernetes.namespace",
+                  "kubernetes.deployment",
+                  "kubernetes.job",
+                  "kubernetes.daemonSet",
+                  "kubernetes.service",
+                  "kubernetes.node",
+                  "kubernetes.replicaSet",
+                  "kubernetes.statefulSet",
+                  "kubernetes.resourcequota",
+                  "kubernetes.persistentvolume",
+                  "kubernetes.persistentvolumeclaim",
+                  "kubernetes.pod"
+                ],
+                "routingInfo": {
+                  "customerId": 995,
+                  "routing": "995"
+                },
+                "scale": 1.0,
+                "scopes": [],
+                "segment": false,
+                "segmentations": [],
+                "timeAggregations": [
+                  "concat",
+                  "distinct",
+                  "count"
+                ],
+                "type": "string"
+              },
+              "displayName": "service",
+              "isVariable": true,
+              "operand": "dimension_ServiceName",
+              "operator": "equals",
+              "value": [],
+              "variable": true
+            }
+          ]
+        }
+      }
+  - name: "Fargate Cluster Overview"
     kind: grafana
-    image: "aws-fargate/images/fargate-grafana-golden-signals.jpg"
+    image: "aws-fargate/images/fargate-grafana-cluster-overview.jpg"
     description: |
       This dashboard offers information on: 
       * Number of tasks in the cluster by state (desired, pending, running)
@@ -685,1290 +1737,704 @@ configurations:
           ]
         },
         "timezone": "",
-        "title": "AWS Fargate Golden Signals",
+        "title": "AWS Fargate Cluster Overview",
         "uid": "Y7FBBZlWz",
         "version": 9
       }
-  - name: "Fargate Golden Signals"
-    kind: sysdig
-    image: "aws-fargate/images/fargate-sysdig-golden-signals.png"
+  - name: "Fargate Service Detail"
+    kind: grafana
+    image: "aws-fargate/images/fargate-grafana-service-detail.png"
     description: |
-      This dashboard offers information on: 
-      * Number of tasks in the cluster by state (desired, pending, running)
-      * CPU utilization by service
-      * Memory utilization by service
+      This dashboard has variables for cluster and service. It offers information on: 
+      * CPU utilization
+      * Memory utilization
       * Disk read and write throughput
+      * Running and pending tasks
     data: |
       {
-      "dashboard": {
-        "id": 1715277,
-        "teamId": 67844,
-        "userId": 42224,
-        "name": "Fargate PromQL",
+        "annotations": {
+          "list": [
+            {
+              "builtIn": 1,
+              "datasource": "-- Grafana --",
+              "enable": true,
+              "hide": true,
+              "iconColor": "rgba(0, 211, 255, 1)",
+              "name": "Annotations & Alerts",
+              "type": "dashboard"
+            }
+          ]
+        },
+        "editable": true,
+        "gnetId": null,
+        "graphTooltip": 0,
+        "id": 14,
+        "iteration": 1588680018724,
+        "links": [],
         "panels": [
-            {
-                "id": 4,
-                "type": "advancedTimechart",
-                "name": "Running tasks",
-                "description": "",
-                "advancedQueries": [
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "auto"
-                        },
-                        "query": "sum by (dimension_ServiceName)(aws_ecs_containerinsights_running_task_count_average)"
-                    }
-                ],
-                "legendConfiguration": {
-                    "enabled": true,
-                    "position": "bottom",
-                    "layout": "table",
-                    "showCurrent": true
-                },
-                "axesConfiguration": {
-                    "bottom": {
-                        "enabled": true
-                    },
-                    "left": {
-                        "enabled": true,
-                        "displayName": null,
-                        "unit": "auto",
-                        "displayFormat": "auto",
-                        "decimals": 2,
-                        "minValue": 0,
-                        "maxValue": null,
-                        "minInputFormat": "1",
-                        "maxInputFormat": "1",
-                        "scale": "linear"
-                    },
-                    "right": {
-                        "enabled": true,
-                        "displayName": null,
-                        "unit": "auto",
-                        "displayFormat": "auto",
-                        "decimals": null,
-                        "minValue": null,
-                        "maxValue": null,
-                        "minInputFormat": "1",
-                        "maxInputFormat": "1",
-                        "scale": "linear"
-                    }
-                }
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 0,
+              "y": 0
             },
-            {
-                "id": 5,
-                "type": "advancedNumber",
-                "name": "CPU utilization",
-                "description": "",
-                "advancedQueries": [
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "%",
-                            "inputFormat": "0-100",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "auto"
-                        },
-                        "query": "avg (aws_ecs_containerinsights_cpu_utilized_average)"
-                    }
-                ],
-                "numberThresholds": {
-                    "values": [
-                        {
-                            "severity": "high",
-                            "value": 85,
-                            "inputFormat": "0-100",
-                            "displayText": ""
-                        },
-                        {
-                            "severity": "medium",
-                            "value": 75,
-                            "inputFormat": "0-100",
-                            "displayText": ""
-                        }
-                    ],
-                    "base": {
-                        "severity": "ok",
-                        "displayText": ""
-                    }
-                }
+            "hiddenSeries": false,
+            "id": 2,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
             },
-            {
-                "id": 6,
-                "type": "advancedNumber",
-                "name": "Memory utilization",
-                "description": "",
-                "advancedQueries": [
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "%",
-                            "inputFormat": "0-100",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "auto"
-                        },
-                        "query": "avg(aws_ecs_containerinsights_memory_utilized_average)"
-                    }
-                ],
-                "numberThresholds": {
-                    "values": [
-                        {
-                            "severity": "high",
-                            "value": 85,
-                            "inputFormat": "0-100",
-                            "displayText": ""
-                        },
-                        {
-                            "severity": "medium",
-                            "value": 75,
-                            "inputFormat": "0-100",
-                            "displayText": ""
-                        }
-                    ],
-                    "base": {
-                        "severity": "ok",
-                        "displayText": ""
-                    }
-                }
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
             },
-            {
-                "id": 7,
-                "type": "basicToplist",
-                "name": "CPU usage by container",
-                "description": "",
-                "basicQueries": [
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "auto"
-                        },
-                        "scope": {
-                            "expressions": [],
-                            "extendsDashboardScope": true
-                        },
-                        "compareTo": {
-                            "enabled": false,
-                            "delta": 1,
-                            "timeFormat": "day"
-                        },
-                        "metrics": [
-                            {
-                                "id": "aws_ecs_containerinsights_cpu_utilized_average",
-                                "timeAggregation": "avg",
-                                "groupAggregation": "avg",
-                                "descriptor": null,
-                                "sorting": null
-                            }
-                        ],
-                        "segmentation": {
-                            "labels": [
-                                {
-                                    "id": "dimension_ServiceName",
-                                    "descriptor": null,
-                                    "displayName": null,
-                                    "sorting": null
-                                }
-                            ],
-                            "limit": 10,
-                            "direction": "desc"
-                        }
-                    }
-                ]
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "100 * aws_ecs_containerinsights_cpu_utilized_average{dimension_ClusterName='$cluster', dimension_ServiceName='$service'} / aws_ecs_containerinsights_cpu_reserved_average{dimension_ClusterName='$cluster', dimension_ServiceName='$service'}",
+                "interval": "",
+                "legendFormat": "CPU Usage",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "CPU % Usage",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
             },
-            {
-                "id": 8,
-                "type": "basicToplist",
-                "name": "Mem. usage by service",
-                "description": "",
-                "basicQueries": [
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "auto"
-                        },
-                        "scope": {
-                            "expressions": [],
-                            "extendsDashboardScope": true
-                        },
-                        "compareTo": {
-                            "enabled": false,
-                            "delta": 1,
-                            "timeFormat": "day"
-                        },
-                        "metrics": [
-                            {
-                                "id": "aws_ecs_containerinsights_memory_utilized_average",
-                                "timeAggregation": "avg",
-                                "groupAggregation": "avg",
-                                "descriptor": null,
-                                "sorting": null
-                            }
-                        ],
-                        "segmentation": {
-                            "labels": [
-                                {
-                                    "id": "dimension_ServiceName",
-                                    "descriptor": null,
-                                    "displayName": "",
-                                    "sorting": null
-                                }
-                            ],
-                            "limit": 10,
-                            "direction": "desc"
-                        }
-                    }
-                ]
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
             },
-            {
-                "id": 9,
-                "type": "advancedNumber",
-                "name": "$ Cloudwatch API cost",
-                "description": "",
-                "advancedQueries": [
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "auto"
-                        },
-                        "query": "sum ((increase(yace_cloudwatch_requests_total[10m]) * 6 * 24 * 32) - 100000) / 1000 * 0.01"
-                    }
-                ],
-                "numberThresholds": {
-                    "values": [
-                        {
-                            "severity": "high",
-                            "value": 100,
-                            "inputFormat": "1",
-                            "displayText": ""
-                        },
-                        {
-                            "severity": "medium",
-                            "value": 10,
-                            "inputFormat": "1",
-                            "displayText": ""
-                        }
-                    ],
-                    "base": {
-                        "severity": "ok",
-                        "displayText": ""
-                    }
-                }
-            },
-            {
-                "id": 10,
-                "type": "advancedNumber",
-                "name": "Total API calls",
-                "description": "",
-                "advancedQueries": [
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "auto"
-                        },
-                        "query": "sum (yace_cloudwatch_requests_total)"
-                    }
-                ],
-                "numberThresholds": {
-                    "values": [],
-                    "base": {
-                        "severity": "none",
-                        "displayText": ""
-                    }
-                }
-            },
-            {
-                "id": 11,
-                "type": "advancedTimechart",
-                "name": "Cloudwatch API requests",
-                "description": "",
-                "advancedQueries": [
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "auto"
-                        },
-                        "query": "sum (rate(yace_cloudwatch_requests_total[15m]))"
-                    }
-                ],
-                "legendConfiguration": {
-                    "enabled": true,
-                    "position": "bottom",
-                    "layout": "table",
-                    "showCurrent": true
-                },
-                "axesConfiguration": {
-                    "bottom": {
-                        "enabled": true
-                    },
-                    "left": {
-                        "enabled": true,
-                        "displayName": null,
-                        "unit": "auto",
-                        "displayFormat": "auto",
-                        "decimals": null,
-                        "minValue": 0,
-                        "maxValue": null,
-                        "minInputFormat": "1",
-                        "maxInputFormat": "1",
-                        "scale": "linear"
-                    },
-                    "right": {
-                        "enabled": true,
-                        "displayName": null,
-                        "unit": "auto",
-                        "displayFormat": "auto",
-                        "decimals": null,
-                        "minValue": null,
-                        "maxValue": null,
-                        "minInputFormat": "1",
-                        "maxInputFormat": "1",
-                        "scale": "linear"
-                    }
-                }
-            },
-            {
-                "id": 12,
-                "type": "advancedTimechart",
-                "name": "Storage read / write",
-                "description": "",
-                "advancedQueries": [
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "left"
-                        },
-                        "query": "sum by (dimension_ServiceName) (aws_ecs_containerinsights_storage_read_bytes_average)"
-                    },
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "right"
-                        },
-                        "query": "sum by (dimension_ServiceName) (aws_ecs_containerinsights_storage_write_bytes_average)"
-                    }
-                ],
-                "legendConfiguration": {
-                    "enabled": true,
-                    "position": "bottom",
-                    "layout": "table",
-                    "showCurrent": true
-                },
-                "axesConfiguration": {
-                    "bottom": {
-                        "enabled": true
-                    },
-                    "left": {
-                        "enabled": true,
-                        "displayName": null,
-                        "unit": "auto",
-                        "displayFormat": "auto",
-                        "decimals": null,
-                        "minValue": 0,
-                        "maxValue": null,
-                        "minInputFormat": "1",
-                        "maxInputFormat": "1",
-                        "scale": "linear"
-                    },
-                    "right": {
-                        "enabled": true,
-                        "displayName": null,
-                        "unit": "auto",
-                        "displayFormat": "auto",
-                        "decimals": null,
-                        "minValue": 0,
-                        "maxValue": null,
-                        "minInputFormat": "1",
-                        "maxInputFormat": "1",
-                        "scale": "linear"
-                    }
-                }
-            },
-            {
-                "id": 13,
-                "type": "advancedTimechart",
-                "name": "CPU / memory usage",
-                "description": "",
-                "advancedQueries": [
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "left"
-                        },
-                        "query": "avg by (dimension_ServiceName) (aws_ecs_containerinsights_cpu_utilized_average)"
-                    },
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "right"
-                        },
-                        "query": "avg by (dimension_ServiceName) (aws_ecs_containerinsights_memory_utilized_average)"
-                    }
-                ],
-                "legendConfiguration": {
-                    "enabled": true,
-                    "position": "bottom",
-                    "layout": "table",
-                    "showCurrent": true
-                },
-                "axesConfiguration": {
-                    "bottom": {
-                        "enabled": true
-                    },
-                    "left": {
-                        "enabled": true,
-                        "displayName": null,
-                        "unit": "auto",
-                        "displayFormat": "auto",
-                        "decimals": null,
-                        "minValue": 0,
-                        "maxValue": null,
-                        "minInputFormat": "1",
-                        "maxInputFormat": "1",
-                        "scale": "linear"
-                    },
-                    "right": {
-                        "enabled": true,
-                        "displayName": null,
-                        "unit": "auto",
-                        "displayFormat": "auto",
-                        "decimals": null,
-                        "minValue": 0,
-                        "maxValue": null,
-                        "minInputFormat": "1",
-                        "maxInputFormat": "1",
-                        "scale": "linear"
-                    }
-                }
-            },
-            {
-                "id": 14,
-                "type": "advancedNumber",
-                "name": "Pending tasks",
-                "description": "",
-                "advancedQueries": [
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "auto"
-                        },
-                        "query": "sum (aws_ecs_containerinsights_pending_task_count_average)"
-                    }
-                ],
-                "numberThresholds": {
-                    "values": [
-                        {
-                            "severity": "medium",
-                            "value": 1,
-                            "inputFormat": "1",
-                            "displayText": ""
-                        }
-                    ],
-                    "base": {
-                        "severity": "ok",
-                        "displayText": ""
-                    }
-                }
-            },
-            {
-                "id": 15,
-                "type": "advancedNumber",
-                "name": "Desired tasks",
-                "description": "",
-                "advancedQueries": [
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "auto"
-                        },
-                        "query": "sum (aws_ecs_containerinsights_desired_task_count_average)"
-                    }
-                ],
-                "numberThresholds": {
-                    "values": [],
-                    "base": {
-                        "severity": "none",
-                        "displayText": ""
-                    }
-                }
-            },
-            {
-                "id": 16,
-                "type": "advancedNumber",
-                "name": "Running tasks",
-                "description": "",
-                "advancedQueries": [
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "auto"
-                        },
-                        "query": "sum (aws_ecs_containerinsights_running_task_count_average)"
-                    }
-                ],
-                "numberThresholds": {
-                    "values": [],
-                    "base": {
-                        "severity": "none",
-                        "displayText": ""
-                    }
-                }
-            },
-            {
-                "id": 17,
-                "type": "advancedNumber",
-                "name": "HTTP connections",
-                "description": "",
-                "advancedQueries": [
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "auto"
-                        },
-                        "query": "nginx_connections_active"
-                    }
-                ],
-                "numberThresholds": {
-                    "values": [],
-                    "base": {
-                        "severity": "none",
-                        "displayText": ""
-                    }
-                }
-            },
-            {
-                "id": 18,
-                "type": "advancedNumber",
-                "name": "Redis connections",
-                "description": "",
-                "advancedQueries": [
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "auto"
-                        },
-                        "query": "redis_connected_clients"
-                    }
-                ],
-                "numberThresholds": {
-                    "values": [],
-                    "base": {
-                        "severity": "none",
-                        "displayText": ""
-                    }
-                }
-            },
-            {
-                "id": 19,
-                "type": "advancedTimechart",
-                "name": "HTTP Connections / latency",
-                "description": "",
-                "advancedQueries": [
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "left"
-                        },
-                        "query": "sum (rate(http_requests_total[15m]))"
-                    },
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "right"
-                        },
-                        "query": "sum (http_request_duration_microseconds_sum / 10000) / sum (http_requests_total)"
-                    }
-                ],
-                "legendConfiguration": {
-                    "enabled": true,
-                    "position": "bottom",
-                    "layout": "inline",
-                    "showCurrent": true
-                },
-                "axesConfiguration": {
-                    "bottom": {
-                        "enabled": true
-                    },
-                    "left": {
-                        "enabled": true,
-                        "displayName": null,
-                        "unit": "auto",
-                        "displayFormat": "auto",
-                        "decimals": 2,
-                        "minValue": 0,
-                        "maxValue": null,
-                        "minInputFormat": "1",
-                        "maxInputFormat": "1",
-                        "scale": "linear"
-                    },
-                    "right": {
-                        "enabled": true,
-                        "displayName": null,
-                        "unit": "auto",
-                        "displayFormat": "auto",
-                        "decimals": null,
-                        "minValue": null,
-                        "maxValue": null,
-                        "minInputFormat": "1",
-                        "maxInputFormat": "1",
-                        "scale": "linear"
-                    }
-                }
-            },
-            {
-                "id": 20,
-                "type": "advancedTimechart",
-                "name": "REDIS clients connected",
-                "description": "",
-                "advancedQueries": [
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "auto"
-                        },
-                        "query": "redis_connected_clients"
-                    }
-                ],
-                "legendConfiguration": {
-                    "enabled": true,
-                    "position": "bottom",
-                    "layout": "inline",
-                    "showCurrent": true
-                },
-                "axesConfiguration": {
-                    "bottom": {
-                        "enabled": true
-                    },
-                    "left": {
-                        "enabled": true,
-                        "displayName": null,
-                        "unit": "auto",
-                        "displayFormat": "auto",
-                        "decimals": 2,
-                        "minValue": 0,
-                        "maxValue": null,
-                        "minInputFormat": "1",
-                        "maxInputFormat": "1",
-                        "scale": "linear"
-                    },
-                    "right": {
-                        "enabled": true,
-                        "displayName": null,
-                        "unit": "auto",
-                        "displayFormat": "auto",
-                        "decimals": null,
-                        "minValue": null,
-                        "maxValue": null,
-                        "minInputFormat": "1",
-                        "maxInputFormat": "1",
-                        "scale": "linear"
-                    }
-                }
-            },
-            {
-                "id": 21,
-                "type": "advancedTimechart",
-                "name": "HTTP I/O Traffic",
-                "description": "",
-                "advancedQueries": [
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "auto"
-                        },
-                        "query": "sum (rate(http_response_size_bytes_sum[15m]))"
-                    },
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "auto"
-                        },
-                        "query": "sum (rate(http_request_size_bytes_sum[15m]))"
-                    }
-                ],
-                "legendConfiguration": {
-                    "enabled": true,
-                    "position": "bottom",
-                    "layout": "inline",
-                    "showCurrent": true
-                },
-                "axesConfiguration": {
-                    "bottom": {
-                        "enabled": true
-                    },
-                    "left": {
-                        "enabled": true,
-                        "displayName": null,
-                        "unit": "auto",
-                        "displayFormat": "auto",
-                        "decimals": 2,
-                        "minValue": 0,
-                        "maxValue": null,
-                        "minInputFormat": "1",
-                        "maxInputFormat": "1",
-                        "scale": "linear"
-                    },
-                    "right": {
-                        "enabled": true,
-                        "displayName": null,
-                        "unit": "auto",
-                        "displayFormat": "auto",
-                        "decimals": null,
-                        "minValue": null,
-                        "maxValue": null,
-                        "minInputFormat": "1",
-                        "maxInputFormat": "1",
-                        "scale": "linear"
-                    }
-                }
-            },
-            {
-                "id": 22,
-                "type": "advancedTimechart",
-                "name": "REDIS Response time (ms)",
-                "description": "",
-                "advancedQueries": [
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "auto"
-                        },
-                        "query": "redis_commands_duration_seconds_total / redis_commands_total * 1000"
-                    }
-                ],
-                "legendConfiguration": {
-                    "enabled": true,
-                    "position": "bottom",
-                    "layout": "inline",
-                    "showCurrent": true
-                },
-                "axesConfiguration": {
-                    "bottom": {
-                        "enabled": true
-                    },
-                    "left": {
-                        "enabled": true,
-                        "displayName": null,
-                        "unit": "auto",
-                        "displayFormat": "auto",
-                        "decimals": 2,
-                        "minValue": 0,
-                        "maxValue": null,
-                        "minInputFormat": "1",
-                        "maxInputFormat": "1",
-                        "scale": "linear"
-                    },
-                    "right": {
-                        "enabled": true,
-                        "displayName": null,
-                        "unit": "auto",
-                        "displayFormat": "auto",
-                        "decimals": null,
-                        "minValue": null,
-                        "maxValue": null,
-                        "minInputFormat": "1",
-                        "maxInputFormat": "1",
-                        "scale": "linear"
-                    }
-                }
-            },
-            {
-                "id": 23,
-                "type": "advancedNumber",
-                "name": "Redis avg. response time (ms)",
-                "description": "",
-                "advancedQueries": [
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "auto"
-                        },
-                        "query": "avg(redis_commands_duration_seconds_total / redis_commands_total) * 1000"
-                    }
-                ],
-                "numberThresholds": {
-                    "values": [],
-                    "base": {
-                        "severity": "none",
-                        "displayText": ""
-                    }
-                }
-            },
-            {
-                "id": 24,
-                "type": "advancedNumber",
-                "name": "HTTP Latency (s)",
-                "description": "",
-                "advancedQueries": [
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "number",
-                            "inputFormat": "1",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "auto"
-                        },
-                        "query": "sum (http_request_duration_microseconds_sum / 10000) / sum (http_requests_total)"
-                    }
-                ],
-                "numberThresholds": {
-                    "values": [],
-                    "base": {
-                        "severity": "none",
-                        "displayText": ""
-                    }
-                }
-            },
-            {
-                "id": 25,
-                "type": "advancedNumber",
-                "name": "HTTP Error rate",
-                "description": "",
-                "advancedQueries": [
-                    {
-                        "enabled": true,
-                        "displayInfo": {
-                            "displayName": "",
-                            "timeSeriesDisplayNameTemplate": "",
-                            "type": "lines"
-                        },
-                        "format": {
-                            "unit": "%",
-                            "inputFormat": "0-100",
-                            "displayFormat": "auto",
-                            "decimals": null,
-                            "yAxis": "auto"
-                        },
-                        "query": "(1 - sum (http_requests_total{status!~\"2..\"}) / sum ( http_requests_total)) * 100"
-                    }
-                ],
-                "numberThresholds": {
-                    "values": [
-                        {
-                            "severity": "high",
-                            "value": 50,
-                            "inputFormat": "0-100",
-                            "displayText": ""
-                        },
-                        {
-                            "severity": "medium",
-                            "value": 25,
-                            "inputFormat": "0-100",
-                            "displayText": ""
-                        },
-                        {
-                            "severity": "low",
-                            "value": 5,
-                            "inputFormat": "0-100",
-                            "displayText": ""
-                        }
-                    ],
-                    "base": {
-                        "severity": "ok",
-                        "displayText": ""
-                    }
-                }
+            "yaxes": [
+              {
+                "decimals": null,
+                "format": "percent",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
             }
-        ],
-        "scopeExpressionList": [],
-        "shared": true,
-        "public": false,
-        "version": 102,
-        "createdOn": 1582217017000,
-        "modifiedOn": 1582314644000,
-        "description": "",
-        "layout": [
-            {
-                "panelId": 4,
-                "x": 0,
-                "y": 3,
-                "w": 5,
-                "h": 6
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 12,
+              "y": 0
             },
-            {
-                "panelId": 5,
-                "x": 5,
-                "y": 0,
-                "w": 6,
-                "h": 2
+            "hiddenSeries": false,
+            "id": 4,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
             },
-            {
-                "panelId": 6,
-                "x": 11,
-                "y": 0,
-                "w": 6,
-                "h": 2
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
             },
-            {
-                "panelId": 7,
-                "x": 5,
-                "y": 2,
-                "w": 6,
-                "h": 7
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "100 * aws_ecs_containerinsights_memory_utilized_average{dimension_ClusterName='$cluster', dimension_ServiceName='$service'} / aws_ecs_containerinsights_memory_reserved_average{dimension_ClusterName='$cluster', dimension_ServiceName='$service'}",
+                "interval": "",
+                "legendFormat": "Memory Usage",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Memory % Usage",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
             },
-            {
-                "panelId": 8,
-                "x": 11,
-                "y": 2,
-                "w": 6,
-                "h": 7
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
             },
-            {
-                "panelId": 9,
-                "x": 17,
-                "y": 0,
-                "w": 3,
-                "h": 2
-            },
-            {
-                "panelId": 10,
-                "x": 20,
-                "y": 0,
-                "w": 3,
-                "h": 2
-            },
-            {
-                "panelId": 11,
-                "x": 17,
-                "y": 2,
-                "w": 6,
-                "h": 7
-            },
-            {
-                "panelId": 12,
-                "x": 0,
-                "y": 9,
-                "w": 11,
-                "h": 7
-            },
-            {
-                "panelId": 13,
-                "x": 11,
-                "y": 9,
-                "w": 12,
-                "h": 7
-            },
-            {
-                "panelId": 14,
-                "x": 0,
-                "y": 0,
-                "w": 5,
-                "h": 1
-            },
-            {
-                "panelId": 15,
-                "x": 0,
-                "y": 1,
-                "w": 5,
-                "h": 1
-            },
-            {
-                "panelId": 16,
-                "x": 0,
-                "y": 2,
-                "w": 5,
-                "h": 1
-            },
-            {
-                "panelId": 17,
-                "x": 0,
-                "y": 16,
-                "w": 3,
-                "h": 2
-            },
-            {
-                "panelId": 18,
-                "x": 11,
-                "y": 16,
-                "w": 6,
-                "h": 2
-            },
-            {
-                "panelId": 19,
-                "x": 0,
-                "y": 18,
-                "w": 11,
-                "h": 4
-            },
-            {
-                "panelId": 20,
-                "x": 11,
-                "y": 18,
-                "w": 12,
-                "h": 4
-            },
-            {
-                "panelId": 21,
-                "x": 0,
-                "y": 22,
-                "w": 11,
-                "h": 4
-            },
-            {
-                "panelId": 22,
-                "x": 11,
-                "y": 22,
-                "w": 12,
-                "h": 4
-            },
-            {
-                "panelId": 23,
-                "x": 17,
-                "y": 16,
-                "w": 6,
-                "h": 2
-            },
-            {
-                "panelId": 24,
-                "x": 7,
-                "y": 16,
-                "w": 4,
-                "h": 2
-            },
-            {
-                "panelId": 25,
-                "x": 3,
-                "y": 16,
-                "w": 4,
-                "h": 2
+            "yaxes": [
+              {
+                "decimals": null,
+                "format": "percent",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
             }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 0,
+              "y": 9
+            },
+            "hiddenSeries": false,
+            "id": 3,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "aws_ecs_containerinsights_cpu_reserved_average{dimension_ClusterName='$cluster', dimension_ServiceName='$service'}",
+                "interval": "",
+                "legendFormat": "CPU Reserved",
+                "refId": "B"
+              },
+              {
+                "expr": "aws_ecs_containerinsights_cpu_utilized_average{dimension_ClusterName='$cluster', dimension_ServiceName='$service'}",
+                "interval": "",
+                "legendFormat": "CPU Utilized",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "CPU Reserved vs Utilized",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "decimals": null,
+                "format": "none",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 12,
+              "y": 9
+            },
+            "hiddenSeries": false,
+            "id": 5,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "aws_ecs_containerinsights_memory_reserved_average{dimension_ClusterName='$cluster', dimension_ServiceName='$service'}",
+                "interval": "",
+                "legendFormat": "CPU Reserved",
+                "refId": "B"
+              },
+              {
+                "expr": "aws_ecs_containerinsights_memory_utilized_average{dimension_ClusterName='$cluster', dimension_ServiceName='$service'}",
+                "interval": "",
+                "legendFormat": "CPU Utilized",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Memory Reserved vs Utilized",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "decimals": null,
+                "format": "decmbytes",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 0,
+              "y": 18
+            },
+            "hiddenSeries": false,
+            "id": 6,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "rate(aws_ecs_containerinsights_storage_read_bytes_average{dimension_ClusterName='$cluster', dimension_ServiceName='$service'}[15m])",
+                "interval": "",
+                "legendFormat": "Storage Read",
+                "refId": "B"
+              },
+              {
+                "expr": "rate(aws_ecs_containerinsights_storage_write_bytes_average{dimension_ClusterName='$cluster', dimension_ServiceName='$service'}[15m])",
+                "interval": "",
+                "legendFormat": "Storage Write",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Storage Throughput",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "decimals": null,
+                "format": "bytes",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 9,
+              "w": 12,
+              "x": 12,
+              "y": 18
+            },
+            "hiddenSeries": false,
+            "id": 7,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "dataLinks": []
+            },
+            "percentage": false,
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "expr": "aws_ecs_containerinsights_running_task_count_average{dimension_ClusterName='$cluster', dimension_ServiceName='$service'}",
+                "interval": "",
+                "legendFormat": "Running",
+                "refId": "B"
+              },
+              {
+                "expr": "aws_ecs_containerinsights_pending_task_count_average{dimension_ClusterName='$cluster', dimension_ServiceName='$service'}",
+                "interval": "",
+                "legendFormat": "Pending",
+                "refId": "A"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Running vs Pending Tasks",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "decimals": 0,
+                "format": "none",
+                "label": "",
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          }
         ],
-        "sharingSettings": [
+        "schemaVersion": 22,
+        "style": "dark",
+        "tags": [],
+        "templating": {
+          "list": [
             {
-                "role": "ROLE_RESOURCE_EDIT",
-                "member": {
-                    "type": "USER_TEAMS",
-                    "id": null,
-                    "name": null,
-                    "teamTheme": null
+              "allValue": null,
+              "current": {
+                "text": "damir-test-cloudwatch",
+                "value": "damir-test-cloudwatch"
+              },
+              "datasource": "Prometheus",
+              "definition": "aws_ecs_containerinsights_desired_task_count_average",
+              "hide": 0,
+              "includeAll": false,
+              "index": -1,
+              "label": "Cluster",
+              "multi": false,
+              "name": "cluster",
+              "options": [
+                {
+                  "selected": true,
+                  "text": "damir-test-cloudwatch",
+                  "value": "damir-test-cloudwatch"
                 }
+              ],
+              "query": "aws_ecs_containerinsights_desired_task_count_average",
+              "refresh": 0,
+              "regex": "/.*dimension_ClusterName=\"([^\"]*).*/",
+              "skipUrlSync": false,
+              "sort": 0,
+              "tagValuesQuery": "",
+              "tags": [],
+              "tagsQuery": "",
+              "type": "query",
+              "useTags": false
+            },
+            {
+              "allValue": null,
+              "current": {
+                "text": "nginx",
+                "value": "nginx"
+              },
+              "datasource": "Prometheus",
+              "definition": "aws_ecs_containerinsights_desired_task_count_average",
+              "hide": 0,
+              "includeAll": false,
+              "index": -1,
+              "label": "Service",
+              "multi": false,
+              "name": "service",
+              "options": [
+                {
+                  "selected": false,
+                  "text": "nginx",
+                  "value": "nginx"
+                },
+                {
+                  "selected": false,
+                  "text": "redis",
+                  "value": "redis"
+                },
+                {
+                  "selected": true,
+                  "text": "ubuntu_test",
+                  "value": "ubuntu_test"
+                }
+              ],
+              "query": "aws_ecs_containerinsights_desired_task_count_average",
+              "refresh": 0,
+              "regex": "/.*dimension_ServiceName=\"([^\"]*).*/",
+              "skipUrlSync": false,
+              "sort": 0,
+              "tagValuesQuery": "",
+              "tags": [],
+              "tagsQuery": "",
+              "type": "query",
+              "useTags": false
             }
-        ],
-        "publicToken": "",
-        "schema": 3,
-        "favorite": false,
-        "username": "",
-        "permissions": [
-            "dashboards.edit",
-            "dashboards.read",
-            "dashboards.sharing",
-            "dashboards.delete"
-        ]
-         }
-        }
+          ]
+        },
+        "time": {
+          "from": "now-6h",
+          "to": "now"
+        },
+        "timepicker": {
+          "refresh_intervals": [
+            "5s",
+            "10s",
+            "30s",
+            "1m",
+            "5m",
+            "15m",
+            "30m",
+            "1h",
+            "2h",
+            "1d"
+          ]
+        },
+        "timezone": "",
+        "title": "Fargate Service Details",
+        "uid": "6lqo9x6Zk",
+        "variables": {
+          "list": []
+        },
+        "version": 4
+      }
