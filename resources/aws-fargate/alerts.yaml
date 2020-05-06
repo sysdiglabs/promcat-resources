@@ -47,14 +47,14 @@ configurations:
   - kind: Prometheus
     data: |
       - alert: HighCpuUtilizationRate
-        expr: aws_ecs_containerinsights_cpu_utilization_rate_average > 0.75
+        expr: avg by (dimension_ServiceName)(aws_ecs_containerinsights_cpu_utilized_average / aws_ecs_containerinsights_cpu_reserved_average) > 0.75
         for: 10m
         labels: 
           severity: page
         annotations:
           summary: High CPU utilization rate on {{$labels.dimension_ServiceName}}
       - alert: HighMemoryUtilizationRate
-        expr: aws_ecs_containerinsights_memory_utilization_rate_average > 0.75
+        expr: avg by (dimension_ServiceName)(aws_ecs_containerinsights_memory_utilized_average / aws_ecs_containerinsights_memory_reserved_average) > 0.75
         for: 10m
         labels: 
           severity: page
