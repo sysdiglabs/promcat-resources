@@ -39,7 +39,7 @@ configurations:
   - kind: Prometheus
     data: |
       - alert: HighFunctionErrorRate
-        expr: job:aws_lambda_error_rate:avg > 0.15
+        expr: aws_lambda_error_rate_average > 0.15
         for: 10m
         labels: 
           severity: page
@@ -53,18 +53,45 @@ configurations:
         annotations:
           summary: Detected throttling in function {{$labels.dimension_FunctionName}}
   - kind: Sysdig
-    data: |
-      - alert: HighFunctionErrorRate
-        expr: (aws_lambda_errors_sum / aws_lambda_invocations_sum) > 0.15
-        for: 10m
-        labels: 
-          severity: page
-        annotations:
-          summary: High error rate on function {{$labels.dimension_FunctionName}}
-      - alert: ThrottlingFunction
-        expr: aws_lambda_throttles_sum > 0
-        for: 10m
-        labels: 
-          severity: page
-        annotations:
-          summary: Detected throttling in function {{$labels.dimension_FunctionName}}
+    data: | 
+      [
+      {
+        "alert": {
+          "condition": "aws_lambda_throttles_sum > 0",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "[AWS Lambda] Function Throttling",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": 30,
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
+        }
+      }
+        ,
+      {
+        "alert": {
+          "condition": "(aws_lambda_errors_sum / aws_lambda_invocations_sum) > 0.15",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "[AWS Lambda] High Function Error Rate",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": 30,
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
+        }
+      }
+      ]
