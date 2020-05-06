@@ -47,14 +47,14 @@ configurations:
   - kind: Prometheus
     data: |
       - alert: HighCpuUtilizationRate
-        expr: job:aws_ecs_containerinsights_cpu_utilization_rate:avg > 0.75
+        expr: aws_ecs_containerinsights_cpu_utilization_rate_average > 0.75
         for: 10m
         labels: 
           severity: page
         annotations:
           summary: High CPU utilization rate on {{$labels.dimension_ServiceName}}
       - alert: HighMemoryUtilizationRate
-        expr: job:aws_ecs_containerinsights_memory_utilization_rate:avg > 0.75
+        expr: aws_ecs_containerinsights_memory_utilization_rate_average > 0.75
         for: 10m
         labels: 
           severity: page
@@ -69,24 +69,65 @@ configurations:
           summary: Recurrent pending task on {{$labels.dimension_ServiceName}}
   - kind: Sysdig
     data: |
-      - alert: HighCpuUtilizationRate
-        expr: avg by (dimension_ServiceName)(aws_ecs_containerinsights_cpu_utilized_average / aws_ecs_containerinsights_cpu_reserved_average) > 0.75
-        for: 10m
-        labels: 
-          severity: page
-        annotations:
-          summary: High CPU utilization rate on {{$labels.dimension_ServiceName}}
-      - alert: HighMemoryUtilizationRate
-        expr: avg by (dimension_ServiceName)(aws_ecs_containerinsights_memory_utilized_average / aws_ecs_containerinsights_memory_reserved_average) > 0.75
-        for: 10m
-        labels: 
-          severity: page
-        annotations:
-          summary: High memory utilization rate on {{$labels.dimension_ServiceName}}
-      - alert: RecurringPendingTasks
-        expr: aws_ecs_containerinsights_pending_task_count_average > 0
-        for: 10m
-        labels: 
-          severity: page
-        annotations:
-          summary: Recurrent pending task on {{$labels.dimension_ServiceName}}
+      [
+      {
+        "alert": {
+          "condition": "avg by (dimension_ServiceName)(aws_ecs_containerinsights_cpu_utilized_average / aws_ecs_containerinsights_cpu_reserved_average) > 0.75\n",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "[AWS Fargate] High CPU Utilization",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": 30,
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": 4,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
+        }
+      }
+        ,
+      {
+        "alert": {
+          "condition": "avg by (dimension_ServiceName)(aws_ecs_containerinsights_memory_utilized_average / aws_ecs_containerinsights_memory_reserved_average) > 0.75\n",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "[AWS Fargate] High Memory Utilization",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": 30,
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
+        }
+      }
+        ,
+      {
+        "alert": {
+          "condition": "aws_ecs_containerinsights_pending_task_count_average > 0",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "[AWS Fargate] Recurrent pending tasks",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": 30,
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": 4,
+          "timespan": 60000000,
+          "type": "PROMETHEUS"
+        }
+      }
+      ]
+      
