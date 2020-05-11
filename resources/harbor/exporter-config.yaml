@@ -24,7 +24,28 @@ description: |
     kubectl apply -f harbor.yaml
   ```
 
+  ```
+    kubectl apply -f sysdig-agent.yaml
+  ```
+
 data: |
+  ---
+  apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    name: sysdig-agent
+    namespace: sysdig-agent
+  data:
+    dragent.yaml: |-  
+      metrics_excess_log: true
+      use_promscrape: true
+      prometheus:
+        enabled: true
+        histograms: false
+        ingest_raw: true
+        ingest_calculated: false
+        max_metrics: 3000
+        max_metrics_per_process: 20000
   ---
   kind: Service
   apiVersion: v1
