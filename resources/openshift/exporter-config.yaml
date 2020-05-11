@@ -1,0 +1,133 @@
+---
+apiVersion: v1
+kind: ExporterConfig
+app: "Openshift"
+version: 1.0.0
+appVersion: 
+  - 4.3
+maintainers:
+  - name: Sysdig team
+    link: https://sysdig.com/
+description: |
+  # Gather the metrics from the prometheus deployed by Openshift
+
+  The Prometheus is behind an oauth proxy so we have to create the secret with the token:
+
+  1. Get the token
+    ```
+    export SECRET=`oc get secret -n openshift-monitoring | grep  prometheus-k8s-token | head -n 1 | awk '{ print $1 }'`
+    export TOKEN=`echo $(oc get secret $SECRET -n openshift-monitoring -o json | jq -r '.data.token') | base64 -d`
+    ```
+  2. Create the secret in sysdig-agent namespace
+    ```
+    kubectl -n sysdig-agent create secret generic prometheus-k8s-token --from-literal=token=$TOKEN
+    ```
+  3. Edit the daemonset of sysdig to mount the secret
+    ```
+    kubectl -n sysdig-agent patch ds sysdig-agent -p '{"spec":{"template":{"spec":{"volumes":[{"name":"prometheus-k8s-token","secret":{"defaultMode":420,"secretName":"prometheus-k8s-token"}}]}}}}'
+    kubectl -n sysdig-agent patch ds sysdig-agent -p '{"spec":{"template":{"spec":{"containers":[{"name":"sysdig","volumeMounts": [{"mountPath": "/opt/draios/kubernetes/prometheus/secrets","name": "prometheus-k8s-token"}]}]}}}}'
+    ```
+  4. Apply the sysdig configuration
+    ```
+    kubectl apply -f sysdig-agent.yaml
+    ```
+
+data: |
+  apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    name: sysdig-agent
+    namespace: sysdig-agent
+  data:
+    prometheus.yaml: |-
+      global:
+        scrape_interval: 15s
+        evaluation_interval: 15s
+      scrape_configs:
+      - job_name: 'prometheus' # config for federation
+        honor_labels: true
+        metrics_path: '/federate'
+        scheme: https
+        bearer_token_file: /opt/draios/kubernetes/prometheus/secrets/token
+        tls_config:
+          insecure_skip_verify: true
+        metric_relabel_configs:
+        - regex: 'kubernetes_pod_name'
+          action: labeldrop
+        params:
+          'match[]':
+            - '{sysdig="true"}'
+        sysdig_sd_configs:
+        - tags:
+            namespace: openshift-monitoring
+            pod: prometheus-k8s-0
+  
+    dragent.yaml: |-  
+      metrics_excess_log: true
+      use_promscrape: true
+      prometheus:
+        enabled: true
+        histograms: false
+        ingest_raw: true
+        ingest_calculated: false
+        max_metrics: 3000
+        max_metrics_per_process: 20000
+        process_filter:
+          - exclude:
+              process.name: docker-proxy
+          - exclude:
+              container.image: sysdig/agent
+          # special rule to exclude processes matching configured prometheus appcheck
+          - exclude:
+              appcheck.match: prometheus
+          - include:
+              container.label.io.prometheus.scrape: "true"
+              conf:
+                  # Custom path definition
+                  # If the label doesn't exist we'll still use "/metrics"
+                  path: "{container.label.io.prometheus.path}"
+        
+                  # Port definition
+                  # - If the label exists, only scan the given port.
+                  # - If it doesn't, use port_filter instead.
+                  # - If there is no port_filter defined, skip this process
+                  port: "{container.label.io.prometheus.port}"
+                  port_filter:
+                      - exclude: [9092,9200,9300]
+                      - include: 9090-9500
+                      - include: [9913,9984,24231,42004]
+          - exclude:
+              container.label.io.prometheus.scrape: "false"
+          - include:
+              process.name: oauth-proxy
+              kubernetes.pod.label.app: prometheus
+              conf:
+                  path: "/federate"
+                  use_https: true
+                  port: 9091
+                  ssl_verify: false
+                  auth_token_path: "/opt/draios/kubernetes/prometheus/secrets/token"
+
+          - include:
+              kubernetes.pod.annotation.prometheus.io/scrape: true
+              kubernetes.pod.annotation.prometheus.io/scheme: "https"
+              conf:
+                  use_https: true
+                  path: "{kubernetes.pod.annotation.prometheus.io/path}"
+                  port: "{kubernetes.pod.annotation.prometheus.io/port}"
+          - include:
+              kubernetes.pod.annotation.prometheus.io/scrape: true
+              conf:
+                  path: "{kubernetes.pod.annotation.prometheus.io/path}"
+                  port: "{kubernetes.pod.annotation.prometheus.io/port}"
+          - exclude:
+              kubernetes.pod.annotation.prometheus.io/scrape: false
+          # local configuration:
+          - include:
+              process.name: dockerd
+              conf:
+                  port: 9323
+          - include:
+              process.name: postfix_exporter
+              conf:
+                  port: 9154
