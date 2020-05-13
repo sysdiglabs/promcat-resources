@@ -17,3 +17,134 @@ description: |
   way to do this is anotate all pods and sidecars which is a lot of work and you can probably miss 
   something
 data: |
+  # Gather the metrics from the prometheus deployed by Istio
+
+  The Prometheus provided by Istio has all targets with all metrics within.
+
+  1. Create the rules with only the metrics we need from the tab `recording rules` downloaded as rules.yaml
+    ```
+    kubectl  apply -f rules.yaml
+    ```
+
+  2. Mount the new rules in the Prometheus server
+    ```
+    kubectl -n istio-system patch deploy prometheus -p '{"spec":{"template":{"spec":{"volumes":[{"name":"config-rules","configMap":{"defaultMode":420,"name":"rules"}}]}}}}'
+    kubectl -n istio-system patch deploy prometheus -p '{"spec":{"template":{"spec":{"containers":[{"name":"sysdig","volumeMounts": [{"mountPath": "/opt/rules","name": "config-rules"}]}]}}}}'
+    ```
+
+  3. Update the prometheus to get the new rules
+    ```
+    global:
+      scrape_interval: 15s
+    rule_files:
+    - /opt/rules/rules.yaml'
+    ```
+    As the prometheus doesn't have any pod to reload the configuration and the api is not active we have to delete it in order to get the new configuration
+  
+  4. Delete the pod being xxx the id given to the pods
+    ```
+    kubectl -n istio-system prometheus-xxx
+    ```
+
+  5. Gather the metrics with our agent adding the federation job for Istio, below there is an example of the configmap
+    ```
+    - job_name: 'prometheus' # config for federation
+          honor_labels: true
+          metrics_path: '/federate'
+          metric_relabel_configs:
+          - regex: 'kubernetes_pod_name'
+            action: labeldrop
+          params:
+            'match[]':
+              - '{sysdig="true"}'
+          sysdig_sd_configs:
+          - tags:
+              namespace: istio-system
+              deployment: prometheus
+    ```
+    
+data: |
+  apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: sysdig-agent
+      namespace: sysdig-agent
+    data:
+      prometheus.yaml: |-
+        global:
+          scrape_interval: 15s
+          evaluation_interval: 15s
+        scrape_configs:
+        - job_name: 'prometheus' # config for federation
+          honor_labels: true
+          metrics_path: '/federate'
+          metric_relabel_configs:
+          - regex: 'kubernetes_pod_name'
+            action: labeldrop
+          params:
+            'match[]':
+              - '{sysdig="true"}'
+          sysdig_sd_configs:
+          - tags:
+              namespace: istio-system
+              deployment: prometheus
+      dragent.yaml: |-  
+      metrics_excess_log: true
+      use_promscrape: true
+      prometheus:
+        enabled: true
+        histograms: false
+        ingest_raw: true
+        ingest_calculated: false
+        max_metrics: 3000
+        max_metrics_per_process: 20000
+        process_filter:
+          - exclude:
+              process.name: docker-proxy
+          - exclude:
+              container.image: sysdig/agent
+          # special rule to exclude processes matching configured prometheus appcheck
+          - exclude:
+              appcheck.match: prometheus
+          - include:
+              container.label.io.prometheus.scrape: "true"
+              conf:
+                  # Custom path definition
+                  # If the label doesn't exist we'll still use "/metrics"
+                  path: "{container.label.io.prometheus.path}"
+        
+                  # Port definition
+                  # - If the label exists, only scan the given port.
+                  # - If it doesn't, use port_filter instead.
+                  # - If there is no port_filter defined, skip this process
+                  port: "{container.label.io.prometheus.port}"
+                  port_filter:
+                      - exclude: [9092,9200,9300]
+                      - include: 9090-9500
+                      - include: [9913,9984,24231,42004]
+          - exclude:
+              container.label.io.prometheus.scrape: "false"
+          - include:
+              process.name: oauth-proxy
+              kubernetes.pod.label.app: prometheus
+              conf:
+                  path: "/federate"
+                  use_https: true
+                  port: 9091
+                  ssl_verify: false
+                  auth_token_path: "/opt/draios/kubernetes/prometheus/secrets/token"
+
+          - include:
+              kubernetes.pod.annotation.prometheus.io/scrape: true
+              kubernetes.pod.annotation.prometheus.io/scheme: "https"
+              conf:
+                  use_https: true
+                  path: "{kubernetes.pod.annotation.prometheus.io/path}"
+                  port: "{kubernetes.pod.annotation.prometheus.io/port}"
+          - include:
+              kubernetes.pod.annotation.prometheus.io/scrape: true
+              conf:
+                  path: "{kubernetes.pod.annotation.prometheus.io/path}"
+                  port: "{kubernetes.pod.annotation.prometheus.io/port}"
+          - exclude:
+              kubernetes.pod.annotation.prometheus.io/scrape: false
