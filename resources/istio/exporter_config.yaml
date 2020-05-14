@@ -34,6 +34,10 @@ data: |
 
   3. Update the prometheus to get the new rules
     ```
+    kubectl -n istio-system edit cm prometheus
+    ```
+
+    ```
     global:
       scrape_interval: 15s
     rule_files:
@@ -43,10 +47,11 @@ data: |
   
   4. Delete the pod being xxx the id given to the pods
     ```
-    kubectl -n istio-system prometheus-xxx
+    kubectl -n istio-system delete pods $(kubectl get pods --namespace istio-system -l "app=prometheus,release=istio" -o jsonpath="{.items[0].metadata.name}")
     ```
 
-  5. Gather the metrics with our agent adding the federation job for Istio, below there is an example of the configmap
+  5. Gather the metrics with our agent adding the federation job for Istio, below there is an example of the configmap, is inside the configmap of the sysdig agent,
+     inside of the prometheus.yaml
     ```
     - job_name: 'prometheus' # config for federation
           honor_labels: true
@@ -62,7 +67,7 @@ data: |
               namespace: istio-system
               deployment: prometheus
     ```
-    
+
 data: |
   apiVersion: v1
     kind: ConfigMap
