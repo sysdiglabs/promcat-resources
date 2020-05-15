@@ -1,6 +1,6 @@
 ---
 apiVersion: v1
-kind: Dashboards
+kind: Dashboard
 app: "Openshift"
 version: 1.0.0
 appVersion: 
@@ -11,7 +11,7 @@ maintainers:
 description: 
 configurations:
   - name: "Ocp4 / Api"
-    kind: sysdig
+    kind: Sysdig
     image: "openshift/images/api_sysdig.png"
     description: |
       This dashboard offers information on: 
@@ -906,7 +906,7 @@ configurations:
         }
       }
   - name: "Ocp4 / Controller manager"
-    kind: sysdig
+    kind: Sysdig
     image: "openshift/images/controller_manager_sysdig.png"
     description: |
       This dashboard offers information on: 
@@ -1637,7 +1637,7 @@ configurations:
         }
       }
   - name: "Ocp4 / Kubelet"
-    kind: sysdig
+    kind: Sysdig
     image: "openshift/images/kubelet_sysdig.png"
     description: |
       This dashboard offers information on: 
@@ -3251,7 +3251,7 @@ configurations:
         }
       }
   - name: "Ocp4 / Scheduler"
-    kind: sysdig
+    kind: Sysdig
     image: "openshift/images/scheduler_sysdig.png"
     description: |
       This dashboard offers information on: 
@@ -4012,7 +4012,7 @@ configurations:
         }
       }
   - name: "Ocp4 / Api"
-    kind: grafana
+    kind: Grafana
     image: "openshift/images/api_grafana.png"
     description: |
       This dashboard offers information on: 
@@ -5336,7 +5336,7 @@ configurations:
         "version": 7
       }
   - name: "Ocp4 / Controller manager"
-    kind: grafana
+    kind: Grafana
     image: "openshift/images/controller_manager_grafana.png"
     description: |
       This dashboard offers information on: 
@@ -6436,7 +6436,7 @@ configurations:
         "version": 2
       }
   - name: "Ocp4 / Kubelet"
-    kind: grafana
+    kind: Grafana
     image: "openshift/images/kubelet_grafana.png"
     description: |
       This dashboard offers information on: 
@@ -8852,7 +8852,7 @@ configurations:
         "version": 8
       }
   - name: "Ocp4 / Scheduler"
-    kind: grafana
+    kind: Grafana
     image: "openshift/images/scheduler_grafana.png"
     description: |
       This dashboard offers information on: 
