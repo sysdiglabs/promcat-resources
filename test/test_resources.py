@@ -3,6 +3,7 @@ import yaml
 import os
 
 apps_names = []
+apps_versions = {}
 
 descriptions = []
 descriptions_names = []
@@ -16,6 +17,9 @@ recordingRules = []
 recordingRules_names = []
 
 all_resources = [descriptions, dashboards, exporterConfigs, alerts, recordingRules]
+resources_with_description = [exporterConfigs, alerts, recordingRules]
+resources_with_data = [descriptions, exporterConfigs, recordingRules]
+resources_with_configurations = [dashboards, alerts]
 
 def loadYaml(input):
   return yaml.full_load(input)
@@ -27,7 +31,9 @@ def loadResources():
        if file.endswith(".yaml"):
           with open(os.path.join(root, file), "r") as appFile:
             appYaml = loadYaml(appFile)
-            apps_names.append(appYaml["name"])
+            if appYaml["available"] == True:
+              apps_names.append(appYaml["name"])
+              apps_versions[appYaml["name"]] = appYaml["availableVersions"]
   for root, dirs, files in os.walk('resources'):
     for file in files:
        if file.endswith(".yaml"):
@@ -46,6 +52,7 @@ def loadResources():
             else: 
               raise ValueError("File: " + file + " kind: " + resourceYaml["kind"] + " not supported.")
 
+# General tests
 def checkDuplicated(res,names):
   assert (res['app'] != "") and (type(res['app']) == str) and (not res['app']  in names)
   names.append(res['app'])
@@ -87,6 +94,8 @@ def testAppVersion():
     for res in kind:
       assert (res['app'] != "") and (res['kind'] != "") and (type(res['appVersion']) == list) \
         and (len(res['appVersion']) > 0)
+      for appversion in res['appVersion']:
+        assert ((res['app'] != "") and (res['kind'] != "") and appversion in apps_versions[res['app']])
       
 def testMaintainers():
   for kind in all_resources:
@@ -99,3 +108,24 @@ def testMaintainers():
 
         assert (res['app'] != "") and (res['kind'] != "") and \
            (maintainer != None) and (type(maintainer['link']) == str) and (maintainer['link'] != "")
+
+# Tests for descriptions elements
+def testDescriptionElement():
+  for kind in resources_with_description:
+    for res in kind:
+      assert (res['app'] != "") and (res['kind'] != "") and (type(res['description']) == str) \
+        and (res['description'] != "") 
+
+# Tests for data elements
+def testDataElement():
+  for kind in resources_with_data:
+    for res in kind:
+      assert (res['app'] != "") and (res['kind'] != "") and (type(res['data']) == str) \
+        and (res['data'] != "") 
+
+# Tests for configurations elements
+def testConfigurationsElement():
+  for kind in resources_with_configurations:
+    for res in kind:
+      assert (res['app'] != "") and (res['kind'] != "") and (type(res['configurations']) == list) \
+        and (len(res['configurations']) > 0) 
