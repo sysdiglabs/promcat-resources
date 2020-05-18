@@ -144,15 +144,6 @@ data: |
                   port: "{kubernetes.pod.annotation.prometheus.io/port}"
           - exclude:
               kubernetes.pod.annotation.prometheus.io/scrape: false
-          # local configuration:
-          - include:
-              process.name: dockerd
-              conf:
-                  port: 9323
-          - include:
-              process.name: postfix_exporter
-              conf:
-                  port: 9154
 
   ---
 

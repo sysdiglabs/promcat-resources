@@ -1,0 +1,38 @@
+type: map
+required: true
+mapping: 
+  apiVersion: 
+    type: str
+    required: true
+    enum: ['v1']
+  kind:
+    type: str
+    required: true
+    enum: ['App']
+  name:
+    type: str
+    required: true
+  keywords:
+    type: seq
+    seq:
+      - type: str
+  availableVersions:
+    type: seq
+    required: true
+    seq:
+      - type: any
+  shortDescription:
+    type: str
+    required: true
+  description:
+    type: text
+    required: true
+  icon: 
+    type: str
+    required: true
+  website: 
+    type: str
+    required: true
+  available: 
+    type: bool
+    required: true

@@ -40,7 +40,7 @@ configurations:
         labels: 
           severity: page
         annotations:
-          summary: The IOPS SSD Performance is under 99.9% in volume: {{$labels.dimension_VolumeId}}
+          summary: The IOPS SSD Performance is under 99.9% in volume {{$labels.dimension_VolumeId}}
       - alert: ZeroVolumeBurstBalance
         expr: |
           aws_ebs_burst_balance_minimum == 0
@@ -48,7 +48,7 @@ configurations:
         labels: 
           severity: page
         annotations:
-          summary: The Burst Balance is zero in volume: {{$labels.dimension_VolumeId}}
+          summary: The Burst Balance is zero in volume {{$labels.dimension_VolumeId}}
           
   - kind: Sysdig
     data: |

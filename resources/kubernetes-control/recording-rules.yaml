@@ -160,7 +160,7 @@ data: |
           "labels":
             "sysdig": "true"
         - "expr": |
-            histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job="kubernetes-nodes"}[5m])) by (instance, verb, url, le))
+            histogram_quantile(0.99, sum(rate(rest_client_request_duration_seconds_bucket{job="kubernetes-nodes"}[5m])) by (instance, verb, url, le))
           "record": "request_duration_seconds:kubernetes_nodes"
           "labels":
             "sysdig": "true"
@@ -203,7 +203,7 @@ data: |
           "record": "scheduler_volume_scheduling_duration_seconds_bucket:kube_scheduler"
           "labels":
             "sysdig": "true"
-        - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job="kubernetes-kube-scheduler"}[5m])) by (verb, url, le))
+        - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_duration_seconds_bucket{job="kubernetes-kube-scheduler"}[5m])) by (verb, url, le))
           "record": "rest_client_request_latency_seconds_bucket:kube_scheduler"
           "labels":
             "sysdig": "true"
@@ -288,11 +288,11 @@ data: |
           "record": "workqueue_queue_duration_seconds_bucket:kubernetes_control_manager"
           "labels":
             "sysdig": "true"
-        - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job="kubernetes-kube-controller-manager", verb="POST"}[5m])) by (verb, url, le))
+        - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_duration_seconds_bucket{job="kubernetes-kube-controller-manager", verb="POST"}[5m])) by (verb, url, le))
           "record": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:post"
           "labels":
             "sysdig": "true"
-        - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job="kubernetes-kube-controller-manager", verb="GET"}[5m])) by (verb, url, le))
+        - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_duration_seconds_bucket{job="kubernetes-kube-controller-manager", verb="GET"}[5m])) by (verb, url, le))
           "record": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:get"
           "labels":
             "sysdig": "true"
@@ -342,11 +342,11 @@ data: |
           "record": "rest_client_requests_total:kube_proxy"
           "labels":
             "sysdig": "true"
-        - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job="kubernetes-kube-proxy",verb="POST"}[5m])) by (verb, url, le))
+        - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_duration_seconds_bucket{job="kubernetes-kube-proxy",verb="POST"}[5m])) by (verb, url, le))
           "record": "rest_client_request_latency_seconds_bucket:post:kube_proxy"
           "labels":
             "sysdig": "true"
-        - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job="kubernetes-kube-proxy",verb="GET"}[5m])) by (verb, url, le))
+        - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_duration_seconds_bucket{job="kubernetes-kube-proxy",verb="GET"}[5m])) by (verb, url, le))
           "record": "rest_client_request_latency_seconds_bucket:get:kube_proxy"
           "labels":
             "sysdig": "true"

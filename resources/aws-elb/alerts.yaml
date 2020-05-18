@@ -61,7 +61,7 @@ configurations:
         labels: 
           severity: page
         annotations:
-          summary: High 4XX error rate in load balancer: {{$labels.dimension_LoadBalancerName}}
+          summary: High 4XX error rate in load balancer {{$labels.dimension_LoadBalancerName}}
       - alert: High5XXErrorsFromLoadBalancer
         expr: |
           aws_elb_httpcode_elb_5_xx_count_sum / aws_elb_request_count_sum  
@@ -70,7 +70,7 @@ configurations:
         labels: 
           severity: page
         annotations:
-          summary: High 5XX error rate in load balancer: {{$labels.dimension_LoadBalancerName}}
+          summary: High 5XX error rate in load balancer {{$labels.dimension_LoadBalancerName}}
       - alert: High4XXErrorsFromBackend
         expr: |
           aws_elb_httpcode_backend_4_xx_count_sum / aws_elb_request_count_sum 
@@ -79,7 +79,7 @@ configurations:
         labels: 
           severity: page
         annotations:
-          summary: High 4XX error rate in load balancer: {{$labels.dimension_LoadBalancerName}}
+          summary: High 4XX error rate in load balancer {{$labels.dimension_LoadBalancerName}}
       - alert: High5XXErrorsFromBackend
         expr: |
           aws_elb_httpcode_backend_5_xx_count_sum / aws_elb_request_count_sum  
@@ -88,35 +88,35 @@ configurations:
         labels: 
           severity: page
         annotations:
-          summary: High 5XX error rate in load balancer: {{$labels.dimension_LoadBalancerName}}
+          summary: High 5XX error rate in load balancer {{$labels.dimension_LoadBalancerName}}
       - alert: UnhealthyHostInLoadBalancer
         expr: aws_elb_un_healthy_host_count_minimum > 0
         for: 10m
         labels: 
           severity: page
         annotations:
-          summary: Unhealthy host detected in load balancer: {{$labels.dimension_LoadBalancerName}}
+          summary: Unhealthy host detected in load balancer {{$labels.dimension_LoadBalancerName}}
       - alert: QueueSpilloverRejections
         expr: aws_elb_spillover_count_sum > 0
         for: 10m
         labels: 
           severity: page
         annotations:
-          summary: Recurrent queue spillover rejections in load balancer: {{$labels.dimension_LoadBalancerName}}
+          summary: Recurrent queue spillover rejections in load balancer {{$labels.dimension_LoadBalancerName}}
       - alert: RejectedConnectionsInLoadBalancer
         expr: aws_alb_rejected_connection_count_sum > 0
         for: 10m
         labels: 
           severity: page
         annotations:
-          summary: Rejected connections in load balancer: {{$labels.dimension_LoadBalancerName}}
+          summary: Rejected connections in load balancer {{$labels.dimension_LoadBalancerName}}
       - alert: HighLatencyInLoadBalancer
         expr: aws_elb_latency_p95 > 0.250
         for: 10m
         labels: 
           severity: page
         annotations:
-          summary: High latency in load balancer: {{$labels.dimension_LoadBalancerName}} 
+          summary: High latency in load balancer {{$labels.dimension_LoadBalancerName}} 
   - kind: Sysdig
     data: |
       [
