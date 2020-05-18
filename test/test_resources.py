@@ -51,16 +51,17 @@ def loadResources():
               resourceYaml = loadYaml(resourceFile)
               if (resourceYaml["kind"] == "Description"):
                 descriptions.append(resourceYaml)
-              elif (resourceYaml["kind"] == "Dashboards"): 
+              elif (resourceYaml["kind"] == "Dashboard"): 
                 dashboards.append(resourceYaml)
               elif (resourceYaml["kind"] == "ExporterConfig"): 
                 exporterConfigs.append(resourceYaml)
-              elif (resourceYaml["kind"] == "Alerts"): 
+              elif (resourceYaml["kind"] == "Alert"): 
                 alerts.append(resourceYaml)
-              elif (resourceYaml["kind"] == "RecordingRules"): 
+              elif (resourceYaml["kind"] == "RecordingRule"): 
                 recordingRules.append(resourceYaml)
               else: 
-                raise ValueError("File: " + resourceFile + " kind: " + resourceYaml["kind"] + " not supported.")
+                print("File: " + resourceFile + " kind: " + resourceYaml["kind"] + " not supported.")
+                raise ValueError("File not supported.")
             except:
               print("*** Error loading file: " + os.path.join(root, file))
               exit(1)
@@ -207,7 +208,7 @@ def testDashboards():
       checkStringNotEmpty(res,config['name'])
       checkStringNotEmpty(res,config['kind'])
       assert ((res['app'] != "") and (res['kind'] != "") \
-        and ((config['kind'] == 'grafana') or (config['kind'] == 'sysdig')))
+        and ((config['kind'] == 'Grafana') or (config['kind'] == 'Sysdig')))
       checkStringNotEmpty(res,config['image'])
       checkStringNotEmpty(res,config['description'])
       checkStringNotEmpty(res,config['data'])

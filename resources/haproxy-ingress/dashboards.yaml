@@ -1,17 +1,17 @@
 ---
 apiVersion: v1
-kind: Dashboards
+kind: Dashboard
 app: "HAProxy Ingress"
 version: 1.0.0
 appVersion: 
-  - 1.0.0
+  - 2.1
 maintainers:
   - name: Sysdig team
     link: https://sysdig.com/
 description: 
 configurations: 
   - name: "HAProxy K8s Ingress Overview"
-    kind: sysdig
+    kind: Sysdig
     image: "haproxy-ingress/images/haproxy-sysdig-ingress-overview.png"
     description: |
       This dashboard offers information on: 
@@ -1468,7 +1468,7 @@ configurations:
       }
 
   - name: "HAProxy Proxy Golden Signals"
-    kind: sysdig
+    kind: Sysdig
     image: "haproxy-ingress/images/haproxy-sysdig-proxy-golden-signals.png"
     description: |
       This dashboard has the option to select a proxy and offers information on: 
@@ -2485,7 +2485,7 @@ configurations:
       }
     
   - name: "HAProxy K8s Ingress Overview"
-    kind: grafana
+    kind: Grafana
     image: "haproxy-ingress/images/haproxy-grafana-ingress-overview.png"
     description: |
       This dashboard offers information on: 
@@ -3957,7 +3957,7 @@ configurations:
        "version": 13
       }
   - name: "HAProxy Proxy Golden Signals"
-    kind: grafana
+    kind: Grafana
     image: "haproxy-ingress/images/haproxy-grafana-proxy-golden-signals.png"
     description: |
       This dashboard has the option to select a proxy and offers information on: 
