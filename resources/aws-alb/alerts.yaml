@@ -8,7 +8,7 @@ appVersion:
 maintainers:
   - name: Sysdig team
     link: https://sysdig.com/
-description: |
+description: | 
   # Alerts
   ## High4XXErrorsFromLoadBalancer and High5XXErrorsFromLoadBalancer
   A request to a load balancer can end in an error triggered directly by the load balancer with codes stating by either by 4 or 5.
@@ -56,14 +56,14 @@ description: |
   To install these alerts in Sysdig Monitor, contact with the support service. 
 configurations: 
   - kind: Prometheus
-    data: |
+    data: | 
       - alert: High4XXErrorsFromLoadBalancer
         expr: |
-          (sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer="LOADBALANCER_NAME"} or vector(0)) / 
-           ( sum(aws_alb_request_count_sum{dimension_LoadBalancer="LOADBALANCER_NAME"} or vector(0)) 
-           + sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer="LOADBALANCER_NAME"} or vector(0)) 
-           + sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer="LOADBALANCER_NAME"} or vector(0)) 
-           + sum(aws_alb_httpcode_elb_3_xx_count_sum{dimension_LoadBalancer="LOADBALANCER_NAME"} or vector(0)) > 0))  
+          (sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) / 
+           ( sum(aws_alb_request_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) 
+           + sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) 
+           + sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) 
+           + sum(aws_alb_httpcode_elb_3_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) > 0))  
           > 0.15
         for: 10m
         labels: 
@@ -72,11 +72,11 @@ configurations:
           summary: High 4XX error rate in load balancer LOADBALANCER_NAME
       - alert: High5XXErrorsFromLoadBalancer
         expr: |
-          (sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer="LOADBALANCER_NAME"} or vector(0)) / 
-           ( sum(aws_alb_request_count_sum{dimension_LoadBalancer="LOADBALANCER_NAME"} or vector(0)) 
-           + sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer="LOADBALANCER_NAME"} or vector(0)) 
-           + sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer="LOADBALANCER_NAME"} or vector(0)) 
-           + sum(aws_alb_httpcode_elb_3_xx_count_sum{dimension_LoadBalancer="LOADBALANCER_NAME"} or vector(0)) > 0))  
+          (sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) / 
+           ( sum(aws_alb_request_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) 
+           + sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) 
+           + sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) 
+           + sum(aws_alb_httpcode_elb_3_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) > 0))  
           > 0.15
         for: 10m
         labels: 
@@ -85,11 +85,11 @@ configurations:
           summary: High 5XX error rate in load balancer LOADBALANCER_NAME
       - alert: High4XXErrorsFromTargetGroup
         expr: |
-          sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup="TARGETGROUP_NAME"} or vector(0))  
-            / (sum(aws_alb_tg_httpcode_target_2_xx_count_sum{dimension_TargetGroup="TARGETGROUP_NAME"} or vector(0)) 
-             + sum(aws_alb_tg_httpcode_target_3_xx_count_sum{dimension_TargetGroup="TARGETGROUP_NAME"} or vector(0)) 
-             + sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup="TARGETGROUP_NAME"} or vector(0)) 
-             + sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup="TARGETGROUP_NAME"} or vector(0))) 
+          sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))  
+            / (sum(aws_alb_tg_httpcode_target_2_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) 
+             + sum(aws_alb_tg_httpcode_target_3_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) 
+             + sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) 
+             + sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))) 
           > 0.15        
         for: 10m
         labels: 
@@ -98,11 +98,11 @@ configurations:
           summary: High 4XX error rate in target group TARGETGROUP_NAME 
       - alert: High5XXErrorsFromTargetGroup
         expr: |
-          sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup="TARGETGROUP_NAME"} or vector(0))  
-            / (sum(aws_alb_tg_httpcode_target_2_xx_count_sum{dimension_TargetGroup="TARGETGROUP_NAME"} or vector(0)) 
-             + sum(aws_alb_tg_httpcode_target_3_xx_count_sum{dimension_TargetGroup="TARGETGROUP_NAME"} or vector(0)) 
-             + sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup="TARGETGROUP_NAME"} or vector(0)) 
-             + sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup="TARGETGROUP_NAME"} or vector(0))) 
+          sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))  
+            / (sum(aws_alb_tg_httpcode_target_2_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) 
+             + sum(aws_alb_tg_httpcode_target_3_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) 
+             + sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) 
+             + sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))) 
           > 0.15        
         for: 10m
         labels: 
