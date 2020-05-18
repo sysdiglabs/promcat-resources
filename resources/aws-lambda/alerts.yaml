@@ -37,7 +37,7 @@ description: |
   To install these alerts in Sysdig Monitor, contact with the support service. 
 configurations: 
   - kind: Prometheus
-    data: |
+    data: | 
       - alert: HighFunctionErrorRate
         expr: aws_lambda_error_rate_average > 0.15
         for: 10m
