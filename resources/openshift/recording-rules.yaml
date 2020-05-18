@@ -147,7 +147,7 @@ data: |
           "labels":
             "sysdig": "true"
         - "expr": |
-            histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job="kubelet"}[5m])) by (instance, verb, url, le))
+            histogram_quantile(0.99, sum(rate(rest_client_request_duration_seconds_bucket{job="kubelet"}[5m])) by (instance, verb, url, le))
           "record": "request_duration_seconds:kubelet"
           "labels":
             "sysdig": "true"
@@ -190,7 +190,7 @@ data: |
           "record": "scheduler_volume_scheduling_duration_seconds_bucket:kube_scheduler"
           "labels":
             "sysdig": "true"
-        - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job="scheduler"}[5m])) by (verb, url, le))
+        - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_duration_seconds_bucket{job="scheduler"}[5m])) by (verb, url, le))
           "record": "rest_client_request_latency_seconds_bucket:kube_scheduler"
           "labels":
             "sysdig": "true"
