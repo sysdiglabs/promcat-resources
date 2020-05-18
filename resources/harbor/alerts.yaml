@@ -33,20 +33,3 @@ configurations:
           severity: critical
         annotations:
           summary: The quota of the repository {{ $labels.repo_name }} is getting close to the limit
-
-  - kind: Sysdig
-    data: |
-      - alert: HarborIsDown
-        expr: harbor_up == 0
-        for: 5m
-        labels: 
-          severity: critical
-        annotations:
-          summary: The service of Harbor is Down
-      - alert: ProjectQuotaIsRaisingTheLimit
-        expr: harbor_quotas_size_bytes{type="used"} / ignoring(type) harbor_quotas_size_bytes{type="hard"} > 0.95
-        for: 5m
-        labels: 
-          severity: critical
-        annotations:
-          summary: The quota of the repository {{ $labels.repo_name }} is getting close to the limit

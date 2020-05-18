@@ -14,8 +14,12 @@ def loadApps():
      for file in files:
        if file.endswith(".yaml"):
           with open(os.path.join(root, file), "r") as appFile:
-            appYaml = loadYaml(appFile)
-            apps.append(appYaml)
+            try:
+              appYaml = loadYaml(appFile)
+              apps.append(appYaml)
+            except:
+              print("*** Error loading file: " + os.path.join(root, file))
+              exit(1)
 
 
 def testDuplicatedApp(): 
