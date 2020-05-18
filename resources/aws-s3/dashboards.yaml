@@ -1,6 +1,6 @@
 ---
 apiVersion: v1
-kind: Dashboards
+kind: Dashboard
 app: "AWS S3"
 version: 1.0.0
 appVersion: 
@@ -11,7 +11,7 @@ maintainers:
 description: 
 configurations: 
   - name: "S3 Golden Signals"
-    kind: grafana
+    kind: Grafana
     image: "aws-s3/images/aws-s3-grafana-golden-signals.png"
     description: |
       This dashboard offers information on: 
@@ -1210,7 +1210,7 @@ configurations:
         "version": 15
       }
   - name: "S3 Golden Signals"
-    kind: sysdig
+    kind: Sysdig
     image: "aws-s3/images/aws-s3-sysdig-golden-signals.png"
     description: |
       This dashboard offers information on: 

@@ -1,6 +1,6 @@
 ---
 apiVersion: v1
-kind: Dashboards
+kind: Dashboard
 app: "Harbor"
 version: 1.0.0
 appVersion: 
@@ -11,7 +11,7 @@ maintainers:
 description: 
 configurations: 
   - name: "Harbor"
-    kind: grafana
+    kind: Grafana
     image: "harbor/images/harbor_grafana.png"
     description: |
       This dashboard offers information on: 
@@ -1159,7 +1159,7 @@ configurations:
       }
 
   - name: "Harbor"
-    kind: sysdig
+    kind: Sysdig
     image: "harbor/images/harbor_sysdig.png"
     description: |
       This dashboard offers information on: 
