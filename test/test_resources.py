@@ -60,7 +60,7 @@ def loadResources():
               elif (resourceYaml["kind"] == "RecordingRule"): 
                 recordingRules.append(resourceYaml)
               else: 
-                print("File: " + resourceFile + " kind: " + resourceYaml["kind"] + " not supported.")
+                print("File: " + os.path.join(root, file) + " kind: " + resourceYaml["kind"] + " not supported.")
                 raise ValueError("File not supported.")
             except:
               print("*** Error loading file: " + os.path.join(root, file))
