@@ -62,5 +62,5 @@ def testAvailable():
   for app in apps:
     assert (app['name'] != "") and (type(app['available']) == bool)
     assert ((app['name'] != "") and 
-      (((app['available']) == True and "available" in app['keywords']) or 
-      (app['available']) == False and "coming soon" in app['keywords']))
+      (((app['available']) == True and "Available" in app['keywords']) or 
+      (app['available']) == False and "Coming soon" in app['keywords']))
