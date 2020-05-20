@@ -1,0 +1,94 @@
+---
+apiVersion: v1
+kind: ExporterConfig
+app: "Nginx"
+version: 1.0.0
+appVersion: 
+  - 1.17
+maintainers:
+  - name: Sysdig team
+    link: https://sysdig.com/
+description: |
+  # Installing the exporter
+  The exporter can be installed as a sidecar of the pod with the Nginx server. 
+  Below you can find a deployment with the exporter as a sidecar and the ConfigMap with 
+  the configuration needed to scrape metrics from the server. 
+
+  Also note that the Deployment has a label 'app'. This label will be included in the metrics
+  to be able to use it as a variable in the dashboards and alerts.  
+
+  # Sysdig Agent configuration
+  In the Sysdig Agent configuration, you have to add the following code to include the label 'app'
+  as a metric label.
+  ```
+  process_filter:
+    - include:
+        kubernetes.pod.annotation.prometheus.io/scrape: true
+        conf:
+          path: "{kubernetes.pod.annotation.prometheus.io/path}"
+          port: "{kubernetes.pod.annotation.prometheus.io/port}"
+          tags:
+            app: "{kubernetes.pod.label.app}"
+  ```
+
+data: |
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: nginx-server
+  spec:
+    selector:
+      matchLabels:
+        app: nginx-A
+    replicas: 3
+    template:
+      metadata:
+        labels:
+          app: nginx-A
+        annotations:
+          prometheus.io/scrape: "true"
+          prometheus.io/port: "9113"
+      spec:
+        containers:
+        - name: nginx
+          image: nginx
+          ports:
+          - containerPort: 80
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/conf.d/default.conf
+              subPath: nginx.conf
+        - name: nginx-exporter
+          image: nginx/nginx-prometheus-exporter:0.5.0
+          args:
+            - "-nginx.scrape-uri=http://localhost:80/nginx_status"
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+          - containerPort: 9113
+        volumes:
+          - configMap:
+              defaultMode: 420
+              name: nginx-config
+            name: nginx-config
+  ---
+  apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    name: nginx-config
+  data:
+    nginx.conf: |
+      server {
+        listen       80;
+        server_name  localhost;
+        location / {
+            proxy_pass http://traffic-mirror:8080;
+        }
+        location /nginx_status {
+          stub_status on;
+          access_log  on;           
+          allow all;  # REPLACE with your access policy
+        }     
+      }
