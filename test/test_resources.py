@@ -7,15 +7,15 @@ apps_names = []
 apps_versions = {}
 
 descriptions = []
-descriptions_names = []
+descriptions_names = {}
 dashboards = []
-dashboards_names = []
+dashboards_names = {}
 exporterConfigs = []
-exporterConfigs_names = []
+exporterConfigs_names = {}
 alerts = []
-alerts_name = []
+alerts_name = {}
 recordingRules = []
-recordingRules_names = []
+recordingRules_names = {}
 
 all_resources = [descriptions, dashboards, exporterConfigs, alerts, recordingRules]
 resources_with_description = [exporterConfigs, alerts, recordingRules]
@@ -69,8 +69,13 @@ def loadResources():
 # General tests
 # Checks that a resource name does not exists in a list
 def checkDuplicatedResourceInApp(res,names):
-  assert (res['app'] != "") and (type(res['app']) == str) and (not res['app']  in names)
-  names.append(res['app'])
+  if (not res['app'] in names):
+    names[res["app"]] = []    
+  for appVersion in res["appVersion"]:
+    assert (res['app'] != "") and (type(res['app']) == str) and (not appVersion in names[res['app']])
+    names[res['app']].append(appVersion)
+   
+  
 
 # Check that an element is string not empty
 def checkStringNotEmpty(res,element):
