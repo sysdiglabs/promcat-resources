@@ -14,311 +14,523 @@ description: |
       kubectl apply -f rules.yaml
     ```
 data: |
-  apiVersion: monitoring.coreos.com/v1
-  kind: PrometheusRule
+  apiVersion: v1
+  kind: ConfigMap
   metadata:
-      name: prometheus-sysdig-k8s-rules
-      namespace: openshift-monitoring
-      labels:
-        prometheus: k8s
-        role: sysdig-rules
-  spec:
-    "groups":
-      - "name": "Sysdig.k8s.general.rules"
+    name: rules
+    namespace: istio-system
+  data:
+    rules.yaml: |-
+      "groups":
+      - "name": "Sysdig.k8s.istio"
         "rules":
-        - "expr": up{job=~"kubelet|apiserver|controller-manager|kube-controller-manager|scheduler"}
-          "record": "up:kubernetes"
+        - "expr": istio_requests_total
+          "record": "istio_requests_total:sysdig"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.50, sum(irate(istio_request_duration_milliseconds_bucket{reporter="source"}[1m])) by (le, destination_service_name)) / 1000 
+          "record": "istio_request_duration_milliseconds_bucket:source:histogram50"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.90, sum(irate(istio_request_duration_milliseconds_bucket{reporter="source"}[1m])) by (le, destination_service_name)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:source:histogram90"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.99, sum(irate(istio_request_duration_milliseconds_bucket{reporter="source"}[1m])) by (le, destination_service_name)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:source:histogram99"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.50, sum(irate(istio_request_duration_milliseconds_bucket{reporter="destination"}[1m])) by (le, destination_service_name)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:destination:histogram50"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.90, sum(irate(istio_request_duration_milliseconds_bucket{reporter="destination"}[1m])) by (le, destination_service_name)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:destination:histogram90"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.99, sum(irate(istio_request_duration_milliseconds_bucket{reporter="destination"}[1m])) by (le, destination_service_name)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:destination:histogram99"
+          "labels":
+            "sysdig": "true"
+        - "expr": istio_tcp_received_bytes_total
+          "record": "istio_tcp_received_bytes_total:sysdig"
+          "labels":
+            "sysdig": "true"
+      - "name": "Sysdig.k8s.istio.source.by.source"
+        "rules":
+        - "expr": |
+            histogram_quantile(0.50, sum(irate(istio_request_duration_milliseconds_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:source:bysource:mutual_tls:histogram50"
           "labels":
             "sysdig": "true"
         - "expr": |
-            process_resident_memory_bytes{job=~"kubelet|apiserver|controller-manager|kube-controller-amanger|scheduler"}
-          "record": "process_resident_memory_bytes:kubernetes"
+            histogram_quantile(0.90, sum(irate(istio_request_duration_milliseconds_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:source:mutual_tls:histogram90"
           "labels":
             "sysdig": "true"
         - "expr": |
-            process_cpu_seconds_total{job=~"kubelet|apiserver|controller-manager|kube-controller-amanger|scheduler"}
-          "record": "process_cpu_seconds_total:kubernetes"
+            histogram_quantile(0.95, sum(irate(istio_request_duration_milliseconds_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:source:bysource:mutual_tls:histogram95"
           "labels":
             "sysdig": "true"
         - "expr": |
-            go_goroutines{job=~"kubelet|apiserver|controller-manager|kube-controller-amanger|scheduler"}
-          "record": "go_goroutines:kubernetes"
+            histogram_quantile(0.99, sum(irate(istio_request_duration_milliseconds_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:source:bysource:mutual_tls:histogram99"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.50, sum(irate(istio_request_duration_milliseconds_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:source:bysource:not_mutual_tls:histogram50"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.90, sum(irate(istio_request_duration_milliseconds_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:source:bysource:not_mutual_tls:histogram90"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.95, sum(irate(istio_request_duration_milliseconds_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:source:bysource:not_mutual_tls:histogram95"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.99, sum(irate(istio_request_duration_milliseconds_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:source:bysource:not_mutual_tls:histogram99"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.50, sum(irate(istio_request_bytes_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:source:bysource:mutual_tls:histogram50"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.90, sum(irate(istio_request_bytes_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:source:bysource:mutual_tls:histogram90"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.95, sum(irate(istio_request_bytes_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:source:bysource:mutual_tls:histogram95"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.99, sum(irate(istio_request_bytes_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:source:bysource:mutual_tls:histogram99"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.50, sum(irate(istio_request_bytes_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:source:bysource:not_mutual_tls:histogram50"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.90, sum(irate(istio_request_bytes_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:source:bysource:not_mutual_tls:histogram90"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.95, sum(irate(istio_request_bytes_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:source:bysource:not_mutual_tls:histogram95"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.99, sum(irate(istio_request_bytes_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:source:bysource:not_mutual_tls:histogram99"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.50, sum(irate(istio_response_bytes_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_response_bytes_bucket:source:bysource:mutual_tls:histogram50"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.90, sum(irate(istio_response_bytes_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_response_bytes_bucket:source:bysource:mutual_tls:histogram90"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.95, sum(irate(istio_response_bytes_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_response_bytes_bucket:source:bysource:mutual_tls:histogram95"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.99, sum(irate(istio_response_bytes_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_response_bytes_bucket:source:bysource:mutual_tls:histogram99"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.50, sum(irate(istio_response_bytes_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_response_bytes_bucket:source:bysource:not_mutual_tls:histogram50"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.90, sum(irate(istio_response_bytes_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_response_bytes_bucket:source:bysource:not_mutual_tls:histogram90"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.95, sum(irate(istio_response_bytes_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_response_bytes_bucket:source:bysource:not_mutual_tls:histogram95"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.99, sum(irate(istio_response_bytes_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_response_bytes_bucket:source:bysource:not_mutual_tls:histogram99"
+          "labels":
+            "sysdig": "true"
+        - "expr": istio_tcp_received_bytes_total
+          "record": "istio_tcp_received_bytes_total:sysdig"
+          "labels":
+            "sysdig": "true"
+        - "expr": istio_tcp_sent_bytes_total
+          "record": "istio_tcp_sent_bytes_total:sysdig"
           "labels":
             "sysdig": "true"
 
-      - "name": "Sysdig.k8s.kubelet.rules"
+      - "name": "Sysdig.k8s.istio.destination.by.destination"
         "rules":
-        - "expr": kubelet_running_pod_count{job="kubelet"}
-          "record": "kubelet_running_pod_count:kubelet"
-          "labels":
-            "sysdig": "true"
-        - "expr": kubelet_running_container_count{job="kubelet"}
-          "record": "kubelet_running_container_count:kubelet"
-          "labels":
-            "sysdig": "true"
-        - "expr": volume_manager_total_volumes{job="kubelet"}
-          "record": "volume_manager_total_volumes:kubelet"
-          "labels":
-            "sysdig": "true"
-        - "expr": volume_manager_total_volumes{job="kubelet",state="desired_state_of_world"}
-          "record": "volume_manager_total_volumes:desired:kubelet"
-          "labels":
-            "sysdig": "true"
-        - "expr": kubelet_node_config_error{job="kubelet"}
-          "record": "kubelet_node_config_error:kubelet"
-          "labels":
-            "sysdig": "true"
-        - "expr": kubelet_runtime_operations_total{job="kubelet"}
-          "record": "kubelet_runtime_operations_total:kubelet"
-          "labels":
-            "sysdig": "true"
-        - "expr": kubelet_runtime_operations_errors_total{job="kubelet"}
-          "record": "kubelet_runtime_operations_errors_total:kubelet"
+        - "expr": |
+            histogram_quantile(0.50, sum(irate(istio_request_duration_milliseconds_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:destination:bydestination:mutual_tls:histogram50"
           "labels":
             "sysdig": "true"
         - "expr": |
-            histogram_quantile(0.99, sum(rate(kubelet_runtime_operations_duration_seconds_bucket{job="kubelet"}[5m])) by (instance, operation_type, le)) 
-          "record": "operation_duration_seconds:kubelet"
+            histogram_quantile(0.90, sum(irate(istio_request_duration_milliseconds_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:destination:bydestination:mutual_tls:histogram90"
           "labels":
             "sysdig": "true"
         - "expr": |
-            kubelet_pod_start_duration_seconds_count{job="kubelet"}    
-          "record": "kubelet_pod_start_duration_seconds_count:kubelet"
+            histogram_quantile(0.95, sum(irate(istio_request_duration_milliseconds_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:destination:bydestination:mutual_tls:histogram95"
           "labels":
             "sysdig": "true"
         - "expr": |
-            kubelet_pod_worker_duration_seconds_count{job="kubelet"}       
-          "record": "kubelet_pod_worker_duration_seconds_count:kubelet"
+            histogram_quantile(0.99, sum(irate(istio_request_duration_milliseconds_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:destination:bydestination:mutual_tls:histogram99"
           "labels":
             "sysdig": "true"
         - "expr": |
-            histogram_quantile(0.99, sum(rate(kubelet_pod_start_duration_seconds_bucket{job="kubelet"}[5m])) by (instance, le))
-          "record": "pod_start_duration_seconds:kubelet"
+            histogram_quantile(0.50, sum(irate(istio_request_duration_milliseconds_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:destination:bydestination:not_mutual_tls:histogram50"
           "labels":
             "sysdig": "true"
         - "expr": |
-            histogram_quantile(0.99, sum(rate(kubelet_pod_worker_duration_seconds_bucket{job="kubelet"}[5m])) by (instance, le))
-          "record": "pod_worker_duration_seconds:kubelet"
+            histogram_quantile(0.90, sum(irate(istio_request_duration_milliseconds_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:destination:bydestination:not_mutual_tls:histogram90"
           "labels":
             "sysdig": "true"
         - "expr": |
-            storage_operation_duration_seconds_count{job="kubelet"}
-          "record": "storage_operation_duration_seconds_count:kubelet"
+            histogram_quantile(0.95, sum(irate(istio_request_duration_milliseconds_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:destination:bydestination:not_mutual_tls:histogram95"
           "labels":
             "sysdig": "true"
         - "expr": |
-            storage_operation_errors_total{job="kubelet"}
-          "record": "storage_operation_errors_total:kubelet"
+            histogram_quantile(0.99, sum(irate(istio_request_duration_milliseconds_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:destination:bydestination:not_mutual_tls:histogram99"
           "labels":
             "sysdig": "true"
         - "expr": |
-            histogram_quantile(0.99, sum(rate(storage_operation_duration_seconds_bucket{job="kubelet"}[5m])) by (instance, operation_name, volume_plugin, le))
-          "record": "storage_operation_duration_seconds:kubelet"
+            histogram_quantile(0.50, sum(irate(istio_request_bytes_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:destination:bydestination:mutual_tls:histogram50"
           "labels":
             "sysdig": "true"
         - "expr": |
-            kubelet_cgroup_manager_duration_seconds_count{job="kubelet"}
-          "record": "kubelet_cgroup_manager_duration_seconds_count:kubelet"
+            histogram_quantile(0.90, sum(irate(istio_request_bytes_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:destination:bydestination:mutual_tls:histogram90"
           "labels":
             "sysdig": "true"
         - "expr": |
-            histogram_quantile(0.99, sum(rate(kubelet_cgroup_manager_duration_seconds_bucket{job="kubelet"}[5m])) by (instance, operation_type, le))
-          "record": "cgroup_manager_duration_seconds:kubelet"
+            histogram_quantile(0.95, sum(irate(istio_request_bytes_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:destination:bydestination:mutual_tls:histogram95"
           "labels":
             "sysdig": "true"
         - "expr": |
-            kubelet_pleg_relist_duration_seconds_count{job="kubelet"}
-          "record": "kubelet_pleg_relist_duration_seconds_count:kubelet"
+            histogram_quantile(0.99, sum(irate(istio_request_bytes_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:destination:bydestination:mutual_tls:histogram99"
           "labels":
             "sysdig": "true"
         - "expr": |
-            histogram_quantile(0.99, sum(rate(kubelet_pleg_relist_interval_seconds_bucket{job="kubelet"}[5m])) by (instance, le))
-          "record": "pleg_relist_interval_seconds:kubelet"
+            histogram_quantile(0.50, sum(irate(istio_request_bytes_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:destination:bydestination:not_mutual_tls:histogram50"
           "labels":
             "sysdig": "true"
         - "expr": |
-            histogram_quantile(0.99, sum(rate(kubelet_pleg_relist_duration_seconds_bucket{job="kubelet"}[5m])) by (instance, le))
-          "record": "pleg_relist_duration_seconds:kubelet"
+            histogram_quantile(0.90, sum(irate(istio_request_bytes_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:destination:bydestination:not_mutual_tls:histogram90"
           "labels":
             "sysdig": "true"
         - "expr": |
-            rest_client_requests_total{job="kubelet"}
-          "record": "rest_client_requests_total_code:kubelet"
+            histogram_quantile(0.95, sum(irate(istio_request_bytes_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:destination:bydestination:not_mutual_tls:histogram95"
           "labels":
             "sysdig": "true"
         - "expr": |
-            histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job="kubelet"}[5m])) by (instance, verb, url, le))
-          "record": "request_duration_seconds:kubelet"
+            histogram_quantile(0.99, sum(irate(istio_request_bytes_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:destination:bydestination:not_mutual_tls:histogram99"
           "labels":
             "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.50, sum(irate(istio_response_bytes_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le))        
+          "record": "istio_response_bytes_bucket:destination:bydestination:mutual_tls:histogram50"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.90, sum(irate(istio_response_bytes_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le))        
+          "record": "istio_response_bytes_bucket:destination:bydestination:mutual_tls:histogram90"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.95, sum(irate(istio_response_bytes_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le))        
+          "record": "istio_response_bytes_bucket:destination:bydestination:mutual_tls:histogram95"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.99, sum(irate(istio_response_bytes_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le))        
+          "record": "istio_response_bytes_bucket:destination:bydestination:mutual_tls:histogram99"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.50, sum(irate(istio_response_bytes_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le))
+          "record": "istio_response_bytes_bucket:destination:bydestination:not_mutual_tls:histogram50"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.90, sum(irate(istio_response_bytes_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le))
+          "record": "istio_response_bytes_bucket:destination:bydestination:not_mutual_tls:histogram90"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.95, sum(irate(istio_response_bytes_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le))
+          "record": "istio_response_bytes_bucket:destination:bydestination:not_mutual_tls:histogram95"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.99, sum(irate(istio_response_bytes_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (destination_workload, destination_workload_namespace, le))
+          "record": "istio_response_bytes_bucket:destination:bydestination:not_mutual_tls:histogram99"
+          "labels":
+            "sysdig": "true"
+        
 
-      - "name": "Sysdig.k8s.scheduler.rules"
-        "rules":
-        - "expr": up{job="scheduler"}
-          "record": "up:kube_scheduler"
-          "labels":
-            "sysdig": "true"
-        - "expr": scheduler_e2e_scheduling_duration_seconds_count{job="scheduler"}
-          "record": "scheduler_e2e_scheduling_duration_seconds_count:kube_scheduler"
-          "labels":
-            "sysdig": "true"
-        - "expr": scheduler_binding_duration_seconds_count{job="scheduler"}
-          "record": "scheduler_binding_duration_seconds_count:kube_scheduler"
-          "labels":
-            "sysdig": "true"
-        - "expr": scheduler_scheduling_algorithm_duration_seconds_count{job="scheduler"}
-          "record": "scheduler_scheduling_algorithm_duration_seconds_count:kube_scheduler"
-          "labels":
-            "sysdig": "true"
-        - "expr": scheduler_volume_scheduling_duration_seconds_count{job="scheduler"}
-          "record": "scheduler_volume_scheduling_duration_seconds_count:kube_scheduler"
-          "labels":
-            "sysdig": "true"
-        - "expr": histogram_quantile(0.99, sum(rate(scheduler_e2e_scheduling_duration_seconds_bucket{job="scheduler"}[5m])) by (instance, le))
-          "record": "scheduler_volume_scheduling_duration_seconds_count:kube_scheduler"
-          "labels":
-            "sysdig": "true"
-        - "expr": histogram_quantile(0.99, sum(rate(scheduler_binding_duration_seconds_bucket{job="scheduler"}[5m])) by (instance, le))
-          "record": "scheduler_binding_duration_seconds_bucket:kube_scheduler"
-          "labels":
-            "sysdig": "true"
-        - "expr": histogram_quantile(0.99, sum(rate(scheduler_scheduling_algorithm_duration_seconds_bucket{job="scheduler"}[5m])) by (instance, le))
-          "record": "scheduler_scheduling_algorithm_duration_seconds_bucket:kube_scheduler"
-          "labels":
-            "sysdig": "true"
-        - "expr": histogram_quantile(0.99, sum(rate(scheduler_volume_scheduling_duration_seconds_bucket{job="scheduler"}[5m])) by (instance, le))
-          "record": "scheduler_volume_scheduling_duration_seconds_bucket:kube_scheduler"
-          "labels":
-            "sysdig": "true"
-        - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job="scheduler"}[5m])) by (verb, url, le))
-          "record": "rest_client_request_latency_seconds_bucket:kube_scheduler"
-          "labels":
-            "sysdig": "true"
-        - "expr": rest_client_requests_total{job="scheduler"}
-          "record": "rest_client_requests_total:kube_scheduler"
-          "labels":
-            "sysdig": "true"
-      
-      - "name": "Sysdig.k8s.api.rules"
-        "rules":
-        - "expr": apiserver_request_total{job="apiserver"}
-          "record": "apiserver_request_total:kubernetes_apiservers"
-          "labels":
-            "sysdig": "true"
-        - "expr": histogram_quantile(0.99, sum(rate(apiserver_request_duration_seconds_bucket{job="apiserver"}[5m])) by (verb, le))
-          "record": "apiserver_request_duration_seconds_bucket:kubernetes_apiservers"
-          "labels":
-            "sysdig": "true"
-        - "expr": workqueue_adds_total{job="apiserver"}
-          "record": "workqueue_adds_total:kubernetes_apiservers"
-          "labels":
-            "sysdig": "true"
-        - "expr": workqueue_depth{job="apiserver"}
-          "record": "workqueue_depth:kubernetes_apiservers"
-          "labels":
-            "sysdig": "true"
-        - "expr": histogram_quantile(0.99, sum(rate(workqueue_queue_duration_seconds_bucket{job="apiserver"}[5m])) by (instance, name, le))
-          "record": "workqueue_queue_duration_seconds_bucket:kubernetes_apiservers"
-          "labels":
-            "sysdig": "true"
-        - "expr": etcd_helper_cache_entry_total{job="apiserver"}
-          "record": "etcd_helper_cache_entry_total:kubernetes_apiservers"
-          "labels":
-            "sysdig": "true"
-        - "expr": etcd_helper_cache_hit_total{job="apiserver"}
-          "record": "etcd_helper_cache_hit_total:kubernetes_apiservers"
-          "labels":
-            "sysdig": "true"
-        - "expr": etcd_helper_cache_miss_total{job="apiserver"}
-          "record": "etcd_helper_cache_miss_total:kubernetes_apiservers"
-          "labels":
-            "sysdig": "true"
-        - "expr": histogram_quantile(0.99,sum(rate(etcd_request_cache_get_duration_seconds_bucket{job="apiserver"}[5m])) by (instance, le))
-          "record": "etcd_request_cache_get_duration_seconds_bucket:kubernetes_apiservers"
-          "labels":
-            "sysdig": "true"
-        - "expr": histogram_quantile(0.99,sum(rate(etcd_request_cache_add_duration_seconds_bucket{job="apiserver"}[5m])) by (instance, le))
-          "record": "etcd_request_cache_add_duration_seconds_bucket:kubernetes_apiservers"
-          "labels":
-            "sysdig": "true"
 
-      - "name": "Sysdig.k8s.controller_manager.rules"
+      - "name": "Sysdig.k8s.istio.destination.by.source"
         "rules":
-        - "expr": up{job=~"kube-controller-manager|controller-manager"}
-          "record": "up:controllermanager"
+        - "expr": |
+            histogram_quantile(0.50, sum(irate(istio_request_duration_milliseconds_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:destination:bysource:mutual_tls:histogram50"
           "labels":
             "sysdig": "true"
-        - "expr": workqueue_adds_total{job=~"kube-controller-manager|controller-manager"}
-          "record": "workqueue_adds_total:kubernetes_control_manager"
+        - "expr": |
+            histogram_quantile(0.90, sum(irate(istio_request_duration_milliseconds_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:destination:bysource:mutual_tls:histogram90"
           "labels":
             "sysdig": "true"
-        - "expr": workqueue_depth{job=~"kube-controller-manager|controller-manager"}
-          "record": "workqueue_depth:kubernetes_control_manager"
+        - "expr": |
+            histogram_quantile(0.95, sum(irate(istio_request_duration_milliseconds_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:destination:bysource:mutual_tls:histogram95"
           "labels":
             "sysdig": "true"
-        - "expr": histogram_quantile(0.99, sum(rate(workqueue_queue_duration_seconds_bucket{job=~"kube-controller-manager"}[5m])) by (instance, name, le))
-          "record": "workqueue_queue_duration_seconds_bucket:kubernetes_control_manager"
+        - "expr": |
+            histogram_quantile(0.99, sum(irate(istio_request_duration_milliseconds_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:destination:bysource:mutual_tls:histogram99"
           "labels":
             "sysdig": "true"
-        - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job=~"kube-controller-manager", verb="POST"}[5m])) by (verb, url, le))
-          "record": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:post"
+        - "expr": |
+            histogram_quantile(0.50, sum(irate(istio_request_duration_milliseconds_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:destination:bysource:not_mutual_tls:histogram50"
           "labels":
             "sysdig": "true"
-        - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job=~"kube-controller-manager", verb="GET"}[5m])) by (verb, url, le))
-          "record": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:get"
+        - "expr": |
+            histogram_quantile(0.90, sum(irate(istio_request_duration_milliseconds_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:destination:bysource:not_mutual_tls:histogram90"
           "labels":
             "sysdig": "true"
-        - "expr": rest_client_requests_total{job=~"kube-controller-manager|controller-manager"}
-          "record": "rest_client_requests_total:kubernetes_control_manager"
+        - "expr": |
+            histogram_quantile(0.95, sum(irate(istio_request_duration_milliseconds_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:destination:bysource:not_mutual_tls:histogram95"
           "labels":
             "sysdig": "true"
-      
-      - "name": "Sysdig.k8s.kube_proxy.rules"
+        - "expr": |
+            histogram_quantile(0.99, sum(irate(istio_request_duration_milliseconds_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:destination:bysource:not_mutual_tls:histogram99"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.50, sum(irate(istio_request_bytes_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:destination:bysource:mutual_tls:histogram50"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.90, sum(irate(istio_request_bytes_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:destination:bysource:mutual_tls:histogram90"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.95, sum(irate(istio_request_bytes_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:destination:bysource:mutual_tls:histogram95"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.99, sum(irate(istio_request_bytes_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:destination:bysource:mutual_tls:histogram99"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.50, sum(irate(istio_request_bytes_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:destination:bysource:not_mutual_tls:histogram50"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.90, sum(irate(istio_request_bytes_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:destination:bysource:not_mutual_tls:histogram90"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.95, sum(irate(istio_request_bytes_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:destination:bysource:not_mutual_tls:histogram95"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.99, sum(irate(istio_request_bytes_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_request_bytes_bucket:destination:bysource:not_mutual_tls:histogram99"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.50, sum(irate(istio_response_bytes_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_response_bytes_bucket:destination:bysource:mutual_tls:histogram50"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.90, sum(irate(istio_response_bytes_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_response_bytes_bucket:destination:bysource:mutual_tls:histogram90"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.95, sum(irate(istio_response_bytes_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_response_bytes_bucket:destination:bysource:mutual_tls:histogram95"
+          "labels":
+            "sysdig": "true"
+        - "expr": histogram_quantile(0.99, sum(irate(istio_response_bytes_bucket{reporter="destination", connection_security_policy="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_response_bytes_bucket:destination:bysource:mutual_tls:histogram99"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.50, sum(irate(istio_response_bytes_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_response_bytes_bucket:destination:bysource:not_mutual_tls:histogram50"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.90, sum(irate(istio_response_bytes_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_response_bytes_bucket:destination:bysource:not_mutual_tls:histogram90"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.95, sum(irate(istio_response_bytes_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_response_bytes_bucket:destination:bysource:not_mutual_tls:histogram95"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.99, sum(irate(istio_response_bytes_bucket{reporter="destination", connection_security_policy!="mutual_tls"}[1m])) by (source_workload, source_workload_namespace, le))        
+          "record": "istio_response_bytes_bucket:destination:bysource:not_mutual_tls:histogram99"
+          "labels":
+            "sysdig": "true"
+            
+      - "name": "Sysdig.k8s.istio.source.by.destination"
         "rules":
-        - "expr": up{k8s_app="kube-proxy"}
-          "record": "up:kube_proxy"
-          "labels":
-            "sysdig": "true"
-        - "expr" : kubeproxy_sync_proxy_rules_duration_seconds_count{k8s_app="kube-proxy"}
-          "record": "kubeproxy_sync_proxy_rules_duration_seconds_count:kube_proxy"
-          "labels":
-            "sysdig": "true"
-        - "expr" : histogram_quantile(0.99,rate(kubeproxy_sync_proxy_rules_duration_seconds_bucket{k8s_app="kube-proxy"}[5m]))
-          "record": "kubeproxy_sync_proxy_rules_duration_seconds_bucket:kube_proxy"
-          "labels":
-            "sysdig": "true"
-        - "expr" : kubeproxy_network_programming_duration_seconds_count{k8s_app="kube-proxy"}
-          "record": "kubeproxy_network_programming_duration_seconds_count:kube_proxy"
-          "labels":
-            "sysdig": "true"
-        - "expr" : histogram_quantile(0.99, sum(rate(kubeproxy_network_programming_duration_seconds_bucket{k8s_app="kube-proxy"}[5m])) by (instance, le))
-          "record": "kubeproxy_network_programming_duration_seconds_bucket:kube_proxy"
-          "labels":
-            "sysdig": "true"
-        - "expr": rest_client_requests_total{k8s_app="kube-proxy"}
-          "record": "rest_client_requests_total:kube_proxy"
-          "labels":
-            "sysdig": "true"
-        - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{k8s_app="kube-proxy",verb="POST"}[5m])) by (verb, url, le))
-          "record": "rest_client_request_latency_seconds_bucket:post:kube_proxy"
-          "labels":
-            "sysdig": "true"
-        - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{k8s_app="kube-proxy",verb="GET"}[5m])) by (verb, url, le))
-          "record": "rest_client_request_latency_seconds_bucket:get:kube_proxy"
+        - "expr": |
+            histogram_quantile(0.50, sum(irate(istio_request_duration_milliseconds_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (destination_service, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:source:bydestination:mutual_tls:histogram50"
           "labels":
             "sysdig": "true"
         - "expr": |
-            process_resident_memory_bytes{k8s_app="kube-proxy"}
-          "record": "process_resident_memory_bytes:kube_proxy"
+            histogram_quantile(0.90, sum(irate(istio_request_duration_milliseconds_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (destination_service, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:source:bydestination:mutual_tls:histogram90"
           "labels":
             "sysdig": "true"
         - "expr": |
-            process_cpu_seconds_total{k8s_app="kube-proxy"}
-          "record": "process_cpu_seconds_total:kube_proxy"
+            histogram_quantile(0.95, sum(irate(istio_request_duration_milliseconds_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (destination_service, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:source:bydestination:mutual_tls:histogram95"
           "labels":
             "sysdig": "true"
         - "expr": |
-            go_goroutines{k8s_app="kube-proxy"}
-          "record": "go_goroutines:kube_proxy"
+            histogram_quantile(0.99, sum(irate(istio_request_duration_milliseconds_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (destination_service, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:source:bydestination:mutual_tls:histogram99"
           "labels":
             "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.50, sum(irate(istio_request_duration_milliseconds_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (destination_service, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:source:bydestination:not_mutual_tls:histogram50"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.90, sum(irate(istio_request_duration_milliseconds_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (destination_service, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:source:bydestination:not_mutual_tls:histogram90"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.95, sum(irate(istio_request_duration_milliseconds_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (destination_service, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:source:bydestination:not_mutual_tls:histogram95"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.99, sum(irate(istio_request_duration_milliseconds_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (destination_service, le)) / 1000
+          "record": "istio_request_duration_milliseconds_bucket:source:bydestination:not_mutual_tls:histogram99"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.50, sum(irate(istio_request_bytes_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (destination_service, le))        
+          "record": "istio_request_bytes_bucket:source:bydestination:mutual_tls:histogram50"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.90, sum(irate(istio_request_bytes_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (destination_service, le))        
+          "record": "istio_request_bytes_bucket:source:bydestination:mutual_tls:histogram90"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.95, sum(irate(istio_request_bytes_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (destination_service, le))        
+          "record": "istio_request_bytes_bucket:source:bydestination:mutual_tls:histogram95"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.99, sum(irate(istio_request_bytes_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (destination_service, le))        
+          "record": "istio_request_bytes_bucket:source:bydestination:mutual_tls:histogram99"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.50, sum(irate(istio_request_bytes_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (destination_service, le))        
+          "record": "istio_request_bytes_bucket:source:bydestination:not_mutual_tls:histogram50"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.90, sum(irate(istio_request_bytes_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (destination_service, le))        
+          "record": "istio_request_bytes_bucket:source:bydestination:not_mutual_tls:histogram90"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.95, sum(irate(istio_request_bytes_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (destination_service, le))        
+          "record": "istio_request_bytes_bucket:source:bydestination:not_mutual_tls:histogram95"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.99, sum(irate(istio_request_bytes_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (destination_service, le))        
+          "record": "istio_request_bytes_bucket:source:bydestination:not_mutual_tls:histogram99"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.50, sum(irate(istio_response_bytes_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (destination_service, le))        
+          "record": "istio_response_bytes_bucket:source:bydestination:mutual_tls:histogram50"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.90, sum(irate(istio_response_bytes_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (destination_service, le))        
+          "record": "istio_response_bytes_bucket:source:bydestination:mutual_tls:histogram90"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.95, sum(irate(istio_response_bytes_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (destination_service, le))        
+          "record": "istio_response_bytes_bucket:source:bydestination:mutual_tls:histogram95"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.99, sum(irate(istio_response_bytes_bucket{reporter="source", connection_security_policy="mutual_tls"}[1m])) by (destination_service, le))        
+          "record": "istio_response_bytes_bucket:source:bydestination:mutual_tls:histogram99"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.50, sum(irate(istio_response_bytes_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (destination_service, le))
+          "record": "istio_response_bytes_bucket:source:bydestination:not_mutual_tls:histogram50"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.90, sum(irate(istio_response_bytes_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (destination_service, le))
+          "record": "istio_response_bytes_bucket:source:bydestination:not_mutual_tls:histogram90"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.95, sum(irate(istio_response_bytes_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (destination_service, le))
+          "record": "istio_response_bytes_bucket:source:bydestination:not_mutual_tls:histogram95"
+          "labels":
+            "sysdig": "true"
+        - "expr": |
+            histogram_quantile(0.99, sum(irate(istio_response_bytes_bucket{reporter="source", connection_security_policy!="mutual_tls"}[1m])) by (destination_service, le))
+          "record": "istio_response_bytes_bucket:source:bydestination:not_mutual_tls:histogram99"
+          "labels":
+            "sysdig": "true"
+        
