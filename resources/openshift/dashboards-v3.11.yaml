@@ -5,13 +5,12 @@ app: "Openshift"
 version: 1.0.0
 appVersion: 
   - 3.11
-  - 4.3
 maintainers:
   - name: Sysdig team
     link: https://sysdig.com/
 description: 
 configurations:
-  - name: "Ocp4 / Api"
+  - name: "Ocp3 / Api"
     kind: Sysdig
     image: "openshift/images/api_sysdig.png"
     description: |
@@ -904,7 +903,7 @@ configurations:
             ]
         }
       }
-  - name: "Ocp4 / Controller manager"
+  - name: "Ocp3 / Controller manager"
     kind: Sysdig
     image: "openshift/images/controller_manager_sysdig.png"
     description: |
@@ -1633,7 +1632,7 @@ configurations:
             ]
         }
       }
-  - name: "Ocp4 / Kubelet"
+  - name: "Ocp3 / Kubelet"
     kind: Sysdig
     image: "openshift/images/kubelet_sysdig.png"
     description: |
@@ -3245,7 +3244,6 @@ configurations:
             ]
         }
       }
-  - name: "Ocp4 / Scheduler"
     kind: Sysdig
     image: "openshift/images/scheduler_sysdig.png"
     description: |
@@ -4004,7 +4002,7 @@ configurations:
             ]
         }
       }
-  - name: "Ocp4 / Api"
+  - name: "Ocp3 / Api"
     kind: Grafana
     image: "openshift/images/api_grafana.png"
     description: |
@@ -4018,7 +4016,7 @@ configurations:
             "type": "grafana",
             "id": "grafana",
             "name": "Grafana",
-            "version": "6.7.2"
+            "version": "7.0.0"
           },
           {
             "type": "panel",
@@ -4056,7 +4054,7 @@ configurations:
         "gnetId": null,
         "graphTooltip": 0,
         "id": null,
-        "iteration": 1589178026872,
+        "iteration": 1590069371856,
         "links": [],
         "panels": [
           {
@@ -4069,6 +4067,12 @@ configurations:
               "#d44a3a"
             ],
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "format": "none",
             "gauge": {
               "maxValue": 100,
@@ -4150,6 +4154,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -4268,6 +4278,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -4362,6 +4378,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -4401,7 +4423,7 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "sum(rate(workqueue_adds_total:kubernetes_apiservers[5m])) by (instance, name)",
+                "expr": "sum(rate(workqueue_adds_total:kubernetes_control_manager[5m])) by (instance, name)",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -4456,6 +4478,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -4495,7 +4523,7 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "sum(rate(workqueue_depth:kubernetes_apiservers[5m])) by (instance, name)",
+                "expr": "sum(rate(workqueue_depth:kubernetes_control_manager[5m])) by (instance, name)",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -4550,6 +4578,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -4589,7 +4623,7 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "workqueue_queue_duration_seconds_bucket:kubernetes_apiservers",
+                "expr": "workqueue_queue_duration_seconds_bucket:kubernetes_control_manager",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -4644,6 +4678,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -4738,6 +4778,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -4840,6 +4886,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -4942,6 +4994,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -5036,6 +5094,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -5130,6 +5194,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -5220,7 +5290,7 @@ configurations:
           }
         ],
         "refresh": "10s",
-        "schemaVersion": 22,
+        "schemaVersion": 25,
         "style": "dark",
         "tags": [],
         "templating": {
@@ -5228,8 +5298,8 @@ configurations:
             {
               "current": {
                 "selected": false,
-                "text": "Sysdig PromQL",
-                "value": "Sysdig PromQL"
+                "text": "Prometheus",
+                "value": "Prometheus"
               },
               "hide": 0,
               "includeAll": false,
@@ -5250,7 +5320,6 @@ configurations:
               "definition": "",
               "hide": 2,
               "includeAll": false,
-              "index": -1,
               "label": null,
               "multi": false,
               "name": "cluster",
@@ -5273,7 +5342,6 @@ configurations:
               "definition": "",
               "hide": 0,
               "includeAll": true,
-              "index": -1,
               "label": null,
               "multi": false,
               "name": "instance",
@@ -5292,12 +5360,11 @@ configurations:
           ]
         },
         "time": {
-          "from": "now-15m",
+          "from": "now-5m",
           "to": "now"
         },
         "timepicker": {
           "refresh_intervals": [
-            "5s",
             "10s",
             "30s",
             "1m",
@@ -5321,14 +5388,11 @@ configurations:
           ]
         },
         "timezone": "",
-        "title": "Ocp4 / API server",
+        "title": "Ocp3 / API server",
         "uid": "hhqkRB3Wz",
-        "variables": {
-          "list": []
-        },
-        "version": 7
+        "version": 2
       }
-  - name: "Ocp4 / Controller manager"
+  - name: "Ocp3 / Controller manager"
     kind: Grafana
     image: "openshift/images/controller_manager_grafana.png"
     description: |
@@ -5342,7 +5406,7 @@ configurations:
             "type": "grafana",
             "id": "grafana",
             "name": "Grafana",
-            "version": "6.7.2"
+            "version": "7.0.0"
           },
           {
             "type": "panel",
@@ -5380,7 +5444,7 @@ configurations:
         "gnetId": null,
         "graphTooltip": 0,
         "id": null,
-        "iteration": 1589178476080,
+        "iteration": 1590069335107,
         "links": [],
         "panels": [
           {
@@ -5393,6 +5457,12 @@ configurations:
               "#d44a3a"
             ],
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "format": "none",
             "gauge": {
               "maxValue": 100,
@@ -5444,7 +5514,7 @@ configurations:
             "tableColumn": "",
             "targets": [
               {
-                "expr": "sum(up:controllermanager{job=\"kube-controller-manager\"})",
+                "expr": "sum(up:kubernetes{job=\"kube-controllers\"})",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -5474,6 +5544,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -5513,7 +5589,7 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "sum(rate(workqueue_adds_total:kubernetes_control_manager{job=\"kube-controller-manager\"}[5m])) by (instance, name)",
+                "expr": "sum(rate(workqueue_adds_total:kubernetes_control_manager[5m])) by (instance, name)",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -5568,6 +5644,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -5607,7 +5689,7 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "sum(rate(workqueue_depth:kubernetes_control_manager{job=\"kube-controller-manager\"}[5m])) by (instance, name)",
+                "expr": "sum(rate(workqueue_depth:kubernetes_control_manager[5m])) by (instance, name)",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -5662,6 +5744,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -5701,7 +5789,7 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "workqueue_queue_duration_seconds_bucket:kubernetes_apiservers",
+                "expr": "workqueue_queue_duration_seconds_bucket:kubernetes_control_manager",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -5756,6 +5844,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -5874,6 +5968,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -5968,6 +6068,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -6062,6 +6168,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -6101,7 +6213,7 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "process_resident_memory_bytes:kubernetes{job=\"controller-manager\"}",
+                "expr": "process_resident_memory_bytes:kubernetes{job=\"kube-controllers\"}",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -6156,6 +6268,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -6195,7 +6313,7 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "sum(up:controllermanager{job=\"kube-controller-manager\"})",
+                "expr": "sum(up:controllermanager{job=\"kube-controllers\"})",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -6250,6 +6368,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -6289,7 +6413,7 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "go_goroutines:kubernetes{job=\"controller-manager\"}",
+                "expr": "go_goroutines:kubernetes{job=\"kube-controllers\"}",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -6340,7 +6464,7 @@ configurations:
           }
         ],
         "refresh": false,
-        "schemaVersion": 22,
+        "schemaVersion": 25,
         "style": "dark",
         "tags": [
           "kubernetes-mixin"
@@ -6350,9 +6474,8 @@ configurations:
             {
               "current": {
                 "selected": false,
-                "tags": [],
-                "text": "Sysdig PromQL",
-                "value": "Sysdig PromQL"
+                "text": "Prometheus",
+                "value": "Prometheus"
               },
               "hide": 0,
               "includeAll": false,
@@ -6373,7 +6496,6 @@ configurations:
               "definition": "label_values(up:kubernetes{job=\"kubernetes-nodes\"}, instance)",
               "hide": 0,
               "includeAll": true,
-              "index": -1,
               "label": null,
               "multi": false,
               "name": "instance",
@@ -6397,7 +6519,6 @@ configurations:
         },
         "timepicker": {
           "refresh_intervals": [
-            "5s",
             "10s",
             "30s",
             "1m",
@@ -6421,14 +6542,11 @@ configurations:
           ]
         },
         "timezone": "",
-        "title": "oc4 / Controller Manager",
+        "title": "oc3 / Controller Manager",
         "uid": "Ij5Bbl6Wk",
-        "variables": {
-          "list": []
-        },
-        "version": 2
+        "version": 3
       }
-  - name: "Ocp4 / Kubelet"
+  - name: "Ocp3 / Kubelet"
     kind: Grafana
     image: "openshift/images/kubelet_grafana.png"
     description: |
@@ -6442,7 +6560,7 @@ configurations:
             "type": "grafana",
             "id": "grafana",
             "name": "Grafana",
-            "version": "6.7.2"
+            "version": "7.0.0"
           },
           {
             "type": "panel",
@@ -6480,7 +6598,7 @@ configurations:
         "gnetId": null,
         "graphTooltip": 0,
         "id": null,
-        "iteration": 1589178702667,
+        "iteration": 1590069184932,
         "links": [],
         "panels": [
           {
@@ -6493,6 +6611,12 @@ configurations:
               "#d44a3a"
             ],
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "format": "none",
             "gauge": {
               "maxValue": 100,
@@ -6544,7 +6668,7 @@ configurations:
             "tableColumn": "",
             "targets": [
               {
-                "expr": "sum(up:kubernetes{job=\"kubelet\",metrics_path=\"/metrics/cadvisor\"})",
+                "expr": "sum(up:kubernetes{job=\"kubelet\"})",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -6578,6 +6702,12 @@ configurations:
               "#d44a3a"
             ],
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "format": "none",
             "gauge": {
               "maxValue": 100,
@@ -6663,6 +6793,12 @@ configurations:
               "#d44a3a"
             ],
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "format": "none",
             "gauge": {
               "maxValue": 100,
@@ -6748,6 +6884,12 @@ configurations:
               "#d44a3a"
             ],
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "format": "none",
             "gauge": {
               "maxValue": 100,
@@ -6833,6 +6975,12 @@ configurations:
               "#d44a3a"
             ],
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "format": "none",
             "gauge": {
               "maxValue": 100,
@@ -6918,6 +7066,12 @@ configurations:
               "#d44a3a"
             ],
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "format": "none",
             "gauge": {
               "maxValue": 100,
@@ -6999,6 +7153,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -7093,6 +7253,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -7187,6 +7353,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -7281,6 +7453,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -7383,6 +7561,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -7485,6 +7669,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -7581,6 +7771,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -7677,6 +7873,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -7773,6 +7975,12 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -7867,6 +8075,13 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "description": "Pod lifecycle event generator",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
@@ -7874,101 +8089,6 @@ configurations:
               "w": 12,
               "x": 12,
               "y": 42
-            },
-            "hiddenSeries": false,
-            "id": 17,
-            "legend": {
-              "alignAsTable": true,
-              "avg": false,
-              "current": true,
-              "max": false,
-              "min": false,
-              "rightSide": true,
-              "show": true,
-              "total": false,
-              "values": true
-            },
-            "lines": true,
-            "linewidth": 1,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-              "dataLinks": []
-            },
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-              {
-                "expr": "cgroup_manager_duration_seconds:kubelet",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{instance}} {{operation_type}}",
-                "refId": "A"
-              }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Cgroup manager 99th quantile",
-            "tooltip": {
-              "shared": false,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "s",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              },
-              {
-                "format": "s",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
-          },
-          {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "description": "Pod lifecycle event generator",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-              "h": 7,
-              "w": 12,
-              "x": 0,
-              "y": 49
             },
             "hiddenSeries": false,
             "id": 18,
@@ -8001,7 +8121,7 @@ configurations:
             "steppedLine": false,
             "targets": [
               {
-                "expr": "sum(rate(pleg_relist_duration_seconds:kubelet[5m])) by (instance)",
+                "expr": "sum(rate(kubelet_pleg_relist_duration_seconds_count:kubelet[5m])) by (instance)",
                 "format": "time_series",
                 "interval": "",
                 "intervalFactor": 2,
@@ -8056,201 +8176,19 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
               "h": 7,
-              "w": 12,
-              "x": 12,
+              "w": 24,
+              "x": 0,
               "y": 49
-            },
-            "hiddenSeries": false,
-            "id": 19,
-            "legend": {
-              "alignAsTable": true,
-              "avg": false,
-              "current": true,
-              "max": false,
-              "min": false,
-              "rightSide": true,
-              "show": true,
-              "total": false,
-              "values": true
-            },
-            "lines": true,
-            "linewidth": 1,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-              "dataLinks": []
-            },
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-              {
-                "expr": "pleg_relist_interval_seconds:kubelet",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{instance}}",
-                "refId": "A"
-              }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "PLEG relist interval",
-            "tooltip": {
-              "shared": false,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "s",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              },
-              {
-                "format": "s",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
-          },
-          {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-              "h": 7,
-              "w": 24,
-              "x": 0,
-              "y": 56
-            },
-            "hiddenSeries": false,
-            "id": 20,
-            "legend": {
-              "alignAsTable": true,
-              "avg": false,
-              "current": true,
-              "max": false,
-              "min": false,
-              "rightSide": true,
-              "show": true,
-              "total": false,
-              "values": true
-            },
-            "lines": true,
-            "linewidth": 1,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-              "dataLinks": []
-            },
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-              {
-                "expr": "pleg_relist_duration_seconds:kubelet",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{instance}}",
-                "refId": "A"
-              }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "PLEG relist duration",
-            "tooltip": {
-              "shared": false,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "s",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              },
-              {
-                "format": "s",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
-          },
-          {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-              "h": 7,
-              "w": 24,
-              "x": 0,
-              "y": 63
             },
             "hiddenSeries": false,
             "id": 21,
@@ -8362,13 +8300,19 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
               "h": 7,
               "w": 24,
               "x": 0,
-              "y": 70
+              "y": 56
             },
             "hiddenSeries": false,
             "id": 22,
@@ -8456,13 +8400,19 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
               "h": 7,
               "w": 8,
               "x": 0,
-              "y": 77
+              "y": 63
             },
             "hiddenSeries": false,
             "id": 23,
@@ -8550,13 +8500,19 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
               "h": 7,
               "w": 8,
               "x": 8,
-              "y": 77
+              "y": 63
             },
             "hiddenSeries": false,
             "id": 24,
@@ -8644,13 +8600,19 @@ configurations:
             "dashLength": 10,
             "dashes": false,
             "datasource": "$datasource",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
             "fill": 1,
             "fillGradient": 0,
             "gridPos": {
               "h": 7,
               "w": 8,
               "x": 16,
-              "y": 77
+              "y": 63
             },
             "hiddenSeries": false,
             "id": 25,
@@ -8734,7 +8696,7 @@ configurations:
           }
         ],
         "refresh": "10s",
-        "schemaVersion": 22,
+        "schemaVersion": 25,
         "style": "dark",
         "tags": [
           "kubernetes-mixin"
@@ -8744,8 +8706,8 @@ configurations:
             {
               "current": {
                 "selected": false,
-                "text": "Sysdig PromQL",
-                "value": "Sysdig PromQL"
+                "text": "Prometheus",
+                "value": "Prometheus"
               },
               "hide": 0,
               "includeAll": false,
@@ -8754,6 +8716,7 @@ configurations:
               "name": "datasource",
               "options": [],
               "query": "prometheus",
+              "queryValue": "",
               "refresh": 1,
               "regex": "",
               "skipUrlSync": false,
@@ -8766,7 +8729,6 @@ configurations:
               "definition": "label_values(kube_pod_info, cluster)",
               "hide": 2,
               "includeAll": false,
-              "index": -1,
               "label": "cluster",
               "multi": false,
               "name": "cluster",
@@ -8789,7 +8751,6 @@ configurations:
               "definition": "label_values(kubelet_runtime_operations_total{cluster=\"$cluster\", job=\"kubelet\"}, instance)",
               "hide": 0,
               "includeAll": true,
-              "index": -1,
               "label": null,
               "multi": false,
               "name": "instance",
@@ -8813,7 +8774,6 @@ configurations:
         },
         "timepicker": {
           "refresh_intervals": [
-            "5s",
             "10s",
             "30s",
             "1m",
@@ -8837,1064 +8797,7 @@ configurations:
           ]
         },
         "timezone": "",
-        "title": "oc4 / Kubelet",
+        "title": "oc3 / Kubelet",
         "uid": "QDcQgB3Zz",
-        "variables": {
-          "list": []
-        },
-        "version": 8
-      }
-  - name: "Ocp4 / Scheduler"
-    kind: Grafana
-    image: "openshift/images/scheduler_grafana.png"
-    description: |
-      This dashboard offers information on: 
-      * Scheduler
-    data: |
-      {
-        "__inputs": [],
-        "__requires": [
-          {
-            "type": "grafana",
-            "id": "grafana",
-            "name": "Grafana",
-            "version": "6.7.2"
-          },
-          {
-            "type": "panel",
-            "id": "graph",
-            "name": "Graph",
-            "version": ""
-          },
-          {
-            "type": "datasource",
-            "id": "prometheus",
-            "name": "Prometheus",
-            "version": "1.0.0"
-          },
-          {
-            "type": "panel",
-            "id": "singlestat",
-            "name": "Singlestat",
-            "version": ""
-          }
-        ],
-        "annotations": {
-          "list": [
-            {
-              "builtIn": 1,
-              "datasource": "-- Grafana --",
-              "enable": true,
-              "hide": true,
-              "iconColor": "rgba(0, 211, 255, 1)",
-              "name": "Annotations & Alerts",
-              "type": "dashboard"
-            }
-          ]
-        },
-        "editable": true,
-        "gnetId": null,
-        "graphTooltip": 0,
-        "id": null,
-        "iteration": 1589178830046,
-        "links": [],
-        "panels": [
-          {
-            "cacheTimeout": null,
-            "colorBackground": false,
-            "colorValue": false,
-            "colors": [
-              "#299c46",
-              "rgba(237, 129, 40, 0.89)",
-              "#d44a3a"
-            ],
-            "datasource": "$datasource",
-            "format": "none",
-            "gauge": {
-              "maxValue": 100,
-              "minValue": 0,
-              "show": false,
-              "thresholdLabels": false,
-              "thresholdMarkers": true
-            },
-            "gridPos": {
-              "h": 7,
-              "w": 4,
-              "x": 0,
-              "y": 0
-            },
-            "id": 2,
-            "interval": null,
-            "links": [],
-            "mappingType": 1,
-            "mappingTypes": [
-              {
-                "name": "value to text",
-                "value": 1
-              },
-              {
-                "name": "range to text",
-                "value": 2
-              }
-            ],
-            "maxDataPoints": 100,
-            "nullPointMode": "connected",
-            "nullText": null,
-            "postfix": "",
-            "postfixFontSize": "50%",
-            "prefix": "",
-            "prefixFontSize": "50%",
-            "rangeMaps": [
-              {
-                "from": "null",
-                "text": "N/A",
-                "to": "null"
-              }
-            ],
-            "sparkline": {
-              "fillColor": "rgba(31, 118, 189, 0.18)",
-              "full": false,
-              "lineColor": "rgb(31, 120, 193)",
-              "show": false
-            },
-            "tableColumn": "",
-            "targets": [
-              {
-                "expr": "sum(up:kube_scheduler)",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "",
-                "refId": "A"
-              }
-            ],
-            "thresholds": "",
-            "title": "Up",
-            "tooltip": {
-              "shared": false
-            },
-            "type": "singlestat",
-            "valueFontSize": "80%",
-            "valueMaps": [
-              {
-                "op": "=",
-                "text": "N/A",
-                "value": "null"
-              }
-            ],
-            "valueName": "min"
-          },
-          {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-              "h": 7,
-              "w": 10,
-              "x": 4,
-              "y": 0
-            },
-            "hiddenSeries": false,
-            "id": 3,
-            "legend": {
-              "alignAsTable": "true",
-              "avg": false,
-              "current": "true",
-              "max": false,
-              "min": false,
-              "rightSide": "true",
-              "show": "true",
-              "total": false,
-              "values": "true"
-            },
-            "lines": true,
-            "linewidth": 1,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-              "dataLinks": []
-            },
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-              {
-                "expr": "sum(rate(scheduler_e2e_scheduling_duration_seconds_count:kube_scheduler[5m])) by (instance)",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{instance}} e2e",
-                "refId": "A"
-              },
-              {
-                "expr": "sum(rate(scheduler_binding_duration_seconds_count:kube_scheduler[5m])) by (instance)",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{instance}} binding",
-                "refId": "B"
-              },
-              {
-                "expr": "sum(rate(scheduler_scheduling_algorithm_duration_seconds_count:kube_scheduler[5m])) by (instance)",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{instance}} scheduling algorithm",
-                "refId": "C"
-              },
-              {
-                "expr": "sum(rate(scheduler_volume_scheduling_duration_seconds_count:kube_scheduler[5m])) by (instance)",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{instance}} volume",
-                "refId": "D"
-              }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Scheduling Rate",
-            "tooltip": {
-              "shared": false,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "ops",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              },
-              {
-                "format": "ops",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
-          },
-          {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-              "h": 7,
-              "w": 10,
-              "x": 14,
-              "y": 0
-            },
-            "hiddenSeries": false,
-            "id": 4,
-            "legend": {
-              "alignAsTable": "true",
-              "avg": false,
-              "current": "true",
-              "max": false,
-              "min": false,
-              "rightSide": "true",
-              "show": "true",
-              "total": false,
-              "values": "true"
-            },
-            "lines": true,
-            "linewidth": 1,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-              "dataLinks": []
-            },
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-              {
-                "expr": "scheduler_volume_scheduling_duration_seconds_count:kube_scheduler",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{instance}} e2e",
-                "refId": "A"
-              },
-              {
-                "expr": "scheduler_binding_duration_seconds_bucket:kube_scheduler",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{instance}} binding",
-                "refId": "B"
-              },
-              {
-                "expr": "scheduler_scheduling_algorithm_duration_seconds_bucket:kube_scheduler",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{instance}} scheduling algorithm",
-                "refId": "C"
-              },
-              {
-                "expr": "scheduler_volume_scheduling_duration_seconds_bucket:kube_scheduler",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{instance}} volume",
-                "refId": "D"
-              }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Scheduling latency 99th Quantile",
-            "tooltip": {
-              "shared": false,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "s",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              },
-              {
-                "format": "s",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
-          },
-          {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-              "h": 7,
-              "w": 8,
-              "x": 0,
-              "y": 7
-            },
-            "hiddenSeries": false,
-            "id": 5,
-            "legend": {
-              "alignAsTable": false,
-              "avg": false,
-              "current": false,
-              "max": false,
-              "min": false,
-              "rightSide": false,
-              "show": true,
-              "total": false,
-              "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-              "dataLinks": []
-            },
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-              {
-                "expr": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"2..\"}[5m]))",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "2xx",
-                "refId": "A"
-              },
-              {
-                "expr": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"3..\"}[5m]))",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "3xx",
-                "refId": "B"
-              },
-              {
-                "expr": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"4..\"}[5m]))",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "4xx",
-                "refId": "C"
-              },
-              {
-                "expr": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"5..\"}[5m]))",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "5xx",
-                "refId": "D"
-              }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Kube API Request Rate",
-            "tooltip": {
-              "shared": false,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "ops",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              },
-              {
-                "format": "ops",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
-          },
-          {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-              "h": 7,
-              "w": 16,
-              "x": 8,
-              "y": 7
-            },
-            "hiddenSeries": false,
-            "id": 6,
-            "legend": {
-              "alignAsTable": false,
-              "avg": false,
-              "current": false,
-              "max": false,
-              "min": false,
-              "rightSide": false,
-              "show": true,
-              "total": false,
-              "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-              "dataLinks": []
-            },
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-              {
-                "expr": "rest_client_request_latency_seconds_bucket:kube_scheduler{verb=\"POST\"}",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{verb}} {{url}}",
-                "refId": "A"
-              }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Post Request Latency 99th Quantile",
-            "tooltip": {
-              "shared": false,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "s",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              },
-              {
-                "format": "s",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
-          },
-          {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-              "h": 7,
-              "w": 24,
-              "x": 0,
-              "y": 14
-            },
-            "hiddenSeries": false,
-            "id": 7,
-            "legend": {
-              "alignAsTable": "true",
-              "avg": false,
-              "current": "true",
-              "max": false,
-              "min": false,
-              "rightSide": "true",
-              "show": "true",
-              "total": false,
-              "values": "true"
-            },
-            "lines": true,
-            "linewidth": 1,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-              "dataLinks": []
-            },
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-              {
-                "expr": "rest_client_request_latency_seconds_bucket:kube_scheduler{verb=\"GET\"}",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{verb}} {{url}}",
-                "refId": "A"
-              }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Get Request Latency 99th Quantile",
-            "tooltip": {
-              "shared": false,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "s",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              },
-              {
-                "format": "s",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
-          },
-          {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-              "h": 7,
-              "w": 8,
-              "x": 0,
-              "y": 21
-            },
-            "hiddenSeries": false,
-            "id": 8,
-            "legend": {
-              "alignAsTable": false,
-              "avg": false,
-              "current": false,
-              "max": false,
-              "min": false,
-              "rightSide": false,
-              "show": true,
-              "total": false,
-              "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-              "dataLinks": []
-            },
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-              {
-                "expr": "process_resident_memory_bytes:kubernetes{job=\"scheduler\"}",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{instance}}",
-                "refId": "A"
-              }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Memory",
-            "tooltip": {
-              "shared": false,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "bytes",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": null,
-                "show": true
-              },
-              {
-                "format": "bytes",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": null,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
-          },
-          {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-              "h": 7,
-              "w": 8,
-              "x": 8,
-              "y": 21
-            },
-            "hiddenSeries": false,
-            "id": 9,
-            "legend": {
-              "alignAsTable": false,
-              "avg": false,
-              "current": false,
-              "max": false,
-              "min": false,
-              "rightSide": false,
-              "show": true,
-              "total": false,
-              "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-              "dataLinks": []
-            },
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-              {
-                "expr": "rate(process_cpu_seconds_total:kubernetes{job=\"scheduler\"}[5m])",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{instance}}",
-                "refId": "A"
-              }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "CPU usage",
-            "tooltip": {
-              "shared": false,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "bytes",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              },
-              {
-                "format": "bytes",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
-          },
-          {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-              "h": 7,
-              "w": 8,
-              "x": 16,
-              "y": 21
-            },
-            "hiddenSeries": false,
-            "id": 10,
-            "legend": {
-              "alignAsTable": false,
-              "avg": false,
-              "current": false,
-              "max": false,
-              "min": false,
-              "rightSide": false,
-              "show": true,
-              "total": false,
-              "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-              "dataLinks": []
-            },
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-              {
-                "expr": "go_goroutines:kubernetes{job=\"scheduler\"}",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{instance}}",
-                "refId": "A"
-              }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Goroutines",
-            "tooltip": {
-              "shared": false,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "short",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": null,
-                "show": true
-              },
-              {
-                "format": "short",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": null,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
-          }
-        ],
-        "refresh": "",
-        "schemaVersion": 22,
-        "style": "dark",
-        "tags": [
-          "kubernetes-mixin"
-        ],
-        "templating": {
-          "list": [
-            {
-              "current": {
-                "selected": false,
-                "tags": [],
-                "text": "Sysdig PromQL",
-                "value": "Sysdig PromQL"
-              },
-              "hide": 0,
-              "includeAll": false,
-              "label": null,
-              "multi": false,
-              "name": "datasource",
-              "options": [],
-              "query": "prometheus",
-              "refresh": 1,
-              "regex": "",
-              "skipUrlSync": false,
-              "type": "datasource"
-            },
-            {
-              "allValue": null,
-              "current": {},
-              "datasource": "$datasource",
-              "definition": "label_values(kubelet_running_pod_count:kubernetes_nodes, instance)",
-              "hide": 0,
-              "includeAll": true,
-              "index": -1,
-              "label": null,
-              "multi": false,
-              "name": "instance",
-              "options": [],
-              "query": "label_values(kubelet_running_pod_count:kubernetes_nodes, instance)",
-              "refresh": 2,
-              "regex": "",
-              "skipUrlSync": false,
-              "sort": 0,
-              "tagValuesQuery": "",
-              "tags": [],
-              "tagsQuery": "",
-              "type": "query",
-              "useTags": false
-            }
-          ]
-        },
-        "time": {
-          "from": "now-15m",
-          "to": "now"
-        },
-        "timepicker": {
-          "refresh_intervals": [
-            "5s",
-            "10s",
-            "30s",
-            "1m",
-            "5m",
-            "15m",
-            "30m",
-            "1h",
-            "2h",
-            "1d"
-          ],
-          "time_options": [
-            "5m",
-            "15m",
-            "1h",
-            "6h",
-            "12h",
-            "24h",
-            "2d",
-            "7d",
-            "30d"
-          ]
-        },
-        "timezone": "",
-        "title": "Oc4 / Scheduler",
-        "uid": "2e6b6a3b4bddf1427b3a55aa1311c656",
-        "variables": {
-          "list": []
-        },
-        "version": 2
+        "version": 3
       }
