@@ -4,7 +4,7 @@ kind: ExporterConfig
 app: "Istio"
 version: 1.0.0
 appVersion: 
-  - 1.5
+  - '1.5'
 maintainers:
   - name: Sysdig team
     link: https://sysdig.com/
@@ -16,7 +16,7 @@ description: |
   If we want the targets in our prometheus the simplest way to do it is federate the prometheus, another
   way to do this is anotate all pods and sidecars which is a lot of work and you can probably miss 
   something
-data: |
+
   # Gather the metrics from the prometheus deployed by Istio
 
   The Prometheus provided by Istio has all targets with all metrics within.

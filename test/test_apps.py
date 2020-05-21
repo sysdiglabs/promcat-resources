@@ -57,6 +57,8 @@ def testAvailableVersions():
   for app in apps:
     assert (app['name'] != "") and (type(app['availableVersions']) == list)
     assert (app['name'] != "") and (len(app['availableVersions']) > 0)
+    for availableVersion in app['availableVersions']:
+      assert (app['name'] != "") and (type(availableVersion) == str)
 
 def testAvailable(): 
   for app in apps:
