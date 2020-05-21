@@ -102,159 +102,172 @@ configurations:
           severity: page
         annotations:
           summary: High response time in proxy {{$labels.proxy}}
-  - kind: Sysdig
-    data: |
-      [
-        {
-          "alert": {
-            "condition": "max(time() - haproxy_process_start_time_seconds) < 3600",
-            "customNotification": {
-              "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-              "useNewTemplate": false
-            },
-            "enabled": true,
-            "name": "UpTimeLessThan1Hour",
-            "rateOfChange": false,
-            "reNotify": false,
-            "reNotifyMinutes": "10m",
-            "severity": 4,
-            "severityLabel": "LOW",
-            "severityLevel": null,
-            "timespan": 600000000,
-            "type": "PROMETHEUS"
-          }
-        },
-        {
-          "alert": {
-            "condition": "count by (proxy) (haproxy_frontend_status == 1) == 0",
-            "customNotification": {
-              "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-              "useNewTemplate": false
-            },
-            "enabled": true,
-            "name": "FrontendDown",
-            "rateOfChange": false,
-            "reNotify": false,
-            "reNotifyMinutes": "10m",
-            "severity": 4,
-            "severityLabel": "LOW",
-            "severityLevel": null,
-            "timespan": 600000000,
-            "type": "PROMETHEUS"
-          }
-        },
-        {
-          "alert": {
-            "condition": "sum by (proxy) (haproxy_backend_status==1) == 0",
-            "customNotification": {
-              "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-              "useNewTemplate": false
-            },
-            "enabled": true,
-            "name": "BackendDown",
-            "rateOfChange": false,
-            "reNotify": false,
-            "reNotifyMinutes": "10m",
-            "severity": 4,
-            "severityLabel": "LOW",
-            "severityLevel": null,
-            "timespan": 600000000,
-            "type": "PROMETHEUS"
-          }
-        },
-        {
-          "alert": {
-            "condition": "max by (proxy)(rate(haproxy_backend_sessions_total[5m]) / haproxy_backend_limit_sessions) >0.85",
-            "customNotification": {
-              "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-              "useNewTemplate": false
-            },
-            "enabled": true,
-            "name": "HighSessionsUsage",
-            "rateOfChange": false,
-            "reNotify": false,
-            "reNotifyMinutes": "10m",
-            "severity": 4,
-            "severityLabel": "LOW",
-            "severityLevel": null,
-            "timespan": 600000000,
-            "type": "PROMETHEUS"
-          }
-        },
-        {
-          "alert": {
-            "condition": "sum by (proxy)(rate(haproxy_backend_http_responses_total{code!=\"2xx\"}[5m])) / sum by (proxy)(rate(haproxy_backend_http_responses_total[5m])) > 0.15",
-            "customNotification": {
-              "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-              "useNewTemplate": false
-            },
-            "enabled": true,
-            "name": "HigErrorRate",
-            "rateOfChange": false,
-            "reNotify": false,
-            "reNotifyMinutes": "10m",
-            "severity": 4,
-            "severityLabel": "LOW",
-            "severityLevel": null,
-            "timespan": 600000000,
-            "type": "PROMETHEUS"
-          }
-        },
-        {
-          "alert": {
-            "condition": "sum by (proxy) (rate(haproxy_backend_requests_denied_total[5m])) / sum by (proxy)(rate(haproxy_backend_http_requests_total[5m])) > 0.15",
-            "customNotification": {
-              "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-              "useNewTemplate": false
-            },
-            "enabled": true,
-            "name": "HighRequestDeniedRate",
-            "rateOfChange": false,
-            "reNotify": false,
-            "reNotifyMinutes": "10m",
-            "severity": 4,
-            "severityLabel": "LOW",
-            "severityLevel": null,
-            "timespan": 600000000,
-            "type": "PROMETHEUS"
-          }
-        },
-        {
-          "alert": {
-            "condition": "sum by (proxy) (rate(haproxy_backend_responses_denied_total[5m])) / sum by (proxy)(rate(haproxy_backend_http_responses_total[5m])) > 0.15",
-            "customNotification": {
-              "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-              "useNewTemplate": false
-            },
-            "enabled": true,
-            "name": "HighResponseDeniedRate",
-            "rateOfChange": false,
-            "reNotify": false,
-            "reNotifyMinutes": "10m",
-            "severity": 4,
-            "severityLabel": "LOW",
-            "severityLevel": null,
-            "timespan": 600000000,
-            "type": "PROMETHEUS"
-          }
-        },
-        {
-          "alert": {
-            "condition": "max by (proxy) (haproxy_backend_response_time_average_seconds)> 0.25",
-            "customNotification": {
-              "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-              "useNewTemplate": false
-            },
-            "enabled": true,
-            "name": "HighResponseTime",
-            "rateOfChange": false,
-            "reNotify": false,
-            "reNotifyMinutes": "10m",
-            "severity": 4,
-            "severityLabel": "LOW",
-            "severityLevel": null,
-            "timespan": 600000000,
-            "type": "PROMETHEUS"
-          }
+  - data: |-
+      {
+        "alert": {
+          "condition": "max(time() - haproxy_process_start_time_seconds) < 3600",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "UpTimeLessThan1Hour",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": "10m",
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
         }
-      ]
+      }
+    kind: Sysdig
+  - data: |-
+      {
+        "alert": {
+          "condition": "count by (proxy) (haproxy_frontend_status == 1) == 0",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "FrontendDown",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": "10m",
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
+        }
+      }
+    kind: Sysdig
+  - data: |-
+      {
+        "alert": {
+          "condition": "sum by (proxy) (haproxy_backend_status==1) == 0",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "BackendDown",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": "10m",
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
+        }
+      }
+    kind: Sysdig
+  - data: |-
+      {
+        "alert": {
+          "condition": "max by (proxy)(rate(haproxy_backend_sessions_total[5m]) / haproxy_backend_limit_sessions) >0.85",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "HighSessionsUsage",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": "10m",
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
+        }
+      }
+    kind: Sysdig
+  - data: |-
+      {
+        "alert": {
+          "condition": "sum by (proxy)(rate(haproxy_backend_http_responses_total{code!=\"2xx\"}[5m])) / sum by (proxy)(rate(haproxy_backend_http_responses_total[5m])) > 0.15",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "HigErrorRate",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": "10m",
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
+        }
+      }
+    kind: Sysdig
+  - data: |-
+      {
+        "alert": {
+          "condition": "sum by (proxy) (rate(haproxy_backend_requests_denied_total[5m])) / sum by (proxy)(rate(haproxy_backend_http_requests_total[5m])) > 0.15",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "HighRequestDeniedRate",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": "10m",
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
+        }
+      }
+    kind: Sysdig
+  - data: |-
+      {
+        "alert": {
+          "condition": "sum by (proxy) (rate(haproxy_backend_responses_denied_total[5m])) / sum by (proxy)(rate(haproxy_backend_http_responses_total[5m])) > 0.15",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "HighResponseDeniedRate",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": "10m",
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
+        }
+      }
+    kind: Sysdig
+  - data: |-
+      {
+        "alert": {
+          "condition": "max by (proxy) (haproxy_backend_response_time_average_seconds)> 0.25",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "HighResponseTime",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": "10m",
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
+        }
+      }
+    kind: Sysdig
+  

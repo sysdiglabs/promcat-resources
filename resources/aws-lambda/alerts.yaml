@@ -52,21 +52,19 @@ configurations:
           severity: page
         annotations:
           summary: Detected throttling in function {{$labels.dimension_FunctionName}}
-  - kind: Sysdig
-    data: | 
-      [
+  - data: |-
       {
         "alert": {
-          "condition": "aws_lambda_throttles_sum > 0",
+          "condition": "aws_lambda_error_rate_average > 0.15",
           "customNotification": {
             "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
             "useNewTemplate": false
           },
           "enabled": true,
-          "name": "[AWS Lambda] Function Throttling",
+          "name": "HighFunctionErrorRate",
           "rateOfChange": false,
           "reNotify": false,
-          "reNotifyMinutes": 30,
+          "reNotifyMinutes": "10m",
           "severity": 4,
           "severityLabel": "LOW",
           "severityLevel": null,
@@ -74,19 +72,20 @@ configurations:
           "type": "PROMETHEUS"
         }
       }
-        ,
+    kind: Sysdig
+  - data: |-
       {
         "alert": {
-          "condition": "(aws_lambda_errors_sum / aws_lambda_invocations_sum) > 0.15",
+          "condition": "aws_lambda_throttles_sum  > 0",
           "customNotification": {
             "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
             "useNewTemplate": false
           },
           "enabled": true,
-          "name": "[AWS Lambda] High Function Error Rate",
+          "name": "ThrottlingFunction",
           "rateOfChange": false,
           "reNotify": false,
-          "reNotifyMinutes": 30,
+          "reNotifyMinutes": "10m",
           "severity": 4,
           "severityLabel": "LOW",
           "severityLevel": null,
@@ -94,4 +93,5 @@ configurations:
           "type": "PROMETHEUS"
         }
       }
-      ]
+    kind: Sysdig
+  

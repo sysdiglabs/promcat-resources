@@ -137,101 +137,19 @@ configurations:
           severity: page
         annotations:
           summary: High process time in responses from target group {{$labels.dimension_TargetGroup}} of load balancer {{$labels.dimension_LoadBalancer}}
-  - kind: Sysdig
-    data: |
-      [
+  - data: |-
       {
         "alert": {
-          "condition": "(sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer=\"LOADBALANCER_NAME\"} or vector(0)) / (sum(aws_alb_request_count_sum{dimension_LoadBalancer=\"LOADBALANCER_NAME\"} or vector(0)) + sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer=\"LOADBALANCER_NAME\"} or vector(0)) + sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer=\"LOADBALANCER_NAME\"} or vector(0)) + sum(aws_alb_httpcode_elb_3_xx_count_sum{dimension_LoadBalancer=\"LOADBALANCER_NAME\"} or vector(0)) > 0)) > 0.15",
+          "condition": "(sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) / \n ( sum(aws_alb_request_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) \n + sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) \n + sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) \n + sum(aws_alb_httpcode_elb_3_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) > 0))  \n> 0.15\n",
           "customNotification": {
             "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
             "useNewTemplate": false
           },
           "enabled": true,
-          "name": "[AWS ALB] High 4XX Error Rate From Load Balancer",
+          "name": "High4XXErrorsFromLoadBalancer",
           "rateOfChange": false,
           "reNotify": false,
-          "reNotifyMinutes": 30,
-          "severity": 4,
-          "severityLabel": "LOW",
-          "severityLevel": 4,
-          "timespan": 600000000,
-          "type": "PROMETHEUS"
-        }
-      }
-        ,
-      {
-        "alert": {
-          "condition": "sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup=\"TARGETGROUP_NAME\"} or vector(0))  / (sum(aws_alb_tg_httpcode_target_2_xx_count_sum{dimension_TargetGroup=\"TARGETGROUP_NAME\"} or vector(0)) + sum(aws_alb_tg_httpcode_target_3_xx_count_sum{dimension_TargetGroup=\"TARGETGROUP_NAME\"} or vector(0)) + sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup=\"TARGETGROUP_NAME\"} or vector(0)) + sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup=\"TARGETGROUP_NAME\"} or vector(0))) > 0.15 ",
-          "customNotification": {
-            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-            "useNewTemplate": false
-          },
-          "enabled": true,
-          "name": "[AWS ALB] High 4XX Error Rate From Target Group",
-          "rateOfChange": false,
-          "reNotify": false,
-          "reNotifyMinutes": 30,
-          "severity": 4,
-          "severityLabel": "LOW",
-          "severityLevel": 4,
-          "timespan": 600000000,
-          "type": "PROMETHEUS"
-        }
-      }
-        ,
-      {
-        "alert": {
-          "condition": "(sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer=\"LOADBALANCER_NAME\"} or vector(0)) / (sum(aws_alb_request_count_sum{dimension_LoadBalancer=\"LOADBALANCER_NAME\"} or vector(0)) + sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer=\"LOADBALANCER_NAME\"} or vector(0)) + sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer=\"LOADBALANCER_NAME\"} or vector(0)) + sum(aws_alb_httpcode_elb_3_xx_count_sum{dimension_LoadBalancer=\"LOADBALANCER_NAME\"} or vector(0)) > 0)) > 0.15",
-          "customNotification": {
-            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-            "useNewTemplate": false
-          },
-          "enabled": true,
-          "name": "[AWS ALB] High 5XX Error Rate From Load Balancer",
-          "rateOfChange": false,
-          "reNotify": false,
-          "reNotifyMinutes": 30,
-          "severity": 4,
-          "severityLabel": "LOW",
-          "severityLevel": 4,
-          "timespan": 600000000,
-          "type": "PROMETHEUS"
-        }
-      }
-        ,
-      {
-        "alert": {
-          "condition": "sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup=\"TARGETGROUP_NAME\"} or vector(0))  / (sum(aws_alb_tg_httpcode_target_2_xx_count_sum{dimension_TargetGroup=\"TARGETGROUP_NAME\"} or vector(0)) + sum(aws_alb_tg_httpcode_target_3_xx_count_sum{dimension_TargetGroup=\"TARGETGROUP_NAME\"} or vector(0)) + sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup=\"TARGETGROUP_NAME\"} or vector(0)) + sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup=\"TARGETGROUP_NAME\"} or vector(0))) > 0.15 ",
-          "customNotification": {
-            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-            "useNewTemplate": false
-          },
-          "enabled": true,
-          "name": "[AWS ALB] High 5XX Error Rate From Target Group",
-          "rateOfChange": false,
-          "reNotify": false,
-          "reNotifyMinutes": 30,
-          "severity": 4,
-          "severityLabel": "LOW",
-          "severityLevel": 4,
-          "timespan": 600000000,
-          "type": "PROMETHEUS"
-        }
-      }
-        ,
-      {
-        "alert": {
-          "condition": "aws_alb_tg_target_response_time_p95 > 0.250",
-          "customNotification": {
-            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-            "useNewTemplate": false
-          },
-          "enabled": true,
-          "name": "[AWS ALB] High Response Time In Target Group",
-          "rateOfChange": false,
-          "reNotify": false,
-          "reNotifyMinutes": 30,
+          "reNotifyMinutes": "10m",
           "severity": 4,
           "severityLabel": "LOW",
           "severityLevel": null,
@@ -239,19 +157,20 @@ configurations:
           "type": "PROMETHEUS"
         }
       }
-        ,
+    kind: Sysdig
+  - data: |-
       {
         "alert": {
-          "condition": "aws_alb_rejected_connection_count_sum > 0",
+          "condition": "(sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) / \n ( sum(aws_alb_request_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) \n + sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) \n + sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) \n + sum(aws_alb_httpcode_elb_3_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) > 0))  \n> 0.15\n",
           "customNotification": {
             "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
             "useNewTemplate": false
           },
           "enabled": true,
-          "name": "[AWS ALB] Rejected Connections In Load Balancer",
+          "name": "High5XXErrorsFromLoadBalancer",
           "rateOfChange": false,
           "reNotify": false,
-          "reNotifyMinutes": 30,
+          "reNotifyMinutes": "10m",
           "severity": 4,
           "severityLabel": "LOW",
           "severityLevel": null,
@@ -259,19 +178,20 @@ configurations:
           "type": "PROMETHEUS"
         }
       }
-        ,
+    kind: Sysdig
+  - data: |-
       {
         "alert": {
-          "condition": "aws_alb_client_tls_negotiation_error_count_sum > 0",
+          "condition": "sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))  \n  / (sum(aws_alb_tg_httpcode_target_2_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) \n   + sum(aws_alb_tg_httpcode_target_3_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) \n   + sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) \n   + sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))) \n> 0.15        \n",
           "customNotification": {
             "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
             "useNewTemplate": false
           },
           "enabled": true,
-          "name": "[AWS ALB] TLS Negotiation Errors",
+          "name": "High4XXErrorsFromTargetGroup",
           "rateOfChange": false,
           "reNotify": false,
-          "reNotifyMinutes": 30,
+          "reNotifyMinutes": "10m",
           "severity": 4,
           "severityLabel": "LOW",
           "severityLevel": null,
@@ -279,7 +199,29 @@ configurations:
           "type": "PROMETHEUS"
         }
       }
-        ,
+    kind: Sysdig
+  - data: |-
+      {
+        "alert": {
+          "condition": "sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))  \n  / (sum(aws_alb_tg_httpcode_target_2_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) \n   + sum(aws_alb_tg_httpcode_target_3_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) \n   + sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) \n   + sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))) \n> 0.15        \n",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "High5XXErrorsFromTargetGroup",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": "10m",
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
+        }
+      }
+    kind: Sysdig
+  - data: |-
       {
         "alert": {
           "condition": "aws_alb_tg_un_healthy_host_count_average > 0",
@@ -288,10 +230,10 @@ configurations:
             "useNewTemplate": false
           },
           "enabled": true,
-          "name": "[AWS ALB] Unhealthy Host In Target Group",
+          "name": "UnhealthyHostInTargetGroup",
           "rateOfChange": false,
           "reNotify": false,
-          "reNotifyMinutes": 30,
+          "reNotifyMinutes": "10m",
           "severity": 4,
           "severityLabel": "LOW",
           "severityLevel": null,
@@ -299,4 +241,68 @@ configurations:
           "type": "PROMETHEUS"
         }
       }
-      ]
+    kind: Sysdig
+  - data: |-
+      {
+        "alert": {
+          "condition": "aws_alb_client_tls_negotiation_error_count_sum > 0",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "TLSNegotiationErrors",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": "10m",
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
+        }
+      }
+    kind: Sysdig
+  - data: |-
+      {
+        "alert": {
+          "condition": "aws_alb_rejected_connection_count_sum > 0",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "RejectedConnectionsInLoadBalancer",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": "10m",
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
+        }
+      }
+    kind: Sysdig
+  - data: |-
+      {
+        "alert": {
+          "condition": "aws_alb_tg_target_response_time_p95 > 0.250",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "HighResponseTimeInTargetGroup",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": "10m",
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
+        }
+      }
+    kind: Sysdig
+  

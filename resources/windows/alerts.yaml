@@ -94,126 +94,129 @@ configurations:
           severity: page
         annotations:
           summary: High outbound network error rate in instance {{$labels.instance}}
-  - kind: Sysdig
-    data: |
-      [
+  - data: |-
       {
         "alert": {
-            "condition": "100 * sum by (instance) (rate(wmi_cpu_time_total{mode != 'idle'}[5m])) / count by (instance) (wmi_cpu_core_frequency_mhz) > 95",
-            "customNotification": {
-                "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-                "useNewTemplate": false
-            },
-            "enabled": true,
-            "name": "High CPU Usage",
-            "rateOfChange": false,
-            "reNotify": false,
-            "reNotifyMinutes": 30,
-            "severity": 4,
-            "severityLabel": "LOW",
-            "severityLevel": null,
-            "timespan": 600000000,
-            "type": "PROMETHEUS"
+          "condition": "100 * sum by (instance) (rate(wmi_cpu_time_total{mode != 'idle'}[5m])) / count by (instance) (wmi_cpu_core_frequency_mhz) > 95",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "HighCPUUsage",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": "15m",
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
         }
       }
-      ,
+    kind: Sysdig
+  - data: |-
       {
         "alert": {
-            "condition": "100 * (wmi_cs_physical_memory_bytes - wmi_os_physical_memory_free_bytes) / wmi_cs_physical_memory_bytes  > 95",
-            "customNotification": {
-                "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-                "useNewTemplate": false
-            },
-            "enabled": true,
-            "name": "High Physical Memory Usage",
-            "rateOfChange": false,
-            "reNotify": false,
-            "reNotifyMinutes": 30,
-            "severity": 4,
-            "severityLabel": "LOW",
-            "severityLevel": null,
-            "timespan": 600000000,
-            "type": "PROMETHEUS"
+          "condition": "100 * (wmi_cs_physical_memory_bytes - wmi_os_physical_memory_free_bytes) / wmi_cs_physical_memory_bytes  > 95",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "HighPhysicalMemoryUsage",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": "15m",
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
         }
       }
-      ,
+    kind: Sysdig
+  - data: |-
       {
         "alert": {
-            "condition": "100 * (wmi_logical_disk_size_bytes - wmi_logical_disk_free_bytes) / wmi_logical_disk_size_bytes  > 95",
-            "customNotification": {
-                "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-                "useNewTemplate": false
-            },
-            "enabled": true,
-            "name": "Logical Disk Full",
-            "rateOfChange": false,
-            "reNotify": false,
-            "reNotifyMinutes": 30,
-            "severity": 4,
-            "severityLabel": "LOW",
-            "severityLevel": null,
-            "timespan": 600000000,
-            "type": "PROMETHEUS"
+          "condition": "100 * (wmi_logical_disk_size_bytes - wmi_logical_disk_free_bytes) / wmi_logical_disk_size_bytes  > 95",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "LogicalDiskFull",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": "15m",
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
         }
       }
-      ,
+    kind: Sysdig
+  - data: |-
       {
         "alert": {
-            "condition": "time() - wmi_system_system_up_time  < 3600",
-            "customNotification": {
-                "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-                "useNewTemplate": false
-            },
-            "enabled": true,
-            "name": "Up Time Less Than One Hour",
-            "rateOfChange": false,
-            "reNotify": false,
-            "reNotifyMinutes": 30,
-            "severity": 4,
-            "severityLabel": "LOW",
-            "severityLevel": null,
-            "timespan": 600000000,
-            "type": "PROMETHEUS"
+          "condition": "time() - wmi_system_system_up_time  < 3600",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "UpTimeLessThanOneHour",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": "15m",
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
         }
       }
-      ,
+    kind: Sysdig
+  - data: |-
       {
         "alert": {
-            "condition": "100 * rate(wmi_net_packets_received_errors[5m]) / (rate(wmi_net_packets_received_errors[5m]) + rate(wmi_net_packets_received_total[5m])>0)  > 75",
-            "customNotification": {
-                "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-                "useNewTemplate": false
-            },
-            "enabled": true,
-            "name": "High Inbound Error Rate",
-            "rateOfChange": false,
-            "reNotify": false,
-            "reNotifyMinutes": 30,
-            "severity": 4,
-            "severityLabel": "LOW",
-            "severityLevel": null,
-            "timespan": 600000000,
-            "type": "PROMETHEUS"
+          "condition": "100 * rate(wmi_net_packets_received_errors[5m]) / (rate(wmi_net_packets_received_errors[5m]) + rate(wmi_net_packets_received_total[5m])>0)  > 75",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "HighInboundErrorRate",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": "10m",
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
         }
       }
-      ,
+    kind: Sysdig
+  - data: |-
       {
         "alert": {
-            "condition": "100 * rate(wmi_net_packets_outbound_errors[5m]) / (rate(wmi_net_packets_outbound_errors[5m]) + rate(wmi_net_packets_sent_total[5m])>0)  > 75",
-            "customNotification": {
-                "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-                "useNewTemplate": false
-            },
-            "enabled": true,
-            "name": "High Outbound Error Rate",
-            "rateOfChange": false,
-            "reNotify": false,
-            "reNotifyMinutes": 30,
-            "severity": 4,
-            "severityLabel": "LOW",
-            "severityLevel": null,
-            "timespan": 600000000,
-            "type": "PROMETHEUS"
+          "condition": "100 * rate(wmi_net_packets_outbound_errors[5m]) / (rate(wmi_net_packets_outbound_errors[5m]) + rate(wmi_net_packets_sent_total[5m])>0)  > 75",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "HighOutboundErrorRate",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": "10m",
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
         }
       }
-      ]
+    kind: Sysdig

@@ -35,4 +35,22 @@ configurations:
           summary: Text {{$labels.label}}
   - kind: Sysdig
     data: |
-      []
+      {
+      "alert": {
+        "condition": null,
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": null,
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": "10m",
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
