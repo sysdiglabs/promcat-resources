@@ -29,7 +29,7 @@ description: |
   2. Mount the new rules in the Prometheus server
     ```
     kubectl -n istio-system patch deploy prometheus -p '{"spec":{"template":{"spec":{"volumes":[{"name":"config-rules","configMap":{"defaultMode":420,"name":"rules"}}]}}}}'
-    kubectl -n istio-system patch deploy prometheus -p '{"spec":{"template":{"spec":{"containers":[{"name":"sysdig","volumeMounts": [{"mountPath": "/opt/rules","name": "config-rules"}]}]}}}}'
+    kubectl -n istio-system patch deploy prometheus -p '{"spec":{"template":{"spec":{"containers":[{"name":"prometheus","volumeMounts": [{"mountPath": "/opt/rules","name": "config-rules"}]}]}}}}'
     kubectl -n istio-system patch deploy prometheus -p '{"spec":{"template":{"metadata":{"annotations":{"prometheus.io/scrape": "true", "prometheus.io/path": "/federate", "prometheus.io/port": "9090"}}}}}'
     ```
 
