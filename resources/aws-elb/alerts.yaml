@@ -117,21 +117,19 @@ configurations:
           severity: page
         annotations:
           summary: High latency in load balancer {{$labels.dimension_LoadBalancerName}} 
-  - kind: Sysdig
-    data: |
-      [
+  - data: |-
       {
         "alert": {
-          "condition": "aws_elb_httpcode_backend_4_xx_count_sum / aws_elb_request_count_sum > 0.15",
+          "condition": "aws_elb_httpcode_elb_4_xx_count_sum / aws_elb_request_count_sum \n> 0.15\n",
           "customNotification": {
             "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
             "useNewTemplate": false
           },
           "enabled": true,
-          "name": "[AWS ELB] High 4XX Errors From Backend",
+          "name": "High4XXErrorsFromLoadBalancer",
           "rateOfChange": false,
           "reNotify": false,
-          "reNotifyMinutes": 30,
+          "reNotifyMinutes": "10m",
           "severity": 4,
           "severityLabel": "LOW",
           "severityLevel": null,
@@ -139,19 +137,20 @@ configurations:
           "type": "PROMETHEUS"
         }
       }
-        ,
+    kind: Sysdig
+  - data: |-
       {
         "alert": {
-          "condition": "aws_elb_httpcode_elb_4_xx_count_sum / aws_elb_request_count_sum  > 0.15",
+          "condition": "aws_elb_httpcode_elb_5_xx_count_sum / aws_elb_request_count_sum  \n> 0.15\n",
           "customNotification": {
             "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
             "useNewTemplate": false
           },
           "enabled": true,
-          "name": "[AWS ELB] High 4XX Errors From Load Balancer",
+          "name": "High5XXErrorsFromLoadBalancer",
           "rateOfChange": false,
           "reNotify": false,
-          "reNotifyMinutes": 30,
+          "reNotifyMinutes": "10m",
           "severity": 4,
           "severityLabel": "LOW",
           "severityLevel": null,
@@ -159,19 +158,20 @@ configurations:
           "type": "PROMETHEUS"
         }
       }
-        ,
+    kind: Sysdig
+  - data: |-
       {
         "alert": {
-          "condition": "aws_elb_httpcode_backend_5_xx_count_sum / aws_elb_request_count_sum > 0.15",
+          "condition": "aws_elb_httpcode_backend_4_xx_count_sum / aws_elb_request_count_sum \n> 0.15\n",
           "customNotification": {
             "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
             "useNewTemplate": false
           },
           "enabled": true,
-          "name": "[AWS ELB] High 5XX Errors From Backend",
+          "name": "High4XXErrorsFromBackend",
           "rateOfChange": false,
           "reNotify": false,
-          "reNotifyMinutes": 30,
+          "reNotifyMinutes": "10m",
           "severity": 4,
           "severityLabel": "LOW",
           "severityLevel": null,
@@ -179,19 +179,20 @@ configurations:
           "type": "PROMETHEUS"
         }
       }
-        ,
+    kind: Sysdig
+  - data: |-
       {
         "alert": {
-          "condition": "aws_elb_httpcode_elb_5_xx_count_sum / aws_elb_request_count_sum > 0.15",
+          "condition": "aws_elb_httpcode_backend_5_xx_count_sum / aws_elb_request_count_sum  \n> 0.15\n",
           "customNotification": {
             "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
             "useNewTemplate": false
           },
           "enabled": true,
-          "name": "[AWS ELB] High 5XX Errors From Load Balancer",
+          "name": "High5XXErrorsFromBackend",
           "rateOfChange": false,
           "reNotify": false,
-          "reNotifyMinutes": 30,
+          "reNotifyMinutes": "10m",
           "severity": 4,
           "severityLabel": "LOW",
           "severityLevel": null,
@@ -199,67 +200,8 @@ configurations:
           "type": "PROMETHEUS"
         }
       }
-        ,
-      {
-        "alert": {
-          "condition": "aws_elb_latency_p95 > 0.250",
-          "customNotification": {
-            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-            "useNewTemplate": false
-          },
-          "enabled": true,
-          "name": "[AWS ELB] High Latency In Load Balancer",
-          "rateOfChange": false,
-          "reNotify": false,
-          "reNotifyMinutes": 30,
-          "severity": 4,
-          "severityLabel": "LOW",
-          "severityLevel": null,
-          "timespan": 600000000,
-          "type": "PROMETHEUS"
-        }
-      }
-        ,
-      {
-        "alert": {
-          "condition": "aws_elb_spillover_count_sum > 0",
-          "customNotification": {
-            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-            "useNewTemplate": false
-          },
-          "enabled": true,
-          "name": "[AWS ELB] Queue Spillover Rejections",
-          "rateOfChange": false,
-          "reNotify": false,
-          "reNotifyMinutes": 30,
-          "severity": 4,
-          "severityLabel": "LOW",
-          "severityLevel": null,
-          "timespan": 600000000,
-          "type": "PROMETHEUS"
-        }
-      }
-        ,
-      {
-        "alert": {
-          "condition": "aws_alb_rejected_connection_count_sum > 0",
-          "customNotification": {
-            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-            "useNewTemplate": false
-          },
-          "enabled": true,
-          "name": "[AWS ELB] Rejected Connections In Load Balancer",
-          "rateOfChange": false,
-          "reNotify": false,
-          "reNotifyMinutes": 30,
-          "severity": 4,
-          "severityLabel": "LOW",
-          "severityLevel": null,
-          "timespan": 600000000,
-          "type": "PROMETHEUS"
-        }
-      }
-        ,
+    kind: Sysdig
+  - data: |-
       {
         "alert": {
           "condition": "aws_elb_un_healthy_host_count_minimum > 0",
@@ -268,10 +210,10 @@ configurations:
             "useNewTemplate": false
           },
           "enabled": true,
-          "name": "[AWS ELB] Unhealthy Host In Load Balancer",
+          "name": "UnhealthyHostInLoadBalancer",
           "rateOfChange": false,
           "reNotify": false,
-          "reNotifyMinutes": 30,
+          "reNotifyMinutes": "10m",
           "severity": 4,
           "severityLabel": "LOW",
           "severityLevel": null,
@@ -279,5 +221,67 @@ configurations:
           "type": "PROMETHEUS"
         }
       }
-      ]
-      
+    kind: Sysdig
+  - data: |-
+      {
+        "alert": {
+          "condition": "aws_elb_spillover_count_sum > 0",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "QueueSpilloverRejections",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": "10m",
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
+        }
+      }
+    kind: Sysdig
+  - data: |-
+      {
+        "alert": {
+          "condition": "aws_alb_rejected_connection_count_sum > 0",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "RejectedConnectionsInLoadBalancer",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": "10m",
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
+        }
+      }
+    kind: Sysdig
+  - data: |-
+      {
+        "alert": {
+          "condition": "aws_elb_latency_p95 > 0.250",
+          "customNotification": {
+            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+            "useNewTemplate": false
+          },
+          "enabled": true,
+          "name": "HighLatencyInLoadBalancer",
+          "rateOfChange": false,
+          "reNotify": false,
+          "reNotifyMinutes": "10m",
+          "severity": 4,
+          "severityLabel": "LOW",
+          "severityLevel": null,
+          "timespan": 600000000,
+          "type": "PROMETHEUS"
+        }
+      }
+    kind: Sysdig

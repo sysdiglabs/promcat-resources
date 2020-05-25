@@ -50,9 +50,7 @@ configurations:
         annotations:
           summary: The Burst Balance is zero in volume {{$labels.dimension_VolumeId}}
           
-  - kind: Sysdig
-    data: |
-      [
+  - data: |-
       {
         "alert": {
           "condition": "aws_ebs_volume_throughput_percentage_average < 99.9\n",
@@ -61,10 +59,10 @@ configurations:
             "useNewTemplate": false
           },
           "enabled": true,
-          "name": "[AWS EBS] Low Volume Performance",
+          "name": "LowVolumePerformance",
           "rateOfChange": false,
           "reNotify": false,
-          "reNotifyMinutes": 30,
+          "reNotifyMinutes": "10m",
           "severity": 4,
           "severityLabel": "LOW",
           "severityLevel": null,
@@ -72,24 +70,25 @@ configurations:
           "type": "PROMETHEUS"
         }
       }
-        ,
+    kind: Sysdig
+  - data: |-
       {
         "alert": {
-          "condition": "aws_ebs_burst_balance_minimum == 0",
+          "condition": "aws_ebs_burst_balance_minimum == 0\n",
           "customNotification": {
             "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
             "useNewTemplate": false
           },
           "enabled": true,
-          "name": "[AWS EBS] Zero Volume Burst Balance",
+          "name": "ZeroVolumeBurstBalance",
           "rateOfChange": false,
           "reNotify": false,
-          "reNotifyMinutes": 30,
+          "reNotifyMinutes": "30m",
           "severity": 4,
           "severityLabel": "LOW",
           "severityLevel": null,
-          "timespan": 1800000000,
+          "timespan": 600000000,
           "type": "PROMETHEUS"
         }
       }
-      ]
+    kind: Sysdig
