@@ -26,22 +26,22 @@ data: |
     "groups":
       - "name": "Sysdig.k8s.general.rules"
         "rules":
-        - "expr": up{job=~"kubelet|apiserver|controller-manager|kube-controller-manager|scheduler"}
+        - "expr": up{job=~"kubelet|apiserver|kube-controllers|scheduler"}
           "record": "up:kubernetes"
           "labels":
             "sysdig": "true"
         - "expr": |
-            process_resident_memory_bytes{job=~"kubelet|apiserver|controller-manager|kube-controller-amanger|scheduler"}
+            process_resident_memory_bytes{job=~"kubelet|apiserver|kube-controllers|scheduler"}
           "record": "process_resident_memory_bytes:kubernetes"
           "labels":
             "sysdig": "true"
         - "expr": |
-            process_cpu_seconds_total{job=~"kubelet|apiserver|controller-manager|kube-controller-amanger|scheduler"}
+            process_cpu_seconds_total{job=~"kubelet|apiserver|kube-controllers|scheduler"}
           "record": "process_cpu_seconds_total:kubernetes"
           "labels":
             "sysdig": "true"
         - "expr": |
-            go_goroutines{job=~"kubelet|apiserver|controller-manager|kube-controller-amanger|scheduler"}
+            go_goroutines{job=~"kubelet|apiserver|kube-controllers|scheduler"}
           "record": "go_goroutines:kubernetes"
           "labels":
             "sysdig": "true"
@@ -68,26 +68,26 @@ data: |
           "record": "kubelet_node_config_error:kubelet"
           "labels":
             "sysdig": "true"
-        - "expr": kubelet_runtime_operations_total{job="kubelet"}
+        - "expr": kubelet_runtime_operations{job="kubelet"}
           "record": "kubelet_runtime_operations_total:kubelet"
           "labels":
             "sysdig": "true"
-        - "expr": kubelet_runtime_operations_errors_total{job="kubelet"}
+        - "expr": kubelet_runtime_operations_errors{job="kubelet"}
           "record": "kubelet_runtime_operations_errors_total:kubelet"
           "labels":
             "sysdig": "true"
         - "expr": |
-            histogram_quantile(0.99, sum(rate(kubelet_runtime_operations_duration_seconds_bucket{job="kubelet"}[5m])) by (instance, operation_type, le)) 
+            sum(rate(kubelet_runtime_operations_latency_microseconds{job="kubelet"}[5m])) by (instance, operation_type, quantile)
           "record": "operation_duration_seconds:kubelet"
           "labels":
             "sysdig": "true"
         - "expr": |
-            kubelet_pod_start_duration_seconds_count{job="kubelet"}    
+            kubelet_pod_start_latency_microseconds_count{job="kubelet"}    
           "record": "kubelet_pod_start_duration_seconds_count:kubelet"
           "labels":
             "sysdig": "true"
         - "expr": |
-            kubelet_pod_worker_duration_seconds_count{job="kubelet"}       
+            kubelet_pod_worker_latency_microseconds_count{job="kubelet"}       
           "record": "kubelet_pod_worker_duration_seconds_count:kubelet"
           "labels":
             "sysdig": "true"
@@ -117,7 +117,7 @@ data: |
           "labels":
             "sysdig": "true"
         - "expr": |
-            kubelet_cgroup_manager_duration_seconds_count{job="kubelet"}
+            kubelet_cgroup_manager_latency_microseconds{job="kubelet"}
           "record": "kubelet_cgroup_manager_duration_seconds_count:kubelet"
           "labels":
             "sysdig": "true"
@@ -127,7 +127,7 @@ data: |
           "labels":
             "sysdig": "true"
         - "expr": |
-            kubelet_pleg_relist_duration_seconds_count{job="kubelet"}
+            kubelet_pleg_relist_latency_microseconds{job="kubelet"}
           "record": "kubelet_pleg_relist_duration_seconds_count:kubelet"
           "labels":
             "sysdig": "true"
@@ -147,7 +147,7 @@ data: |
           "labels":
             "sysdig": "true"
         - "expr": |
-            histogram_quantile(0.99, sum(rate(rest_client_request_duration_seconds_bucket{job="kubelet"}[5m])) by (instance, verb, url, le))
+            histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job="kubelet"}[5m])) by (instance, verb, url, le))
           "record": "request_duration_seconds:kubelet"
           "labels":
             "sysdig": "true"
@@ -201,11 +201,11 @@ data: |
       
       - "name": "Sysdig.k8s.api.rules"
         "rules":
-        - "expr": apiserver_request_total{job="apiserver"}
+        - "expr": apiserver_request_count{job="apiserver"}
           "record": "apiserver_request_total:kubernetes_apiservers"
           "labels":
             "sysdig": "true"
-        - "expr": histogram_quantile(0.99, sum(rate(apiserver_request_duration_seconds_bucket{job="apiserver"}[5m])) by (verb, le))
+        - "expr": histogram_quantile(0.99, sum(rate(apiserver_request_latencies_bucket[5m])) by (verb, le))
           "record": "apiserver_request_duration_seconds_bucket:kubernetes_apiservers"
           "labels":
             "sysdig": "true"
@@ -221,54 +221,54 @@ data: |
           "record": "workqueue_queue_duration_seconds_bucket:kubernetes_apiservers"
           "labels":
             "sysdig": "true"
-        - "expr": etcd_helper_cache_entry_total{job="apiserver"}
+        - "expr": etcd_helper_cache_entry_count{job="apiserver"}
           "record": "etcd_helper_cache_entry_total:kubernetes_apiservers"
           "labels":
             "sysdig": "true"
-        - "expr": etcd_helper_cache_hit_total{job="apiserver"}
+        - "expr": etcd_helper_cache_hit_count{job="apiserver"}
           "record": "etcd_helper_cache_hit_total:kubernetes_apiservers"
           "labels":
             "sysdig": "true"
-        - "expr": etcd_helper_cache_miss_total{job="apiserver"}
+        - "expr": etcd_helper_cache_miss_count{job="apiserver"}
           "record": "etcd_helper_cache_miss_total:kubernetes_apiservers"
           "labels":
             "sysdig": "true"
-        - "expr": histogram_quantile(0.99,sum(rate(etcd_request_cache_get_duration_seconds_bucket{job="apiserver"}[5m])) by (instance, le))
+        - "expr": etcd_request_cache_get_latencies_summary{quantile="0.99"}
           "record": "etcd_request_cache_get_duration_seconds_bucket:kubernetes_apiservers"
           "labels":
             "sysdig": "true"
-        - "expr": histogram_quantile(0.99,sum(rate(etcd_request_cache_add_duration_seconds_bucket{job="apiserver"}[5m])) by (instance, le))
+        - "expr": etcd_request_cache_add_latencies_summary{quantile="0.99"}
           "record": "etcd_request_cache_add_duration_seconds_bucket:kubernetes_apiservers"
           "labels":
             "sysdig": "true"
 
       - "name": "Sysdig.k8s.controller_manager.rules"
         "rules":
-        - "expr": up{job=~"kube-controller-manager|controller-manager"}
+        - "expr": up{job=~"kube-controllers"}
           "record": "up:controllermanager"
           "labels":
             "sysdig": "true"
-        - "expr": workqueue_adds_total{job=~"kube-controller-manager|controller-manager"}
+        - "expr": APIServiceRegistrationController_adds
           "record": "workqueue_adds_total:kubernetes_control_manager"
           "labels":
             "sysdig": "true"
-        - "expr": workqueue_depth{job=~"kube-controller-manager|controller-manager"}
+        - "expr": APIServiceOpenAPIAggregationControllerQueue1_depth
           "record": "workqueue_depth:kubernetes_control_manager"
           "labels":
             "sysdig": "true"
-        - "expr": histogram_quantile(0.99, sum(rate(workqueue_queue_duration_seconds_bucket{job=~"kube-controller-manager"}[5m])) by (instance, name, le))
+        - "expr": APIServiceOpenAPIAggregationControllerQueue1_work_duration{quantile="0.99"}
           "record": "workqueue_queue_duration_seconds_bucket:kubernetes_control_manager"
           "labels":
             "sysdig": "true"
-        - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job=~"kube-controller-manager", verb="POST"}[5m])) by (verb, url, le))
+        - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job=~"kubelet", verb="POST"}[5m])) by (verb, url, le))
           "record": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:post"
           "labels":
             "sysdig": "true"
-        - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job=~"kube-controller-manager", verb="GET"}[5m])) by (verb, url, le))
+        - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job=~"kubelet", verb="GET"}[5m])) by (verb, url, le))
           "record": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:get"
           "labels":
             "sysdig": "true"
-        - "expr": rest_client_requests_total{job=~"kube-controller-manager|controller-manager"}
+        - "expr": apiserver_request_count{client=~".*kube-controller-manager"}
           "record": "rest_client_requests_total:kubernetes_control_manager"
           "labels":
             "sysdig": "true"
