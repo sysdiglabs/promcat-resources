@@ -38,7 +38,9 @@ def loadResources():
               appYaml = loadYaml(appFile)
               if appYaml["available"] == True:
                 apps_names.append(appYaml["name"])
-                apps_versions[appYaml["name"]] = appYaml["availableVersions"]
+                apps_versions[appYaml["name"]] = []
+                for availableVersion in appYaml["availableVersions"]:
+                  apps_versions[appYaml["name"]].append(str(availableVersion))
             except:
               print("*** Error loading file: " + os.path.join(root, file))
               exit(1)
@@ -73,7 +75,7 @@ def checkDuplicatedResourceInApp(res,names):
     names[res["app"]] = []    
   for appVersion in res["appVersion"]:
     assert (res['app'] != "") and (type(res['app']) == str) and (not appVersion in names[res['app']])
-    names[res['app']].append(appVersion)
+    names[res['app']].append(str(appVersion))
    
   
 
@@ -157,8 +159,9 @@ def testAppVersion():
     for res in kind:
       checkListNotEmpty(res,res['appVersion'])
       for appversion in res['appVersion']:
+        checkStringNotEmpty(res,appversion)
         assert ((res['app'] != "") and (res['kind'] != "") \
-          and (appversion in apps_versions[res['app']]))
+          and (str(appversion) in apps_versions[res['app']]))
       
 # Maintainers 
 # - Is a list, not empty
