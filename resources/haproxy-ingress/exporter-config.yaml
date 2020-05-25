@@ -1,13 +1,12 @@
----
 apiVersion: v1
 kind: ExporterConfig
-app: "HAProxy Ingress"
+app: HAProxy Ingress
 version: 1.0.0
-appVersion: 
-  - '2.1'
+appVersion:
+- '2.1'
 maintainers:
-  - name: Sysdig team
-    link: https://sysdig.com/
+- name: Sysdig team
+  link: https://sysdig.com/
 description: |
   # Installing HAProxy Ingress
   To install the HAProxy, you can use the [official Helm chart](https://github.com/haproxytech/helm-charts):
@@ -23,30 +22,31 @@ description: |
   kubectl patch deployment haproxy-ingress-kubernetes-ingress \
       -p '{"spec":{"template":{"metadata":{"annotations":{"prometheus.io/scrape": "true", "prometheus.io/port": "1024", "prometheus.io/path": "/metrics"}}}}}'
   ```
-  After executing this line, the pods will automatically restart with the new annotations. 
+  After executing this line, the pods will automatically restart with the new annotations.
 
-  Finally, HAProxy generates metrics for the scopes global, frontend, backend and server. This last scope usually have a high cardinality. 
+  Finally, HAProxy generates metrics for the scopes global, frontend, backend and server. This last scope usually have a high cardinality.
   To scrape only the other scopes, we will use this configuration for the prometheus.yaml configuration file of the Sysdig Agent.
-
-data: |
-  apiVersion: v1
-  data:
-    prometheus.yaml: |
-      scrape_configs:
-      - job_name: 'haproxy'
-        metrics_path: /metrics
-        params:
-          scope: 
-            - backend
-            - frontend
-            - global
-        sysdig_sd_configs:
-        - tags:
-            namespace: default
-            deployment: haproxy-ingress-kubernetes-ingress
-  kind: ConfigMap
-  metadata:
-      labels:
-        app: sysdig-agent
-      name: sysdig-agent
-      namespace: sysdig-agent
+configurations:
+- name: agent-deploy.yaml
+  data: |-
+    apiVersion: v1
+    data:
+      prometheus.yaml: |
+        scrape_configs:
+        - job_name: 'haproxy'
+          metrics_path: /metrics
+          params:
+            scope:
+              - backend
+              - frontend
+              - global
+          sysdig_sd_configs:
+          - tags:
+              namespace: default
+              deployment: haproxy-ingress-kubernetes-ingress
+    kind: ConfigMap
+    metadata:
+        labels:
+          app: sysdig-agent
+        name: sysdig-agent
+        namespace: sysdig-agent
