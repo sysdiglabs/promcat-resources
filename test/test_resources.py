@@ -19,8 +19,8 @@ recordingRules_names = {}
 
 all_resources = [descriptions, dashboards, exporterConfigs, alerts, recordingRules]
 resources_with_description = [exporterConfigs, alerts, recordingRules]
-resources_with_data = [descriptions, exporterConfigs, recordingRules]
-resources_with_configurations = [dashboards, alerts]
+resources_with_data = [descriptions]
+resources_with_configurations = [dashboards, alerts,exporterConfigs,recordingRules]
 
 compulsory_fields_all = ["apiVersion", "kind", "app", "version", "appVersion", 
                       "maintainers" ]
@@ -197,6 +197,8 @@ def testDataElement():
 def testConfigurationsElement():
   for kind in resources_with_configurations:
     for res in kind:
+      assert ((res['app'] != "") and (res['kind'] != "") \
+        and ("configurations" in res)) 
       checkListNotEmpty(res,res['configurations'])
       for config in res['configurations']:
         checkStringNotEmpty(res, config['data'])
