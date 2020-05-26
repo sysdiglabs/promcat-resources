@@ -23,7 +23,9 @@ description: |
 
   Then, if you have configured your Prometheus server or your [Sysdig agent for Prometheus metric collection](https://docs.sysdig.com/en/integrate-prometheus-metrics.html), you should be already ingesting your Gatekeeper metrics.
 
-data: |
+configurations:
+- name: configuration.yaml
+  data: |-  
   [...]
   spec:
   [...]
