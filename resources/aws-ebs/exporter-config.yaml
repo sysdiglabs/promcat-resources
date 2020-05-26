@@ -1,13 +1,12 @@
----
 apiVersion: v1
 kind: ExporterConfig
-app: "AWS EBS"
+app: AWS EBS
 version: 1.0.0
-appVersion: 
-  - 1.0.0
+appVersion:
+- 1.0.0
 maintainers:
-  - name: Sysdig team
-    link: https://sysdig.com/
+- name: Sysdig team
+  link: https://sysdig.com/
 description: |
   # Installing the exporter
   To install the exporter follow this steps:
@@ -29,132 +28,134 @@ description: |
   ```
   kubectl -n yace get pods
   ```
-data: |
-  apiVersion: v1
-  kind: Namespace
-  metadata:
-    name: yace
-  ---
-  apiVersion: apps/v1
-  kind: Deployment
-  metadata:
-    name: yace-ebs
-    namespace: yace    
-  spec:
-    selector:
-      matchLabels:
-        app: yace-ebs
-    replicas: 1
-    template:
-      metadata:
-        labels:
+configurations:
+- name: ebs-deploy.yaml
+  data: |
+    apiVersion: v1
+    kind: Namespace
+    metadata:
+      name: yace
+    ---
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: yace-ebs
+      namespace: yace
+    spec:
+      selector:
+        matchLabels:
           app: yace-ebs
-        annotations:
-          prometheus.io/scrape: "true"
-          prometheus.io/port: "5000"
-      spec:
-        containers:
-        - name: yace
-          image: quay.io/invisionag/yet-another-cloudwatch-exporter:v0.16.0-alpha
-          ports:
-          - containerPort: 5000
-          volumeMounts:
-            - name: yace-ebs-config
-              mountPath: /tmp/config.yml
-              subPath: config.yml
-            - name: yace-ebs-credentials
-              mountPath: /exporter/.aws/credentials
-              subPath: credentials
-          resources:
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
-        volumes:
-          - configMap:
-              defaultMode: 420
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            app: yace-ebs
+          annotations:
+            prometheus.io/scrape: "true"
+            prometheus.io/port: "5000"
+        spec:
+          containers:
+          - name: yace
+            image: quay.io/invisionag/yet-another-cloudwatch-exporter:v0.16.0-alpha
+            ports:
+            - containerPort: 5000
+            volumeMounts:
+              - name: yace-ebs-config
+                mountPath: /tmp/config.yml
+                subPath: config.yml
+              - name: yace-ebs-credentials
+                mountPath: /exporter/.aws/credentials
+                subPath: credentials
+            resources:
+              limits:
+                memory: "128Mi"
+                cpu: "500m"
+          volumes:
+            - configMap:
+                defaultMode: 420
+                name: yace-ebs-config
               name: yace-ebs-config
-            name: yace-ebs-config
-          - secret:
-              defaultMode: 420
-              secretName: yace-ebs-credentials
-            name: yace-ebs-credentials
-  ---
-  apiVersion: v1
-  kind: ConfigMap
-  metadata:
-    name: yace-ebs-config
-    namespace: yace
-  data:
-    config.yml: |
-      discovery:
-        jobs:
-        - region: us-east-1
-          type: ebs
-          enableMetricData: true
-          metrics: 
-            - name: VolumeReadBytes
-              statistics:
-              - Sum
-              period: 300
-              length: 3600
-            - name: VolumeWriteBytes
-              statistics:
-              - Sum
-              period: 300
-              length: 3600
-            - name: VolumeReadOps
-              statistics:
-              - Sum
-              period: 300
-              length: 3600
-            - name: VolumeWriteOps
-              statistics:
-              - Sum
-              period: 300
-              length: 3600
-            - name: VolumeTotalReadTime
-              statistics:
-              - Sum
-              period: 300
-              length: 3600
-            - name: VolumeTotalWriteTime
-              statistics:
-              - Sum
-              period: 300
-              length: 3600
-            - name: VolumeIdleTime
-              statistics:
-              - Sum
-              period: 300
-              length: 3600
-            - name: VolumeQueueLength
-              statistics:
-              - Average
-              period: 300
-              length: 3600
-            - name: VolumeThroughputPercentage
-              statistics:
-              - Average
-              period: 300
-              length: 3600
-            - name: VolumeConsumedReadWriteOps
-              statistics:
-              - Average
-              period: 300
-              length: 3600
-            - name: BurstBalance
-              statistics:
-              - Minimum
-              period: 300
-              length: 3600  
-  ---
-  apiVersion: v1
-  kind: Secret
-  metadata:
-    name: yace-ebs-credentials
-    namespace: yace
-  data:
-    # Add in credentials the result of: 
-    # cat ~/.aws/credentials | base64
-    credentials: |
-      XXXXX
+            - secret:
+                defaultMode: 420
+                secretName: yace-ebs-credentials
+              name: yace-ebs-credentials
+    ---
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: yace-ebs-config
+      namespace: yace
+    data:
+      config.yml: |
+        discovery:
+          jobs:
+          - region: us-east-1
+            type: ebs
+            enableMetricData: true
+            metrics:
+              - name: VolumeReadBytes
+                statistics:
+                - Sum
+                period: 300
+                length: 3600
+              - name: VolumeWriteBytes
+                statistics:
+                - Sum
+                period: 300
+                length: 3600
+              - name: VolumeReadOps
+                statistics:
+                - Sum
+                period: 300
+                length: 3600
+              - name: VolumeWriteOps
+                statistics:
+                - Sum
+                period: 300
+                length: 3600
+              - name: VolumeTotalReadTime
+                statistics:
+                - Sum
+                period: 300
+                length: 3600
+              - name: VolumeTotalWriteTime
+                statistics:
+                - Sum
+                period: 300
+                length: 3600
+              - name: VolumeIdleTime
+                statistics:
+                - Sum
+                period: 300
+                length: 3600
+              - name: VolumeQueueLength
+                statistics:
+                - Average
+                period: 300
+                length: 3600
+              - name: VolumeThroughputPercentage
+                statistics:
+                - Average
+                period: 300
+                length: 3600
+              - name: VolumeConsumedReadWriteOps
+                statistics:
+                - Average
+                period: 300
+                length: 3600
+              - name: BurstBalance
+                statistics:
+                - Minimum
+                period: 300
+                length: 3600
+    ---
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: yace-ebs-credentials
+      namespace: yace
+    data:
+      # Add in credentials the result of:
+      # cat ~/.aws/credentials | base64
+      credentials: |
+        XXXXX
