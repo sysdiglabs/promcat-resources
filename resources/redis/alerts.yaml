@@ -10,28 +10,28 @@ maintainers:
 description: |
   # Alerts
   ## LowUptime
-  Uptime of less than 1 hour in a redis instance {{$labels.instance}}
+  Uptime of less than 1 hour in a redis instance.
 
   ## HighMemoryUsage
-  High memory usage in instance {{$labels.instance}}
+  High memory usage in instance. 
 
   ## HighClientsUsage
-  High client connections usage in instance {{$labels.instance}}
+  High client connections usage in instance.
 
   ## HighResponseTime
-  Response time over 250ms in instance {{$labels.instance}}
+  Response time over 250ms in instance.
 
   ## HighFragmentationRatio
-  High fragmentation in instance {{$labels.instance}}
+  High fragmentation in instance.
 
   ## HighKeysEvictionRatio
-  High keys eviction ratio in instance {{$labels.instance}}
+  High keys eviction ratio in instance.
 
   ## RecurrentRejectedConnections
-  High keys eviction ratio in instance {{$labels.instance}}
+  High keys eviction ratio in instance.
 
   ## LowHitRatio
-  Low keyspace hit ratio in instance {{$labels.instance}}
+  Low keyspace hit ratio in instance.
 
 
   # Installing the alerts
