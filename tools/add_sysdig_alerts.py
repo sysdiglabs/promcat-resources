@@ -15,5 +15,6 @@ except BaseException as exception:
     # parser will print either help or syntax error details
     exit(1)
 
-sysdigAlertsArray = pypromcat.createArrayOfSysdigAlerts(args.file)
+yamlFile = pypromcat.loadYamlFile(args.file)
+sysdigAlertsArray = pypromcat.createArrayOfSysdigAlerts(yamlFile)
 print(pypromcat.dict2BeautyString(sysdigAlertsArray))

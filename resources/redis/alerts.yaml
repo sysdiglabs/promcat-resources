@@ -1,0 +1,282 @@
+apiVersion: v1
+kind: Alert
+app: redis
+version: 1.0.0
+appVersion:
+- <=6
+maintainers:
+- name: Sysdig team
+  link: https://sysdig.com/
+description: |
+  # Alerts
+  ## LowUptime
+  Uptime of less than 1 hour in a redis instance.
+
+  ## HighMemoryUsage
+  High memory usage in instance. 
+
+  ## HighClientsUsage
+  High client connections usage in instance.
+
+  ## HighResponseTime
+  Response time over 250ms in instance.
+
+  ## HighFragmentationRatio
+  High fragmentation in instance.
+
+  ## HighKeysEvictionRatio
+  High keys eviction ratio in instance.
+
+  ## RecurrentRejectedConnections
+  High keys eviction ratio in instance.
+
+  ## LowHitRatio
+  Low keyspace hit ratio in instance.
+
+
+  # Installing the alerts
+  ## In Prometheus
+  Copy the alerts for Prometheus and paste them inside of the configuration file in the groups section:
+  ```yaml
+  [...]
+  groups:
+  - name: example
+      # Insert here the alerts
+      rules:
+  ```
+  ## In Sysdig Monitor
+  To install these alerts in Sysdig Monitor, contact with the support service.
+configurations:
+- kind: Prometheus
+  data: |
+    - alert: LowUptime
+      expr: redis_uptime_in_seconds < 3600
+      for: 15m
+      labels:
+        severity: page
+      annotations:
+        summary: Uptime of less than 1 hour in a redis instance {{$labels.instance}}
+    - alert: HighMemoryUsage
+      expr: (redis_memory_used_bytes / redis_memory_max_bytes) > 0.85
+      for: 15m
+      labels:
+        severity: page
+      annotations:
+        summary: High memory usage in instance {{$labels.instance}}
+    - alert: HighClientsUsage
+      expr: (redis_connected_clients / redis_config_maxclients) > 0.85
+      for: 15m
+      labels:
+        severity: page
+      annotations:
+        summary: High client connections usage in instance {{$labels.instance}}
+    - alert: HighResponseTime
+      expr: |
+        sum(rate(redis_commands_duration_seconds_total[5m])) /
+          sum(rate(redis_commands_processed_total[5m]))
+          > 0.250
+      for: 10m
+      labels:
+        severity: page
+      annotations:
+        summary: Response time over 250ms in instance {{$labels.instance}}
+    - alert: HighFragmentationRatio
+      expr: fragmentation_ratio > 1.5
+      for: 30m
+      labels:
+        severity: page
+      annotations:
+        summary: High fragmentation in instance {{$labels.instance}}
+    - alert: HighKeysEvictionRatio
+      expr: (sum(rate(redis_evicted_keys_total[5m])) / sum(redis_db_keys)) > 0.1
+      for: 30m
+      labels:
+        severity: page
+      annotations:
+        summary: High keys eviction ratio in instance {{$labels.instance}}
+    - alert: RecurrentRejectedConnections
+      expr: (rate(redis_rejected_connections_total[5m])) > 0
+      for: 15m
+      labels:
+        severity: page
+      annotations:
+        summary: High keys eviction ratio in instance {{$labels.instance}}
+    - alert: LowHitRatio
+      expr: |
+        (rate(redis_keyspace_hits_total[5m]) /
+          (rate(redis_keyspace_misses_total[5m]) + rate(redis_keyspace_hits_total[5m])))
+          < 0.9
+      for: 30m
+      labels:
+        severity: page
+      annotations:
+        summary: Low keyspace hit ratio in instance {{$labels.instance}}
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "redis_uptime_in_seconds < 3600",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "LowUptime",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": "15m",
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "(redis_memory_used_bytes / redis_memory_max_bytes) > 0.85",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "HighMemoryUsage",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": "15m",
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "(redis_connected_clients / redis_config_maxclients) > 0.85",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "HighClientsUsage",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": "15m",
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum(rate(redis_commands_duration_seconds_total[5m])) / \n  sum(rate(redis_commands_processed_total[5m])) \n  > 0.250\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "HighResponseTime",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": "10m",
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "fragmentation_ratio > 1.5",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "HighFragmentationRatio",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": "30m",
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "(sum(rate(redis_evicted_keys_total[5m])) / sum(redis_db_keys)) > 0.1",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "HighKeysEvictionRatio",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": "30m",
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "(rate(redis_rejected_connections_total[5m])) > 0",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "RecurrentRejectedConnections",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": "15m",
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "(rate(redis_keyspace_hits_total[5m]) / \n  (rate(redis_keyspace_misses_total[5m]) + rate(redis_keyspace_hits_total[5m]))) \n  < 0.9\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "LowHitRatio",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": "30m",
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+
