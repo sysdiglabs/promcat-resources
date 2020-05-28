@@ -81,11 +81,6 @@ description: |
 configurations:
 - name: sysdig-agent.yaml
   data: |-
-    apiVersion: v1
-    kind: ConfigMap
-    metadata:
-      name: sysdig-agent
-      namespace: sysdig-agent
     data:
       prometheus.yaml: |-
         global:
