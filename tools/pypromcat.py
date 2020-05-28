@@ -6,6 +6,13 @@ import re
 def getConfigurations(resource):
   return resource['configurations']
 
+def filterConfigurationsPerKind(configurations,kind):
+  filteredConfigurations = []
+  for configuration in configurations:
+    if configuration["kind"] == kind:
+      filteredConfigurations.append(configuration)
+  return filteredConfigurations
+
 def loadYaml(input):
   return yaml.full_load(input)
 
@@ -66,8 +73,7 @@ def dict2BeautyYaml(yaml2print):
   yaml.add_representer(str, str_presenter)
   return(yaml.dump(removeTrailingSpacesFromAllElements(yaml2print), sort_keys=False))
 
-def createArrayOfSysdigAlerts(file):
-  alertsYaml = loadYamlFile(file)
+def createArrayOfSysdigAlerts(alertsYaml):
   configurationsAlerts = getConfigurations(alertsYaml)
   sysdigAlerts = []
   for configurationAlert in configurationsAlerts:
