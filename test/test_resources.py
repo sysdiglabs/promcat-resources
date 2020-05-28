@@ -18,9 +18,11 @@ recordingRules = []
 recordingRules_names = {}
 
 all_resources = [descriptions, dashboards, exporterConfigs, alerts, recordingRules]
-resources_with_description = [exporterConfigs, alerts, recordingRules]
-resources_with_data = [descriptions]
-resources_with_configurations = [dashboards, alerts,exporterConfigs,recordingRules]
+kinds_with_description = ['ExporterConfig', 'Alert', 'RecordingRule']
+kinds_with_data = ['Description']
+kinds_with_configurations = ['Dashboard', 'Alert', 'ExporterConfig', 'RecordingRule']
+
+sysdig_dashboard_keys_level_1 = ['description','layout','name','panels','schema','scopeExpressionList','eventDisplaySettings']
 
 compulsory_fields_all = ["apiVersion", "kind", "app", "version", "appVersion", 
                       "maintainers" ]
@@ -62,7 +64,7 @@ def loadResources():
               elif (resourceYaml["kind"] == "RecordingRule"): 
                 recordingRules.append(resourceYaml)
               else: 
-                print("File: " + os.path.join(root, file) + " kind: " + resourceYaml["kind"] + " not supported.")
+                print("*** File: " + os.path.join(root, file) + " kind: " + resourceYaml["kind"] + " not supported.")
                 raise ValueError("File not supported.")
             except:
               print("*** Error loading file: " + os.path.join(root, file))
@@ -76,7 +78,6 @@ def checkDuplicatedResourceInApp(res,names):
   for appVersion in res["appVersion"]:
     assert (res['app'] != "") and (type(res['app']) == str) and (not appVersion in names[res['app']])
     names[res['app']].append(str(appVersion))
-   
   
 
 # Check that an element is string not empty
@@ -95,12 +96,32 @@ def checkValidJSON(element):
   except:
     return False
 
+def checkValidSysdigDashboard(element):
+  dashboard = json.loads(element)
+  if (list(dashboard.keys()) !=  ['dashboard']):
+    print('*** Sysdig dashboard must have an unique root element "dashboard"')
+    return False
+  for key in dashboard["dashboard"].keys():
+    if (not key in sysdig_dashboard_keys_level_1):
+      print('*** Key not supported in Sysdig dashboard: ' + key)
+      return False
+  return True
+
 def checkValidYAML(element):
   try:
     loadYaml(element)
     return True
   except:
     return False
+
+def checkFileExists(resource, file):
+  try:
+    with open(file):
+      return True
+  except IOError:
+    print("*** File not found: " + file)
+    print("Resource: " + str(resource["app"]) + " - " + str(resource["kind"]))
+  exit(1)
 
 # Only 1 description per app
 def testDuplicatedDescriptions(): 
@@ -127,7 +148,7 @@ def testDuplicatedRecordingRules():
   for res in recordingRules:
     checkDuplicatedResourceInApp(res,recordingRules_names)
 
-def testCompulsaryFields():
+def testCompulsoryFields():
   for kind in all_resources:
     for res in kind:
       for field in compulsory_fields_all:
@@ -179,29 +200,46 @@ def testMaintainers():
 # For the resources with description:
 # - Is string, not empty
 def testDescriptionElement():
-  for kind in resources_with_description:
+  for kind in all_resources:
     for res in kind:
-      checkStringNotEmpty(res, res['description'])
+      if (res["kind"] in kinds_with_description):
+        assert ((res['app'] != "") and (res['kind'] != "") \
+          and ('description' in res))
+        checkStringNotEmpty(res, res['description'])
+      else:
+        assert ((res['app'] != "") and (res['kind'] != "") \
+          and (not 'description' in res))
       
 # Tests for data elements
 # For the resources with data
 # - Is string, not empty
 def testDataElement():
-  for kind in resources_with_data:
+  for kind in all_resources:
     for res in kind:
-      checkStringNotEmpty(res, res['data'])
+      if (res["kind"] in kinds_with_data):
+        assert ((res['app'] != "") and (res['kind'] != "") \
+          and ('data' in res))
+        checkStringNotEmpty(res, res['data'])
+      else:
+        assert ((res['app'] != "") and (res['kind'] != "") \
+          and (not 'data' in res))
+
 
 # Tests for configurations elements
 # For the resources with configurations:
 # Is list not empty
 def testConfigurationsElement():
-  for kind in resources_with_configurations:
+  for kind in all_resources:
     for res in kind:
-      assert ((res['app'] != "") and (res['kind'] != "") \
-        and ("configurations" in res)) 
-      checkListNotEmpty(res,res['configurations'])
-      for config in res['configurations']:
-        checkStringNotEmpty(res, config['data'])
+      if (res["kind"] in kinds_with_configurations):
+        assert ((res['app'] != "") and (res['kind'] != "") \
+          and ("configurations" in res)) 
+        checkListNotEmpty(res,res['configurations'])
+        for config in res['configurations']:
+          checkStringNotEmpty(res, config['data'])
+      else:
+        assert ((res['app'] != "") and (res['kind'] != "") \
+          and (not 'configurations' in res))
 
 # Test in dashboards:
 # - in configurations: 
@@ -220,10 +258,14 @@ def testDashboards():
       assert ((res['app'] != "") and (res['kind'] != "") \
         and ((config['kind'] == 'Grafana') or (config['kind'] == 'Sysdig')))
       checkStringNotEmpty(res,config['image'])
+      checkFileExists(res, 'resources/' + config['image'])
       checkStringNotEmpty(res,config['description'])
       checkStringNotEmpty(res,config['data'])
       assert ((res['app'] != "") and (config['name'] != "") and (config['kind'] != "") \
         and (checkValidJSON(config['data']) == True))
+      if (config['kind'] == 'Sysdig'):
+        assert ((res['app'] != "") and (config['name'] != "") and (config['kind'] != "") \
+        and (checkValidSysdigDashboard(config['data']) == True))
 
 # Test in alerts
 # - in configurations:
