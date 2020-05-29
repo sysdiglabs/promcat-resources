@@ -4529,1152 +4529,815 @@ configurations:
       * Controller manager
     data: |
       {
-        "__inputs": [],
-        "__requires": [
-          {
-            "type": "grafana",
-            "id": "grafana",
-            "name": "Grafana",
-            "version": "7.0.0"
-          },
-          {
-            "type": "panel",
-            "id": "graph",
-            "name": "Graph",
-            "version": ""
-          },
-          {
-            "type": "datasource",
-            "id": "prometheus",
-            "name": "Prometheus",
-            "version": "1.0.0"
-          },
-          {
-            "type": "panel",
-            "id": "singlestat",
-            "name": "Singlestat",
-            "version": ""
-          }
-        ],
-        "annotations": {
-          "list": [
-            {
-              "builtIn": 1,
-              "datasource": "-- Grafana --",
-              "enable": true,
-              "hide": true,
-              "iconColor": "rgba(0, 211, 255, 1)",
-              "name": "Annotations & Alerts",
-              "type": "dashboard"
+        "dashboard": {
+          "description": "",
+          "eventDisplaySettings": {
+            "enabled": false,
+            "queryParams": {
+              "alertStatuses": [],
+              "categories": [],
+              "filter": "",
+              "severities": [],
+              "teamScope": false
             }
-          ]
-        },
-        "editable": true,
-        "gnetId": null,
-        "graphTooltip": 0,
-        "id": null,
-        "iteration": 1590069335107,
-        "links": [],
-        "panels": [
-          {
-            "cacheTimeout": null,
-            "colorBackground": false,
-            "colorValue": false,
-            "colors": [
-              "#299c46",
-              "rgba(237, 129, 40, 0.89)",
-              "#d44a3a"
-            ],
-            "datasource": "$datasource",
-            "fieldConfig": {
-              "defaults": {
-                "custom": {}
-              },
-              "overrides": []
-            },
-            "format": "none",
-            "gauge": {
-              "maxValue": 100,
-              "minValue": 0,
-              "show": false,
-              "thresholdLabels": false,
-              "thresholdMarkers": true
-            },
-            "gridPos": {
-              "h": 7,
-              "w": 4,
-              "x": 0,
-              "y": 0
-            },
-            "id": 2,
-            "interval": null,
-            "links": [],
-            "mappingType": 1,
-            "mappingTypes": [
-              {
-                "name": "value to text",
-                "value": 1
-              },
-              {
-                "name": "range to text",
-                "value": 2
-              }
-            ],
-            "maxDataPoints": 100,
-            "nullPointMode": "connected",
-            "nullText": null,
-            "postfix": "",
-            "postfixFontSize": "50%",
-            "prefix": "",
-            "prefixFontSize": "50%",
-            "rangeMaps": [
-              {
-                "from": "null",
-                "text": "N/A",
-                "to": "null"
-              }
-            ],
-            "sparkline": {
-              "fillColor": "rgba(31, 118, 189, 0.18)",
-              "full": false,
-              "lineColor": "rgb(31, 120, 193)",
-              "show": false
-            },
-            "tableColumn": "",
-            "targets": [
-              {
-                "expr": "sum(up:kubernetes{job=\"kube-controllers\"})",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "",
-                "refId": "A"
-              }
-            ],
-            "thresholds": "",
-            "title": "Up",
-            "tooltip": {
-              "shared": false
-            },
-            "type": "singlestat",
-            "valueFontSize": "80%",
-            "valueMaps": [
-              {
-                "op": "=",
-                "text": "N/A",
-                "value": "null"
-              }
-            ],
-            "valueName": "min"
           },
-          {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fieldConfig": {
-              "defaults": {
-                "custom": {}
-              },
-              "overrides": []
+          "layout": [
+            {
+              "h": 3,
+              "panelId": 1,
+              "w": 8,
+              "x": 0,
+              "y": 18
             },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-              "h": 7,
+            {
+              "h": 3,
+              "panelId": 2,
+              "w": 8,
+              "x": 8,
+              "y": 18
+            },
+            {
+              "h": 3,
+              "panelId": 3,
+              "w": 8,
+              "x": 16,
+              "y": 18
+            },
+            {
+              "h": 3,
+              "panelId": 4,
+              "w": 24,
+              "x": 0,
+              "y": 15
+            },
+            {
+              "h": 3,
+              "panelId": 5,
+              "w": 7,
+              "x": 0,
+              "y": 12
+            },
+            {
+              "h": 3,
+              "panelId": 6,
+              "w": 17,
+              "x": 7,
+              "y": 12
+            },
+            {
+              "h": 4,
+              "panelId": 7,
+              "w": 24,
+              "x": 0,
+              "y": 8
+            },
+            {
+              "h": 4,
+              "panelId": 8,
+              "w": 24,
+              "x": 0,
+              "y": 4
+            },
+            {
+              "h": 4,
+              "panelId": 9,
               "w": 20,
               "x": 4,
               "y": 0
             },
-            "hiddenSeries": false,
-            "id": 3,
-            "legend": {
-              "alignAsTable": "true",
-              "avg": false,
-              "current": "true",
-              "max": false,
-              "min": false,
-              "rightSide": "true",
-              "show": "true",
-              "total": false,
-              "values": "true"
-            },
-            "lines": true,
-            "linewidth": 1,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-              "dataLinks": []
-            },
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-              {
-                "expr": "sum(rate(workqueue_adds_total:kubernetes_control_manager[5m])) by (instance, name)",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{instance}} {{name}}",
-                "refId": "A"
-              }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Work Queue Add Rate",
-            "tooltip": {
-              "shared": false,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "ops",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": null,
-                "show": true
-              },
-              {
-                "format": "ops",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": null,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
-          },
-          {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fieldConfig": {
-              "defaults": {
-                "custom": {}
-              },
-              "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-              "h": 7,
-              "w": 24,
-              "x": 0,
-              "y": 7
-            },
-            "hiddenSeries": false,
-            "id": 4,
-            "legend": {
-              "alignAsTable": "true",
-              "avg": false,
-              "current": "true",
-              "max": false,
-              "min": false,
-              "rightSide": "true",
-              "show": "true",
-              "total": false,
-              "values": "true"
-            },
-            "lines": true,
-            "linewidth": 1,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-              "dataLinks": []
-            },
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-              {
-                "expr": "sum(rate(workqueue_depth:kubernetes_control_manager[5m])) by (instance, name)",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{instance}} {{name}}",
-                "refId": "A"
-              }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Work Queue Depth",
-            "tooltip": {
-              "shared": false,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "short",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              },
-              {
-                "format": "short",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
-          },
-          {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fieldConfig": {
-              "defaults": {
-                "custom": {}
-              },
-              "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-              "h": 7,
-              "w": 24,
-              "x": 0,
-              "y": 14
-            },
-            "hiddenSeries": false,
-            "id": 5,
-            "legend": {
-              "alignAsTable": "true",
-              "avg": false,
-              "current": "true",
-              "max": false,
-              "min": false,
-              "rightSide": "true",
-              "show": "true",
-              "total": false,
-              "values": "true"
-            },
-            "lines": true,
-            "linewidth": 1,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-              "dataLinks": []
-            },
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-              {
-                "expr": "workqueue_queue_duration_seconds_bucket:kubernetes_control_manager",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{instance}} {{name}}",
-                "refId": "A"
-              }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Work Queue Latency",
-            "tooltip": {
-              "shared": false,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "s",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": null,
-                "show": true
-              },
-              {
-                "format": "s",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": null,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
-          },
-          {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fieldConfig": {
-              "defaults": {
-                "custom": {}
-              },
-              "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-              "h": 7,
-              "w": 8,
-              "x": 0,
-              "y": 21
-            },
-            "hiddenSeries": false,
-            "id": 6,
-            "legend": {
-              "alignAsTable": false,
-              "avg": false,
-              "current": false,
-              "max": false,
-              "min": false,
-              "rightSide": false,
-              "show": true,
-              "total": false,
-              "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-              "dataLinks": []
-            },
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-              {
-                "expr": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"2..\"}[5m]))",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "2xx",
-                "refId": "A"
-              },
-              {
-                "expr": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"3..\"}[5m]))",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "3xx",
-                "refId": "B"
-              },
-              {
-                "expr": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"4..\"}[5m]))",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "4xx",
-                "refId": "C"
-              },
-              {
-                "expr": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"5..\"}[5m]))",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "5xx",
-                "refId": "D"
-              }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Kube API Request Rate",
-            "tooltip": {
-              "shared": false,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "ops",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": null,
-                "show": true
-              },
-              {
-                "format": "ops",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": null,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
-          },
-          {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fieldConfig": {
-              "defaults": {
-                "custom": {}
-              },
-              "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-              "h": 7,
-              "w": 16,
-              "x": 8,
-              "y": 21
-            },
-            "hiddenSeries": false,
-            "id": 7,
-            "legend": {
-              "alignAsTable": false,
-              "avg": false,
-              "current": false,
-              "max": false,
-              "min": false,
-              "rightSide": false,
-              "show": true,
-              "total": false,
-              "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-              "dataLinks": []
-            },
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-              {
-                "expr": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:post",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{verb}} {{url}}",
-                "refId": "A"
-              }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Post Request Latency 99th Quantile",
-            "tooltip": {
-              "shared": false,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "s",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              },
-              {
-                "format": "s",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
-          },
-          {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fieldConfig": {
-              "defaults": {
-                "custom": {}
-              },
-              "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-              "h": 7,
-              "w": 24,
-              "x": 0,
-              "y": 28
-            },
-            "hiddenSeries": false,
-            "id": 8,
-            "legend": {
-              "alignAsTable": "true",
-              "avg": false,
-              "current": "true",
-              "max": false,
-              "min": false,
-              "rightSide": "true",
-              "show": "true",
-              "total": false,
-              "values": "true"
-            },
-            "lines": true,
-            "linewidth": 1,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-              "dataLinks": []
-            },
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-              {
-                "expr": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:get",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{verb}} {{url}}",
-                "refId": "A"
-              }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Get Request Latency 99th Quantile",
-            "tooltip": {
-              "shared": false,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "s",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              },
-              {
-                "format": "s",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
-          },
-          {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fieldConfig": {
-              "defaults": {
-                "custom": {}
-              },
-              "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-              "h": 7,
-              "w": 8,
-              "x": 0,
-              "y": 35
-            },
-            "hiddenSeries": false,
-            "id": 9,
-            "legend": {
-              "alignAsTable": false,
-              "avg": false,
-              "current": false,
-              "max": false,
-              "min": false,
-              "rightSide": false,
-              "show": true,
-              "total": false,
-              "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-              "dataLinks": []
-            },
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-              {
-                "expr": "process_resident_memory_bytes:kubernetes{job=\"kube-controllers\"}",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{instance}}",
-                "refId": "A"
-              }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Memory",
-            "tooltip": {
-              "shared": false,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "bytes",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": null,
-                "show": true
-              },
-              {
-                "format": "bytes",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": null,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
-          },
-          {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fieldConfig": {
-              "defaults": {
-                "custom": {}
-              },
-              "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-              "h": 7,
-              "w": 8,
-              "x": 8,
-              "y": 35
-            },
-            "hiddenSeries": false,
-            "id": 10,
-            "legend": {
-              "alignAsTable": false,
-              "avg": false,
-              "current": false,
-              "max": false,
-              "min": false,
-              "rightSide": false,
-              "show": true,
-              "total": false,
-              "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-              "dataLinks": []
-            },
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-              {
-                "expr": "sum(up:controllermanager{job=\"kube-controllers\"})",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{instance}}",
-                "refId": "A"
-              }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "CPU usage",
-            "tooltip": {
-              "shared": false,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "short",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              },
-              {
-                "format": "short",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": 0,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
-          },
-          {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fieldConfig": {
-              "defaults": {
-                "custom": {}
-              },
-              "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-              "h": 7,
-              "w": 8,
-              "x": 16,
-              "y": 35
-            },
-            "hiddenSeries": false,
-            "id": 11,
-            "legend": {
-              "alignAsTable": false,
-              "avg": false,
-              "current": false,
-              "max": false,
-              "min": false,
-              "rightSide": false,
-              "show": true,
-              "total": false,
-              "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-              "dataLinks": []
-            },
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-              {
-                "expr": "go_goroutines:kubernetes{job=\"kube-controllers\"}",
-                "format": "time_series",
-                "interval": "",
-                "intervalFactor": 2,
-                "legendFormat": "{{instance}}",
-                "refId": "A"
-              }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Goroutines",
-            "tooltip": {
-              "shared": false,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "short",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": null,
-                "show": true
-              },
-              {
-                "format": "short",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": null,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
-          }
-        ],
-        "refresh": false,
-        "schemaVersion": 25,
-        "style": "dark",
-        "tags": [
-          "kubernetes-mixin"
-        ],
-        "templating": {
-          "list": [
             {
-              "current": {
-                "selected": false,
-                "text": "Prometheus",
-                "value": "Prometheus"
-              },
-              "hide": 0,
-              "includeAll": false,
-              "label": null,
-              "multi": false,
-              "name": "datasource",
-              "options": [],
-              "query": "prometheus",
-              "refresh": 1,
-              "regex": "",
-              "skipUrlSync": false,
-              "type": "datasource"
-            },
-            {
-              "allValue": null,
-              "current": {},
-              "datasource": "$datasource",
-              "definition": "label_values(up:kubernetes{job=\"kubernetes-nodes\"}, instance)",
-              "hide": 0,
-              "includeAll": true,
-              "label": null,
-              "multi": false,
-              "name": "instance",
-              "options": [],
-              "query": "label_values(up:kubernetes{job=\"kubernetes-nodes\"}, instance)",
-              "refresh": 2,
-              "regex": "",
-              "skipUrlSync": false,
-              "sort": 0,
-              "tagValuesQuery": "",
-              "tags": [],
-              "tagsQuery": "",
-              "type": "query",
-              "useTags": false
+              "h": 4,
+              "panelId": 10,
+              "w": 4,
+              "x": 0,
+              "y": 0
             }
-          ]
-        },
-        "time": {
-          "from": "now-15m",
-          "to": "now"
-        },
-        "timepicker": {
-          "refresh_intervals": [
-            "10s",
-            "30s",
-            "1m",
-            "5m",
-            "15m",
-            "30m",
-            "1h",
-            "2h",
-            "1d"
           ],
-          "time_options": [
-            "5m",
-            "15m",
-            "1h",
-            "6h",
-            "12h",
-            "24h",
-            "2d",
-            "7d",
-            "30d"
+          "name": "Ocp3 / Controller Manager",
+          "panels": [
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": "Memory",
+                    "timeSeriesDisplayNameTemplate": "{{instance}}",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "B",
+                    "unit": "byte",
+                    "yAxis": "auto"
+                  },
+                  "query": "process_resident_memory_bytes:kubernetes{job=\"kube-controllers\"}"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "B",
+                  "maxValue": null,
+                  "minInputFormat": "B",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 1,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "table",
+                "position": "right",
+                "showCurrent": true
+              },
+              "name": "Memory",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": "Cpu usage",
+                    "timeSeriesDisplayNameTemplate": "{{instance}}",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "rate(process_cpu_seconds_total:kubernetes{job=\"kube-controllers\"}[5m])"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": 2,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 2,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "table",
+                "position": "right",
+                "showCurrent": true
+              },
+              "name": "CPU usage",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": "Goroutines",
+                    "timeSeriesDisplayNameTemplate": "{{instance}}",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "go_goroutines:kubernetes{job=\"kube-controllers\"}"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": 2,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 3,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "table",
+                "position": "right",
+                "showCurrent": true
+              },
+              "name": "Goroutines",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": "Get request p99",
+                    "timeSeriesDisplayNameTemplate": "{{verb}} {{url}}",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "s",
+                    "unit": "relativeTime",
+                    "yAxis": "auto"
+                  },
+                  "query": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:get"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "ns",
+                  "maxValue": null,
+                  "minInputFormat": "ns",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 4,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "table",
+                "position": "right",
+                "showCurrent": true
+              },
+              "name": "Get Request Latency 99th Quantile",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": "Request rate",
+                    "timeSeriesDisplayNameTemplate": "2xx",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"2..\"}[5m]))"
+                },
+                {
+                  "displayInfo": {
+                    "displayName": "Request rate",
+                    "timeSeriesDisplayNameTemplate": "3xx",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"3..\"}[5m]))"
+                },
+                {
+                  "displayInfo": {
+                    "displayName": "Request rate",
+                    "timeSeriesDisplayNameTemplate": "4xx",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"4..\"}[5m]))"
+                },
+                {
+                  "displayInfo": {
+                    "displayName": "Request rate",
+                    "timeSeriesDisplayNameTemplate": "5xx",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"5..\"}[5m]))"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": 2,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 5,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "table",
+                "position": "right",
+                "showCurrent": true
+              },
+              "name": "Kube API Request Rate",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": "Post request latency p99",
+                    "timeSeriesDisplayNameTemplate": "{{verb}} {{url}}",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "s",
+                    "unit": "relativeTime",
+                    "yAxis": "auto"
+                  },
+                  "query": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:post"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "ns",
+                  "maxValue": null,
+                  "minInputFormat": "ns",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 6,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "table",
+                "position": "right",
+                "showCurrent": true
+              },
+              "name": "Post Request Latency 99th Quantile",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": "Work queue latency",
+                    "timeSeriesDisplayNameTemplate": "{{instance}} {{name}}",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "s",
+                    "unit": "relativeTime",
+                    "yAxis": "auto"
+                  },
+                  "query": "workqueue_queue_duration_seconds_bucket:kubernetes_control_manager"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "ns",
+                  "maxValue": null,
+                  "minInputFormat": "ns",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 7,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "table",
+                "position": "right",
+                "showCurrent": true
+              },
+              "name": "Work Queue Latency",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": "Work queue depth",
+                    "timeSeriesDisplayNameTemplate": "{{instance}} {{name}}",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "sum(rate(workqueue_depth:kubernetes_control_manager[5m])) by (instance, name)"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": 2,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 8,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "table",
+                "position": "right",
+                "showCurrent": true
+              },
+              "name": "Work Queue Depth",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": "Work queue add rate",
+                    "timeSeriesDisplayNameTemplate": "{{instance}} {{name}}",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "sum(rate(workqueue_adds_total:kubernetes_control_manager[5m])) by (instance, name)"
+                }
+              ],
+              "axesConfiguration": {
+                "bottom": {
+                  "enabled": true
+                },
+                "left": {
+                  "decimals": 2,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                },
+                "right": {
+                  "decimals": null,
+                  "displayFormat": "auto",
+                  "displayName": null,
+                  "enabled": true,
+                  "maxInputFormat": "1",
+                  "maxValue": null,
+                  "minInputFormat": "1",
+                  "minValue": null,
+                  "scale": "linear",
+                  "unit": "auto"
+                }
+              },
+              "description": "",
+              "id": 9,
+              "legendConfiguration": {
+                "enabled": true,
+                "layout": "table",
+                "position": "right",
+                "showCurrent": true
+              },
+              "name": "Work Queue Add Rate",
+              "type": "advancedTimechart"
+            },
+            {
+              "advancedQueries": [
+                {
+                  "displayInfo": {
+                    "displayName": "",
+                    "timeSeriesDisplayNameTemplate": "",
+                    "type": "lines"
+                  },
+                  "enabled": true,
+                  "format": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "inputFormat": "1",
+                    "unit": "number",
+                    "yAxis": "auto"
+                  },
+                  "query": "sum(up:controllermanager{job=\"kube-controllers\"})"
+                }
+              ],
+              "description": "",
+              "id": 10,
+              "name": "UP",
+              "numberThresholds": {
+                "base": {
+                  "displayText": "",
+                  "severity": "none"
+                },
+                "values": []
+              },
+              "type": "advancedNumber"
+            }
+          ],
+          "schema": 3,
+          "scopeExpressionList": [
+            {
+              "descriptor": {
+                "aggregationForGroup": "none",
+                "canFilter": true,
+                "canGroupBy": true,
+                "canMonitor": false,
+                "category": "kubernetes",
+                "createdAt": 1590760394537,
+                "customerId": 25008,
+                "deferred": false,
+                "documentId": "25008--6139949314852700299",
+                "documentTimestamp": 1590760394537,
+                "documentType": "metric",
+                "experimental": false,
+                "firstSeen": 1583235308502,
+                "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+                "generator": {
+                  "aggregationForGroup": "none",
+                  "aggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                  ],
+                  "avg": false,
+                  "canCalculate": false,
+                  "canFilter": true,
+                  "canGroupBy": true,
+                  "canMonitor": false,
+                  "category": "kubernetes",
+                  "concat": false,
+                  "context": [
+                    "container"
+                  ],
+                  "count": false,
+                  "countDistinct": false,
+                  "deferred": false,
+                  "experimental": false,
+                  "firstSeen": 1583235308502,
+                  "groupAggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                  ],
+                  "groupBy": [],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "kubernetes.cluster.name",
+                  "identity": false,
+                  "label": true,
+                  "lastSeen": 1590760267209,
+                  "max": false,
+                  "metricType": "none",
+                  "min": false,
+                  "namespaces": [
+                    "kubernetes.cluster"
+                  ],
+                  "rateOfChange": false,
+                  "scale": 1.0,
+                  "scopes": [],
+                  "sum": false,
+                  "timeAggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                  ],
+                  "timeAvg": false,
+                  "type": "string"
+                },
+                "groupAggregations": [
+                  "concat",
+                  "distinct",
+                  "count"
+                ],
+                "heuristic": false,
+                "hidden": false,
+                "id": "kubernetes.cluster.name",
+                "identity": false,
+                "lastSeen": 1590760267209,
+                "metricType": "tag",
+                "namespaces": [
+                  "kubernetes.cluster"
+                ],
+                "routingInfo": {
+                  "customerId": 25008,
+                  "routing": "25008"
+                },
+                "scale": 1.0,
+                "scopes": [],
+                "segment": false,
+                "segmentations": [],
+                "timeAggregations": [
+                  "concat",
+                  "distinct",
+                  "count"
+                ],
+                "type": "string"
+              },
+              "displayName": "cluster",
+              "isVariable": true,
+              "operand": "kubernetes.cluster.name",
+              "operator": "in",
+              "value": [
+                "default"
+              ],
+              "variable": true
+            }
           ]
-        },
-        "timezone": "",
-        "title": "oc3 / Controller Manager",
-        "uid": "Ij5Bbl6Wk",
-        "version": 3
+        }
       }
+
   - name: "Ocp3 / Kubelet"
     kind: Grafana
     image: "openshift/images/kubelet_grafana.png"
