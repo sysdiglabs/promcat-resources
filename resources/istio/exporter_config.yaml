@@ -41,7 +41,7 @@ description: |
     global:
       scrape_interval: 15s
     rule_files:
-    - /opt/rules/rules.yaml'
+    - /opt/rules/rules.yaml
     ```
     As the prometheus doesn't have any pod to reload the configuration and the api is not active we have to delete it in order to get the new configuration
 

@@ -19,6 +19,16 @@ configurations:
       {
         "dashboard": {
           "description": "",
+          "eventDisplaySettings": {
+            "enabled": false,
+            "queryParams": {
+              "alertStatuses": [],
+              "categories": [],
+              "filter": "",
+              "severities": [],
+              "teamScope": false
+            }
+          },
           "layout": [
             {
               "h": 3,
@@ -109,7 +119,7 @@ configurations:
                     "unit": "byte",
                     "yAxis": "auto"
                   },
-                  "query": "process_resident_memory_bytes:kubernetes{job=\"controller-manager\"}"
+                  "query": "process_resident_memory_bytes:kubernetes{job=\"kube-controllers\"}"
                 }
               ],
               "axesConfiguration": {
@@ -168,7 +178,7 @@ configurations:
                     "unit": "number",
                     "yAxis": "auto"
                   },
-                  "query": "rate(process_cpu_seconds_total:kubernetes{job=\"controller-manager\"}[5m])"
+                  "query": "rate(process_cpu_seconds_total:kubernetes{job=\"kube-controllers\"}[5m])"
                 }
               ],
               "axesConfiguration": {
@@ -227,7 +237,7 @@ configurations:
                     "unit": "number",
                     "yAxis": "auto"
                   },
-                  "query": "go_goroutines:kubernetes{job=\"controller-manager\"}"
+                  "query": "go_goroutines:kubernetes{job=\"kube-controllers\"}"
                 }
               ],
               "axesConfiguration": {
@@ -345,7 +355,7 @@ configurations:
                     "unit": "number",
                     "yAxis": "auto"
                   },
-                  "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"2..\"}[5m]))"
+                  "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"2..\"}[5m]))"
                 },
                 {
                   "displayInfo": {
@@ -361,7 +371,7 @@ configurations:
                     "unit": "number",
                     "yAxis": "auto"
                   },
-                  "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"3..\"}[5m]))"
+                  "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"3..\"}[5m]))"
                 },
                 {
                   "displayInfo": {
@@ -377,7 +387,7 @@ configurations:
                     "unit": "number",
                     "yAxis": "auto"
                   },
-                  "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"4..\"}[5m]))"
+                  "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"4..\"}[5m]))"
                 },
                 {
                   "displayInfo": {
@@ -393,7 +403,7 @@ configurations:
                     "unit": "number",
                     "yAxis": "auto"
                   },
-                  "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"5..\"}[5m]))"
+                  "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"5..\"}[5m]))"
                 }
               ],
               "axesConfiguration": {
@@ -511,7 +521,7 @@ configurations:
                     "unit": "relativeTime",
                     "yAxis": "auto"
                   },
-                  "query": "workqueue_queue_duration_seconds_bucket:kubernetes_apiservers"
+                  "query": "workqueue_queue_duration_seconds_bucket:kubernetes_control_manager"
                 }
               ],
               "axesConfiguration": {
@@ -688,7 +698,7 @@ configurations:
                     "unit": "number",
                     "yAxis": "auto"
                   },
-                  "query": "sum(up:controllermanager{job=\"kube-controller-manager\"})"
+                  "query": "sum(up:controllermanager{job=\"kube-controllers\"})"
                 }
               ],
               "description": "",
@@ -704,8 +714,7 @@ configurations:
               "type": "advancedNumber"
             }
           ],
-          "schema": 3,
-          "scopeExpressionList": []
+          "schema": 3
         }
       }
   - name: "Ocp3 / Api"
@@ -718,6 +727,16 @@ configurations:
       {
         "dashboard": {
           "description": "",
+          "eventDisplaySettings": {
+            "enabled": false,
+            "queryParams": {
+              "alertStatuses": [],
+              "categories": [],
+              "filter": "",
+              "severities": [],
+              "teamScope": false
+            }
+          },
           "layout": [
             {
               "h": 3,
@@ -1208,7 +1227,7 @@ configurations:
                     "unit": "relativeTime",
                     "yAxis": "auto"
                   },
-                  "query": "workqueue_queue_duration_seconds_bucket:kubernetes_apiservers"
+                  "query": "workqueue_queue_duration_seconds_bucket:kubernetes_control_manager"
                 }
               ],
               "axesConfiguration": {
@@ -1267,7 +1286,7 @@ configurations:
                     "unit": "number",
                     "yAxis": "auto"
                   },
-                  "query": "sum(rate(workqueue_depth:kubernetes_apiservers[5m])) by (instance, name)"
+                  "query": "sum(rate(workqueue_depth:kubernetes_control_manager[5m])) by (instance, name)"
                 }
               ],
               "axesConfiguration": {
@@ -1326,7 +1345,7 @@ configurations:
                     "unit": "number",
                     "yAxis": "auto"
                   },
-                  "query": "sum(rate(workqueue_adds_total:kubernetes_apiservers[5m])) by (instance, name)"
+                  "query": "sum(rate(workqueue_adds_total:kubernetes_control_manager[5m])) by (instance, name)"
                 }
               ],
               "axesConfiguration": {
@@ -1568,7 +1587,114 @@ configurations:
             }
           ],
           "schema": 3,
-          "scopeExpressionList": []
+          "scopeExpressionList": [
+            {
+              "descriptor": {
+                "aggregationForGroup": "none",
+                "canFilter": true,
+                "canGroupBy": true,
+                "canMonitor": false,
+                "category": "kubernetes",
+                "createdAt": 1590746884676,
+                "customerId": 25008,
+                "deferred": false,
+                "documentId": "25008--6139949314852700299",
+                "documentTimestamp": 1590746884676,
+                "documentType": "metric",
+                "experimental": false,
+                "firstSeen": 1583235308502,
+                "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+                "generator": {
+                  "aggregationForGroup": "none",
+                  "aggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                  ],
+                  "avg": false,
+                  "canCalculate": false,
+                  "canFilter": true,
+                  "canGroupBy": true,
+                  "canMonitor": false,
+                  "category": "kubernetes",
+                  "concat": false,
+                  "context": [
+                    "container"
+                  ],
+                  "count": false,
+                  "countDistinct": false,
+                  "deferred": false,
+                  "experimental": false,
+                  "firstSeen": 1583235308502,
+                  "groupAggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                  ],
+                  "groupBy": [],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "kubernetes.cluster.name",
+                  "identity": false,
+                  "label": true,
+                  "lastSeen": 1590744850657,
+                  "max": false,
+                  "metricType": "none",
+                  "min": false,
+                  "namespaces": [
+                    "kubernetes.cluster"
+                  ],
+                  "rateOfChange": false,
+                  "scale": 1.0,
+                  "scopes": [],
+                  "sum": false,
+                  "timeAggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                  ],
+                  "timeAvg": false,
+                  "type": "string"
+                },
+                "groupAggregations": [
+                  "concat",
+                  "distinct",
+                  "count"
+                ],
+                "heuristic": false,
+                "hidden": false,
+                "id": "kubernetes.cluster.name",
+                "identity": false,
+                "lastSeen": 1590744850657,
+                "metricType": "tag",
+                "namespaces": [
+                  "kubernetes.cluster"
+                ],
+                "routingInfo": {
+                  "customerId": 25008,
+                  "routing": "25008"
+                },
+                "scale": 1.0,
+                "scopes": [],
+                "segment": false,
+                "segmentations": [],
+                "timeAggregations": [
+                  "concat",
+                  "distinct",
+                  "count"
+                ],
+                "type": "string"
+              },
+              "displayName": "",
+              "isVariable": false,
+              "operand": "kubernetes.cluster.name",
+              "operator": "in",
+              "value": [
+                "default"
+              ],
+              "variable": false
+            }
+          ]
         }
       }
   - name: "Ocp3 / Kubelet"
@@ -1581,6 +1707,16 @@ configurations:
       {
         "dashboard": {
           "description": "",
+          "eventDisplaySettings": {
+            "enabled": false,
+            "queryParams": {
+              "alertStatuses": [],
+              "categories": [],
+              "filter": "",
+              "severities": [],
+              "teamScope": false
+            }
+          },
           "layout": [
             {
               "h": 2,
@@ -1689,13 +1825,6 @@ configurations:
             },
             {
               "h": 5,
-              "panelId": 16,
-              "w": 12,
-              "x": 0,
-              "y": 32
-            },
-            {
-              "h": 5,
               "panelId": 17,
               "w": 12,
               "x": 12,
@@ -1703,52 +1832,38 @@ configurations:
             },
             {
               "h": 5,
-              "panelId": 18,
-              "w": 12,
-              "x": 12,
-              "y": 32
-            },
-            {
-              "h": 5,
-              "panelId": 19,
-              "w": 24,
-              "x": 0,
-              "y": 37
-            },
-            {
-              "h": 5,
               "panelId": 20,
               "w": 24,
               "x": 0,
-              "y": 42
+              "y": 32
             },
             {
               "h": 6,
               "panelId": 21,
               "w": 24,
               "x": 0,
-              "y": 47
+              "y": 37
             },
             {
               "h": 4,
               "panelId": 22,
               "w": 8,
               "x": 0,
-              "y": 53
+              "y": 43
             },
             {
               "h": 4,
               "panelId": 23,
               "w": 8,
               "x": 8,
-              "y": 53
+              "y": 43
             },
             {
               "h": 4,
               "panelId": 24,
               "w": 8,
               "x": 16,
-              "y": 53
+              "y": 43
             }
           ],
           "name": "Ocp3 / Kubelet",
@@ -1769,7 +1884,7 @@ configurations:
                     "unit": "number",
                     "yAxis": "auto"
                   },
-                  "query": "sum(up:kubernetes{job=\"kubelet\",metrics_path=\"/metrics/cadvisor\"})"
+                  "query": "sum(up:kubernetes{job=\"kubelet\"})"
                 }
               ],
               "description": "",
@@ -2506,65 +2621,6 @@ configurations:
               "advancedQueries": [
                 {
                   "displayInfo": {
-                    "displayName": "PLEG relist rate",
-                    "timeSeriesDisplayNameTemplate": "{{instance}}",
-                    "type": "lines"
-                  },
-                  "enabled": true,
-                  "format": {
-                    "decimals": null,
-                    "displayFormat": "auto",
-                    "inputFormat": "1",
-                    "unit": "number",
-                    "yAxis": "auto"
-                  },
-                  "query": "sum(rate(pleg_relist_duration_seconds:kubelet[5m])) by (instance)"
-                }
-              ],
-              "axesConfiguration": {
-                "bottom": {
-                  "enabled": true
-                },
-                "left": {
-                  "decimals": 2,
-                  "displayFormat": "auto",
-                  "displayName": null,
-                  "enabled": true,
-                  "maxInputFormat": "1",
-                  "maxValue": null,
-                  "minInputFormat": "1",
-                  "minValue": null,
-                  "scale": "linear",
-                  "unit": "auto"
-                },
-                "right": {
-                  "decimals": null,
-                  "displayFormat": "auto",
-                  "displayName": null,
-                  "enabled": true,
-                  "maxInputFormat": "1",
-                  "maxValue": null,
-                  "minInputFormat": "1",
-                  "minValue": null,
-                  "scale": "linear",
-                  "unit": "auto"
-                }
-              },
-              "description": "",
-              "id": 16,
-              "legendConfiguration": {
-                "enabled": true,
-                "layout": "table",
-                "position": "right",
-                "showCurrent": true
-              },
-              "name": "PLEG relist rate",
-              "type": "advancedTimechart"
-            },
-            {
-              "advancedQueries": [
-                {
-                  "displayInfo": {
                     "displayName": "Cgroup manager p99",
                     "timeSeriesDisplayNameTemplate": "{{instance}} {{operation_type}}",
                     "type": "lines"
@@ -2618,124 +2674,6 @@ configurations:
                 "showCurrent": true
               },
               "name": "Cgroup manager 99th quantile",
-              "type": "advancedTimechart"
-            },
-            {
-              "advancedQueries": [
-                {
-                  "displayInfo": {
-                    "displayName": "PLEG relist interval",
-                    "timeSeriesDisplayNameTemplate": "{{instance}}",
-                    "type": "lines"
-                  },
-                  "enabled": true,
-                  "format": {
-                    "decimals": null,
-                    "displayFormat": "auto",
-                    "inputFormat": "s",
-                    "unit": "relativeTime",
-                    "yAxis": "auto"
-                  },
-                  "query": "pleg_relist_interval_seconds:kubelet"
-                }
-              ],
-              "axesConfiguration": {
-                "bottom": {
-                  "enabled": true
-                },
-                "left": {
-                  "decimals": null,
-                  "displayFormat": "auto",
-                  "displayName": null,
-                  "enabled": true,
-                  "maxInputFormat": "ns",
-                  "maxValue": null,
-                  "minInputFormat": "ns",
-                  "minValue": null,
-                  "scale": "linear",
-                  "unit": "auto"
-                },
-                "right": {
-                  "decimals": null,
-                  "displayFormat": "auto",
-                  "displayName": null,
-                  "enabled": true,
-                  "maxInputFormat": "1",
-                  "maxValue": null,
-                  "minInputFormat": "1",
-                  "minValue": null,
-                  "scale": "linear",
-                  "unit": "auto"
-                }
-              },
-              "description": "",
-              "id": 18,
-              "legendConfiguration": {
-                "enabled": true,
-                "layout": "table",
-                "position": "right",
-                "showCurrent": true
-              },
-              "name": "PLEG relist interval",
-              "type": "advancedTimechart"
-            },
-            {
-              "advancedQueries": [
-                {
-                  "displayInfo": {
-                    "displayName": "PLEG relist duration",
-                    "timeSeriesDisplayNameTemplate": "{{instance}}",
-                    "type": "lines"
-                  },
-                  "enabled": true,
-                  "format": {
-                    "decimals": null,
-                    "displayFormat": "auto",
-                    "inputFormat": "s",
-                    "unit": "relativeTime",
-                    "yAxis": "auto"
-                  },
-                  "query": "pleg_relist_duration_seconds:kubelet"
-                }
-              ],
-              "axesConfiguration": {
-                "bottom": {
-                  "enabled": true
-                },
-                "left": {
-                  "decimals": null,
-                  "displayFormat": "auto",
-                  "displayName": null,
-                  "enabled": true,
-                  "maxInputFormat": "ns",
-                  "maxValue": null,
-                  "minInputFormat": "ns",
-                  "minValue": null,
-                  "scale": "linear",
-                  "unit": "auto"
-                },
-                "right": {
-                  "decimals": null,
-                  "displayFormat": "auto",
-                  "displayName": null,
-                  "enabled": true,
-                  "maxInputFormat": "1",
-                  "maxValue": null,
-                  "minInputFormat": "1",
-                  "minValue": null,
-                  "scale": "linear",
-                  "unit": "auto"
-                }
-              },
-              "description": "",
-              "id": 19,
-              "legendConfiguration": {
-                "enabled": true,
-                "layout": "table",
-                "position": "right",
-                "showCurrent": true
-              },
-              "name": "PLEG relist duration",
               "type": "advancedTimechart"
             },
             {
@@ -3091,11 +3029,11 @@ configurations:
                 "canGroupBy": true,
                 "canMonitor": false,
                 "category": "kubernetes",
-                "createdAt": 1590594984616,
+                "createdAt": 1590746883930,
                 "customerId": 25008,
                 "deferred": false,
                 "documentId": "25008--6139949314852700299",
-                "documentTimestamp": 1590594984616,
+                "documentTimestamp": 1590746883930,
                 "documentType": "metric",
                 "experimental": false,
                 "firstSeen": 1583235308502,
@@ -3133,7 +3071,7 @@ configurations:
                   "id": "kubernetes.cluster.name",
                   "identity": false,
                   "label": true,
-                  "lastSeen": 1590592267419,
+                  "lastSeen": 1590744850657,
                   "max": false,
                   "metricType": "none",
                   "min": false,
@@ -3161,7 +3099,7 @@ configurations:
                 "hidden": false,
                 "id": "kubernetes.cluster.name",
                 "identity": false,
-                "lastSeen": 1590592267419,
+                "lastSeen": 1590744850657,
                 "metricType": "tag",
                 "namespaces": [
                   "kubernetes.cluster"
