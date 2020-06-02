@@ -22,6 +22,15 @@ description: |
   Constant throttling can indicate that a function is called more times that its reserved concurrency.  
 
   The recommended value for this alert is to alert when throttling for more than 10 minutes. 
+  
+  ## DestinationDeliveryFailures
+  Detected destination delivery failures in a function.
+
+  ## DeadLetterErrors
+  Detected dead-letter queue errors in a function.
+
+  ## HighIteratorAge
+  Detected high iterator age in a function.
 
   # Installing the alerts
   ## In Prometheus
@@ -35,63 +44,146 @@ description: |
   ``` 
   ## In Sysdig Monitor
   To install these alerts in Sysdig Monitor, contact with the support service. 
-configurations: 
-  - kind: Prometheus
-    data: | 
-      - alert: HighFunctionErrorRate
-        expr: aws_lambda_error_rate_average > 0.15
-        for: 10m
-        labels: 
-          severity: page
-        annotations:
-          summary: High error rate on function {{$labels.dimension_FunctionName}}
-      - alert: ThrottlingFunction
-        expr: aws_lambda_throttles_sum  > 0
-        for: 10m
-        labels: 
-          severity: page
-        annotations:
-          summary: Detected throttling in function {{$labels.dimension_FunctionName}}
-  - data: |-
-      {
-        "alert": {
-          "condition": "aws_lambda_error_rate_average > 0.15",
-          "customNotification": {
-            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-            "useNewTemplate": false
-          },
-          "enabled": true,
-          "name": "HighFunctionErrorRate",
-          "rateOfChange": false,
-          "reNotify": false,
-          "reNotifyMinutes": "10m",
-          "severity": 4,
-          "severityLabel": "LOW",
-          "severityLevel": null,
-          "timespan": 600000000,
-          "type": "PROMETHEUS"
-        }
+configurations:
+- kind: Prometheus
+  data: |
+    - alert: HighFunctionErrorRate
+      expr: (aws_lambda_errors_sum / aws_lambda_invocations_sum) > 0.15
+      for: 10m
+      labels:
+        severity: page
+      annotations:
+        summary: High error rate on function {{$labels.dimension_FunctionName}}
+    - alert: ThrottlingFunction
+      expr: aws_lambda_throttles_sum  > 0
+      for: 10m
+      labels:
+        severity: page
+      annotations:
+        summary: Detected throttling in function {{$labels.dimension_FunctionName}}
+    - alert: DestinationDeliveryFailures
+      expr: aws_lambda_destination_delivery_failures_sum > 0
+      for: 10m
+      labels:
+        severity: page
+      annotations:
+        summary: Detected destination delivery failures in function {{$labels.dimension_FunctionName}}
+    - alert: DeadLetterErrors
+      expr: aws_lambda_dead_letter_errors_sum  > 0
+      for: 10m
+      labels:
+        severity: page
+      annotations:
+        summary: Detected dead-letter queue errors in function {{$labels.dimension_FunctionName}}
+    - alert: HighIteratorAge
+      expr: aws_lambda_iterator_age_average  > 1000
+      for: 10m
+      labels:
+        severity: page
+      annotations:
+        summary: Detected high iterator age in function {{$labels.dimension_FunctionName}}
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "(aws_lambda_errors_sum / aws_lambda_invocations_sum) > 0.15",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "HighFunctionErrorRate",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": "10m",
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
       }
-    kind: Sysdig
-  - data: |-
-      {
-        "alert": {
-          "condition": "aws_lambda_throttles_sum  > 0",
-          "customNotification": {
-            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-            "useNewTemplate": false
-          },
-          "enabled": true,
-          "name": "ThrottlingFunction",
-          "rateOfChange": false,
-          "reNotify": false,
-          "reNotifyMinutes": "10m",
-          "severity": 4,
-          "severityLabel": "LOW",
-          "severityLevel": null,
-          "timespan": 600000000,
-          "type": "PROMETHEUS"
-        }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "aws_lambda_throttles_sum  > 0",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "ThrottlingFunction",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": "10m",
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
       }
-    kind: Sysdig
-  
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "aws_lambda_destination_delivery_failures_sum > 0",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "DestinationDeliveryFailures",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": "10m",
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "aws_lambda_dead_letter_errors_sum  > 0",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "DeadLetterErrors",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": "10m",
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "aws_lambda_iterator_age_average  > 1000",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "HighIteratorAge",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": "10m",
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
