@@ -13,7 +13,7 @@ description: |
   Uptime of less than 1 hour in a redis instance.
 
   ## HighMemoryUsage
-  High memory usage in instance. 
+  High memory usage in instance.
 
   ## HighClientsUsage
   High client connections usage in instance.
@@ -124,7 +124,7 @@ configurations:
         "name": "LowUptime",
         "rateOfChange": false,
         "reNotify": false,
-        "reNotifyMinutes": "15m",
+        "reNotifyMinutes": 15,
         "severity": 4,
         "severityLabel": "LOW",
         "severityLevel": null,
@@ -145,7 +145,7 @@ configurations:
         "name": "HighMemoryUsage",
         "rateOfChange": false,
         "reNotify": false,
-        "reNotifyMinutes": "15m",
+        "reNotifyMinutes": 15,
         "severity": 4,
         "severityLabel": "LOW",
         "severityLevel": null,
@@ -166,7 +166,7 @@ configurations:
         "name": "HighClientsUsage",
         "rateOfChange": false,
         "reNotify": false,
-        "reNotifyMinutes": "15m",
+        "reNotifyMinutes": 15,
         "severity": 4,
         "severityLabel": "LOW",
         "severityLevel": null,
@@ -187,7 +187,7 @@ configurations:
         "name": "HighResponseTime",
         "rateOfChange": false,
         "reNotify": false,
-        "reNotifyMinutes": "10m",
+        "reNotifyMinutes": 10,
         "severity": 4,
         "severityLabel": "LOW",
         "severityLevel": null,
@@ -208,7 +208,7 @@ configurations:
         "name": "HighFragmentationRatio",
         "rateOfChange": false,
         "reNotify": false,
-        "reNotifyMinutes": "30m",
+        "reNotifyMinutes": 30,
         "severity": 4,
         "severityLabel": "LOW",
         "severityLevel": null,
@@ -229,7 +229,7 @@ configurations:
         "name": "HighKeysEvictionRatio",
         "rateOfChange": false,
         "reNotify": false,
-        "reNotifyMinutes": "30m",
+        "reNotifyMinutes": 30,
         "severity": 4,
         "severityLabel": "LOW",
         "severityLevel": null,
@@ -250,7 +250,7 @@ configurations:
         "name": "RecurrentRejectedConnections",
         "rateOfChange": false,
         "reNotify": false,
-        "reNotifyMinutes": "15m",
+        "reNotifyMinutes": 15,
         "severity": 4,
         "severityLabel": "LOW",
         "severityLevel": null,
@@ -271,7 +271,7 @@ configurations:
         "name": "LowHitRatio",
         "rateOfChange": false,
         "reNotify": false,
-        "reNotifyMinutes": "30m",
+        "reNotifyMinutes": 30,
         "severity": 4,
         "severityLabel": "LOW",
         "severityLevel": null,
@@ -279,4 +279,3 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-
