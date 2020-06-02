@@ -3,6 +3,11 @@ import json
 from yaml.representer import SafeRepresenter
 import re
 
+timeConversions = {"s": 0.0166666,
+                    "m": 1,
+                    "h": 60,
+                    "d": 1440}
+
 def getConfigurations(resource):
   return resource['configurations']
 
@@ -20,6 +25,14 @@ def loadYamlFile(path):
   file = open(path)
   return loadYaml(file)
 
+def prometheusTime2Minutes(prometheusTime):
+  prometheusNumber = int(prometheusTime[:-1])
+  prometheusUnit = prometheusTime[-1]
+  if prometheusUnit not in timeConversions:
+    print("Unit conversion not supported: " + prometheusTime)
+    exit(1)
+  return round(prometheusNumber * timeConversions[prometheusUnit])
+
 def prometheusAlert2SysdigAlert(promAlert):
   sysdigAlert = {}
   sysdigAlert['alert'] = {}
@@ -32,7 +45,7 @@ def prometheusAlert2SysdigAlert(promAlert):
   sysdigAlert['alert']['rateOfChange'] = False
   sysdigAlert['alert']['reNotify'] = False
   if "for" in promAlert:
-    sysdigAlert['alert']['reNotifyMinutes'] = promAlert['for']
+    sysdigAlert['alert']['reNotifyMinutes'] = prometheusTime2Minutes(promAlert['for'])
   else:
     sysdigAlert['alert']['reNotifyMinutes'] = 0
   sysdigAlert['alert']['severity'] = 4
