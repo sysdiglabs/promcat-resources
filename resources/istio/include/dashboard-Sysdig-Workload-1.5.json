@@ -1,0 +1,2098 @@
+{
+  "dashboard": {
+    "description": "",
+    "layout": [
+      {
+        "h": 3,
+        "panelId": 1,
+        "w": 8,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 2,
+        "w": 8,
+        "x": 8,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 3,
+        "w": 8,
+        "x": 16,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 4,
+        "w": 12,
+        "x": 0,
+        "y": 3
+      },
+      {
+        "h": 3,
+        "panelId": 5,
+        "w": 12,
+        "x": 12,
+        "y": 3
+      },
+      {
+        "h": 3,
+        "panelId": 6,
+        "w": 12,
+        "x": 0,
+        "y": 6
+      },
+      {
+        "h": 3,
+        "panelId": 7,
+        "w": 12,
+        "x": 12,
+        "y": 6
+      },
+      {
+        "h": 3,
+        "panelId": 8,
+        "w": 8,
+        "x": 0,
+        "y": 9
+      },
+      {
+        "h": 3,
+        "panelId": 9,
+        "w": 8,
+        "x": 8,
+        "y": 9
+      },
+      {
+        "h": 3,
+        "panelId": 10,
+        "w": 8,
+        "x": 16,
+        "y": 9
+      },
+      {
+        "h": 3,
+        "panelId": 11,
+        "w": 12,
+        "x": 0,
+        "y": 12
+      },
+      {
+        "h": 3,
+        "panelId": 12,
+        "w": 12,
+        "x": 12,
+        "y": 12
+      },
+      {
+        "h": 3,
+        "panelId": 13,
+        "w": 12,
+        "x": 0,
+        "y": 15
+      },
+      {
+        "h": 3,
+        "panelId": 14,
+        "w": 12,
+        "x": 12,
+        "y": 15
+      },
+      {
+        "h": 3,
+        "panelId": 15,
+        "w": 12,
+        "x": 0,
+        "y": 21
+      },
+      {
+        "h": 3,
+        "panelId": 16,
+        "w": 12,
+        "x": 12,
+        "y": 21
+      },
+      {
+        "h": 3,
+        "panelId": 17,
+        "w": 8,
+        "x": 0,
+        "y": 18
+      },
+      {
+        "h": 3,
+        "panelId": 18,
+        "w": 8,
+        "x": 8,
+        "y": 18
+      },
+      {
+        "h": 3,
+        "panelId": 19,
+        "w": 8,
+        "x": 16,
+        "y": 18
+      }
+    ],
+    "name": "Istio Workload Dashboard ",
+    "panels": [
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Incoming Reques",
+              "timeSeriesDisplayNameTemplate": "{{destination_workload}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(irate(istio_requests_total:sysdig{reporter=\"destination\"}[5m])) by (destination_workload)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 1,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Incoming Request Volume",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Incoming Success Rate ",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "100*(sum(irate(istio_requests_total:sysdig{reporter=\"destination\",response_code!~\"5.*\"}[5m])) / sum(irate(istio_requests_total:sysdig{reporter=\"destination\"}[5m])))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 2,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Incoming Success Rate (non-5xx responses)",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Incoming Success Rate ",
+              "timeSeriesDisplayNameTemplate": "p50 {{destination_service_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_duration_milliseconds_bucket:destination:histogram50"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Success Rate ",
+              "timeSeriesDisplayNameTemplate": "p90 {{destination_service_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_duration_milliseconds_bucket:destination:histogram90"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Success Rate ",
+              "timeSeriesDisplayNameTemplate": "p99 {{destination_service_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_duration_milliseconds_bucket:destination:histogram99"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 3,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Request Duration",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "TCP server traffic",
+              "timeSeriesDisplayNameTemplate": "{{destination_service_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(irate(istio_tcp_sent_bytes_total:sysdig{reporter=\"destination\"}[1m]))+sum(irate(istio_tcp_received_bytes_total:sysdig{reporter=\"destination\"}[1m]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 4,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "TCP Server Traffic",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{destination_service_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(irate(istio_tcp_sent_bytes_total:sysdig{reporter=\"source\"}[1m]))+sum(irate(istio_tcp_received_bytes_total:sysdig{reporter=\"source\"}[1m]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 5,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "TCP Client Traffic",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Incoming Requests mTLS",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} : {{response_code}} (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(irate(istio_requests_total:sysdig{connection_security_policy=\"mutual_tls\", reporter=\"destination\"}[5m])) by (source_workload, source_workload_namespace, response_code)"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Requests not mTLS",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} : {{response_code}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(irate(istio_requests_total:sysdig{connection_security_policy!=\"mutual_tls\", reporter=\"destination\"}[5m])) by (source_workload, source_workload_namespace, response_code)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 6,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Incoming Requests by Source And Response Code",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Incoming success rate",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "100*(sum(irate(istio_requests_total:sysdig{reporter=\"destination\", connection_security_policy=\"mutual_tls\", response_code!~\"5.*\"}[5m])) by (source_workload, source_workload_namespace) / sum(irate(istio_requests_total:sysdig{reporter=\"destination\", connection_security_policy=\"mutual_tls\"}[5m])) by (source_workload, source_workload_namespace))"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming success rate",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "100*(sum(irate(istio_requests_total:sysdig{reporter=\"destination\", connection_security_policy!=\"mutual_tls\", response_code!~\"5.*\"}[5m])) by (source_workload, source_workload_namespace) / sum(irate(istio_requests_total:sysdig{reporter=\"destination\", connection_security_policy!=\"mutual_tls\"}[5m])) by (source_workload, source_workload_namespace))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 7,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Incoming Success Rate (non-5xx responses) By Source",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Duration",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P50 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_duration_milliseconds_bucket:destination:bysource:mutual_tls:histogram50"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Duration",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P90 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_duration_milliseconds_bucket:destination:bysource:mutual_tls:histogram90"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Duration",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P95 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_duration_milliseconds_bucket:destination:bysource:mutual_tls:histogram95"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Duration",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P99 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_duration_milliseconds_bucket:destination:bysource:mutual_tls:histogram99"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Duration",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P50",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_duration_milliseconds_bucket:destination:bysource:not_mutual_tls:histogram50"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Duration",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P90",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_duration_milliseconds_bucket:destination:bysource:not_mutual_tls:histogram90"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Duration",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P95",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_duration_milliseconds_bucket:destination:bysource:not_mutual_tls:histogram95"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Duration",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P99",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_duration_milliseconds_bucket:destination:bysource:not_mutual_tls:histogram99"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 8,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Incoming Request Duration by Source",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Size",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P50 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_bytes_bucket:destination:bysource:mutual_tls:histogram50"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Size",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P90 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_bytes_bucket:destination:bysource:mutual_tls:histogram90"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Size",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P95 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_bytes_bucket:destination:bysource:mutual_tls:histogram95"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Size",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P99 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_bytes_bucket:destination:bysource:mutual_tls:histogram99"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Size",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P50",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_bytes_bucket:destination:bysource:not_mutual_tls:histogram50"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Size",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P90",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_bytes_bucket:destination:bysource:not_mutual_tls:histogram90"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Size",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P95",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_bytes_bucket:destination:bysource:not_mutual_tls:histogram95"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Size",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P99",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_bytes_bucket:destination:bysource:not_mutual_tls:histogram99"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 9,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Incoming Request Size By Source",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Incoming Reques",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P50 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_response_bytes_bucket:destination:bysource:mutual_tls:histogram50"
+          },
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P90 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_response_bytes_bucket:destination:bysource:mutual_tls:histogram90"
+          },
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P95 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_response_bytes_bucket:destination:bysource:mutual_tls:histogram95"
+          },
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P99 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_response_bytes_bucket:destination:bysource:mutual_tls:histogram99"
+          },
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P50",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_response_bytes_bucket:destination:bysource:not_mutual_tls:histogram50"
+          },
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P90",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_response_bytes_bucket:destination:bysource:not_mutual_tls:histogram90"
+          },
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P95",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_response_bytes_bucket:destination:bysource:not_mutual_tls:histogram95"
+          },
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} P99",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_response_bytes_bucket:destination:bysource:not_mutual_tls:histogram99"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 10,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Response Size By Source",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Bytes Received from Incoming TCP Connection",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(irate(istio_tcp_received_bytes_total:sysdig{reporter=\"destination\", connection_security_policy=\"mutual_tls\"}[1m])) by (source_workload, source_workload_namespace)"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Bytes Received from Incoming TCP Connection",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(irate(istio_tcp_received_bytes_total:sysdig{reporter=\"destination\", connection_security_policy!=\"mutual_tls\"}[1m])) by (source_workload, source_workload_namespace)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 11,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Bytes Received from Incoming TCP Connection",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Bytes Sent to Incoming TCP Connection",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} : {{response_code}} (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(irate(istio_tcp_sent_bytes_total:sysdig{connection_security_policy=\"mutual_tls\", reporter=\"destination\"}[1m])) by (source_workload, source_workload_namespace)"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Bytes Sent to Incoming TCP Connection",
+              "timeSeriesDisplayNameTemplate": "{{source_workload}}.{{source_workload_namespace}} : {{response_code}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(irate(istio_tcp_sent_bytes_total:sysdig{connection_security_policy!=\"mutual_tls\", reporter=\"destination\"}[1m])) by (source_workload, source_workload_namespace)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 12,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Bytes Sent to Incoming TCP Connection",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Outgoing Requests by Destination And Response Code",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} : {{response_code}} (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(irate(istio_requests_total:sysdig{connection_security_policy=\"mutual_tls\", reporter=\"source\"}[5m])) by (destination_service, response_code)"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Outgoing Requests by Destination And Response Code",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} : {{response_code}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(irate(istio_requests_total:sysdig{connection_security_policy!=\"mutual_tls\", reporter=\"source\"}[5m])) by (destination_service, response_code)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 13,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Outgoing Requests by Destination And Response Code",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Outgoing Success Rate (non-5xx responses) By Destination",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(irate(istio_requests_total{reporter=\"source\", connection_security_policy=\"mutual_tls\",response_code!~\"5.*\"}[5m])) by (destination_service) / sum(irate(istio_requests_total{reporter=\"source\", connection_security_policy=\"mutual_tls\"}[5m])) by (destination_service)"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Outgoing Success Rate (non-5xx responses) By Destination",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(irate(istio_requests_total{reporter=\"source\", connection_security_policy!=\"mutual_tls\",response_code!~\"5.*\"}[5m])) by (destination_service) / sum(irate(istio_requests_total{reporter=\"source\", connection_security_policy!=\"mutual_tls\"}[5m])) by (destination_service)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 14,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Outgoing Success Rate (non-5xx responses) By Destination",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Bytes Received from Incoming TCP Connection",
+              "timeSeriesDisplayNameTemplate": "{{ destination_service }} (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(irate(istio_tcp_sent_bytes_total:sysdig{connection_security_policy=\"mutual_tls\", reporter=\"source\"}[1m])) by (destination_service)"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Bytes Received from Incoming TCP Connection",
+              "timeSeriesDisplayNameTemplate": "{{ destination_service }}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(irate(istio_tcp_sent_bytes_total:sysdig{connection_security_policy!=\"mutual_tls\", reporter=\"source\"}[1m])) by (destination_service)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 15,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Bytes Sent on Outgoing TCP Connection",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Bytes Received from Outgoing TCP Connection",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(irate(istio_tcp_received_bytes_total{reporter=\"source\", connection_security_policy=\"mutual_tls\"}[1m])) by (destination_service)"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Bytes Received from Outgoing TCP Connection",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(irate(istio_tcp_received_bytes_total:sysdig{reporter=\"source\", connection_security_policy!=\"mutual_tls\"}[1m])) by (destination_service)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 16,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Bytes Received from Outgoing TCP Connection",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Duration",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P50 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_duration_milliseconds_bucket:source:bydestination:mutual_tls:histogram50"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Duration",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P90 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_duration_milliseconds_bucket:source:bydestination:mutual_tls:histogram90"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Duration",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P95 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_duration_milliseconds_bucket:source:bydestination:mutual_tls:histogram95"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Duration",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P99 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_duration_milliseconds_bucket:source:bydestination:mutual_tls:histogram99"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Duration",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P50",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_duration_milliseconds_bucket:source:bydestination:not_mutual_tls:histogram50"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Duration",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P90",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_duration_milliseconds_bucket:source:bydestination:not_mutual_tls:histogram90"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Duration",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P95",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_duration_milliseconds_bucket:source:bydestination:not_mutual_tls:histogram95"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Incoming Request Duration",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P99",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_duration_milliseconds_bucket:source:bydestination:not_mutual_tls:histogram99"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 17,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Outgoing Request Duration by Destination",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Outgoing Request Size By Destination",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P50 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_bytes_bucket:source:bydestination:mutual_tls:histogram50"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Outgoing Request Size By Destination",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P90 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_bytes_bucket:source:bydestination:mutual_tls:histogram90"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Outgoing Request Size By Destination",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P95 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_bytes_bucket:source:bydestination:mutual_tls:histogram95"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Outgoing Request Size By Destination",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P99 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_bytes_bucket:source:bydestination:mutual_tls:histogram99"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Outgoing Request Size By Destination",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P50",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_bytes_bucket:source:bydestination:not_mutual_tls:histogram50"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Outgoing Request Size By Destination",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P90",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_bytes_bucket:source:bydestination:not_mutual_tls:histogram90"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Outgoing Request Size By Destination",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P95",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_bytes_bucket:source:bydestination:not_mutual_tls:histogram95"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Outgoing Request Size By Destination",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P99",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_request_bytes_bucket:source:bydestination:not_mutual_tls:histogram99"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 18,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Outgoing Request Size By Destination",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Response Size By Destination",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P50 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_response_bytes_bucket:source:bydestination:mutual_tls:histogram50"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Response Size By Destination",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P90 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_response_bytes_bucket:source:bydestination:mutual_tls:histogram90"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Response Size By Destination",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P95 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_response_bytes_bucket:source:bydestination:mutual_tls:histogram95"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Response Size By Destination",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P99 (mTLS)",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_response_bytes_bucket:source:bydestination:mutual_tls:histogram99"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Response Size By Destination",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P50",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_response_bytes_bucket:source:bydestination:not_mutual_tls:histogram50"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Response Size By Destination",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P90",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_response_bytes_bucket:source:bydestination:not_mutual_tls:histogram90"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Response Size By Destination",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P95",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_response_bytes_bucket:source:bydestination:not_mutual_tls:histogram95"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Response Size By Destination",
+              "timeSeriesDisplayNameTemplate": "{{destination_service}} P99",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "istio_response_bytes_bucket:source:bydestination:not_mutual_tls:histogram99"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 19,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Response Size By Destination",
+        "type": "advancedTimechart"
+      }
+    ],
+    "schema": 3,
+    "scopeExpressionList": []
+  }
+}

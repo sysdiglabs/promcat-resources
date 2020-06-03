@@ -1,28 +1,27 @@
----
 apiVersion: v1
 kind: Alert
-app: "AWS Lambda"
+app: AWS Lambda
 version: 1.0.0
-appVersion: 
-  - 1.0.0
+appVersion:
+- 1.0.0
 maintainers:
-  - name: Sysdig team
-    link: https://sysdig.com/
+- name: Sysdig team
+  link: https://sysdig.com/
 description: |
   # Alerts
   ## HighFunctionErrorRate
-  A Lambda function can end with an error.   
-  This alert triggers when the percentage of executions of a function excess a threshold for a certain period of time. 
-  
-  The recommended value for this alert is 15% of the functions ended with error for 10 minutes.
-  
-  ## ThrottlingFunction
-  Lambda has a limited number of concurrent executions per function. 
-  When you reach this limit, the function cannot be executed. The metric 'throttled' gives information of the executions that were not executed because they reached the concurrency limit. 
-  Constant throttling can indicate that a function is called more times that its reserved concurrency.  
+  A Lambda function can end with an error.
+  This alert triggers when the percentage of executions of a function excess a threshold for a certain period of time.
 
-  The recommended value for this alert is to alert when throttling for more than 10 minutes. 
-  
+  The recommended value for this alert is 15% of the functions ended with error for 10 minutes.
+
+  ## ThrottlingFunction
+  Lambda has a limited number of concurrent executions per function.
+  When you reach this limit, the function cannot be executed. The metric 'throttled' gives information of the executions that were not executed because they reached the concurrency limit.
+  Constant throttling can indicate that a function is called more times that its reserved concurrency.
+
+  The recommended value for this alert is to alert when throttling for more than 10 minutes.
+
   ## DestinationDeliveryFailures
   Detected destination delivery failures in a function.
 
@@ -40,10 +39,10 @@ description: |
   groups:
   - name: example
       # Insert here the alerts
-      rules: 
-  ``` 
+      rules:
+  ```
   ## In Sysdig Monitor
-  To install these alerts in Sysdig Monitor, contact with the support service. 
+  To install these alerts in Sysdig Monitor, contact with the support service.
 configurations:
 - kind: Prometheus
   data: |
@@ -95,7 +94,7 @@ configurations:
         "name": "HighFunctionErrorRate",
         "rateOfChange": false,
         "reNotify": false,
-        "reNotifyMinutes": "10m",
+        "reNotifyMinutes": 10,
         "severity": 4,
         "severityLabel": "LOW",
         "severityLevel": null,
@@ -116,7 +115,7 @@ configurations:
         "name": "ThrottlingFunction",
         "rateOfChange": false,
         "reNotify": false,
-        "reNotifyMinutes": "10m",
+        "reNotifyMinutes": 10,
         "severity": 4,
         "severityLabel": "LOW",
         "severityLevel": null,
@@ -137,7 +136,7 @@ configurations:
         "name": "DestinationDeliveryFailures",
         "rateOfChange": false,
         "reNotify": false,
-        "reNotifyMinutes": "10m",
+        "reNotifyMinutes": 10,
         "severity": 4,
         "severityLabel": "LOW",
         "severityLevel": null,
@@ -158,7 +157,7 @@ configurations:
         "name": "DeadLetterErrors",
         "rateOfChange": false,
         "reNotify": false,
-        "reNotifyMinutes": "10m",
+        "reNotifyMinutes": 10,
         "severity": 4,
         "severityLabel": "LOW",
         "severityLevel": null,
@@ -179,7 +178,7 @@ configurations:
         "name": "HighIteratorAge",
         "rateOfChange": false,
         "reNotify": false,
-        "reNotifyMinutes": "10m",
+        "reNotifyMinutes": 10,
         "severity": 4,
         "severityLabel": "LOW",
         "severityLevel": null,

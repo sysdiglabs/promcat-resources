@@ -1,0 +1,1979 @@
+{
+  "dashboard": {
+    "description": "",
+    "layout": [
+      {
+        "h": 3,
+        "panelId": 1,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 2,
+        "w": 6,
+        "x": 6,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 3,
+        "w": 6,
+        "x": 12,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 4,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 5,
+        "w": 12,
+        "x": 0,
+        "y": 3
+      },
+      {
+        "h": 3,
+        "panelId": 6,
+        "w": 12,
+        "x": 0,
+        "y": 6
+      },
+      {
+        "h": 3,
+        "panelId": 7,
+        "w": 12,
+        "x": 12,
+        "y": 3
+      },
+      {
+        "h": 3,
+        "panelId": 8,
+        "w": 12,
+        "x": 12,
+        "y": 6
+      },
+      {
+        "h": 3,
+        "panelId": 9,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      {
+        "h": 4,
+        "panelId": 10,
+        "w": 12,
+        "x": 0,
+        "y": 12
+      },
+      {
+        "h": 3,
+        "panelId": 11,
+        "w": 12,
+        "x": 0,
+        "y": 16
+      },
+      {
+        "h": 2,
+        "panelId": 12,
+        "w": 4,
+        "x": 12,
+        "y": 9
+      },
+      {
+        "h": 2,
+        "panelId": 13,
+        "w": 4,
+        "x": 12,
+        "y": 11
+      },
+      {
+        "h": 2,
+        "panelId": 15,
+        "w": 4,
+        "x": 16,
+        "y": 9
+      },
+      {
+        "h": 2,
+        "panelId": 16,
+        "w": 4,
+        "x": 16,
+        "y": 11
+      },
+      {
+        "h": 6,
+        "panelId": 18,
+        "w": 12,
+        "x": 12,
+        "y": 13
+      },
+      {
+        "h": 2,
+        "panelId": 19,
+        "w": 4,
+        "x": 20,
+        "y": 11
+      },
+      {
+        "h": 2,
+        "panelId": 20,
+        "w": 4,
+        "x": 20,
+        "y": 9
+      }
+    ],
+    "name": "AWS S3 Golden Signals",
+    "panels": [
+      {
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "createdAt": 1586780686448,
+                  "customerId": 25008,
+                  "deferred": false,
+                  "documentId": "25008-1332518845881279698",
+                  "documentTimestamp": 1586780686448,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "firstSeen": 1585758599222,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "promraw.aws_s3_4xx_errors_average",
+                  "identity": false,
+                  "lastSeen": 1586775914386,
+                  "metricType": "gauge",
+                  "name": "aws_s3_4xx_errors_average",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": 25008,
+                    "routing": "25008"
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "segmentations": [
+                    "agent.tag",
+                    "cloudProvider.tag",
+                    "container.id",
+                    "container.image",
+                    "container.label",
+                    "container.name",
+                    "dimension_BucketName",
+                    "dimension_FilterId",
+                    "host.hostName",
+                    "host.mac",
+                    "name",
+                    "proc.commandLine",
+                    "proc.name",
+                    "region"
+                  ],
+                  "timeAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "promraw.aws_s3_4xx_errors_average",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "category": "prometheus",
+                    "createdAt": 1586780686448,
+                    "customerId": 25008,
+                    "deferred": false,
+                    "documentId": "25008--8385877760260155735",
+                    "documentTimestamp": 1586780686448,
+                    "documentType": "metric",
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "dimension_BucketName",
+                    "identity": false,
+                    "lastSeen": 1586775915897,
+                    "metricType": "tag",
+                    "namespaces": [
+                      "host",
+                      "host.process",
+                      "host.container",
+                      "cloudProvider",
+                      "mesos",
+                      "ecs",
+                      "kubernetes.cluster",
+                      "kubernetes.namespace",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.daemonSet",
+                      "kubernetes.service",
+                      "kubernetes.node",
+                      "kubernetes.replicaSet",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.persistentvolume",
+                      "kubernetes.persistentvolumeclaim",
+                      "kubernetes.pod"
+                    ],
+                    "routingInfo": {
+                      "customerId": 25008,
+                      "routing": "25008"
+                    },
+                    "scale": 1.0,
+                    "scopes": [],
+                    "segment": false,
+                    "segmentations": [],
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": "",
+                  "id": "dimension_BucketName",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 1,
+        "name": "Top 4XX Error Rate",
+        "type": "basicToplist"
+      },
+      {
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "createdAt": 1586780686448,
+                  "customerId": 25008,
+                  "deferred": false,
+                  "documentId": "25008-1999327771329532305",
+                  "documentTimestamp": 1586780686448,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "firstSeen": 1585758599222,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "promraw.aws_s3_5xx_errors_average",
+                  "identity": false,
+                  "lastSeen": 1586775914386,
+                  "metricType": "gauge",
+                  "name": "aws_s3_5xx_errors_average",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": 25008,
+                    "routing": "25008"
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "segmentations": [
+                    "agent.tag",
+                    "cloudProvider.tag",
+                    "container.id",
+                    "container.image",
+                    "container.label",
+                    "container.name",
+                    "dimension_BucketName",
+                    "dimension_FilterId",
+                    "host.hostName",
+                    "host.mac",
+                    "name",
+                    "proc.commandLine",
+                    "proc.name",
+                    "region"
+                  ],
+                  "timeAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "promraw.aws_s3_5xx_errors_average",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "category": "prometheus",
+                    "createdAt": 1586780686448,
+                    "customerId": 25008,
+                    "deferred": false,
+                    "documentId": "25008--8385877760260155735",
+                    "documentTimestamp": 1586780686448,
+                    "documentType": "metric",
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "dimension_BucketName",
+                    "identity": false,
+                    "lastSeen": 1586775915897,
+                    "metricType": "tag",
+                    "namespaces": [
+                      "host",
+                      "host.process",
+                      "host.container",
+                      "cloudProvider",
+                      "mesos",
+                      "ecs",
+                      "kubernetes.cluster",
+                      "kubernetes.namespace",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.daemonSet",
+                      "kubernetes.service",
+                      "kubernetes.node",
+                      "kubernetes.replicaSet",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.persistentvolume",
+                      "kubernetes.persistentvolumeclaim",
+                      "kubernetes.pod"
+                    ],
+                    "routingInfo": {
+                      "customerId": 25008,
+                      "routing": "25008"
+                    },
+                    "scale": 1.0,
+                    "scopes": [],
+                    "segment": false,
+                    "segmentations": [],
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": "",
+                  "id": "dimension_BucketName",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 2,
+        "name": "Top 5XX Error Rate",
+        "type": "basicToplist"
+      },
+      {
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "createdAt": 1586780686447,
+                  "customerId": 25008,
+                  "deferred": false,
+                  "documentId": "25008-6538382594603110313",
+                  "documentTimestamp": 1586780686447,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "firstSeen": 1586775914386,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "promraw.aws_s3_first_byte_latency_p95",
+                  "identity": false,
+                  "lastSeen": 1586775914386,
+                  "metricType": "gauge",
+                  "name": "aws_s3_first_byte_latency_p95",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": 25008,
+                    "routing": "25008"
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "segmentations": [
+                    "agent.tag",
+                    "cloudProvider.tag",
+                    "container.id",
+                    "container.image",
+                    "container.label",
+                    "container.name",
+                    "dimension_BucketName",
+                    "dimension_FilterId",
+                    "host.hostName",
+                    "host.mac",
+                    "name",
+                    "proc.commandLine",
+                    "proc.name",
+                    "region"
+                  ],
+                  "timeAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "promraw.aws_s3_first_byte_latency_p95",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "category": "prometheus",
+                    "createdAt": 1586780686448,
+                    "customerId": 25008,
+                    "deferred": false,
+                    "documentId": "25008--8385877760260155735",
+                    "documentTimestamp": 1586780686448,
+                    "documentType": "metric",
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "dimension_BucketName",
+                    "identity": false,
+                    "lastSeen": 1586775915897,
+                    "metricType": "tag",
+                    "namespaces": [
+                      "host",
+                      "host.process",
+                      "host.container",
+                      "cloudProvider",
+                      "mesos",
+                      "ecs",
+                      "kubernetes.cluster",
+                      "kubernetes.namespace",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.daemonSet",
+                      "kubernetes.service",
+                      "kubernetes.node",
+                      "kubernetes.replicaSet",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.persistentvolume",
+                      "kubernetes.persistentvolumeclaim",
+                      "kubernetes.pod"
+                    ],
+                    "routingInfo": {
+                      "customerId": 25008,
+                      "routing": "25008"
+                    },
+                    "scale": 1.0,
+                    "scopes": [],
+                    "segment": false,
+                    "segmentations": [],
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": "",
+                  "id": "dimension_BucketName",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 3,
+        "name": "Top First Byte Latency",
+        "type": "basicToplist"
+      },
+      {
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "createdAt": 1586780686448,
+                  "customerId": 25008,
+                  "deferred": false,
+                  "documentId": "25008-3460542545864515488",
+                  "documentTimestamp": 1586780686448,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "firstSeen": 1586775914386,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "promraw.aws_s3_total_request_latency_p95",
+                  "identity": false,
+                  "lastSeen": 1586775914386,
+                  "metricType": "gauge",
+                  "name": "aws_s3_total_request_latency_p95",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": 25008,
+                    "routing": "25008"
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "segmentations": [
+                    "agent.tag",
+                    "cloudProvider.tag",
+                    "container.id",
+                    "container.image",
+                    "container.label",
+                    "container.name",
+                    "dimension_BucketName",
+                    "dimension_FilterId",
+                    "host.hostName",
+                    "host.mac",
+                    "name",
+                    "proc.commandLine",
+                    "proc.name",
+                    "region"
+                  ],
+                  "timeAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "promraw.aws_s3_total_request_latency_p95",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "category": "prometheus",
+                    "createdAt": 1586780686448,
+                    "customerId": 25008,
+                    "deferred": false,
+                    "documentId": "25008--8385877760260155735",
+                    "documentTimestamp": 1586780686448,
+                    "documentType": "metric",
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "dimension_BucketName",
+                    "identity": false,
+                    "lastSeen": 1586775915897,
+                    "metricType": "tag",
+                    "namespaces": [
+                      "host",
+                      "host.process",
+                      "host.container",
+                      "cloudProvider",
+                      "mesos",
+                      "ecs",
+                      "kubernetes.cluster",
+                      "kubernetes.namespace",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.daemonSet",
+                      "kubernetes.service",
+                      "kubernetes.node",
+                      "kubernetes.replicaSet",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.persistentvolume",
+                      "kubernetes.persistentvolumeclaim",
+                      "kubernetes.pod"
+                    ],
+                    "routingInfo": {
+                      "customerId": 25008,
+                      "routing": "25008"
+                    },
+                    "scale": 1.0,
+                    "scopes": [],
+                    "segment": false,
+                    "segmentations": [],
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": "",
+                  "id": "dimension_BucketName",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 4,
+        "name": "Top Total Request Latency",
+        "type": "basicToplist"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "4XX Error Rate",
+              "timeSeriesDisplayNameTemplate": "{{dimension_BucketName}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "topk(10,aws_s3_4xx_errors_average) * 100"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": 100.0,
+            "minInputFormat": "0-100",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": false,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "%"
+          }
+        },
+        "description": "",
+        "id": 5,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "4XX Error rate (Top 10)",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "5XX Error Rate",
+              "timeSeriesDisplayNameTemplate": "{{dimension_BucketName}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "topk(10,aws_s3_5xx_errors_average) * 100"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": 100.0,
+            "minInputFormat": "0-100",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": false,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "%"
+          }
+        },
+        "description": "",
+        "id": 6,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "5XX Error rate (Top 10)",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "{{dimension_BucketName}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "ms",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "topk(5,aws_s3_first_byte_latency_p95)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": false,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 7,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Top 5 First Byte Latency",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "{{dimension_BucketName}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "ms",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "topk(5,aws_s3_total_request_latency_p95)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": false,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 8,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Top 5 Total Request Latency",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Upload",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B/s",
+              "unit": "byteRate",
+              "yAxis": "auto"
+            },
+            "query": "avg(aws_s3_bytes_uploaded_sum) / 300"
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Download",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B/s",
+              "unit": "byteRate",
+              "yAxis": "auto"
+            },
+            "query": "avg(aws_s3_bytes_downloaded_sum) / 300"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B/s",
+            "maxValue": null,
+            "minInputFormat": "B/s",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": false,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "%"
+          }
+        },
+        "description": "",
+        "id": 9,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Bitrate Up/Down (B/s)",
+        "type": "advancedTimechart"
+      },
+      {
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "createdAt": 1586780686448,
+                  "customerId": 25008,
+                  "deferred": false,
+                  "documentId": "25008--8637475063100877538",
+                  "documentTimestamp": 1586780686448,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "firstSeen": 1585758599222,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "promraw.aws_s3_bytes_uploaded_sum",
+                  "identity": false,
+                  "lastSeen": 1586775914386,
+                  "metricType": "gauge",
+                  "name": "aws_s3_bytes_uploaded_sum",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": 25008,
+                    "routing": "25008"
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "segmentations": [
+                    "agent.tag",
+                    "cloudProvider.tag",
+                    "container.id",
+                    "container.image",
+                    "container.label",
+                    "container.name",
+                    "dimension_BucketName",
+                    "dimension_FilterId",
+                    "host.hostName",
+                    "host.mac",
+                    "name",
+                    "proc.commandLine",
+                    "proc.name",
+                    "region"
+                  ],
+                  "timeAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "sum",
+                "id": "promraw.aws_s3_bytes_uploaded_sum",
+                "sorting": null,
+                "timeAggregation": "sum"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "category": "prometheus",
+                    "createdAt": 1586780686448,
+                    "customerId": 25008,
+                    "deferred": false,
+                    "documentId": "25008--8385877760260155735",
+                    "documentTimestamp": 1586780686448,
+                    "documentType": "metric",
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "dimension_BucketName",
+                    "identity": false,
+                    "lastSeen": 1586775915897,
+                    "metricType": "tag",
+                    "namespaces": [
+                      "host",
+                      "host.process",
+                      "host.container",
+                      "cloudProvider",
+                      "mesos",
+                      "ecs",
+                      "kubernetes.cluster",
+                      "kubernetes.namespace",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.daemonSet",
+                      "kubernetes.service",
+                      "kubernetes.node",
+                      "kubernetes.replicaSet",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.persistentvolume",
+                      "kubernetes.persistentvolumeclaim",
+                      "kubernetes.pod"
+                    ],
+                    "routingInfo": {
+                      "customerId": 25008,
+                      "routing": "25008"
+                    },
+                    "scale": 1.0,
+                    "scopes": [],
+                    "segment": false,
+                    "segmentations": [],
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": "",
+                  "id": "dimension_BucketName",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 10,
+        "name": "Top Upstream Traffic ",
+        "type": "basicToplist"
+      },
+      {
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "createdAt": 1586780686448,
+                  "customerId": 25008,
+                  "deferred": false,
+                  "documentId": "25008--2259348250926769171",
+                  "documentTimestamp": 1586780686448,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "firstSeen": 1585758599222,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "promraw.aws_s3_bytes_downloaded_sum",
+                  "identity": false,
+                  "lastSeen": 1586775914386,
+                  "metricType": "gauge",
+                  "name": "aws_s3_bytes_downloaded_sum",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": 25008,
+                    "routing": "25008"
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "segmentations": [
+                    "agent.tag",
+                    "cloudProvider.tag",
+                    "container.id",
+                    "container.image",
+                    "container.label",
+                    "container.name",
+                    "dimension_BucketName",
+                    "dimension_FilterId",
+                    "host.hostName",
+                    "host.mac",
+                    "name",
+                    "proc.commandLine",
+                    "proc.name",
+                    "region"
+                  ],
+                  "timeAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "promraw.aws_s3_bytes_downloaded_sum",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "category": "prometheus",
+                    "createdAt": 1586780686448,
+                    "customerId": 25008,
+                    "deferred": false,
+                    "documentId": "25008--8385877760260155735",
+                    "documentTimestamp": 1586780686448,
+                    "documentType": "metric",
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "dimension_BucketName",
+                    "identity": false,
+                    "lastSeen": 1586775915897,
+                    "metricType": "tag",
+                    "namespaces": [
+                      "host",
+                      "host.process",
+                      "host.container",
+                      "cloudProvider",
+                      "mesos",
+                      "ecs",
+                      "kubernetes.cluster",
+                      "kubernetes.namespace",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.daemonSet",
+                      "kubernetes.service",
+                      "kubernetes.node",
+                      "kubernetes.replicaSet",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.persistentvolume",
+                      "kubernetes.persistentvolumeclaim",
+                      "kubernetes.pod"
+                    ],
+                    "routingInfo": {
+                      "customerId": 25008,
+                      "routing": "25008"
+                    },
+                    "scale": 1.0,
+                    "scopes": [],
+                    "segment": false,
+                    "segmentations": [],
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": "",
+                  "id": "dimension_BucketName",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 11,
+        "name": "Top Downstream Traffic",
+        "type": "basicToplist"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "count(aws_s3_bucket_size_bytes_average)"
+          }
+        ],
+        "description": "",
+        "id": 12,
+        "name": "Number of Buckets",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_s3_bucket_size_bytes_average)"
+          }
+        ],
+        "description": "",
+        "id": 13,
+        "name": "Total Storage",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "max(aws_s3_bucket_size_bytes_average)"
+          }
+        ],
+        "description": "",
+        "id": 15,
+        "name": "Max Bucket",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "min(aws_s3_bucket_size_bytes_average)"
+          }
+        ],
+        "description": "",
+        "id": 16,
+        "name": "Min Bucket",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "createdAt": 1586780686448,
+                  "customerId": 25008,
+                  "deferred": false,
+                  "documentId": "25008-9066500891702764433",
+                  "documentTimestamp": 1586780686448,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "firstSeen": 1585758598624,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "promraw.aws_s3_bucket_size_bytes_average",
+                  "identity": false,
+                  "lastSeen": 1586775915897,
+                  "metricType": "gauge",
+                  "name": "aws_s3_bucket_size_bytes_average",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": 25008,
+                    "routing": "25008"
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "segmentations": [
+                    "agent.tag",
+                    "cloudProvider.tag",
+                    "container.id",
+                    "container.image",
+                    "container.label",
+                    "container.name",
+                    "dimension_BucketName",
+                    "dimension_StorageType",
+                    "host.hostName",
+                    "host.mac",
+                    "name",
+                    "proc.commandLine",
+                    "proc.name",
+                    "region"
+                  ],
+                  "timeAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "promraw.aws_s3_bucket_size_bytes_average",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "category": "prometheus",
+                    "createdAt": 1586780686448,
+                    "customerId": 25008,
+                    "deferred": false,
+                    "documentId": "25008--8385877760260155735",
+                    "documentTimestamp": 1586780686448,
+                    "documentType": "metric",
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "dimension_BucketName",
+                    "identity": false,
+                    "lastSeen": 1586775915897,
+                    "metricType": "tag",
+                    "namespaces": [
+                      "host",
+                      "host.process",
+                      "host.container",
+                      "cloudProvider",
+                      "mesos",
+                      "ecs",
+                      "kubernetes.cluster",
+                      "kubernetes.namespace",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.daemonSet",
+                      "kubernetes.service",
+                      "kubernetes.node",
+                      "kubernetes.replicaSet",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.persistentvolume",
+                      "kubernetes.persistentvolumeclaim",
+                      "kubernetes.pod"
+                    ],
+                    "routingInfo": {
+                      "customerId": 25008,
+                      "routing": "25008"
+                    },
+                    "scale": 1.0,
+                    "scopes": [],
+                    "segment": false,
+                    "segmentations": [],
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": "",
+                  "id": "dimension_BucketName",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 18,
+        "name": "Top Buckets",
+        "type": "basicToplist"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "quantile(0.95,aws_s3_bucket_size_bytes_average)"
+          }
+        ],
+        "description": "",
+        "id": 19,
+        "name": "P95 Bucket",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "avg(aws_s3_bucket_size_bytes_average)"
+          }
+        ],
+        "description": "",
+        "id": 20,
+        "name": "Average Bucket",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      }
+    ],
+    "schema": 3,
+    "scopeExpressionList": []
+  }
+}

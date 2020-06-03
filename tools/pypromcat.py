@@ -2,6 +2,12 @@ import yaml
 import json
 from yaml.representer import SafeRepresenter
 import re
+import os.path
+
+timeConversions = {"s": 0.0166666,
+                    "m": 1,
+                    "h": 60,
+                    "d": 1440}
 
 def getConfigurations(resource):
   return resource['configurations']
@@ -18,7 +24,29 @@ def loadYaml(input):
 
 def loadYamlFile(path):
   file = open(path)
-  return loadYaml(file)
+  yamlFile = loadYaml(file)
+  if "configurations" in yamlFile:
+    for configuration in yamlFile["configurations"]:
+      if "file" in configuration:
+        fileToIncludePath = os.path.dirname(path) + "/" + configuration["file"]
+        with open(fileToIncludePath, 'r') as file:
+          configuration["data"] =  file.read()
+
+  return yamlFile
+
+# Loads Yam File without inserting the include files inside configurations
+def loadRawYamlFile(path):
+  file = open(path)
+  yamlFile = loadYaml(file)
+  return yamlFile
+
+def prometheusTime2Minutes(prometheusTime):
+  prometheusNumber = int(prometheusTime[:-1])
+  prometheusUnit = prometheusTime[-1]
+  if prometheusUnit not in timeConversions:
+    print("Unit conversion not supported: " + prometheusTime)
+    exit(1)
+  return round(prometheusNumber * timeConversions[prometheusUnit])
 
 def prometheusAlert2SysdigAlert(promAlert):
   sysdigAlert = {}
@@ -32,7 +60,7 @@ def prometheusAlert2SysdigAlert(promAlert):
   sysdigAlert['alert']['rateOfChange'] = False
   sysdigAlert['alert']['reNotify'] = False
   if "for" in promAlert:
-    sysdigAlert['alert']['reNotifyMinutes'] = promAlert['for']
+    sysdigAlert['alert']['reNotifyMinutes'] = prometheusTime2Minutes(promAlert['for'])
   else:
     sysdigAlert['alert']['reNotifyMinutes'] = 0
   sysdigAlert['alert']['severity'] = 4

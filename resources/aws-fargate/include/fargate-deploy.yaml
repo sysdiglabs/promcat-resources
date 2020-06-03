@@ -1,0 +1,161 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: yace
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yace-fargate
+  namespace: yace
+spec:
+  selector:
+    matchLabels:
+      app: yace-fargate
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: yace-fargate
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "5000"
+    spec:
+      containers:
+      - name: yace
+        image: quay.io/invisionag/yet-another-cloudwatch-exporter:v0.16.0-alpha
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+          - name: yace-fargate-config
+            mountPath: /tmp/config.yml
+            subPath: config.yml
+          - name: yace-fargate-credentials
+            mountPath: /exporter/.aws/credentials
+            subPath: credentials
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: yace-fargate-config
+          name: yace-fargate-config
+        - secret:
+            defaultMode: 420
+            secretName: yace-fargate-credentials
+          name: yace-fargate-credentials
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: yace-fargate-config
+  namespace: yace
+data:
+  config.yml: |
+    discovery:
+      jobs:
+      - region: us-east-1
+        type: ecs-containerinsights
+        enableMetricData: true
+        metrics:
+          - name: ContainerInstanceCount
+            statistics:
+            - Average
+            period: 60
+            length: 300
+          - name: ServiceCount
+            statistics:
+            - Average
+            period: 60
+            length: 300
+
+      - region: us-east-1
+        type: ecs-containerinsights
+        enableMetricData: true
+        awsDimensions:
+          - ServiceName
+        metrics:
+          - name: CpuReserved
+            statistics:
+            - Average
+            period: 60
+            length: 300
+          - name: CpuUtilized
+            statistics:
+            - Average
+            period: 60
+            length: 300
+          - name: MemoryReserved
+            statistics:
+            - Average
+            period: 60
+            length: 300
+          - name: MemoryUtilized
+            statistics:
+            - Average
+            period: 60
+            length: 300
+          - name: StorageReadBytes
+            statistics:
+            - Average
+            period: 60
+            length: 300
+          - name: StorageWriteBytes
+            statistics:
+            - Average
+            period: 60
+            length: 300
+          - name: NetworkRxBytes
+            statistics:
+            - Average
+            period: 60
+            length: 300
+          - name: NetworkTxBytes
+            statistics:
+            - Average
+            period: 60
+            length: 300
+          - name: DesiredTaskCount
+            statistics:
+            - Average
+            period: 60
+            length: 300
+          - name: TaskCount
+            statistics:
+            - Average
+            period: 60
+            length: 300
+          - name: PendingTaskCount
+            statistics:
+            - Average
+            period: 60
+            length: 300
+          - name: RunningTaskCount
+            statistics:
+            - Average
+            period: 60
+            length: 300
+          - name: DeploymentCount
+            statistics:
+            - Average
+            period: 60
+            length: 300
+          - name: TaskSetCount
+            statistics:
+            - Average
+            period: 60
+            length: 300
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: yace-fargate-credentials
+  namespace: yace
+data:
+  # Add in credentials the result of:
+  # cat ~/.aws/credentials | base64
+  credentials: |
+    XXXXX
