@@ -10,43 +10,43 @@ maintainers:
     link: https://sysdig.com/
 configurations: 
   - name: ElasticSearch cluster overview
-  kind: Sysdig
-  image: elasticsearch/images/elastic_cluster_sysdig.png
-  description: |
-    This dashboard offers information on:
-    * Cluster health
-    * Overview of resources of the cluster
-  file: include/ElasticSearch_cluster.json
+    kind: Sysdig
+    image: elasticsearch/images/elastic_cluster_sysdig.png
+    description: |
+      This dashboard offers information on:
+      * Cluster health
+      * Overview of resources of the cluster
+    file: include/ElasticSearch_cluster.json
 
   - name: ElasticSearch cluster overview
-  kind: Grafana
-  image: elasticsearch/images/elastic_cluster_grafana.png
-  description: |
-    This dashboard offers information on:
-    * Cluster health
-    * Overview of resources of the cluster
-  file: include/ElasticSearch_cluster_grafana.json
+    kind: Grafana
+    image: elasticsearch/images/elastic_cluster_grafana.png
+    description: |
+      This dashboard offers information on:
+      * Cluster health
+      * Overview of resources of the cluster
+    file: include/ElasticSearch_cluster_grafana.json
 
   - name: ElasticSearch infra overview
-  kind: Sysdig
-  image: elasticsearch/images/elastic_infra_sysdig.png
-  description: |
-    This dashboard offers information on:
-    * Cpu and memory usage
-    * Disk usage
-    * GC information
-    * Network usage
-    * Indices information
-  file: include/ElasticSearch_cluster.json
-  
+    kind: Sysdig
+    image: elasticsearch/images/elastic_infra_sysdig.png
+    description: |
+      This dashboard offers information on:
+      * Cpu and memory usage
+      * Disk usage
+      * GC information
+      * Network usage
+      * Indices information
+    file: include/ElasticSearch_cluster.json
+
   - name: ElasticSearch infra overview
-  kind: Grafana
-  image: elasticsearch/images/elastic_infra_grafana.png
-  description: |
-    This dashboard offers information on:
-    * Cpu and memory usage
-    * Disk usage
-    * GC information
-    * Network usage
-    * Indices information
-  file: include/ElasticSearch_cluster_grafana.json  
+    kind: Grafana
+    image: elasticsearch/images/elastic_infra_grafana.png
+    description: |
+      This dashboard offers information on:
+      * Cpu and memory usage
+      * Disk usage
+      * GC information
+      * Network usage
+      * Indices information
+    file: include/ElasticSearch_cluster_grafana.json  
