@@ -1,16 +1,15 @@
----
 apiVersion: v1
 kind: Alert
-app: ""
+app: ''
 version: 1.0.0
-appVersion: 
-  - 1.0.0
+appVersion:
+- 1.0.0
 maintainers:
-  - name: Sysdig team
-    link: https://sysdig.com/
+- name: Sysdig team
+  link: https://sysdig.com/
 description: |
   # Alerts
-  
+
   # Installing the alerts
   ## In Prometheus
   Copy the alerts for Prometheus and paste them inside of the configuration file in the groups section:
@@ -19,23 +18,23 @@ description: |
   groups:
   - name: example
       # Insert here the alerts
-      rules: 
-  ``` 
+      rules:
+  ```
   ## In Sysdig Monitor
-  To install these alerts in Sysdig Monitor, contact with the support service. 
-configurations: 
-  - kind: Prometheus
-    data: |
-      - alert: 
-        expr: 
-        for: 10m
-        labels: 
-          severity: page
-        annotations:
-          summary: Text {{$labels.label}}
-  - kind: Sysdig
-    data: |
-      {
+  To install these alerts in Sysdig Monitor, contact with the support service.
+configurations:
+- kind: Prometheus
+  data: |
+    - alert:
+      expr:
+      for: 10m
+      labels:
+        severity: page
+      annotations:
+        summary: Text {{$labels.label}}
+- kind: Sysdig
+  data: |-
+    {
       "alert": {
         "condition": null,
         "customNotification": {
@@ -46,11 +45,11 @@ configurations:
         "name": null,
         "rateOfChange": false,
         "reNotify": false,
-        "reNotifyMinutes": "10m",
+        "reNotifyMinutes": 10,
         "severity": 4,
         "severityLabel": "LOW",
         "severityLevel": null,
         "timespan": 600000000,
         "type": "PROMETHEUS"
-        }
       }
+    }

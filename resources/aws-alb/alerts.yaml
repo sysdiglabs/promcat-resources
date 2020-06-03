@@ -1,47 +1,46 @@
----
 apiVersion: v1
 kind: Alert
-app: "AWS ALB"
+app: AWS ALB
 version: 1.0.0
-appVersion: 
-  - 1.0.0
+appVersion:
+- 1.0.0
 maintainers:
-  - name: Sysdig team
-    link: https://sysdig.com/
-description: | 
+- name: Sysdig team
+  link: https://sysdig.com/
+description: |
   # Alerts
   ## High4XXErrorsFromLoadBalancer and High5XXErrorsFromLoadBalancer
   A request to a load balancer can end in an error triggered directly by the load balancer with codes stating by either by 4 or 5.
-  For a list of possible error codes and their causes you can read the [load balancers error codes documentation](https://docs.aws.amazon.com/elasticloadbalancing/atest/application/load-balancer-troubleshooting.html). 
-  
-  This alert triggers when the percentage of requests with each error code excess a threshold for a certain period of time. 
+  For a list of possible error codes and their causes you can read the [load balancers error codes documentation](https://docs.aws.amazon.com/elasticloadbalancing/atest/application/load-balancer-troubleshooting.html).
+
+  This alert triggers when the percentage of requests with each error code excess a threshold for a certain period of time.
   The recommended value for this alert is 15% of the requests ended with error for 10 minutes.
-  
-  > To configure this alert, you must specify the name of the load balancer in the alert. 
-  
+
+  > To configure this alert, you must specify the name of the load balancer in the alert.
+
   ## High4XXErrorsFromTargetGroup and High5XXErrorsFromTargetGroup
   A request to a load balancer can end in an error triggered by the target groups with codes stating by either by 4 or 5.
-  For a list of possible error codes and their causes you can read the [load balancers error codes documentation](https://docs.aws.amazon.com/elasticloadbalancing/atest/application/load-balancer-troubleshooting.html). 
-  
-  This alert triggers when the percentage of requests with each error code excess a threshold for a certain period of time. 
+  For a list of possible error codes and their causes you can read the [load balancers error codes documentation](https://docs.aws.amazon.com/elasticloadbalancing/atest/application/load-balancer-troubleshooting.html).
+
+  This alert triggers when the percentage of requests with each error code excess a threshold for a certain period of time.
   The recommended value for this alert is 15% of the requests ended with error for 10 minutes.
-  
-  > To configure this alert, you must specify the name of the target group in the alert. 
-  
+
+  > To configure this alert, you must specify the name of the target group in the alert.
+
   ## UnhealthyHostInTargetGroup
   This alerts triggers when there is one or more unhealthy hosts in a target group.
-  
+
   ## TLSNegotiationErrors
-  This alert triggers when there are continuos errors in TLS negotiation in a target group for more than 10 minutes. 
-  
+  This alert triggers when there are continuos errors in TLS negotiation in a target group for more than 10 minutes.
+
   ## RejectedConnectionsInLoadBalancer
   This alert triggers when there are continuos rejected connections in a target group for more than 10 minutes.
-  
+
   ## HighResponseTimeInTargetGroup
-  The processing time is the time elapsed, in seconds, after the request leaves the load balancer until a response from the target is received. 
-  
-  This alerts triggers when the percentile 95 of a load balancer is over 250ms for 10 minutes. 
-  
+  The processing time is the time elapsed, in seconds, after the request leaves the load balancer until a response from the target is received.
+
+  This alerts triggers when the percentile 95 of a load balancer is over 250ms for 10 minutes.
+
   # Installing the alerts
   ## In Prometheus
   Copy the alerts for Prometheus and paste them inside of the configuration file in the groups section:
@@ -50,259 +49,258 @@ description: |
   groups:
   - name: example
       # Insert here the alerts
-      rules: 
-  ``` 
+      rules:
+  ```
   ## In Sysdig Monitor
-  To install these alerts in Sysdig Monitor, contact with the support service. 
-configurations: 
-  - kind: Prometheus
-    data: | 
-      - alert: High4XXErrorsFromLoadBalancer
-        expr: |
-          (sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) / 
-           ( sum(aws_alb_request_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) 
-           + sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) 
-           + sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) 
-           + sum(aws_alb_httpcode_elb_3_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) > 0))  
-          > 0.15
-        for: 10m
-        labels: 
-          severity: page
-        annotations:
-          summary: High 4XX error rate in load balancer LOADBALANCER_NAME
-      - alert: High5XXErrorsFromLoadBalancer
-        expr: |
-          (sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) / 
-           ( sum(aws_alb_request_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) 
-           + sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) 
-           + sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) 
-           + sum(aws_alb_httpcode_elb_3_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) > 0))  
-          > 0.15
-        for: 10m
-        labels: 
-          severity: page
-        annotations:
-          summary: High 5XX error rate in load balancer LOADBALANCER_NAME
-      - alert: High4XXErrorsFromTargetGroup
-        expr: |
-          sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))  
-            / (sum(aws_alb_tg_httpcode_target_2_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) 
-             + sum(aws_alb_tg_httpcode_target_3_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) 
-             + sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) 
-             + sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))) 
-          > 0.15        
-        for: 10m
-        labels: 
-          severity: page
-        annotations:
-          summary: High 4XX error rate in target group TARGETGROUP_NAME 
-      - alert: High5XXErrorsFromTargetGroup
-        expr: |
-          sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))  
-            / (sum(aws_alb_tg_httpcode_target_2_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) 
-             + sum(aws_alb_tg_httpcode_target_3_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) 
-             + sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) 
-             + sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))) 
-          > 0.15        
-        for: 10m
-        labels: 
-          severity: page
-        annotations:
-          summary: High 5XX error rate in target group TARGETGROUP_NAME 
-      - alert: UnhealthyHostInTargetGroup
-        expr: aws_alb_tg_un_healthy_host_count_average > 0
-        for: 10m
-        labels: 
-          severity: page
-        annotations:
-          summary: Unhealthy host detected in target group {{$labels.dimension_TargetGroup}} of load balancer {{$labels.dimension_LoadBalancer}}
-      - alert: TLSNegotiationErrors
-        expr: aws_alb_client_tls_negotiation_error_count_sum > 0
-        for: 10m
-        labels: 
-          severity: page
-        annotations:
-          summary: Recurrent errors in TLS negotiation in load balancer {{$labels.dimension_LoadBalancer}}
-      - alert: RejectedConnectionsInLoadBalancer
-        expr: aws_alb_rejected_connection_count_sum > 0
-        for: 10m
-        labels: 
-          severity: page
-        annotations:
-          summary: Rejected connections in load balancer {{$labels.dimension_LoadBalancer}}
-      - alert: HighResponseTimeInTargetGroup
-        expr: aws_alb_tg_target_response_time_p95 > 0.250
-        for: 10m
-        labels: 
-          severity: page
-        annotations:
-          summary: High process time in responses from target group {{$labels.dimension_TargetGroup}} of load balancer {{$labels.dimension_LoadBalancer}}
-  - data: |-
-      {
-        "alert": {
-          "condition": "(sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) / \n ( sum(aws_alb_request_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) \n + sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) \n + sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) \n + sum(aws_alb_httpcode_elb_3_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) > 0))  \n> 0.15\n",
-          "customNotification": {
-            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-            "useNewTemplate": false
-          },
-          "enabled": true,
-          "name": "High4XXErrorsFromLoadBalancer",
-          "rateOfChange": false,
-          "reNotify": false,
-          "reNotifyMinutes": "10m",
-          "severity": 4,
-          "severityLabel": "LOW",
-          "severityLevel": null,
-          "timespan": 600000000,
-          "type": "PROMETHEUS"
-        }
+  To install these alerts in Sysdig Monitor, contact with the support service.
+configurations:
+- kind: Prometheus
+  data: |
+    - alert: High4XXErrorsFromLoadBalancer
+      expr: |
+        (sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) /
+         ( sum(aws_alb_request_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0))
+         + sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0))
+         + sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0))
+         + sum(aws_alb_httpcode_elb_3_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) > 0))
+        > 0.15
+      for: 10m
+      labels:
+        severity: page
+      annotations:
+        summary: High 4XX error rate in load balancer LOADBALANCER_NAME
+    - alert: High5XXErrorsFromLoadBalancer
+      expr: |
+        (sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) /
+         ( sum(aws_alb_request_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0))
+         + sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0))
+         + sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0))
+         + sum(aws_alb_httpcode_elb_3_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) > 0))
+        > 0.15
+      for: 10m
+      labels:
+        severity: page
+      annotations:
+        summary: High 5XX error rate in load balancer LOADBALANCER_NAME
+    - alert: High4XXErrorsFromTargetGroup
+      expr: |
+        sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))
+          / (sum(aws_alb_tg_httpcode_target_2_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))
+           + sum(aws_alb_tg_httpcode_target_3_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))
+           + sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))
+           + sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)))
+        > 0.15
+      for: 10m
+      labels:
+        severity: page
+      annotations:
+        summary: High 4XX error rate in target group TARGETGROUP_NAME
+    - alert: High5XXErrorsFromTargetGroup
+      expr: |
+        sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))
+          / (sum(aws_alb_tg_httpcode_target_2_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))
+           + sum(aws_alb_tg_httpcode_target_3_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))
+           + sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))
+           + sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)))
+        > 0.15
+      for: 10m
+      labels:
+        severity: page
+      annotations:
+        summary: High 5XX error rate in target group TARGETGROUP_NAME
+    - alert: UnhealthyHostInTargetGroup
+      expr: aws_alb_tg_un_healthy_host_count_average > 0
+      for: 10m
+      labels:
+        severity: page
+      annotations:
+        summary: Unhealthy host detected in target group {{$labels.dimension_TargetGroup}} of load balancer {{$labels.dimension_LoadBalancer}}
+    - alert: TLSNegotiationErrors
+      expr: aws_alb_client_tls_negotiation_error_count_sum > 0
+      for: 10m
+      labels:
+        severity: page
+      annotations:
+        summary: Recurrent errors in TLS negotiation in load balancer {{$labels.dimension_LoadBalancer}}
+    - alert: RejectedConnectionsInLoadBalancer
+      expr: aws_alb_rejected_connection_count_sum > 0
+      for: 10m
+      labels:
+        severity: page
+      annotations:
+        summary: Rejected connections in load balancer {{$labels.dimension_LoadBalancer}}
+    - alert: HighResponseTimeInTargetGroup
+      expr: aws_alb_tg_target_response_time_p95 > 0.250
+      for: 10m
+      labels:
+        severity: page
+      annotations:
+        summary: High process time in responses from target group {{$labels.dimension_TargetGroup}} of load balancer {{$labels.dimension_LoadBalancer}}
+- data: |-
+    {
+      "alert": {
+        "condition": "(sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) / \n ( sum(aws_alb_request_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) \n + sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) \n + sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) \n + sum(aws_alb_httpcode_elb_3_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) > 0))  \n> 0.15\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "High4XXErrorsFromLoadBalancer",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
       }
-    kind: Sysdig
-  - data: |-
-      {
-        "alert": {
-          "condition": "(sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) / \n ( sum(aws_alb_request_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) \n + sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) \n + sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) \n + sum(aws_alb_httpcode_elb_3_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) > 0))  \n> 0.15\n",
-          "customNotification": {
-            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-            "useNewTemplate": false
-          },
-          "enabled": true,
-          "name": "High5XXErrorsFromLoadBalancer",
-          "rateOfChange": false,
-          "reNotify": false,
-          "reNotifyMinutes": "10m",
-          "severity": 4,
-          "severityLabel": "LOW",
-          "severityLevel": null,
-          "timespan": 600000000,
-          "type": "PROMETHEUS"
-        }
+    }
+  kind: Sysdig
+- data: |-
+    {
+      "alert": {
+        "condition": "(sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) / \n ( sum(aws_alb_request_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) \n + sum(aws_alb_httpcode_elb_5_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) \n + sum(aws_alb_httpcode_elb_4_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) \n + sum(aws_alb_httpcode_elb_3_xx_count_sum{dimension_LoadBalancer='LOADBALANCER_NAME'} or vector(0)) > 0))  \n> 0.15\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "High5XXErrorsFromLoadBalancer",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
       }
-    kind: Sysdig
-  - data: |-
-      {
-        "alert": {
-          "condition": "sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))  \n  / (sum(aws_alb_tg_httpcode_target_2_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) \n   + sum(aws_alb_tg_httpcode_target_3_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) \n   + sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) \n   + sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))) \n> 0.15        \n",
-          "customNotification": {
-            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-            "useNewTemplate": false
-          },
-          "enabled": true,
-          "name": "High4XXErrorsFromTargetGroup",
-          "rateOfChange": false,
-          "reNotify": false,
-          "reNotifyMinutes": "10m",
-          "severity": 4,
-          "severityLabel": "LOW",
-          "severityLevel": null,
-          "timespan": 600000000,
-          "type": "PROMETHEUS"
-        }
+    }
+  kind: Sysdig
+- data: |-
+    {
+      "alert": {
+        "condition": "sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))  \n  / (sum(aws_alb_tg_httpcode_target_2_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) \n   + sum(aws_alb_tg_httpcode_target_3_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) \n   + sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) \n   + sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))) \n> 0.15        \n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "High4XXErrorsFromTargetGroup",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
       }
-    kind: Sysdig
-  - data: |-
-      {
-        "alert": {
-          "condition": "sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))  \n  / (sum(aws_alb_tg_httpcode_target_2_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) \n   + sum(aws_alb_tg_httpcode_target_3_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) \n   + sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) \n   + sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))) \n> 0.15        \n",
-          "customNotification": {
-            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-            "useNewTemplate": false
-          },
-          "enabled": true,
-          "name": "High5XXErrorsFromTargetGroup",
-          "rateOfChange": false,
-          "reNotify": false,
-          "reNotifyMinutes": "10m",
-          "severity": 4,
-          "severityLabel": "LOW",
-          "severityLevel": null,
-          "timespan": 600000000,
-          "type": "PROMETHEUS"
-        }
+    }
+  kind: Sysdig
+- data: |-
+    {
+      "alert": {
+        "condition": "sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))  \n  / (sum(aws_alb_tg_httpcode_target_2_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) \n   + sum(aws_alb_tg_httpcode_target_3_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) \n   + sum(aws_alb_tg_httpcode_target_4_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0)) \n   + sum(aws_alb_tg_httpcode_target_5_xx_count_sum{dimension_TargetGroup='TARGETGROUP_NAME'} or vector(0))) \n> 0.15        \n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "High5XXErrorsFromTargetGroup",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
       }
-    kind: Sysdig
-  - data: |-
-      {
-        "alert": {
-          "condition": "aws_alb_tg_un_healthy_host_count_average > 0",
-          "customNotification": {
-            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-            "useNewTemplate": false
-          },
-          "enabled": true,
-          "name": "UnhealthyHostInTargetGroup",
-          "rateOfChange": false,
-          "reNotify": false,
-          "reNotifyMinutes": "10m",
-          "severity": 4,
-          "severityLabel": "LOW",
-          "severityLevel": null,
-          "timespan": 600000000,
-          "type": "PROMETHEUS"
-        }
+    }
+  kind: Sysdig
+- data: |-
+    {
+      "alert": {
+        "condition": "aws_alb_tg_un_healthy_host_count_average > 0",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "UnhealthyHostInTargetGroup",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
       }
-    kind: Sysdig
-  - data: |-
-      {
-        "alert": {
-          "condition": "aws_alb_client_tls_negotiation_error_count_sum > 0",
-          "customNotification": {
-            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-            "useNewTemplate": false
-          },
-          "enabled": true,
-          "name": "TLSNegotiationErrors",
-          "rateOfChange": false,
-          "reNotify": false,
-          "reNotifyMinutes": "10m",
-          "severity": 4,
-          "severityLabel": "LOW",
-          "severityLevel": null,
-          "timespan": 600000000,
-          "type": "PROMETHEUS"
-        }
+    }
+  kind: Sysdig
+- data: |-
+    {
+      "alert": {
+        "condition": "aws_alb_client_tls_negotiation_error_count_sum > 0",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "TLSNegotiationErrors",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
       }
-    kind: Sysdig
-  - data: |-
-      {
-        "alert": {
-          "condition": "aws_alb_rejected_connection_count_sum > 0",
-          "customNotification": {
-            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-            "useNewTemplate": false
-          },
-          "enabled": true,
-          "name": "RejectedConnectionsInLoadBalancer",
-          "rateOfChange": false,
-          "reNotify": false,
-          "reNotifyMinutes": "10m",
-          "severity": 4,
-          "severityLabel": "LOW",
-          "severityLevel": null,
-          "timespan": 600000000,
-          "type": "PROMETHEUS"
-        }
+    }
+  kind: Sysdig
+- data: |-
+    {
+      "alert": {
+        "condition": "aws_alb_rejected_connection_count_sum > 0",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "RejectedConnectionsInLoadBalancer",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
       }
-    kind: Sysdig
-  - data: |-
-      {
-        "alert": {
-          "condition": "aws_alb_tg_target_response_time_p95 > 0.250",
-          "customNotification": {
-            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-            "useNewTemplate": false
-          },
-          "enabled": true,
-          "name": "HighResponseTimeInTargetGroup",
-          "rateOfChange": false,
-          "reNotify": false,
-          "reNotifyMinutes": "10m",
-          "severity": 4,
-          "severityLabel": "LOW",
-          "severityLevel": null,
-          "timespan": 600000000,
-          "type": "PROMETHEUS"
-        }
+    }
+  kind: Sysdig
+- data: |-
+    {
+      "alert": {
+        "condition": "aws_alb_tg_target_response_time_p95 > 0.250",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "HighResponseTimeInTargetGroup",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
       }
-    kind: Sysdig
-  
+    }
+  kind: Sysdig

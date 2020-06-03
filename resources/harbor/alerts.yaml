@@ -1,13 +1,12 @@
----
 apiVersion: v1
 kind: Alert
-app: "Harbor"
+app: Harbor
 version: 1.0.0
-appVersion: 
-  - '1.1'
+appVersion:
+- '1.1'
 maintainers:
-  - name: Sysdig team
-    link: https://sysdig.com/
+- name: Sysdig team
+  link: https://sysdig.com/
 description: |
   # Alerts
     ## HarborIsDown
@@ -15,63 +14,62 @@ description: |
 
     ##  ProjectQuotaIsRaisingTheLimit
     This alerts trigger when the usage of the storage of any project is getting close to the limit
-
-configurations: 
-  - kind: Prometheus
-    data: |
-      - alert: HarborIsDown
-        expr: harbor_up == 0
-        for: 5m
-        labels: 
-          severity: critical
-        annotations:
-          summary: The service of Harbor is Down
-      - alert: ProjectQuotaIsRaisingTheLimit
-        expr: harbor_quotas_size_bytes{type="used"} / ignoring(type) harbor_quotas_size_bytes{type="hard"} > 0.95
-        for: 5m
-        labels: 
-          severity: critical
-        annotations:
-          summary: The quota of the repository {{ $labels.repo_name }} is getting close to the limit
-  - data: |-
-      {
-        "alert": {
-          "condition": "harbor_up == 0",
-          "customNotification": {
-            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-            "useNewTemplate": false
-          },
-          "enabled": true,
-          "name": "HarborIsDown",
-          "rateOfChange": false,
-          "reNotify": false,
-          "reNotifyMinutes": "5m",
-          "severity": 4,
-          "severityLabel": "LOW",
-          "severityLevel": null,
-          "timespan": 600000000,
-          "type": "PROMETHEUS"
-        }
+configurations:
+- kind: Prometheus
+  data: |
+    - alert: HarborIsDown
+      expr: harbor_up == 0
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: The service of Harbor is Down
+    - alert: ProjectQuotaIsRaisingTheLimit
+      expr: harbor_quotas_size_bytes{type="used"} / ignoring(type) harbor_quotas_size_bytes{type="hard"} > 0.95
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: The quota of the repository {{ $labels.repo_name }} is getting close to the limit
+- data: |-
+    {
+      "alert": {
+        "condition": "harbor_up == 0",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "HarborIsDown",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
       }
-    kind: Sysdig
-  - data: |-
-      {
-        "alert": {
-          "condition": "harbor_quotas_size_bytes{type=\"used\"} / ignoring(type) harbor_quotas_size_bytes{type=\"hard\"} > 0.95",
-          "customNotification": {
-            "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-            "useNewTemplate": false
-          },
-          "enabled": true,
-          "name": "ProjectQuotaIsRaisingTheLimit",
-          "rateOfChange": false,
-          "reNotify": false,
-          "reNotifyMinutes": "5m",
-          "severity": 4,
-          "severityLabel": "LOW",
-          "severityLevel": null,
-          "timespan": 600000000,
-          "type": "PROMETHEUS"
-        }
+    }
+  kind: Sysdig
+- data: |-
+    {
+      "alert": {
+        "condition": "harbor_quotas_size_bytes{type=\"used\"} / ignoring(type) harbor_quotas_size_bytes{type=\"hard\"} > 0.95",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "ProjectQuotaIsRaisingTheLimit",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
       }
-    kind: Sysdig
+    }
+  kind: Sysdig
