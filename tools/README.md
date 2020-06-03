@@ -9,6 +9,18 @@ python3 generate_alerts_file.py -f inputfile.yaml
 # Output to a file
 python3 generate_alerts_file.py -f inputfile.yaml -o outputfile.yaml
 ```
+# Files extractor
+The tool extract_files_in_configurations.py takes as input a dashboards or exporter-config file and extracts
+the content of the 'data' fields of the 'configurations' elements into different files under the ./files/ subdirectory.
+
+The usage is the following:
+```
+# Output in console
+python3 extract_files_in_configurations.py -f inputfile.yaml 
+
+# Output to a file
+python3 extract_files_in_configurations.py -f inputfile.yaml -o outputfile.yaml
+```
 
 # Script toolbox
 

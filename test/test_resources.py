@@ -27,6 +27,18 @@ sysdig_dashboard_keys_level_1 = ['description','layout','name','panels','schema'
 compulsory_fields_all = ["apiVersion", "kind", "app", "version", "appVersion", 
                       "maintainers" ]
 
+def loadYamlFile(path):
+  file = open(path)
+  yamlFile = loadYaml(file)
+  if "configurations" in yamlFile:
+    for configuration in yamlFile["configurations"]:
+      if "file" in configuration:
+        fileToIncludePath = os.path.dirname(path) + "/" + configuration["file"]
+        with open(fileToIncludePath, 'r') as file:
+          configuration["data"] =  file.read()
+
+  return yamlFile
+
 def loadYaml(input):
   return yaml.full_load(input)
   
@@ -49,26 +61,25 @@ def loadResources():
               
   for root, dirs, files in os.walk('resources'):
     for file in files:
-       if file.endswith(".yaml"):
-          with open(os.path.join(root, file), "r") as resourceFile:
-            try:
-              resourceYaml = loadYaml(resourceFile)
-              if (resourceYaml["kind"] == "Description"):
-                descriptions.append(resourceYaml)
-              elif (resourceYaml["kind"] == "Dashboard"): 
-                dashboards.append(resourceYaml)
-              elif (resourceYaml["kind"] == "ExporterConfig"): 
-                exporterConfigs.append(resourceYaml)
-              elif (resourceYaml["kind"] == "Alert"): 
-                alerts.append(resourceYaml)
-              elif (resourceYaml["kind"] == "RecordingRule"): 
-                recordingRules.append(resourceYaml)
-              else: 
-                print("*** File: " + os.path.join(root, file) + " kind: " + resourceYaml["kind"] + " not supported.")
-                raise ValueError("File not supported.")
-            except:
-              print("*** Error loading file: " + os.path.join(root, file))
-              exit(1)
+      if file.endswith(".yaml") and "/files/" not in os.path.join(root, file):
+        resourceYaml = loadYamlFile(os.path.join(root, file))
+        try:
+          if (resourceYaml["kind"] == "Description"):
+            descriptions.append(resourceYaml)
+          elif (resourceYaml["kind"] == "Dashboard"): 
+            dashboards.append(resourceYaml)
+          elif (resourceYaml["kind"] == "ExporterConfig"): 
+            exporterConfigs.append(resourceYaml)
+          elif (resourceYaml["kind"] == "Alert"): 
+            alerts.append(resourceYaml)
+          elif (resourceYaml["kind"] == "RecordingRule"): 
+            recordingRules.append(resourceYaml)
+          else: 
+            print("*** File: " + os.path.join(root, file) + " kind: " + resourceYaml["kind"] + " not supported.")
+            raise ValueError("File not supported.")
+        except:
+          print("*** Error loading file: " + os.path.join(root, file))
+          exit(1)
 
 # General tests
 # Checks that a resource name does not exists in a list
