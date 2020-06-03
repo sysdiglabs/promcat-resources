@@ -61,7 +61,7 @@ def loadResources():
               
   for root, dirs, files in os.walk('resources'):
     for file in files:
-      if file.endswith(".yaml") and "/files/" not in os.path.join(root, file):
+      if file.endswith(".yaml") and "/include/" not in os.path.join(root, file):
         resourceYaml = loadYamlFile(os.path.join(root, file))
         try:
           if (resourceYaml["kind"] == "Description"):

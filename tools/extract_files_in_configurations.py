@@ -47,7 +47,7 @@ if yamlFile["kind"] not in ["ExporterConfig","Dashboard"]:
   exit (1)
 
 changed = False
-filesDirectory = os.path.dirname(args.file) + "/files"
+filesDirectory = os.path.dirname(args.file) + "/include"
 
 for configuration in yamlFile["configurations"]:
   if "data" in configuration:
@@ -59,7 +59,7 @@ for configuration in yamlFile["configurations"]:
         f = open(filesDirectory + "/" + fileName, "w")
         f.write(configuration["data"])
         f.close()
-        configuration["file"] = "files/" + fileName
+        configuration["file"] = "include/" + fileName
         del configuration["data"]
         changed = True
       else:
