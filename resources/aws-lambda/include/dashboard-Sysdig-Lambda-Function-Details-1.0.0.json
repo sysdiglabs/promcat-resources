@@ -1,0 +1,1013 @@
+{
+  "dashboard": {
+    "description": "",
+    "eventDisplaySettings": {
+      "enabled": false,
+      "queryParams": {
+        "alertStatuses": [],
+        "categories": [],
+        "filter": "",
+        "severities": [],
+        "teamScope": false
+      }
+    },
+    "layout": [
+      {
+        "h": 5,
+        "panelId": 2,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 5,
+        "panelId": 3,
+        "w": 6,
+        "x": 6,
+        "y": 0
+      },
+      {
+        "h": 5,
+        "panelId": 4,
+        "w": 6,
+        "x": 12,
+        "y": 0
+      },
+      {
+        "h": 5,
+        "panelId": 5,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      },
+      {
+        "h": 5,
+        "panelId": 6,
+        "w": 8,
+        "x": 0,
+        "y": 5
+      },
+      {
+        "h": 5,
+        "panelId": 7,
+        "w": 12,
+        "x": 0,
+        "y": 10
+      },
+      {
+        "h": 5,
+        "panelId": 8,
+        "w": 8,
+        "x": 0,
+        "y": 15
+      },
+      {
+        "h": 5,
+        "panelId": 9,
+        "w": 8,
+        "x": 8,
+        "y": 5
+      },
+      {
+        "h": 5,
+        "panelId": 10,
+        "w": 8,
+        "x": 16,
+        "y": 15
+      },
+      {
+        "h": 5,
+        "panelId": 11,
+        "w": 8,
+        "x": 16,
+        "y": 5
+      },
+      {
+        "h": 5,
+        "panelId": 12,
+        "w": 8,
+        "x": 8,
+        "y": 15
+      },
+      {
+        "h": 5,
+        "panelId": 13,
+        "w": 12,
+        "x": 12,
+        "y": 10
+      }
+    ],
+    "name": "AWS Lambda - Function Details",
+    "panels": [
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Error rate",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "100 * (aws_lambda_errors_sum{dimension_FunctionName=$function} / aws_lambda_invocations_sum{dimension_FunctionName=$function})"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 2,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Error rate",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Errors",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_lambda_dead_letter_errors_sum{dimension_FunctionName=$function} or vector(0))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 3,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Dead-letter Errors",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Errors",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_lambda_destination_delivery_failures_sum{dimension_FunctionName=$function} or vector(0))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 4,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Destination Delivery Failures",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Throttles",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "aws_lambda_throttles_sum{dimension_FunctionName=$function}\n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 5,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Throttles",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Invocations",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "aws_lambda_invocations_sum{dimension_FunctionName=$function}\n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 6,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Invocations",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Max",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "ms",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "aws_lambda_duration_maximum{dimension_FunctionName=$function}\n"
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Avg",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "ms",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "aws_lambda_duration_average{dimension_FunctionName=$function}\n"
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Minimum",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "ms",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "aws_lambda_duration_minimum{dimension_FunctionName=$function}\n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 7,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Duration",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Invocations",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_lambda_provisioned_concurrency_invocations_sum{dimension_FunctionName=$function} or vector(0))\n"
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Executions",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_lambda_provisioned_concurrency_executions_sum{dimension_FunctionName=$function} or vector(0))\n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 8,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Provisioned Concurrency",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Invocations",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "aws_lambda_invocations_sum{dimension_FunctionName=$function}\n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 9,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Concurrent Executions",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Invocations",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_lambda_provisioned_concurrency_spillover_invocations_sum{dimension_FunctionName=$function} or vector(0))\n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 10,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Provisioned Concurrency Spillover",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Executions",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_lambda_unreserved_concurrent_executions_sum{dimension_FunctionName=$function} or vector(0))\n\n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 11,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Unreserved Concurrent Executions",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Utilization",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "100 * sum(aws_lambda_provisioned_concurrency_utilization_average{dimension_FunctionName=$function} or vector(0))\n\n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 12,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Provisioned Concurrency Utilization",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Max",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "ms",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_lambda_iterator_age_maximum{dimension_FunctionName=$function} or vector(0))"
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Average",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "ms",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_lambda_iterator_age_average{dimension_FunctionName=$function} or vector(0))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 13,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Iterator Age",
+        "type": "advancedTimechart"
+      }
+    ],
+    "schema": 3,
+    "scopeExpressionList": [
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": false,
+          "canMonitor": false,
+          "category": "prometheus",
+          "createdAt": 1591083020747,
+          "customerId": 25008,
+          "deferred": false,
+          "documentId": "25008-4379264638350895274",
+          "documentTimestamp": 1591083020747,
+          "documentType": "metric",
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
+          "generator": {
+            "aggregationForGroup": "none",
+            "aggregations": [
+              "distinct"
+            ],
+            "avg": false,
+            "canCalculate": false,
+            "canFilter": true,
+            "canGroupBy": false,
+            "canMonitor": false,
+            "category": "prometheus",
+            "concat": false,
+            "context": [],
+            "count": false,
+            "countDistinct": false,
+            "deferred": false,
+            "experimental": false,
+            "groupAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "groupBy": [],
+            "heuristic": false,
+            "hidden": false,
+            "id": "dimension_FunctionName",
+            "identity": false,
+            "label": true,
+            "lastSeen": 1591082707827,
+            "max": false,
+            "metricType": "segmentBy",
+            "min": false,
+            "namespaces": [
+              "host",
+              "host.process",
+              "host.container",
+              "cloudProvider",
+              "mesos",
+              "ecs",
+              "kubernetes.cluster",
+              "kubernetes.namespace",
+              "kubernetes.deployment",
+              "kubernetes.job",
+              "kubernetes.daemonSet",
+              "kubernetes.service",
+              "kubernetes.node",
+              "kubernetes.replicaSet",
+              "kubernetes.statefulSet",
+              "kubernetes.resourcequota",
+              "kubernetes.persistentvolume",
+              "kubernetes.persistentvolumeclaim",
+              "kubernetes.pod"
+            ],
+            "rateOfChange": false,
+            "scale": 1.0,
+            "scopes": [],
+            "sum": false,
+            "timeAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "timeAvg": false,
+            "type": "string"
+          },
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "dimension_FunctionName",
+          "identity": false,
+          "lastSeen": 1591082707827,
+          "metricType": "tag",
+          "namespaces": [
+            "host",
+            "host.process",
+            "host.container",
+            "cloudProvider",
+            "mesos",
+            "ecs",
+            "kubernetes.cluster",
+            "kubernetes.namespace",
+            "kubernetes.deployment",
+            "kubernetes.job",
+            "kubernetes.daemonSet",
+            "kubernetes.service",
+            "kubernetes.node",
+            "kubernetes.replicaSet",
+            "kubernetes.statefulSet",
+            "kubernetes.resourcequota",
+            "kubernetes.persistentvolume",
+            "kubernetes.persistentvolumeclaim",
+            "kubernetes.pod"
+          ],
+          "routingInfo": {
+            "customerId": 25008,
+            "routing": "25008"
+          },
+          "scale": 1.0,
+          "scopes": [],
+          "segment": false,
+          "segmentations": [],
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "function",
+        "isVariable": true,
+        "operand": "dimension_FunctionName",
+        "operator": "equals",
+        "value": [],
+        "variable": true
+      }
+    ]
+  }
+}

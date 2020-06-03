@@ -2,6 +2,7 @@ import yaml
 import json
 from yaml.representer import SafeRepresenter
 import re
+import os.path
 
 timeConversions = {"s": 0.0166666,
                     "m": 1,
@@ -23,7 +24,21 @@ def loadYaml(input):
 
 def loadYamlFile(path):
   file = open(path)
-  return loadYaml(file)
+  yamlFile = loadYaml(file)
+  if "configurations" in yamlFile:
+    for configuration in yamlFile["configurations"]:
+      if "file" in configuration:
+        fileToIncludePath = os.path.dirname(path) + "/" + configuration["file"]
+        with open(fileToIncludePath, 'r') as file:
+          configuration["data"] =  file.read()
+
+  return yamlFile
+
+# Loads Yam File without inserting the include files inside configurations
+def loadRawYamlFile(path):
+  file = open(path)
+  yamlFile = loadYaml(file)
+  return yamlFile
 
 def prometheusTime2Minutes(prometheusTime):
   prometheusNumber = int(prometheusTime[:-1])

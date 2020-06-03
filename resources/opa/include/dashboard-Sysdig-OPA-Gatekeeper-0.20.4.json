@@ -1,0 +1,719 @@
+{
+  "dashboard": {
+    "description": "",
+    "layout": [
+      {
+        "h": 2,
+        "panelId": 1,
+        "w": 4,
+        "x": 12,
+        "y": 0
+      },
+      {
+        "h": 4,
+        "panelId": 2,
+        "w": 12,
+        "x": 0,
+        "y": 15
+      },
+      {
+        "h": 4,
+        "panelId": 3,
+        "w": 12,
+        "x": 0,
+        "y": 11
+      },
+      {
+        "h": 4,
+        "panelId": 4,
+        "w": 12,
+        "x": 12,
+        "y": 7
+      },
+      {
+        "h": 4,
+        "panelId": 5,
+        "w": 12,
+        "x": 0,
+        "y": 3
+      },
+      {
+        "h": 4,
+        "panelId": 6,
+        "w": 12,
+        "x": 0,
+        "y": 7
+      },
+      {
+        "h": 4,
+        "panelId": 7,
+        "w": 12,
+        "x": 12,
+        "y": 11
+      },
+      {
+        "h": 4,
+        "panelId": 8,
+        "w": 12,
+        "x": 12,
+        "y": 15
+      },
+      {
+        "h": 5,
+        "panelId": 9,
+        "w": 12,
+        "x": 12,
+        "y": 2
+      },
+      {
+        "h": 3,
+        "panelId": 10,
+        "w": 3,
+        "x": 0,
+        "y": 0
+      }
+    ],
+    "name": "OPA Gatekeeper",
+    "panels": [
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "time()-gatekeeper_audit_last_run_time"
+          }
+        ],
+        "description": "",
+        "id": 1,
+        "name": "Time since last audit",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{status}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "irate(gatekeeper_constraint_template_ingestion_count[$__interval])"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 2,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Constraint template ingestion actions rate",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{status}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "irate(gatekeeper_constraint_templates[$__interval])"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 3,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Observed constraint templates rate",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{enforcement_action}} > {{status}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "gatekeeper_constraints"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 4,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Current number of known constraints",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{admission_status}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "irate(gatekeeper_request_count[$__interval])"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 5,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Requests rate routed to webhook",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{enforcement_action}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "irate(gatekeeper_violations[$__interval])"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 6,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Violations rate per constraint",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "p99",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.99, rate(gatekeeper_audit_duration_seconds_bucket[$__interval]))"
+          },
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "p90",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.90, rate(gatekeeper_audit_duration_seconds_bucket[$__interval]))"
+          },
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "p50",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "s",
+              "inputFormat": "ns",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.50, rate(gatekeeper_audit_duration_seconds_bucket[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 7,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Latency of audit operation",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "p99",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.99, rate(gatekeeper_constraint_template_ingestion_duration_seconds_bucket[$__interval]))"
+          },
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "p90",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.90, rate(gatekeeper_constraint_template_ingestion_duration_seconds_bucket[$__interval]))"
+          },
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "p50",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "s",
+              "inputFormat": "ns",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.50, rate(gatekeeper_constraint_template_ingestion_duration_seconds_bucket[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 8,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Latency of constraint template ingestion",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{admission_status}} p99",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.99, rate(gatekeeper_request_duration_seconds_bucket[$__interval]))"
+          },
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{admission_status}} p90",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.90, rate(gatekeeper_request_duration_seconds_bucket[$__interval]))"
+          },
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{admission_status}} p50",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "s",
+              "inputFormat": "ns",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.50, rate(gatekeeper_request_duration_seconds_bucket[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 9,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Latency of Gatekeeper per action",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "up{kubernetes_service_name='gatekeeper-webhook-service'}"
+          }
+        ],
+        "description": "",
+        "id": 10,
+        "name": "Gatekeeper",
+        "numberThresholds": {
+          "base": {
+            "displayText": "Down",
+            "severity": "none"
+          },
+          "values": [
+            {
+              "displayText": "Up",
+              "inputFormat": "1",
+              "severity": "ok",
+              "value": 0.1
+            }
+          ]
+        },
+        "type": "advancedNumber"
+      }
+    ],
+    "schema": 3,
+    "scopeExpressionList": []
+  }
+}

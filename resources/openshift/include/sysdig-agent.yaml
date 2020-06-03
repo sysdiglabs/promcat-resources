@@ -1,0 +1,36 @@
+prometheus.yaml: |-
+  global:
+    scrape_interval: 15s
+    evaluation_interval: 15s
+  scrape_configs:
+  - job_name: 'prometheus' # config for federation
+    honor_labels: true
+    metrics_path: '/federate'
+    scheme: https
+    bearer_token_file: /opt/draios/kubernetes/prometheus/secrets/token
+    tls_config:
+      insecure_skip_verify: true
+    metric_relabel_configs:
+    - regex: 'kubernetes_pod_name'
+      action: labeldrop
+    params:
+      'match[]':
+        - '{sysdig="true"}'
+    sysdig_sd_configs:
+    - tags:
+        namespace: openshift-monitoring
+        pod: prometheus-k8s-0
+
+dragent.yaml: |-
+  metrics_excess_log: true
+  use_promscrape: true
+  prometheus:
+      - include:
+          process.name: oauth-proxy
+          kubernetes.pod.label.app: prometheus
+          conf:
+              path: "/federate"
+              use_https: true
+              port: 9091
+              ssl_verify: false
+              auth_token_path: "/opt/draios/kubernetes/prometheus/secrets/token"
