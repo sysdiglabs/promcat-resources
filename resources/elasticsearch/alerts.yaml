@@ -1,0 +1,454 @@
+apiVersion: v1
+kind: Alert
+app: Elasticsearch
+version: 1.0.0
+appVersion:
+- '6.8'
+maintainers:
+- name: Sysdig team
+  link: https://sysdig.com/
+description: |
+  # Alerts
+  ## ElasticsearchHeapUsageTooHigh
+  Elasticsearch Heap Usage Too High of the instance
+
+  ## ElasticsearchHeapUsageWarning
+  Elasticsearch Heap Usage warning of the instance
+
+  ## ElasticsearchDiskSpaceLow
+  Elasticsearch disk space low of the instance
+
+  ## ElasticsearchDiskOutOfSpace
+  Elasticsearch disk out of space of the instance
+
+  ## ElasticsearchClusterRed
+  Elasticsearch Cluster Red of the instance
+
+  ## ElasticsearchClusterYellow
+  Elasticsearch Cluster Yellow of the instance
+
+  ## ElasticsearchHealthyNodes
+  Elasticsearch Healthy Nodes of the instance
+
+  ## ElasticsearchHealthyDataNodes
+  Elasticsearch Healthy Data Nodes of the instance
+
+  ## ElasticsearchRelocationShards
+  Elasticsearch relocation shards of the instance
+
+  ## ElasticsearchInitializingShards
+  Elasticsearch initializing shards of the instance
+
+  ## ElasticsearchUnassignedShards
+  Elasticsearch unassigned shards of the instance
+
+  ## ElasticsearchPendingTasks
+  Elasticsearch pending tasks of the instance
+
+  ## ElasticsearchNoNewDocuments
+  Elasticsearch no new documents of the instance
+
+  # Installing the alerts
+  ## In Prometheus
+  Copy the alerts for Prometheus and paste them inside of the configuration file in the groups section:
+  ```yaml
+  [...]
+  groups:
+  - name: example
+      # Insert here the alerts
+      rules:
+  ```
+  ## In Sysdig Monitor
+  To install these alerts in Sysdig Monitor, contact with the support service.
+configurations:
+- kind: Prometheus
+  data: |
+    - alert: ElasticsearchHeapUsageTooHigh
+      expr: (elasticsearch_jvm_memory_used_bytes{area="heap"} / elasticsearch_jvm_memory_max_bytes{area="heap"}) * 100 > 90
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Elasticsearch Heap Usage Too High of the instance"
+        description: "The heap usage is over 90% for 5m\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: ElasticsearchHeapUsageWarning
+      expr: (elasticsearch_jvm_memory_used_bytes{area="heap"} / elasticsearch_jvm_memory_max_bytes{area="heap"}) * 100 > 80
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Elasticsearch Heap Usage warning of the instance"
+        description: "The heap usage is over 80% for 5m\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: ElasticsearchDiskSpaceLow
+      expr: elasticsearch_filesystem_data_available_bytes / elasticsearch_filesystem_data_size_bytes * 100 < 20
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Elasticsearch disk space low of the instance"
+        description: "The disk usage is over 80%\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: ElasticsearchDiskOutOfSpace
+      expr: elasticsearch_filesystem_data_available_bytes / elasticsearch_filesystem_data_size_bytes * 100 < 10
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Elasticsearch disk out of space of the instance"
+        description: "The disk usage is over 90%\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: ElasticsearchClusterRed
+      expr: elasticsearch_cluster_health_status{color="red"} == 1
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Elasticsearch Cluster Red of the instance"
+        description: "Elastic Cluster Red status\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: ElasticsearchClusterYellow
+      expr: elasticsearch_cluster_health_status{color="yellow"} == 1
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Elasticsearch Cluster Yellow of the instance"
+        description: "Elastic Cluster Yellow status\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: ElasticsearchHealthyNodes
+      expr: elasticsearch_cluster_health_number_of_nodes < number_of_nodes
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Elasticsearch Healthy Nodes of the instance"
+        description: "Number Healthy Nodes less then number_of_nodes\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: ElasticsearchHealthyDataNodes
+      expr: elasticsearch_cluster_health_number_of_data_nodes < number_of_data_nodes
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Elasticsearch Healthy Data Nodes of the instance"
+        description: "Number Healthy Data Nodes less then number_of_data_nodes\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: ElasticsearchRelocationShards
+      expr: elasticsearch_cluster_health_relocating_shards > 0
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Elasticsearch relocation shards of the instance"
+        description: "Number of relocation shards for 20 min\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: ElasticsearchInitializingShards
+      expr: elasticsearch_cluster_health_initializing_shards > 0
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Elasticsearch initializing shards of the instance"
+        description: "Number of initializing shards for 10 min\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: ElasticsearchUnassignedShards
+      expr: elasticsearch_cluster_health_unassigned_shards > 0
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Elasticsearch unassigned shards of the instance"
+        description: "Number of unassigned shards for 2 min\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: ElasticsearchPendingTasks
+      expr: elasticsearch_cluster_health_number_of_pending_tasks > 0
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Elasticsearch pending tasks of the instance"
+        description: "Number of pending tasks for 10 min. Cluster works slowly.\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: ElasticsearchNoNewDocuments
+      expr: rate(elasticsearch_indices_docs{es_data_node="true"}[10m]) < 1
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Elasticsearch no new documents of the instance"
+        description: "No new documents for 10 min!\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "(elasticsearch_jvm_memory_used_bytes{area=\"heap\"} / elasticsearch_jvm_memory_max_bytes{area=\"heap\"}) * 100 > 90",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "ElasticsearchHeapUsageTooHigh",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "(elasticsearch_jvm_memory_used_bytes{area=\"heap\"} / elasticsearch_jvm_memory_max_bytes{area=\"heap\"}) * 100 > 80",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "ElasticsearchHeapUsageWarning",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "elasticsearch_filesystem_data_available_bytes / elasticsearch_filesystem_data_size_bytes * 100 < 20",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "ElasticsearchDiskSpaceLow",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "elasticsearch_filesystem_data_available_bytes / elasticsearch_filesystem_data_size_bytes * 100 < 10",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "ElasticsearchDiskOutOfSpace",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "elasticsearch_cluster_health_status{color=\"red\"} == 1",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "ElasticsearchClusterRed",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "elasticsearch_cluster_health_status{color=\"yellow\"} == 1",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "ElasticsearchClusterYellow",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "elasticsearch_cluster_health_number_of_nodes < number_of_nodes",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "ElasticsearchHealthyNodes",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "elasticsearch_cluster_health_number_of_data_nodes < number_of_data_nodes",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "ElasticsearchHealthyDataNodes",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "elasticsearch_cluster_health_relocating_shards > 0",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "ElasticsearchRelocationShards",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "elasticsearch_cluster_health_initializing_shards > 0",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "ElasticsearchInitializingShards",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "elasticsearch_cluster_health_unassigned_shards > 0",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "ElasticsearchUnassignedShards",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "elasticsearch_cluster_health_number_of_pending_tasks > 0",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "ElasticsearchPendingTasks",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "rate(elasticsearch_indices_docs{es_data_node=\"true\"}[10m]) < 1",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "ElasticsearchNoNewDocuments",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }

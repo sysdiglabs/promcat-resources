@@ -1,0 +1,1238 @@
+{
+  "dashboard": {
+    "description": "",
+    "eventDisplaySettings": {
+      "enabled": false,
+      "queryParams": {
+        "alertStatuses": [],
+        "categories": [],
+        "filter": "",
+        "severities": [],
+        "teamScope": false
+      }
+    },
+    "layout": [
+      {
+        "h": 3,
+        "panelId": 1,
+        "w": 5,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 3,
+        "w": 3,
+        "x": 14,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 4,
+        "w": 3,
+        "x": 11,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 5,
+        "w": 3,
+        "x": 5,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 6,
+        "w": 3,
+        "x": 8,
+        "y": 0
+      },
+      {
+        "h": 2,
+        "panelId": 7,
+        "w": 4,
+        "x": 4,
+        "y": 3
+      },
+      {
+        "h": 3,
+        "panelId": 8,
+        "w": 3,
+        "x": 17,
+        "y": 0
+      },
+      {
+        "h": 4,
+        "panelId": 9,
+        "w": 8,
+        "x": 0,
+        "y": 5
+      },
+      {
+        "h": 2,
+        "panelId": 10,
+        "w": 4,
+        "x": 0,
+        "y": 3
+      },
+      {
+        "h": 4,
+        "panelId": 12,
+        "w": 8,
+        "x": 8,
+        "y": 5
+      },
+      {
+        "h": 3,
+        "panelId": 13,
+        "w": 4,
+        "x": 20,
+        "y": 0
+      },
+      {
+        "h": 5,
+        "panelId": 14,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      {
+        "h": 4,
+        "panelId": 15,
+        "w": 8,
+        "x": 16,
+        "y": 5
+      },
+      {
+        "h": 5,
+        "panelId": 16,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      {
+        "h": 2,
+        "panelId": 17,
+        "w": 4,
+        "x": 8,
+        "y": 3
+      },
+      {
+        "h": 2,
+        "panelId": 19,
+        "w": 4,
+        "x": 12,
+        "y": 3
+      },
+      {
+        "h": 2,
+        "panelId": 20,
+        "w": 4,
+        "x": 16,
+        "y": 3
+      },
+      {
+        "h": 2,
+        "panelId": 21,
+        "w": 4,
+        "x": 20,
+        "y": 3
+      }
+    ],
+    "name": "ElasticSearch cluster",
+    "panels": [
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "elasticsearch_cluster_health_status{instance=~$instance,cluster=$cluster,color=\"red\"}==1 or (elasticsearch_cluster_health_status{instance=~$instance,cluster=$cluster,color=\"green\"}==1)+4 or (elasticsearch_cluster_health_status{instance=~$instance,cluster=$cluster,color=\"yellow\"}==1)+22"
+          }
+        ],
+        "description": "",
+        "id": 1,
+        "name": "Cluster health",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": [
+            {
+              "displayText": "GREEN",
+              "inputFormat": "1",
+              "severity": "ok",
+              "value": 4.0
+            },
+            {
+              "displayText": "YELLOW",
+              "inputFormat": "1",
+              "severity": "low",
+              "value": 2.0
+            },
+            {
+              "displayText": "RED",
+              "inputFormat": "1",
+              "severity": "high",
+              "value": 0.0
+            }
+          ]
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "sum (elasticsearch_process_cpu_percent{instance=~$instance,cluster=$cluster} ) / count (elasticsearch_process_cpu_percent{instance=~$instance,cluster=$cluster} )"
+          }
+        ],
+        "description": "",
+        "id": 3,
+        "name": "CPU usage Avg",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "ok"
+          },
+          "values": [
+            {
+              "displayText": "",
+              "inputFormat": "0-100",
+              "severity": "high",
+              "value": 90.0
+            },
+            {
+              "displayText": "",
+              "inputFormat": "0-100",
+              "severity": "medium",
+              "value": 70.0
+            }
+          ]
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "sum (elasticsearch_jvm_memory_used_bytes{instance=~$instance,cluster=$cluster}) / sum (elasticsearch_jvm_memory_max_bytes{instance=~$instance,cluster=$cluster}) * 100"
+          }
+        ],
+        "description": "",
+        "id": 4,
+        "name": "JVM memory used Avg",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "ok"
+          },
+          "values": [
+            {
+              "displayText": "",
+              "inputFormat": "0-100",
+              "severity": "high",
+              "value": 90.0
+            },
+            {
+              "displayText": "",
+              "inputFormat": "0-100",
+              "severity": "medium",
+              "value": 70.0
+            }
+          ]
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "elasticsearch_cluster_health_number_of_nodes{instance=~$instance,cluster=$cluster}"
+          }
+        ],
+        "description": "",
+        "id": 5,
+        "name": "Nodes",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "elasticsearch_cluster_health_number_of_data_nodes{instance=~$instance,cluster=$cluster}"
+          }
+        ],
+        "description": "",
+        "id": 6,
+        "name": "Data Nodes",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "1",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "elasticsearch_cluster_health_active_shards{instance=~$instance,cluster=$cluster}"
+          }
+        ],
+        "description": "",
+        "id": 7,
+        "name": "Active shards",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "elasticsearch_cluster_health_number_of_pending_tasks{instance=~$instance,cluster=$cluster}"
+          }
+        ],
+        "description": "",
+        "id": 8,
+        "name": "Pending tasks",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Disk available",
+              "timeSeriesDisplayNameTemplate": "{{name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "100*(1-(elasticsearch_filesystem_data_available_bytes{instance=~$instance,cluster=$cluster,name=~$name}/elasticsearch_filesystem_data_size_bytes{instance=~$instance,cluster=$cluster,name=~$name}))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 9,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Percentage disk used",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "elasticsearch_cluster_health_active_primary_shards{instance=~$instance,cluster=$cluster}"
+          }
+        ],
+        "description": "",
+        "id": 10,
+        "name": "Active primary shards",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Query time",
+              "timeSeriesDisplayNameTemplate": "{{name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "ms",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "irate(elasticsearch_indices_search_query_time_seconds{instance=~$instance,cluster=$cluster,name=~$name}[$__interval])"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 12,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Query time",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(irate(elasticsearch_indices_indexing_index_total{instance=~$instance,cluster=$cluster}[5m]))"
+          }
+        ],
+        "description": "",
+        "id": 13,
+        "name": "Ingest rate",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "JVM mem usage",
+              "timeSeriesDisplayNameTemplate": "{{name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "elasticsearch_jvm_memory_used_bytes{instance=~$instance,cluster=$cluster,name=~$name}"
+          },
+          {
+            "displayInfo": {
+              "displayName": "JVM memory max",
+              "timeSeriesDisplayNameTemplate": "{{name}} max: {{area}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "elasticsearch_jvm_memory_max_bytes{instance=~$instance,cluster=$cluster,name=~$name}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B",
+            "maxValue": null,
+            "minInputFormat": "B",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 14,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "JVM memory usage",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Ingest rate",
+              "timeSeriesDisplayNameTemplate": "{{name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "irate(elasticsearch_indices_indexing_index_total{instance=~$instance,cluster=$cluster}[$__interval])"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 15,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Ingest rate by node",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "CPU usage",
+              "timeSeriesDisplayNameTemplate": "{{name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "elasticsearch_process_cpu_percent{instance=~$instance,cluster=$cluster,name=~$name}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 16,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "CPU usage",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "elasticsearch_cluster_health_initializing_shards{instance=~$instance,cluster=$cluster}"
+          }
+        ],
+        "description": "",
+        "id": 17,
+        "name": "Initializing shards",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "elasticsearch_cluster_health_relocating_shards{instance=~$instance,cluster=$cluster}"
+          }
+        ],
+        "description": "",
+        "id": 19,
+        "name": "Relocating shards",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "elasticsearch_cluster_health_initializing_shards{instance=~$instance,cluster=$cluster}"
+          }
+        ],
+        "description": "",
+        "id": 20,
+        "name": "Delayed shards",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "elasticsearch_cluster_health_unassigned_shards{instance=~$instance,cluster=$cluster} "
+          }
+        ],
+        "description": "",
+        "id": 21,
+        "name": "Unassigned shards",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      }
+    ],
+    "schema": 3,
+    "scopeExpressionList": [
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": false,
+          "canMonitor": false,
+          "category": "appinfo",
+          "createdAt": 1591121019037,
+          "customerId": 25008,
+          "deferred": false,
+          "documentId": "25008--631917180312356210",
+          "documentTimestamp": 1591121019037,
+          "documentType": "metric",
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.AppMetric$Tag",
+          "generator": {
+            "aggregationForGroup": "none",
+            "aggregations": [
+              "distinct"
+            ],
+            "avg": false,
+            "canCalculate": false,
+            "canFilter": true,
+            "canGroupBy": false,
+            "canMonitor": false,
+            "category": "appinfo",
+            "concat": false,
+            "context": [],
+            "count": false,
+            "countDistinct": false,
+            "deferred": false,
+            "experimental": false,
+            "groupAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "groupBy": [],
+            "heuristic": false,
+            "hidden": false,
+            "id": "cluster_name",
+            "identity": false,
+            "label": true,
+            "lastSeen": 1591120810044,
+            "max": false,
+            "metricType": "segmentBy",
+            "min": false,
+            "namespaces": [
+              "host"
+            ],
+            "rateOfChange": false,
+            "scale": 1.0,
+            "scopes": [],
+            "sum": false,
+            "timeAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "timeAvg": false,
+            "type": "string"
+          },
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "cluster_name",
+          "identity": false,
+          "lastSeen": 1591120810044,
+          "metricType": "tag",
+          "namespaces": [
+            "host"
+          ],
+          "routingInfo": {
+            "customerId": 25008,
+            "routing": "25008"
+          },
+          "scale": 1.0,
+          "scopes": [],
+          "segment": false,
+          "segmentations": [],
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "cluster",
+        "isVariable": true,
+        "operand": "cluster_name",
+        "operator": "equals",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": false,
+          "canMonitor": false,
+          "category": "prometheus",
+          "createdAt": 1591121019037,
+          "customerId": 25008,
+          "deferred": false,
+          "documentId": "25008--5735739363998383830",
+          "documentTimestamp": 1591121019037,
+          "documentType": "metric",
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
+          "generator": {
+            "aggregationForGroup": "none",
+            "aggregations": [
+              "distinct"
+            ],
+            "avg": false,
+            "canCalculate": false,
+            "canFilter": true,
+            "canGroupBy": false,
+            "canMonitor": false,
+            "category": "prometheus",
+            "concat": false,
+            "context": [],
+            "count": false,
+            "countDistinct": false,
+            "deferred": false,
+            "experimental": false,
+            "groupAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "groupBy": [],
+            "heuristic": false,
+            "hidden": false,
+            "id": "instance",
+            "identity": false,
+            "label": true,
+            "lastSeen": 1590079966431,
+            "max": false,
+            "metricType": "segmentBy",
+            "min": false,
+            "namespaces": [
+              "host",
+              "host.process",
+              "host.container",
+              "cloudProvider",
+              "mesos",
+              "ecs",
+              "kubernetes.cluster",
+              "kubernetes.namespace",
+              "kubernetes.deployment",
+              "kubernetes.job",
+              "kubernetes.daemonSet",
+              "kubernetes.service",
+              "kubernetes.node",
+              "kubernetes.replicaSet",
+              "kubernetes.statefulSet",
+              "kubernetes.resourcequota",
+              "kubernetes.persistentvolume",
+              "kubernetes.persistentvolumeclaim",
+              "kubernetes.pod"
+            ],
+            "rateOfChange": false,
+            "scale": 1.0,
+            "scopes": [],
+            "sum": false,
+            "timeAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "timeAvg": false,
+            "type": "string"
+          },
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "instance",
+          "identity": false,
+          "lastSeen": 1590079966431,
+          "metricType": "tag",
+          "namespaces": [
+            "host",
+            "host.process",
+            "host.container",
+            "cloudProvider",
+            "mesos",
+            "ecs",
+            "kubernetes.cluster",
+            "kubernetes.namespace",
+            "kubernetes.deployment",
+            "kubernetes.job",
+            "kubernetes.daemonSet",
+            "kubernetes.service",
+            "kubernetes.node",
+            "kubernetes.replicaSet",
+            "kubernetes.statefulSet",
+            "kubernetes.resourcequota",
+            "kubernetes.persistentvolume",
+            "kubernetes.persistentvolumeclaim",
+            "kubernetes.pod"
+          ],
+          "routingInfo": {
+            "customerId": 25008,
+            "routing": "25008"
+          },
+          "scale": 1.0,
+          "scopes": [],
+          "segment": false,
+          "segmentations": [],
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "instance",
+        "isVariable": true,
+        "operand": "instance",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": false,
+          "canMonitor": false,
+          "category": "appinfo",
+          "createdAt": 1591121019037,
+          "customerId": 25008,
+          "deferred": false,
+          "documentId": "25008--4285269432461232889",
+          "documentTimestamp": 1591121019037,
+          "documentType": "metric",
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.AppMetric$Tag",
+          "generator": {
+            "aggregationForGroup": "none",
+            "aggregations": [
+              "distinct"
+            ],
+            "avg": false,
+            "canCalculate": false,
+            "canFilter": true,
+            "canGroupBy": false,
+            "canMonitor": false,
+            "category": "appinfo",
+            "concat": false,
+            "context": [],
+            "count": false,
+            "countDistinct": false,
+            "deferred": false,
+            "experimental": false,
+            "groupAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "groupBy": [],
+            "heuristic": false,
+            "hidden": false,
+            "id": "node_name",
+            "identity": false,
+            "label": true,
+            "lastSeen": 1591120810044,
+            "max": false,
+            "metricType": "segmentBy",
+            "min": false,
+            "namespaces": [
+              "host"
+            ],
+            "rateOfChange": false,
+            "scale": 1.0,
+            "scopes": [],
+            "sum": false,
+            "timeAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "timeAvg": false,
+            "type": "string"
+          },
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "node_name",
+          "identity": false,
+          "lastSeen": 1591120810044,
+          "metricType": "tag",
+          "namespaces": [
+            "host"
+          ],
+          "routingInfo": {
+            "customerId": 25008,
+            "routing": "25008"
+          },
+          "scale": 1.0,
+          "scopes": [],
+          "segment": false,
+          "segmentations": [],
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "name",
+        "isVariable": true,
+        "operand": "node_name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      }
+    ]
+  }
+}
