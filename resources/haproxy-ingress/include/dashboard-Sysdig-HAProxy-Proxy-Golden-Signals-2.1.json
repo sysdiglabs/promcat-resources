@@ -1,0 +1,997 @@
+{
+  "dashboard": {
+    "description": "",
+    "eventDisplaySettings": {
+      "enabled": false,
+      "queryParams": {
+        "alertStatuses": [],
+        "categories": [],
+        "filter": "",
+        "severities": [],
+        "teamScope": false
+      }
+    },
+    "layout": [
+      {
+        "h": 6,
+        "panelId": 1,
+        "w": 12,
+        "x": 0,
+        "y": 3
+      },
+      {
+        "h": 3,
+        "panelId": 2,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 3,
+        "w": 6,
+        "x": 6,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 4,
+        "w": 6,
+        "x": 12,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 5,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      },
+      {
+        "h": 6,
+        "panelId": 6,
+        "w": 12,
+        "x": 12,
+        "y": 3
+      },
+      {
+        "h": 6,
+        "panelId": 7,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      {
+        "h": 6,
+        "panelId": 8,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      {
+        "h": 6,
+        "panelId": 9,
+        "w": 12,
+        "x": 0,
+        "y": 15
+      },
+      {
+        "h": 6,
+        "panelId": 10,
+        "w": 12,
+        "x": 12,
+        "y": 15
+      },
+      {
+        "h": 6,
+        "panelId": 11,
+        "w": 8,
+        "x": 0,
+        "y": 21
+      },
+      {
+        "h": 6,
+        "panelId": 12,
+        "w": 8,
+        "x": 8,
+        "y": 21
+      },
+      {
+        "h": 6,
+        "panelId": 13,
+        "w": 8,
+        "x": 16,
+        "y": 21
+      }
+    ],
+    "name": " HAProxy Proxy Golden Signals",
+    "panels": [
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Error rate",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "100 * sum(rate(haproxy_backend_http_responses_total{code!=\"2xx\",proxy=$proxy}[5m])) / sum(rate(haproxy_backend_http_responses_total{proxy=$proxy}[5m])) "
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 1,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "HTTP Error Rate",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(haproxy_backend_status{proxy=$proxy}==1 or vector(0))"
+          }
+        ],
+        "description": "",
+        "id": 2,
+        "name": "Instances UP",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "high"
+          },
+          "values": [
+            {
+              "displayText": "",
+              "inputFormat": "1",
+              "severity": "ok",
+              "value": 1.0
+            }
+          ]
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(haproxy_backend_status{proxy='$proxy'}==0 or vector(0))"
+          }
+        ],
+        "description": "",
+        "id": 3,
+        "name": "Instances Down",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "ok"
+          },
+          "values": [
+            {
+              "displayText": "",
+              "inputFormat": "1",
+              "severity": "high",
+              "value": 1.0
+            }
+          ]
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "100 * max(rate(haproxy_backend_sessions_total{proxy=$proxy}[5m]) / haproxy_backend_limit_sessions{proxy=$proxy})"
+          }
+        ],
+        "description": "",
+        "id": 4,
+        "name": "Sessions Usage",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(haproxy_backend_current_queue{proxy=$proxy})"
+          }
+        ],
+        "description": "",
+        "id": 5,
+        "name": "Queued Requests",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Requets",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "100 * sum(rate(haproxy_backend_requests_denied_total{proxy=$proxy}[5m])) / sum(rate(haproxy_backend_http_requests_total{proxy=$proxy}[5m]))"
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Responses",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "100 * sum(rate(haproxy_backend_responses_denied_total{proxy=$proxy}[5m])) / sum(rate(haproxy_backend_http_responses_total{proxy=$proxy}[5m]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 6,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Denial Rate",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "{{code}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by (code) (rate(haproxy_backend_http_responses_total{code!=\"2xx\",proxy=$proxy}[5m])) "
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 7,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "HTTP Error by Code",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "By Client",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(rate(haproxy_backend_client_aborts_total{proxy=$proxy}[5m])) "
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "By Server",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(rate(haproxy_backend_client_aborts_total{proxy=$proxy}[5m])) "
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 8,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Data Transfers Aborted",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "{{instance}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "haproxy_backend_response_time_average_seconds{proxy=$proxy}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 9,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Mean Response Time",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Queue Time",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "max(haproxy_backend_queue_time_average_seconds{proxy=$proxy})"
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Connect Time",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "max(haproxy_backend_connect_time_average_seconds{proxy=$proxy})"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 10,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Mean Connect and Queue Time",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Inbound",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B/s",
+              "unit": "byteRate",
+              "yAxis": "auto"
+            },
+            "query": "sum(rate(haproxy_backend_bytes_in_total{proxy=$proxy}[5m]))"
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Outbound",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B/s",
+              "unit": "byteRate",
+              "yAxis": "auto"
+            },
+            "query": "sum(rate(haproxy_backend_bytes_out_total{proxy=$proxy}[5m]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B/s",
+            "maxValue": null,
+            "minInputFormat": "B/s",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 11,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Throughput",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "IOPS",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(rate(haproxy_backend_http_responses_total{proxy=$proxy}[5m]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 12,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "IOPS",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Inbound",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "sum(rate(haproxy_backend_bytes_in_total{proxy=$proxy}[5m])) / sum(rate(haproxy_backend_http_requests_total{proxy=$proxy}[5m])) "
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Outbound",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "sum(rate(haproxy_backend_bytes_out_total{proxy=$proxy}[5m])) / sum(rate(haproxy_backend_http_responses_total{proxy=$proxy}[5m])) "
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B",
+            "maxValue": null,
+            "minInputFormat": "B",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 13,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Request and Response Size",
+        "type": "advancedTimechart"
+      }
+    ],
+    "schema": 3,
+    "scopeExpressionList": [
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": false,
+          "canMonitor": false,
+          "category": "prometheus",
+          "createdAt": 1589452422089,
+          "customerId": 995,
+          "deferred": false,
+          "documentId": "995-3902954642948798253",
+          "documentTimestamp": 1589452422089,
+          "documentType": "metric",
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
+          "generator": {
+            "aggregationForGroup": "none",
+            "aggregations": [
+              "distinct"
+            ],
+            "avg": false,
+            "canCalculate": false,
+            "canFilter": true,
+            "canGroupBy": false,
+            "canMonitor": false,
+            "category": "prometheus",
+            "concat": false,
+            "context": [],
+            "count": false,
+            "countDistinct": false,
+            "deferred": false,
+            "experimental": false,
+            "groupAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "groupBy": [],
+            "heuristic": false,
+            "hidden": false,
+            "id": "proxy",
+            "identity": false,
+            "label": true,
+            "lastSeen": 1589450394178,
+            "max": false,
+            "metricType": "segmentBy",
+            "min": false,
+            "namespaces": [
+              "host",
+              "host.process",
+              "host.container",
+              "cloudProvider",
+              "mesos",
+              "ecs",
+              "kubernetes.cluster",
+              "kubernetes.namespace",
+              "kubernetes.deployment",
+              "kubernetes.job",
+              "kubernetes.daemonSet",
+              "kubernetes.service",
+              "kubernetes.node",
+              "kubernetes.replicaSet",
+              "kubernetes.statefulSet",
+              "kubernetes.resourcequota",
+              "kubernetes.persistentvolume",
+              "kubernetes.persistentvolumeclaim",
+              "kubernetes.pod"
+            ],
+            "rateOfChange": false,
+            "scale": 1.0,
+            "scopes": [],
+            "sum": false,
+            "timeAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "timeAvg": false,
+            "type": "string"
+          },
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "proxy",
+          "identity": false,
+          "lastSeen": 1589450394178,
+          "metricType": "tag",
+          "namespaces": [
+            "host",
+            "host.process",
+            "host.container",
+            "cloudProvider",
+            "mesos",
+            "ecs",
+            "kubernetes.cluster",
+            "kubernetes.namespace",
+            "kubernetes.deployment",
+            "kubernetes.job",
+            "kubernetes.daemonSet",
+            "kubernetes.service",
+            "kubernetes.node",
+            "kubernetes.replicaSet",
+            "kubernetes.statefulSet",
+            "kubernetes.resourcequota",
+            "kubernetes.persistentvolume",
+            "kubernetes.persistentvolumeclaim",
+            "kubernetes.pod"
+          ],
+          "routingInfo": {
+            "customerId": 995,
+            "routing": "995"
+          },
+          "scale": 1.0,
+          "scopes": [],
+          "segment": false,
+          "segmentations": [],
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "proxy",
+        "isVariable": true,
+        "operand": "proxy",
+        "operator": "equals",
+        "value": [],
+        "variable": true
+      }
+    ]
+  }
+}

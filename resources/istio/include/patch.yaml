@@ -1,0 +1,19 @@
+data:
+  prometheus.yaml: |-
+    global:
+      scrape_interval: 15s
+      evaluation_interval: 15s
+    scrape_configs:
+    - job_name: 'prometheus' # config for federation
+      honor_labels: true
+      metrics_path: '/federate'
+      metric_relabel_configs:
+      - regex: 'kubernetes_pod_name'
+        action: labeldrop
+      params:
+        'match[]':
+          - '{sysdig="true"}'
+      sysdig_sd_configs:
+      - tags:
+          namespace: istio-system
+        deployment: prometheus

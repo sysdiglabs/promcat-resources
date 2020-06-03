@@ -1,0 +1,1375 @@
+{
+  "dashboard": {
+    "description": "",
+    "layout": [
+      {
+        "h": 4,
+        "panelId": 1,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 4,
+        "panelId": 2,
+        "w": 6,
+        "x": 0,
+        "y": 4
+      },
+      {
+        "h": 4,
+        "panelId": 3,
+        "w": 6,
+        "x": 6,
+        "y": 0
+      },
+      {
+        "h": 4,
+        "panelId": 4,
+        "w": 6,
+        "x": 6,
+        "y": 4
+      },
+      {
+        "h": 4,
+        "panelId": 5,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      {
+        "h": 4,
+        "panelId": 6,
+        "w": 12,
+        "x": 12,
+        "y": 4
+      },
+      {
+        "h": 4,
+        "panelId": 7,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      {
+        "h": 4,
+        "panelId": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      {
+        "h": 4,
+        "panelId": 9,
+        "w": 6,
+        "x": 6,
+        "y": 12
+      },
+      {
+        "h": 2,
+        "panelId": 10,
+        "w": 6,
+        "x": 0,
+        "y": 12
+      },
+      {
+        "h": 2,
+        "panelId": 11,
+        "w": 6,
+        "x": 0,
+        "y": 14
+      },
+      {
+        "h": 4,
+        "panelId": 12,
+        "w": 6,
+        "x": 12,
+        "y": 12
+      },
+      {
+        "h": 4,
+        "panelId": 13,
+        "w": 6,
+        "x": 18,
+        "y": 12
+      },
+      {
+        "h": 4,
+        "panelId": 14,
+        "w": 6,
+        "x": 0,
+        "y": 16
+      },
+      {
+        "h": 4,
+        "panelId": 15,
+        "w": 6,
+        "x": 6,
+        "y": 16
+      },
+      {
+        "h": 4,
+        "panelId": 16,
+        "w": 6,
+        "x": 12,
+        "y": 16
+      },
+      {
+        "h": 4,
+        "panelId": 17,
+        "w": 6,
+        "x": 18,
+        "y": 16
+      }
+    ],
+    "name": "AWS ALB Golden Signals",
+    "panels": [
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "4XX",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_alb_httpcode_elb_4_xx_count_sum)"
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "5XX",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_alb_httpcode_elb_5_xx_count_sum)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 1,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Errors From the Load Balancer",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Unhealthy hosts",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_alb_tg_un_healthy_host_count_average)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 0,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": false,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 2,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Unhealthy Hosts",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "4XX",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_alb_tg_httpcode_target_4_xx_count_sum)"
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "5XX",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_alb_tg_httpcode_target_5_xx_count_sum)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 3,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Errors From the Target Groups",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "TLS errors",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_alb_client_tls_negotiation_error_count_sum)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 4,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "TLS Negotiation Errors",
+        "type": "advancedTimechart"
+      },
+      {
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "createdAt": 1586266873637,
+                  "customerId": 25008,
+                  "deferred": false,
+                  "documentId": "25008-9073477163371705261",
+                  "documentTimestamp": 1586266873637,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "firstSeen": 1586251593624,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "promraw.aws_alb_tg_target_response_time_p95",
+                  "identity": false,
+                  "lastSeen": 1586266740299,
+                  "metricType": "gauge",
+                  "name": "aws_alb_tg_target_response_time_p95",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": 25008,
+                    "routing": "25008"
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "segmentations": [
+                    "agent.tag",
+                    "cloudProvider.tag",
+                    "container.id",
+                    "container.image",
+                    "container.label",
+                    "container.name",
+                    "dimension_LoadBalancer",
+                    "dimension_TargetGroup",
+                    "host.hostName",
+                    "host.mac",
+                    "name",
+                    "proc.commandLine",
+                    "proc.name",
+                    "region"
+                  ],
+                  "timeAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "promraw.aws_alb_tg_target_response_time_p95",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "category": "prometheus",
+                    "createdAt": 1586266873637,
+                    "customerId": 25008,
+                    "deferred": false,
+                    "documentId": "25008--2061834698950676115",
+                    "documentTimestamp": 1586266873637,
+                    "documentType": "metric",
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "dimension_TargetGroup",
+                    "identity": false,
+                    "lastSeen": 1586266740299,
+                    "metricType": "tag",
+                    "namespaces": [
+                      "host",
+                      "host.process",
+                      "host.container",
+                      "cloudProvider",
+                      "mesos",
+                      "ecs",
+                      "kubernetes.cluster",
+                      "kubernetes.namespace",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.daemonSet",
+                      "kubernetes.service",
+                      "kubernetes.node",
+                      "kubernetes.replicaSet",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.persistentvolume",
+                      "kubernetes.persistentvolumeclaim",
+                      "kubernetes.pod"
+                    ],
+                    "routingInfo": {
+                      "customerId": 25008,
+                      "routing": "25008"
+                    },
+                    "scale": 1.0,
+                    "scopes": [],
+                    "segment": false,
+                    "segmentations": [],
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": "",
+                  "id": "dimension_TargetGroup",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 5,
+        "name": "Top 5 Response Time Target Groups",
+        "type": "basicToplist"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{dimension_LoadBalancer}} - {{dimension_TargetGroup}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "topk(10,aws_alb_tg_target_response_time_p95)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": false,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 6,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "P95 Target Groups Response Time",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Rejected requests",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_alb_rejected_connection_count_sum)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": false,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 7,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Rejected Requests",
+        "type": "advancedTimechart"
+      },
+      {
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "createdAt": 1586266873638,
+                  "customerId": 25008,
+                  "deferred": false,
+                  "documentId": "25008--3256903466538534972",
+                  "documentTimestamp": 1586266873638,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "firstSeen": 1586251593624,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "promraw.aws_alb_processed_bytes_sum",
+                  "identity": false,
+                  "lastSeen": 1586266740299,
+                  "metricType": "gauge",
+                  "name": "aws_alb_processed_bytes_sum",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": 25008,
+                    "routing": "25008"
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "segmentations": [
+                    "agent.tag",
+                    "cloudProvider.tag",
+                    "container.id",
+                    "container.image",
+                    "container.label",
+                    "container.name",
+                    "dimension_LoadBalancer",
+                    "host.hostName",
+                    "host.mac",
+                    "name",
+                    "proc.commandLine",
+                    "proc.name",
+                    "region"
+                  ],
+                  "timeAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "promraw.aws_alb_processed_bytes_sum",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "category": "prometheus",
+                    "createdAt": 1586266873638,
+                    "customerId": 25008,
+                    "deferred": false,
+                    "documentId": "25008-262210857212227687",
+                    "documentTimestamp": 1586266873638,
+                    "documentType": "metric",
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "dimension_LoadBalancer",
+                    "identity": false,
+                    "lastSeen": 1586266740299,
+                    "metricType": "tag",
+                    "namespaces": [
+                      "host",
+                      "host.process",
+                      "host.container",
+                      "cloudProvider",
+                      "mesos",
+                      "ecs",
+                      "kubernetes.cluster",
+                      "kubernetes.namespace",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.daemonSet",
+                      "kubernetes.service",
+                      "kubernetes.node",
+                      "kubernetes.replicaSet",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.persistentvolume",
+                      "kubernetes.persistentvolumeclaim",
+                      "kubernetes.pod"
+                    ],
+                    "routingInfo": {
+                      "customerId": 25008,
+                      "routing": "25008"
+                    },
+                    "scale": 1.0,
+                    "scopes": [],
+                    "segment": false,
+                    "segmentations": [],
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": "",
+                  "id": "dimension_LoadBalancer",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 8,
+        "name": "Top 5 Load Balancers",
+        "type": "basicToplist"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Active connections",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_alb_active_connection_count_sum)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 9,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Active Connections",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "count(aws_alb_info)"
+          }
+        ],
+        "description": "",
+        "id": 10,
+        "name": "Load Balancers",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "count(aws_alb_tg_healthy_host_count_average)"
+          }
+        ],
+        "description": "",
+        "id": 11,
+        "name": "Target Groups",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Active connections",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_alb_processed_bytes_sum)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B",
+            "maxValue": null,
+            "minInputFormat": "B",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 12,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Bytes processed",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Rules",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_alb_rule_evaluations_sum)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 13,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Rules Evaluated",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "LCUs",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_alb_consumed_lcus_sum)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": false,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 14,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "LCUs Consumed",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Processed requests",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_alb_request_count_sum)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": false,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 15,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Processed Requests",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "2XX",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_alb_tg_httpcode_target_2_xx_count_sum)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": false,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 16,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "2XX Responses by Target Groups",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "3XX",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(aws_alb_tg_httpcode_target_3_xx_count_sum)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": false,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 17,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "3XX Responses by Target Groups",
+        "type": "advancedTimechart"
+      }
+    ],
+    "schema": 3,
+    "scopeExpressionList": []
+  }
+}
