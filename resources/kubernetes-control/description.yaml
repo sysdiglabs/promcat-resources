@@ -4,7 +4,7 @@ kind: Description
 app: "Kubernetes control plane"
 version: 1.0.0
 appVersion: 
-  - 1.14.0
+  - '1.14.0'
 maintainers:
   - name: Sysdig team
     link: https://sysdig.com/
@@ -27,3 +27,6 @@ data: |
     - Control manager
     - Scheduler
     - Proxy
+
+    #Sources
+    All dashboards and alerts are modified from the [kubernetes mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin) as reference

@@ -3,65 +3,162 @@ kind: Alert
 app: Kubernetes control plane
 version: 1.0.0
 appVersion:
-- 1.14.0
+  - '1.14.0'
 maintainers:
 - name: Sysdig team
   link: https://sysdig.com/
 description: |
   # Alerts
-  ## KubePodCrashLooping
-  The pod can become in crashloopback error.
-  This alert trigger when the pod is having a lot of error and it become in a loopbackoff
+  ## KubeCPUOvercommit
+  Cluster has overcommitted CPU resource requests for Pods and cannot tolerate node failure.
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecpuovercommit)
+
+  ## KubeMemOvercommit
+  Cluster has overcommitted memory resource requests for Pods and cannot tolerate node failure.
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubememovercommit)
 
   ## KubeCPUOvercommit
+  Cluster has overcommitted CPU resource requests for Namespaces.
 
-  ## KubeMemOvercommit
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecpuovercommit)
+
+  ## KubeMemOvercommit
+  Cluster has overcommitted memory resource requests for Namespaces.
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubememovercommit)
 
   ## KubeQuotaExceeded
+  Namespace exceeded its quota.
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded)
 
   ## CPUThrottlingHigh
+  Throttling of CPU in namespace for container in pod.
 
-  ## KubePersistentVolumeUsageCritical
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-cputhrottlinghigh)
+
+  ## KubePersistentVolumeUsageCritical
+  The PersistentVolume claimed in Namespace usage is critical.
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumeusagecritical)
 
   ## KubePersistentVolumeFullInFourDays
+  Based on recent sampling, the PersistentVolume claimed in the Namespace is expected to fill up within four days
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumefullinfourdays)
 
   ## KubePersistentVolumeErrors
+  The persistent volume has bad status.
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumeerrors)
 
   ## KubeVersionMismatch
+  There are different semantic versions of Kubernetes components running.
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeversionmismatch)
 
   ## KubeClientErrors
+  Kubernetes API server client is experiencing errors.'
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeclienterrors)
 
   ## ErrorBudgetBurn
+  High requests error budget burn for job=kube-apiserver
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-errorbudgetburn)
+
+  ## ErrorBudgetBurn
+  High requests error budget burn for job=kube-apiserver
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-errorbudgetburn)
 
   ## KubeAPILatencyHigh
+  The API server has an abnormal latency.
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapilatencyhigh)
+
+  ## KubeAPILatencyHigh
+  The API server has a 99th percentile latency.
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapilatencyhigh)
 
   ## KubeAPIErrorsHigh
+  API server is returning high number errors.
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorshigh)
 
   ## KubeClientCertificateExpiration
+  A client certificate used to authenticate to the apiserver is expiring in less than 7.0 days.
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeclientcertificateexpiration)
+
+  ## KubeClientCertificateExpiration
+  A client certificate used to authenticate to the apiserver is expiring in less than 24.0 hours.
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeclientcertificateexpiration)
 
   ## AggregatedAPIErrors
+  An aggregated API has reported errors. The number of errors have increased for it in the past five minutes. High values indicate that the availability of the service changes too often.
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-aggregatedapierrors)
 
   ## AggregatedAPIDown
+  An aggregated API is down. It has not been available at least for the past five minutes.
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-aggregatedapidown)
 
   ## KubeAPIDown
+  KubeAPI has disappeared from Prometheus target discovery.
 
-  ## KubeNodeNotReady
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapidown)
+
+  ## KubeNodeNotReady
+  One node has been unready for more than 15 minutes.
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodenotready)
 
   ## KubeNodeUnreachable
+  One node is unreachable and some workloads may be rescheduled.
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodeunreachable)
 
   ## KubeletTooManyPods
+  Kubelet is running out of its Pod capacity.
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubelettoomanypods)
 
   ## KubeNodeReadinessFlapping
+  The readiness status of node has changed the value several times in the last 15 minutes.
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodereadinessflapping)
 
   ## KubeletPlegDurationHigh
+  The Kubelet Pod Lifecycle Event Generator has a 99th percentile duration of {{ $value }} seconds on node {{ $labels.node }}.
 
-  ## KubeletPodStartUpLatencyHigh
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletplegdurationhigh)
 
-  ## KubeletDown
+  ## KubeletPodStartUpLatencyHigh
+  Kubelet Pod startup 99th percentile latency is high.
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletpodstartuplatencyhigh)
+
+  ## KubeletDown
+  Kubelet has disappeared from Prometheus target discovery.
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletdown)
 
   ## KubeSchedulerDown
+  KubeScheduler has disappeared from Prometheus target discovery.
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeschedulerdown)
 
   ## KubeControllerManagerDown
+  KubeControllerManager has disappeared from Prometheus target discovery.
+
+  [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecontrollermanagerdown)
+
 
   # Installing the alerts
   ## In Prometheus
@@ -71,8 +168,8 @@ description: |
   groups:
   - name: example
       # Insert here the alerts
-      rules: 
-  ``` 
+      rules:
+  ```
   ## In Sysdig Monitor
   To install these alerts in Sysdig Monitor, contact with the support service.
 configurations:
@@ -433,7 +530,8 @@ configurations:
       "for": "15m"
       "labels":
         "severity": "critical"
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "sum(namespace:kube_pod_container_resource_requests_cpu_cores:sum{})\n  /\nsum(kube_node_status_allocatable_cpu_cores:sysdig)\n  >\n(count(kube_node_status_allocatable_cpu_cores:sysdig)-1) / count(kube_node_status_allocatable_cpu_cores:sysdig)\n",
@@ -453,8 +551,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "sum(namespace:kube_pod_container_resource_requests_memory_bytes:sum{})\n  /\nsum(kube_node_status_allocatable_memory_bytes:sysdig)\n  >\n(count(kube_node_status_allocatable_memory_bytes:sysdig)-1)\n  /\ncount(kube_node_status_allocatable_memory_bytes:sysdig)\n",
@@ -474,8 +572,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "sum(kube_resourcequota:sysdig{job=\"kube-state-metrics\", type=\"hard\", resource=\"cpu\"})\n  /\nsum(kube_node_status_allocatable_cpu_cores:sysdig)\n  > 1.5\n",
@@ -495,8 +593,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "sum(kube_resourcequota:sysdig{job=\"kube-state-metrics\", type=\"hard\", resource=\"memory\"})\n  /\nsum(kube_node_status_allocatable_memory_bytes:sysdig{job=\"node-exporter\"})\n  > 1.5\n",
@@ -516,8 +614,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "kube_resourcequota:sysdig{job=\"kube-state-metrics\", type=\"used\"}\n  / ignoring(instance, job, type)\n(kube_resourcequota:sysdig{job=\"kube-state-metrics\", type=\"hard\"} > 0)\n  > 0.90\n",
@@ -537,8 +635,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "sum(increase(container_cpu_cfs_throttled_periods_total:sysdig{container!=\"\", }[5m])) by (container, pod, namespace)\n  /\nsum(increase(container_cpu_cfs_periods_total:sysdig{}[5m])) by (container, pod, namespace)\n  > ( 25 / 100 )\n",
@@ -558,8 +656,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "kubelet_volume_stats_available_bytes:sysdig{job=\"kubelet\"}\n  /\nkubelet_volume_stats_capacity_bytes:sysdig{job=\"kubelet\"}\n  < 0.03\n",
@@ -579,8 +677,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "(\n  kubelet_volume_stats_available_bytes:sysdig{job=\"kubelet\"}\n    /\n  kubelet_volume_stats_capacity_bytes:sysdig{job=\"kubelet\"}\n) < 0.15\nand\npredict_linear(kubelet_volume_stats_available_bytes:sysdig{job=\"kubelet\"}[6h], 4 * 24 * 3600) < 0\n",
@@ -600,8 +698,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "kube_persistentvolume_status_phase:sysdig{phase=~\"Failed|Pending\",job=\"kube-state-metrics\"} > 0\n",
@@ -621,8 +719,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "count(count by (gitVersion) (label_replace(kubernetes_build_info:sysdig{job!~\"kube-dns|coredns\"},\"gitVersion\",\"$1\",\"gitVersion\",\"(v[0-9]*.[0-9]*.[0-9]*).*\"))) > 1\n",
@@ -642,11 +740,11 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
-        "condition": "(sum(rate(rest_client_requests_total{code=~\"5..\"}[5m])) by (instance, job)\n  /\nrest_client_requests_total:sysdig\n> 0.01\n",
+        "condition": "(rest_client_requests_total:5xx:sysdig\n  /\nrest_client_requests_total:sysdig\n> 0.01\n",
         "customNotification": {
           "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
           "useNewTemplate": false
@@ -663,8 +761,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "(\n  status_class_5xx:apiserver_request_total:ratio_rate1h{job=\"kube-apiserver\"} > (14.4*0.010000)\n  and\n  status_class_5xx:apiserver_request_total:ratio_rate5m{job=\"kube-apiserver\"} > (14.4*0.010000)\n)\nor\n(\n  status_class_5xx:apiserver_request_total:ratio_rate6h{job=\"kube-apiserver\"} > (6*0.010000)\n  and\n  status_class_5xx:apiserver_request_total:ratio_rate30m{job=\"kube-apiserver\"} > (6*0.010000)\n)\n",
@@ -684,8 +782,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "(\n  status_class_5xx:apiserver_request_total:ratio_rate1d{job=\"kube-apiserver\"} > (3*0.010000)\n  and\n  status_class_5xx:apiserver_request_total:ratio_rate2h{job=\"kube-apiserver\"} > (3*0.010000)\n)\nor\n(\n  status_class_5xx:apiserver_request_total:ratio_rate3d{job=\"kube-apiserver\"} > (0.010000)\n  and\n  status_class_5xx:apiserver_request_total:ratio_rate6h{job=\"kube-apiserver\"} > (0.010000)\n)\n",
@@ -705,8 +803,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "(\n  cluster:apiserver_request_duration_seconds:mean5m{job=\"kube-apiserver\"}\n  >\n  on (verb) group_left()\n  (\n    avg by (verb) (cluster:apiserver_request_duration_seconds:mean5m{job=\"kube-apiserver\"} >= 0)\n    +\n    2*stddev by (verb) (cluster:apiserver_request_duration_seconds:mean5m{job=\"kube-apiserver\"} >= 0)\n  )\n) > on (verb) group_left()\n1.2 * avg by (verb) (cluster:apiserver_request_duration_seconds:mean5m{job=\"kube-apiserver\"} >= 0)\nand on (verb,resource)\ncluster_quantile:apiserver_request_duration_seconds:histogram_quantile{job=\"kube-apiserver\",quantile=\"0.99\"}\n>\n1\n",
@@ -726,8 +824,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "cluster_quantile:apiserver_request_duration_seconds:histogram_quantile{job=\"kube-apiserver\",quantile=\"0.99\"} > 4\n",
@@ -747,8 +845,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "sum(rate(apiserver_request_total:sysdig{job=\"kube-apiserver\",code=~\"5..\"}[5m])) by (resource,subresource,verb)\n  /\nsum(rate(apiserver_request_total:sysdig{job=\"kube-apiserver\"}[5m])) by (resource,subresource,verb) > 0.10\n",
@@ -768,8 +866,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "sum(rate(apiserver_request_total:sysdig{job=\"kube-apiserver\",code=~\"5..\"}[5m])) by (resource,subresource,verb)\n  /\nsum(rate(apiserver_request_total:sysdig{job=\"kube-apiserver\"}[5m])) by (resource,subresource,verb) > 0.05\n",
@@ -789,8 +887,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "apiserver_client_certificate_expiration_seconds_count:sysdig{job=\"kube-apiserver\"} > 0 and on(job) histogram_quantile(0.01, sum by (job, le) (rate(apiserver_client_certificate_expiration_seconds_bucket:sysdig{job=\"kube-apiserver\"}[5m]))) < 604800\n",
@@ -810,8 +908,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "apiserver_client_certificate_expiration_seconds_count:sysdig{job=\"kube-apiserver\"} > 0 and on(job) histogram_quantile(0.01, sum by (job, le) (rate(apiserver_client_certificate_expiration_seconds_bucket:sysdig{job=\"kube-apiserver\"}[5m]))) < 86400\n",
@@ -831,8 +929,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "sum by(name, namespace)(increase(aggregator_unavailable_apiservice_count:sysdig[5m])) > 2\n",
@@ -852,8 +950,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "sum by(name, namespace)(sum_over_time(aggregator_unavailable_apiservice:sysdig[5m])) > 0\n",
@@ -873,8 +971,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "absent(up{job=\"kube-apiserver\"} == 1)\n",
@@ -894,8 +992,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "kube_node_status_condition:sysdig{job=\"kube-state-metrics\",condition=\"Ready\",status=\"true\"} == 0\n",
@@ -915,8 +1013,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "kube_node_spec_taint:sysdig{job=\"kube-state-metrics\",key=\"node.kubernetes.io/unreachable\",effect=\"NoSchedule\"} == 1\n",
@@ -936,8 +1034,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "max(max(kubelet_running_pod_count:sysdig{job=\"kubelet\"}) by(instance) * on(instance) group_left(node) kubelet_node_name:sysdig{job=\"kubelet\"}) by(node) / max(kube_node_status_capacity_pods{job=\"kube-state-metrics\"}) by(node) > 0.95\n",
@@ -957,8 +1055,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "sum(changes(kube_node_status_condition:sysdig{status=\"true\",condition=\"Ready\"}[15m])) by (node) > 2\n",
@@ -978,8 +1076,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "node_quantile:kubelet_pleg_relist_duration_seconds:histogram_quantile{quantile=\"0.99\"} >= 10\n",
@@ -999,8 +1097,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "histogram_quantile(0.99, sum(rate(kubelet_pod_worker_duration_seconds_bucket{job=\"kubelet\"}[5m])) by (instance, le)) * on(instance) group_left(node) kubelet_node_name:sysdig  > 60\n",
@@ -1020,8 +1118,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "absent(up{job=\"kubelet\"} == 1)\n",
@@ -1041,8 +1139,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "absent(up{job=\"kube-scheduler\"} == 1)\n",
@@ -1062,8 +1160,8 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
-- data: |-
+- kind: Sysdig
+  data: |-
     {
       "alert": {
         "condition": "absent(up{job=\"kube-controller-manager\"} == 1)\n",
@@ -1083,4 +1181,4 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-  kind: Sysdig
+
