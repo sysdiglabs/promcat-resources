@@ -1,0 +1,252 @@
+apiVersion: v1
+kind: Alert
+app: apache
+version: 1.0.0
+appVersion:
+- '2.4'
+maintainers:
+- name: Sysdig team
+  link: https://sysdig.com/
+description: |
+  # Alerts
+  ## NoInstanceUpOfApp
+  No instances up. You can customize this alert to detect lack of instances of an specific app.
+
+  ## UpTimeLessThanOneHour
+  Instance with UpTime less than one hour in app.
+
+  ## TimeSinceLastOKRequestMoreThanOneHour
+  Time since last OK request higher than one hour in app.
+
+  ## HighErrorRate
+  High error rate in app.
+
+  ## HighResponseTime
+  High response time in app.
+
+  ## HighRateOfBusyWorkersInInstance
+  High rate of busy workers in instance.
+
+  ## LowOpenSlotsInApp
+  Low workers in open_slot state in app.
+
+  
+  # Installing the alerts
+  ## In Prometheus
+  Copy the alerts for Prometheus and paste them inside of the configuration file in the groups section:
+  ```yaml
+  [...]
+  groups:
+  - name: example
+      # Insert here the alerts
+      rules:
+  ```
+  ## In Sysdig Monitor
+  To install these alerts in Sysdig Monitor, contact with the support service.
+configurations:
+- kind: Prometheus
+  data: |
+    - alert: NoInstanceUpOfApp
+      expr: absent(sum by (app)(apache_up)) == 1
+      for: 10m
+      labels:
+        severity: page
+      annotations:
+        summary: No instances up
+    - alert: UpTimeLessThanOneHour
+      expr: apache_uptime_seconds_total < 3600
+      for: 10m
+      labels:
+        severity: page
+      annotations:
+        summary: Instance with UpTime less than one hour in app {{$labels.app}}
+    - alert: TimeSinceLastOKRequestMoreThanOneHour
+      expr: min by (app) (time() - apache_http_last_request_seconds{code=~"2.."}) > 3600
+      for: 10m
+      labels:
+        severity: page
+      annotations:
+        summary: Time since last OK request higher than one hour in app {{$labels.app}}
+    - alert: HighErrorRate
+      expr: |
+        sum by (app)(rate(apache_http_response_codes_total{code=~'4..|5..'}[5m])) /
+        sum by (app)(rate(apache_http_response_codes_total[5m])) > 0.1
+      for: 10m
+      labels:
+        severity: page
+      annotations:
+        summary: High error rate in app {{$labels.app}}
+    - alert: HighResponseTime
+      expr: |
+        sum by (app) (rate(apache_duration_total[5m])) /
+        sum by (app)(rate(apache_accesses_total[5m])) > 0.250
+      for: 30m
+      labels:
+        severity: page
+      annotations:
+        summary: High response time in app {{$labels.app}}
+    - alert: HighRateOfBusyWorkersInInstance
+      expr: |
+        sum by (instance)(apache_workers{state='busy'}) /
+        sum by (instance)(apache_workers) > 0.75
+      for: 10m
+      labels:
+        severity: page
+      annotations:
+        summary: High rate of busy workers in instance {{$labels.instance}}
+    - alert: LowOpenSlotsInApp
+      expr: |
+        sum by (app)(apache_scoreboard{state='open_slot'}) /
+        sum by (app)(apache_scoreboard) < 0.15
+      for: 10m
+      labels:
+        severity: page
+      annotations:
+        summary: Low workers in open_slot state in app {{$labels.app}}
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "absent(sum by (app)(apache_up)) == 1",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "NoInstanceUpOfApp",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "apache_uptime_seconds_total < 3600",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "UpTimeLessThanOneHour",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "min by (app) (time() - apache_http_last_request_seconds{code=~\"2..\"}) > 3600",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "TimeSinceLastOKRequestMoreThanOneHour",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum by (app)(rate(apache_http_response_codes_total{code=~'4..|5..'}[5m])) / \nsum by (app)(rate(apache_http_response_codes_total[5m])) > 0.1\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "HighErrorRate",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum by (app) (rate(apache_duration_total[5m])) / \nsum by (app)(rate(apache_accesses_total[5m])) > 0.250\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "HighResponseTime",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 30,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum by (instance)(apache_workers{state='busy'}) / \nsum by (instance)(apache_workers) > 0.75\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "HighRateOfBusyWorkersInInstance",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum by (app)(apache_scoreboard{state='open_slot'}) / \nsum by (app)(apache_scoreboard) < 0.15\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "LowOpenSlotsInApp",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
