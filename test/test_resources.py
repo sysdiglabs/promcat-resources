@@ -10,17 +10,17 @@ descriptions = []
 descriptions_names = {}
 dashboards = []
 dashboards_names = {}
-exporterConfigs = []
-exporterConfigs_names = {}
+setupGuides = []
+setupGuides_names = {}
 alerts = []
 alerts_name = {}
 recordingRules = []
 recordingRules_names = {}
 
-all_resources = [descriptions, dashboards, exporterConfigs, alerts, recordingRules]
-kinds_with_description = ['ExporterConfig', 'Alert', 'RecordingRule']
+all_resources = [descriptions, dashboards, setupGuides, alerts, recordingRules]
+kinds_with_description = ['SetupGuide', 'Alert', 'RecordingRule']
 kinds_with_data = ['Description']
-kinds_with_configurations = ['Dashboard', 'Alert', 'ExporterConfig', 'RecordingRule']
+kinds_with_configurations = ['Dashboard', 'Alert', 'SetupGuide', 'RecordingRule']
 
 sysdig_dashboard_keys_level_1 = ['description','layout','name','panels','schema','scopeExpressionList','eventDisplaySettings']
 
@@ -68,8 +68,8 @@ def loadResources():
             descriptions.append(resourceYaml)
           elif (resourceYaml["kind"] == "Dashboard"): 
             dashboards.append(resourceYaml)
-          elif (resourceYaml["kind"] == "ExporterConfig"): 
-            exporterConfigs.append(resourceYaml)
+          elif (resourceYaml["kind"] == "SetupGuide"): 
+            setupGuides.append(resourceYaml)
           elif (resourceYaml["kind"] == "Alert"): 
             alerts.append(resourceYaml)
           elif (resourceYaml["kind"] == "RecordingRule"): 
@@ -145,9 +145,9 @@ def testDuplicatedDashboards():
     checkDuplicatedResourceInApp(res,dashboards_names)
 
 # Only 1 Exporter Config per app
-def testDuplicatedExporterConfigs(): 
-  for res in exporterConfigs:
-    checkDuplicatedResourceInApp(res,exporterConfigs_names)
+def testDuplicatedSetupGuides(): 
+  for res in setupGuides:
+    checkDuplicatedResourceInApp(res,setupGuides_names)
 
 # Only 1 alert per app
 def testDuplicatedAlerts(): 

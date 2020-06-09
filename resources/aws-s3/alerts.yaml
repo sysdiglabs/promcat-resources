@@ -21,18 +21,6 @@ description: |
   This alert triggers when the P95 of the latency of the first byte excess a threshold for a certain period of time.
   The recommended value for this alert is a latency over 250ms for 10 minutes.
 
-  # Installing the alerts
-  ## In Prometheus
-  Copy the alerts for Prometheus and paste them inside of the configuration file in the groups section:
-  ```yaml
-  [...]
-  groups:
-  - name: example
-      # Insert here the alerts
-      rules:
-  ```
-  ## In Sysdig Monitor
-  To install these alerts in Sysdig Monitor, contact with the support service.
 configurations:
 - kind: Prometheus
   data: |
