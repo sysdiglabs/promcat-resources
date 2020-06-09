@@ -52,5 +52,6 @@ jobs:
         sudo mv ./kubectl /usr/local/bin/kubectl
     - name: Deploy in staging
       run: |
+        export KUBE_CONFIG=${{ secrets.KUBECTL_CONFIG }}
         chmod +x scripts/deploy.sh
         sh ./scripts/deploy.sh
