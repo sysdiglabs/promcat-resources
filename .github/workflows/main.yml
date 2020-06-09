@@ -51,7 +51,10 @@ jobs:
         chmod +x ./kubectl
         sudo mv ./kubectl /usr/local/bin/kubectl
     - name: Deploy in staging
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBECTL_CONFIG }}
       run: |
-        echo ${{ secrets.KUBECTL_CONFIG }} > kubeconfig
+        echo "$KUBE_CONFIG_DATA" | base64 --decode > /tmp/config
+        export KUBECONFIG=/tmp/config
         chmod +x scripts/deploy.sh
         sh ./scripts/deploy.sh
