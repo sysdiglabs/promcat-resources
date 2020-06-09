@@ -4,9 +4,6 @@ app: AWS ELB
 version: 1.0.0
 appVersion:
 - 1.0.0
-maintainers:
-- name: Sysdig team
-  link: https://sysdig.com/
 description: |
   # Alerts
   ## High4XXErrorsFromLoadBalancer and High5XXErrorsFromLoadBalancer
@@ -36,7 +33,6 @@ description: |
   The latency time is the time elapsed, in seconds, after the request leaves the load balancer until a response from the backend is received.
 
   This alerts triggers when the percentile 95 of a load balancer is over 250ms for 10 minutes.
-
 configurations:
 - kind: Prometheus
   data: |

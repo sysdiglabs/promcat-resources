@@ -21,11 +21,11 @@ all_resources = [descriptions, dashboards, setupGuides, alerts, recordingRules]
 kinds_with_description = ['SetupGuide', 'Alert', 'RecordingRule']
 kinds_with_data = ['Description']
 kinds_with_configurations = ['Dashboard', 'Alert', 'SetupGuide', 'RecordingRule']
+kinds_with_maintainers = ['Description']
 
 sysdig_dashboard_keys_level_1 = ['description','layout','name','panels','schema','scopeExpressionList','eventDisplaySettings']
 
-compulsory_fields_all = ["apiVersion", "kind", "app", "version", "appVersion", 
-                      "maintainers" ]
+compulsory_fields_all = ["apiVersion", "kind", "app", "version", "appVersion"]
 
 def loadYamlFile(path):
   file = open(path)
@@ -196,16 +196,19 @@ def testAppVersion():
           and (str(appversion) in apps_versions[res['app']]))
       
 # Maintainers 
-# - Is a list, not empty
-# - has name (string, not empty)
-# - has link (string, not empty)
+# For the resources with maintainers
+# - Is a string, not empty
 def testMaintainers():
   for kind in all_resources:
     for res in kind:
-      checkListNotEmpty(res,res['maintainers'])
-      for maintainer in res['maintainers']:
-        checkStringNotEmpty(res,maintainer['name'])
-        checkStringNotEmpty(res,maintainer['link'])
+      if (res["kind"] in kinds_with_maintainers):
+        assert ((res['app'] != "") and (res['kind'] != "") \
+          and ('maintainers' in res))
+        checkStringNotEmpty(res, res['maintainers'])
+      else:
+        assert ((res['app'] != "") and (res['kind'] != "") \
+          and (not 'maintainers' in res))
+      
 
 # Descriptions elements
 # For the resources with description:

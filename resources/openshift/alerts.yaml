@@ -4,9 +4,6 @@ app: Openshift
 version: 1.0.0
 appVersion:
 - '4.3'
-maintainers:
-- name: Sysdig team
-  link: https://sysdig.com/
 description: |
   # Alerts
   ## KubeCPUOvercommit
@@ -158,7 +155,6 @@ description: |
   KubeControllerManager has disappeared from Prometheus target discovery.
 
   [Runbook](https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecontrollermanagerdown)
-
 configurations:
 - kind: Prometheus
   data: |
@@ -1168,4 +1164,3 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-

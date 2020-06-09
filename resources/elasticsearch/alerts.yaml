@@ -4,9 +4,6 @@ app: Elasticsearch
 version: 1.0.0
 appVersion:
 - '6.8'
-maintainers:
-- name: Sysdig team
-  link: https://sysdig.com/
 description: |
   # Alerts
   ## ElasticsearchHeapUsageTooHigh
@@ -47,7 +44,6 @@ description: |
 
   ## ElasticsearchNoNewDocuments
   No new documents of the instance
-
 configurations:
 - kind: Prometheus
   data: |

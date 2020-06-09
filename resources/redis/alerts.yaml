@@ -4,9 +4,6 @@ app: redis
 version: 1.0.0
 appVersion:
 - <=6
-maintainers:
-- name: Sysdig team
-  link: https://sysdig.com/
 description: |
   # Alerts
   ## LowUptime
@@ -32,7 +29,6 @@ description: |
 
   ## LowHitRatio
   Low keyspace hit ratio in instance.
-
 configurations:
 - kind: Prometheus
   data: |

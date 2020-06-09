@@ -4,9 +4,6 @@ app: AWS S3
 version: 1.0.0
 appVersion:
 - 1.0.0
-maintainers:
-- name: Sysdig team
-  link: https://sysdig.com/
 description: |
   # Alerts
   ## High4XXErrorRate and High5XXErrorRate
@@ -20,7 +17,6 @@ description: |
   A high latency in the first byte can be caused a high number of petitions in a single bucket, making it slowing down the petitions.
   This alert triggers when the P95 of the latency of the first byte excess a threshold for a certain period of time.
   The recommended value for this alert is a latency over 250ms for 10 minutes.
-
 configurations:
 - kind: Prometheus
   data: |

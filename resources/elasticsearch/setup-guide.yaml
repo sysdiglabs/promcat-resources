@@ -1,12 +1,9 @@
 apiVersion: v1
 kind: SetupGuide
-app: 'Elasticsearch'
+app: Elasticsearch
 version: 1.0.0
 appVersion:
-  - '6.8'
-maintainers:
-- name: Sysdig team
-  link: https://sysdig.com/
+- '6.8'
 description: |
   # Installing the exporter
   To install the exporter follow this steps:
@@ -15,7 +12,7 @@ description: |
   ```
   kubectl apply -f exporter_no_credentials.yaml
   ```
-  The exporter will try to connect to the service named `elasticsearch` in the port `9200`, so if this is no the port or the service just change these lines 
+  The exporter will try to connect to the service named `elasticsearch` in the port `9200`, so if this is no the port or the service just change these lines
   ```
   - name: ES_URI
     value: https://elasticsearch:9200
@@ -24,7 +21,7 @@ description: |
   ```
   ...
   spec:
-    template:  
+    template:
       spec:
         containers:
         - command:
@@ -46,7 +43,7 @@ description: |
   ```
   ...
   spec:
-    template:  
+    template:
       spec:
         containers:
         - command:
