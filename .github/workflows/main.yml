@@ -52,8 +52,10 @@ jobs:
         sudo mv ./kubectl /usr/local/bin/kubectl
     - name: Deploy in staging
       env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GRC_REGISTRY_SECRET }}
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
       run: |
+        echo "$GOOGLE_APPLICATION_CREDENTIALS" | base64 --decode > /tmp/config
+        export GOOGLE_APPLICATION_CREDENTIALS=/tmp/config
         export KUBECONFIG=scripts/promhub_kubeconfig
         chmod +x scripts/deploy.sh
         sh ./scripts/deploy.sh
