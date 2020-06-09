@@ -299,3 +299,20 @@ def testAlerts():
       if (config['kind'] == 'Prometheus'):
         assert ((res['app'] != "") and (config['kind'] != "") \
           and (checkValidYAML(config['data']) == True))
+
+# Test that for every appVersion exists at least 1 resource
+def testExistResourcesForAllAppVersions():
+  for app in apps_versions:
+    for appVersionToFind in apps_versions[app]:     
+      existsResource = False
+      for kind in all_resources:
+        for res in kind:
+          if (res["app"] == app) \
+            and (appVersionToFind in res["appVersion"]):
+            existsResource = True
+            break
+        if existsResource == True:
+          break
+      if existsResource == False:
+        print("No resource found for app: '" + app + "' version: '" + appVersionToFind + "'")
+        exit (1)
