@@ -10,22 +10,22 @@ descriptions = []
 descriptions_names = {}
 dashboards = []
 dashboards_names = {}
-exporterConfigs = []
-exporterConfigs_names = {}
+setupGuides = []
+setupGuides_names = {}
 alerts = []
 alerts_name = {}
 recordingRules = []
 recordingRules_names = {}
 
-all_resources = [descriptions, dashboards, exporterConfigs, alerts, recordingRules]
-kinds_with_description = ['ExporterConfig', 'Alert', 'RecordingRule']
+all_resources = [descriptions, dashboards, setupGuides, alerts, recordingRules]
+kinds_with_description = ['SetupGuide', 'Alert', 'RecordingRule']
 kinds_with_data = ['Description']
-kinds_with_configurations = ['Dashboard', 'Alert', 'ExporterConfig', 'RecordingRule']
+kinds_with_configurations = ['Dashboard', 'Alert', 'SetupGuide', 'RecordingRule']
+kinds_with_maintainers = ['Description']
 
 sysdig_dashboard_keys_level_1 = ['description','layout','name','panels','schema','scopeExpressionList','eventDisplaySettings']
 
-compulsory_fields_all = ["apiVersion", "kind", "app", "version", "appVersion", 
-                      "maintainers" ]
+compulsory_fields_all = ["apiVersion", "kind", "app", "version", "appVersion"]
 
 def loadYamlFile(path):
   file = open(path)
@@ -68,8 +68,8 @@ def loadResources():
             descriptions.append(resourceYaml)
           elif (resourceYaml["kind"] == "Dashboard"): 
             dashboards.append(resourceYaml)
-          elif (resourceYaml["kind"] == "ExporterConfig"): 
-            exporterConfigs.append(resourceYaml)
+          elif (resourceYaml["kind"] == "SetupGuide"): 
+            setupGuides.append(resourceYaml)
           elif (resourceYaml["kind"] == "Alert"): 
             alerts.append(resourceYaml)
           elif (resourceYaml["kind"] == "RecordingRule"): 
@@ -145,9 +145,9 @@ def testDuplicatedDashboards():
     checkDuplicatedResourceInApp(res,dashboards_names)
 
 # Only 1 Exporter Config per app
-def testDuplicatedExporterConfigs(): 
-  for res in exporterConfigs:
-    checkDuplicatedResourceInApp(res,exporterConfigs_names)
+def testDuplicatedSetupGuides(): 
+  for res in setupGuides:
+    checkDuplicatedResourceInApp(res,setupGuides_names)
 
 # Only 1 alert per app
 def testDuplicatedAlerts(): 
@@ -196,16 +196,19 @@ def testAppVersion():
           and (str(appversion) in apps_versions[res['app']]))
       
 # Maintainers 
-# - Is a list, not empty
-# - has name (string, not empty)
-# - has link (string, not empty)
+# For the resources with maintainers
+# - Is a string, not empty
 def testMaintainers():
   for kind in all_resources:
     for res in kind:
-      checkListNotEmpty(res,res['maintainers'])
-      for maintainer in res['maintainers']:
-        checkStringNotEmpty(res,maintainer['name'])
-        checkStringNotEmpty(res,maintainer['link'])
+      if (res["kind"] in kinds_with_maintainers):
+        assert ((res['app'] != "") and (res['kind'] != "") \
+          and ('maintainers' in res))
+        checkStringNotEmpty(res, res['maintainers'])
+      else:
+        assert ((res['app'] != "") and (res['kind'] != "") \
+          and (not 'maintainers' in res))
+      
 
 # Descriptions elements
 # For the resources with description:
@@ -299,3 +302,20 @@ def testAlerts():
       if (config['kind'] == 'Prometheus'):
         assert ((res['app'] != "") and (config['kind'] != "") \
           and (checkValidYAML(config['data']) == True))
+
+# Test that for every appVersion exists at least 1 resource
+def testExistResourcesForAllAppVersions():
+  for app in apps_versions:
+    for appVersionToFind in apps_versions[app]:     
+      existsResource = False
+      for kind in all_resources:
+        for res in kind:
+          if (res["app"] == app) \
+            and (appVersionToFind in res["appVersion"]):
+            existsResource = True
+            break
+        if existsResource == True:
+          break
+      if existsResource == False:
+        print("No resource found for app: '" + app + "' version: '" + appVersionToFind + "'")
+        exit (1)

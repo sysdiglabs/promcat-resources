@@ -52,21 +52,6 @@ for prometheusAlertElement in prometheusAlerts:
                          + alert["annotations"]["runbook_url"] \
                         + ")\n\n"
 
-installInstructions = """
-# Installing the alerts
-## In Prometheus
-Copy the alerts for Prometheus and paste them inside of the configuration file in the groups section:
-```yaml
-[...]
-groups:
-- name: example
-    # Insert here the alerts
-    rules: 
-``` 
-## In Sysdig Monitor
-To install these alerts in Sysdig Monitor, contact with the support service. 
-"""
-newDescription = newDescription + installInstructions
 
 yamlFile["description"] = newDescription
 

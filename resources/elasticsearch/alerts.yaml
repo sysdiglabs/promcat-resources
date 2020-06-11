@@ -4,9 +4,6 @@ app: Elasticsearch
 version: 1.0.0
 appVersion:
 - '6.8'
-maintainers:
-- name: Sysdig team
-  link: https://sysdig.com/
 description: |
   # Alerts
   ## ElasticsearchHeapUsageTooHigh
@@ -47,19 +44,6 @@ description: |
 
   ## ElasticsearchNoNewDocuments
   No new documents of the instance
-
-  # Installing the alerts
-  ## In Prometheus
-  Copy the alerts for Prometheus and paste them inside of the configuration file in the groups section:
-  ```yaml
-  [...]
-  groups:
-  - name: example
-      # Insert here the alerts
-      rules:
-  ```
-  ## In Sysdig Monitor
-  To install these alerts in Sysdig Monitor, contact with the support service.
 configurations:
 - kind: Prometheus
   data: |
