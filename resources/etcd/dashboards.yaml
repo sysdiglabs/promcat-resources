@@ -7,7 +7,7 @@ appVersion:
 configurations:
 - name: 'etcd'
   kind: Sysdig
-  image: 'etcd/images/etcd_sysdig.png'
+  image: etcd/images/etcd_sysdig.png
   description: |
     This dashboard offers information on:
     * Etcd has a leader?
@@ -24,7 +24,7 @@ configurations:
   file: include/Kubernetes_etcd.json
 - name: 'etcd'
   kind: Grafana
-  image: 'etcd/images/etcd_grafana.png'
+  image: etcd/images/etcd_grafana.png
   description: |
     This dashboard offers information on:
     * Etcd has a leader?
