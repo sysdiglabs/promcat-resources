@@ -1,0 +1,87 @@
+apiVersion: v1
+kind: Dashboard
+app: 'postgreSQL'
+version: 1.0.0
+appVersion:
+  - '<=12'
+configurations:
+- name: 'Instance Health'
+  kind: Sysdig
+  image: 'postgresql/images/postgresql-sysdig-instance-health.png'
+  description: |
+    This dashboard offers information on:
+    * UP
+    * Postmaster Uptime
+    * Databases size
+    * WAL Files Archive Error Rate
+    * Scheduled vs Requested Checkpoints
+    * Checkpoint time
+    * Backend Buffer Write Rate
+    * Background Writer Stops for Max Write Buffers
+    * Buffers Allocated
+    * Max Transaction Time by DB
+    * Connections Usage Percentage
+    * Available Connections
+  file: include/postgresql-sysdig-instance-health.json
+- name: 'Database Golden Signals'
+  kind: Sysdig
+  image: 'postgresql/images/postgresql-sysdig-db-golden-signals.png'
+  description: |
+    This dashboard offers information on:
+    * Backends connected
+    * Database Size
+    * Hit Rate
+    * Fetched / Returned Tuples
+    * Locks by Mode 
+    * Query Locks Errors 
+    * Deadlocks
+    * Connections by state
+    * Max Duration by State
+    * File Read Duration
+    * IOPS
+    * Fetched / Returned Tuples
+    * eHeap Only Tuple Updates Rate
+    * IOPS by Function
+    * Data Written to Temporary Files
+    * Index vs Sequential Scans
+  file: include/postgresql-sysdig-db-golden-signals.json
+- name: 'Instance Health'
+  kind: Grafana
+  image: 'postgresql/images/postgresql-grafana-instance-health.png'
+  description: |
+    This dashboard offers information on:
+    * UP
+    * Postmaster Uptime
+    * Databases size
+    * WAL Files Archive Error Rate
+    * Scheduled vs Requested Checkpoints
+    * Checkpoint time
+    * Backend Buffer Write Rate
+    * Background Writer Stops for Max Write Buffers
+    * Buffers Allocated
+    * Max Transaction Time by DB
+    * Connections Usage Percentage
+    * Available Connections
+  file: include/postgresql-grafana-instance-health.json
+- name: 'Database Golden Signals'
+  kind: Grafana
+  image: 'postgresql/images/postgresql-grafana-db-golden-signals.png'
+  description: |
+    This dashboard offers information on:
+    * Backends connected
+    * Database Size
+    * Hit Rate
+    * Fetched / Returned Tuples
+    * Locks by Mode 
+    * Query Locks Errors 
+    * Deadlocks
+    * Connections by state
+    * Max Duration by State
+    * File Read Duration
+    * IOPS
+    * Fetched / Returned Tuples
+    * eHeap Only Tuple Updates Rate
+    * IOPS by Function
+    * Data Written to Temporary Files
+    * Index vs Sequential Scans
+  file: include/postgresql-grafana-db-golden-signals.json
