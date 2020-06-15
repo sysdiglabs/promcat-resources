@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wait-script
+  namespace: staging
+  labels:
+    name: wait-script
+data:
+  wait.sh: |-
+    apk update && apk add inotify-tools
+    echo "waiting for file..."
+    file=/shared-resources/file.unlock
+    while [ ! -f "$file" ]
+    do
+      inotifywait -qqt 10 -e create -e moved_to "$(dirname $file)"
+    done
+    echo "found file"
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: dbimport
+  namespace: staging
+  labels:
+    app: dbimport
+spec:
+  template:
+    spec:
+      volumes:
+        - name: resources
+          emptyDir: {}
+        - name: wait
+          configMap:
+            name: wait-script
+            items:
+              - key: wait.sh
+                path: wait.sh
+      restartPolicy: Never
+      containers:
+      - name: dbimport
+        image: gcr.io/mateo-burillo-ns/promcat-dbimport:staging
+        imagePullPolicy: Always
+        command: ["/bin/sh", "-c", "sleep 10 && /bin/dbimport && touch /resources/file.unlock"]
+        env:
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: promhub
+                key: database-url
+          - name: RESOURCES_PATH
+            value: /resources/resources
+          - name: APPS_PATH
+            value: /resources/apps
+        volumeMounts:
+          - name: resources
+            mountPath: /resources
+      - name: resources
+        image: gcr.io/mateo-burillo-ns/promcat-resources:staging
+        imagePullPolicy: Always
+        command: ["/bin/sh", "-c", "cp -r /resources/* /shared-resources && /bin/sh /wait/wait.sh"]
+        volumeMounts:
+          - name: resources
+            mountPath: /shared-resources
+          - name: wait
+            mountPath: /wait
+            readOnly: true
+        readinessProbe:
+          exec:
+            command:
+              - touch
+              - /health
