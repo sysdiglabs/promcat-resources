@@ -371,14 +371,14 @@
                     ],
                     "heuristic": false,
                     "hidden": false,
-                    "id": "windows_net_bytes_total",
+                    "id": "wmi_net_bytes_total",
                     "identity": false,
                     "label": false,
                     "lastSeen": 1588243914199,
                     "max": true,
                     "metricType": "counter",
                     "min": true,
-                    "name": "windows_net_bytes_total",
+                    "name": "wmi_net_bytes_total",
                     "namespaces": [
                       "host",
                       "host.process",
@@ -421,11 +421,11 @@
                   ],
                   "heuristic": false,
                   "hidden": false,
-                  "id": "windows_net_bytes_total",
+                  "id": "wmi_net_bytes_total",
                   "identity": false,
                   "lastSeen": 1588243914199,
                   "metricType": "counter",
-                  "name": "windows_net_bytes_total",
+                  "name": "wmi_net_bytes_total",
                   "namespaces": [
                     "host",
                     "host.process",
@@ -479,7 +479,7 @@
                   "type": "byte"
                 },
                 "groupAggregation": "avg",
-                "id": "windows_net_bytes_total",
+                "id": "wmi_net_bytes_total",
                 "sorting": null,
                 "timeAggregation": "avg"
               }
@@ -783,7 +783,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "100 * (windows_cs_physical_memory_bytes{instance=$host} - windows_os_physical_memory_free_bytes{instance=$host}) / windows_cs_physical_memory_bytes{instance=$host}"
+            "query": "100 * (wmi_cs_physical_memory_bytes{instance=$host} - wmi_os_physical_memory_free_bytes{instance=$host}) / wmi_cs_physical_memory_bytes{instance=$host}"
           }
         ],
         "description": "",
@@ -814,7 +814,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100 * avg by (mode) (rate(windows_cpu_time_total{instance=$host}[5m]))"
+            "query": "100 * avg by (mode) (rate(wmi_cpu_time_total{instance=$host}[5m]))"
           }
         ],
         "axesConfiguration": {
@@ -873,7 +873,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100 * sum(rate(windows_cpu_time_total{instance=$host,mode != 'idle'}[5m])) / count(windows_cpu_core_frequency_mhz{instance=$host})"
+            "query": "100 * sum(rate(wmi_cpu_time_total{instance=$host,mode != 'idle'}[5m])) / count(wmi_cpu_core_frequency_mhz{instance=$host})"
           }
         ],
         "description": "",
@@ -917,7 +917,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "count(windows_cpu_core_frequency_mhz{instance=$host})"
+            "query": "count(wmi_cpu_core_frequency_mhz{instance=$host})"
           }
         ],
         "description": "",
@@ -948,7 +948,7 @@
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "windows_cs_physical_memory_bytes{instance=$host}"
+            "query": "wmi_cs_physical_memory_bytes{instance=$host}"
           }
         ],
         "description": "",
@@ -1046,14 +1046,14 @@
                     ],
                     "heuristic": false,
                     "hidden": false,
-                    "id": "windows_net_current_bandwidth",
+                    "id": "wmi_net_current_bandwidth",
                     "identity": false,
                     "label": false,
                     "lastSeen": 1588243914199,
                     "max": true,
                     "metricType": "gauge",
                     "min": true,
-                    "name": "windows_net_current_bandwidth",
+                    "name": "wmi_net_current_bandwidth",
                     "namespaces": [
                       "host",
                       "host.process",
@@ -1096,11 +1096,11 @@
                   ],
                   "heuristic": false,
                   "hidden": false,
-                  "id": "windows_net_current_bandwidth",
+                  "id": "wmi_net_current_bandwidth",
                   "identity": false,
                   "lastSeen": 1588243914199,
                   "metricType": "gauge",
-                  "name": "windows_net_current_bandwidth",
+                  "name": "wmi_net_current_bandwidth",
                   "namespaces": [
                     "host",
                     "host.process",
@@ -1154,7 +1154,7 @@
                   "type": "number"
                 },
                 "groupAggregation": "avg",
-                "id": "windows_net_current_bandwidth",
+                "id": "wmi_net_current_bandwidth",
                 "sorting": null,
                 "timeAggregation": "avg"
               }
@@ -1525,14 +1525,14 @@
                     ],
                     "heuristic": false,
                     "hidden": false,
-                    "id": "windows_logical_disk_free_bytes",
+                    "id": "wmi_logical_disk_free_bytes",
                     "identity": false,
                     "label": false,
                     "lastSeen": 1588243914199,
                     "max": true,
                     "metricType": "gauge",
                     "min": true,
-                    "name": "windows_logical_disk_free_bytes",
+                    "name": "wmi_logical_disk_free_bytes",
                     "namespaces": [
                       "host",
                       "host.process",
@@ -1575,11 +1575,11 @@
                   ],
                   "heuristic": false,
                   "hidden": false,
-                  "id": "windows_logical_disk_free_bytes",
+                  "id": "wmi_logical_disk_free_bytes",
                   "identity": false,
                   "lastSeen": 1588243914199,
                   "metricType": "gauge",
-                  "name": "windows_logical_disk_free_bytes",
+                  "name": "wmi_logical_disk_free_bytes",
                   "namespaces": [
                     "host",
                     "host.process",
@@ -1633,7 +1633,7 @@
                   "type": "byte"
                 },
                 "groupAggregation": "avg",
-                "id": "windows_logical_disk_free_bytes",
+                "id": "wmi_logical_disk_free_bytes",
                 "sorting": null,
                 "timeAggregation": "avg"
               }
@@ -2004,14 +2004,14 @@
                     ],
                     "heuristic": false,
                     "hidden": false,
-                    "id": "windows_logical_disk_size_bytes",
+                    "id": "wmi_logical_disk_size_bytes",
                     "identity": false,
                     "label": false,
                     "lastSeen": 1588243914199,
                     "max": true,
                     "metricType": "gauge",
                     "min": true,
-                    "name": "windows_logical_disk_size_bytes",
+                    "name": "wmi_logical_disk_size_bytes",
                     "namespaces": [
                       "host",
                       "host.process",
@@ -2054,11 +2054,11 @@
                   ],
                   "heuristic": false,
                   "hidden": false,
-                  "id": "windows_logical_disk_size_bytes",
+                  "id": "wmi_logical_disk_size_bytes",
                   "identity": false,
                   "lastSeen": 1588243914199,
                   "metricType": "gauge",
-                  "name": "windows_logical_disk_size_bytes",
+                  "name": "wmi_logical_disk_size_bytes",
                   "namespaces": [
                     "host",
                     "host.process",
@@ -2112,7 +2112,7 @@
                   "type": "byte"
                 },
                 "groupAggregation": "avg",
-                "id": "windows_logical_disk_size_bytes",
+                "id": "wmi_logical_disk_size_bytes",
                 "sorting": null,
                 "timeAggregation": "avg"
               }
@@ -2416,7 +2416,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "(time() - windows_system_system_up_time{instance=$host}) "
+            "query": "(time() - wmi_system_system_up_time{instance=$host}) "
           }
         ],
         "description": "",
@@ -2454,7 +2454,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "windows_system_threads{instance=$host}"
+            "query": "wmi_system_threads{instance=$host}"
           }
         ],
         "description": "",
@@ -2485,7 +2485,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "windows_os_processes{instance=$host}"
+            "query": "wmi_os_processes{instance=$host}"
           }
         ],
         "description": "",
@@ -2516,7 +2516,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100 * sum by (core) (rate(windows_cpu_time_total{instance=$host,mode != 'idle'}[5m]))"
+            "query": "100 * sum by (core) (rate(wmi_cpu_time_total{instance=$host,mode != 'idle'}[5m]))"
           }
         ],
         "axesConfiguration": {
@@ -2575,7 +2575,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100* (windows_cs_physical_memory_bytes{instance=$host} - windows_os_physical_memory_free_bytes{instance=$host}) / windows_cs_physical_memory_bytes{instance=$host}"
+            "query": "100* (wmi_cs_physical_memory_bytes{instance=$host} - wmi_os_physical_memory_free_bytes{instance=$host}) / wmi_cs_physical_memory_bytes{instance=$host}"
           },
           {
             "displayInfo": {
@@ -2591,7 +2591,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "100 * (windows_os_virtual_memory_bytes{instance=$host} - windows_os_virtual_memory_free_bytes{instance=$host}) / windows_os_virtual_memory_bytes{instance=$host}"
+            "query": "100 * (wmi_os_virtual_memory_bytes{instance=$host} - wmi_os_virtual_memory_free_bytes{instance=$host}) / wmi_os_virtual_memory_bytes{instance=$host}"
           }
         ],
         "axesConfiguration": {
@@ -2650,7 +2650,7 @@
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "windows_os_physical_memory_free_bytes{instance=$host}"
+            "query": "wmi_os_physical_memory_free_bytes{instance=$host}"
           },
           {
             "displayInfo": {
@@ -2666,7 +2666,7 @@
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "windows_os_virtual_memory_free_bytes{instance=$host}"
+            "query": "wmi_os_virtual_memory_free_bytes{instance=$host}"
           }
         ],
         "axesConfiguration": {
@@ -2725,7 +2725,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100 * (windows_logical_disk_size_bytes{instance=$host} - windows_logical_disk_free_bytes{instance=$host}) / windows_logical_disk_size_bytes{instance=$host}"
+            "query": "100 * (wmi_logical_disk_size_bytes{instance=$host} - wmi_logical_disk_free_bytes{instance=$host}) / wmi_logical_disk_size_bytes{instance=$host}"
           }
         ],
         "axesConfiguration": {
@@ -2784,7 +2784,7 @@
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "windows_logical_disk_free_bytes{instance=$host}"
+            "query": "wmi_logical_disk_free_bytes{instance=$host}"
           }
         ],
         "axesConfiguration": {
@@ -2843,7 +2843,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(windows_logical_disk_writes_total{instance=$host}[5m])"
+            "query": "rate(wmi_logical_disk_writes_total{instance=$host}[5m])"
           }
         ],
         "axesConfiguration": {
@@ -2902,7 +2902,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(windows_logical_disk_reads_total{instance=$host}[5m])"
+            "query": "rate(wmi_logical_disk_reads_total{instance=$host}[5m])"
           }
         ],
         "axesConfiguration": {
@@ -2961,7 +2961,7 @@
               "unit": "byteRate",
               "yAxis": "auto"
             },
-            "query": "rate(windows_logical_disk_read_bytes_total{instance=$host}[5m])"
+            "query": "rate(wmi_logical_disk_read_bytes_total{instance=$host}[5m])"
           }
         ],
         "axesConfiguration": {
@@ -3020,7 +3020,7 @@
               "unit": "byteRate",
               "yAxis": "auto"
             },
-            "query": "rate(windows_logical_disk_write_bytes_total{instance=$host}[5m])"
+            "query": "rate(wmi_logical_disk_write_bytes_total{instance=$host}[5m])"
           }
         ],
         "axesConfiguration": {
@@ -3079,7 +3079,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "windows_logical_disk_requests_queued{instance=$host}"
+            "query": "wmi_logical_disk_requests_queued{instance=$host}"
           }
         ],
         "axesConfiguration": {
@@ -3138,7 +3138,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(windows_logical_disk_split_ios_total{instance=$host}[5m])"
+            "query": "rate(wmi_logical_disk_split_ios_total{instance=$host}[5m])"
           }
         ],
         "axesConfiguration": {
@@ -3197,7 +3197,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100 * rate(windows_net_packets_received_errors{instance=$host}[5m]) / (rate(windows_net_packets_received_errors{instance=$host}[5m]) + rate(windows_net_packets_received_total{instance=$host}[5m]))"
+            "query": "100 * rate(wmi_net_packets_received_errors{instance=$host}[5m]) / (rate(wmi_net_packets_received_errors{instance=$host}[5m]) + rate(wmi_net_packets_received_total{instance=$host}[5m]))"
           }
         ],
         "axesConfiguration": {
@@ -3256,7 +3256,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100 * rate(windows_net_packets_outbound_errors{instance=$host}[5m]) / (rate(windows_net_packets_outbound_errors{instance=$host}[5m]) + rate(windows_net_packets_sent_total{instance=$host}[5m]))"
+            "query": "100 * rate(wmi_net_packets_outbound_errors{instance=$host}[5m]) / (rate(wmi_net_packets_outbound_errors{instance=$host}[5m]) + rate(wmi_net_packets_sent_total{instance=$host}[5m]))"
           }
         ],
         "axesConfiguration": {
@@ -3315,7 +3315,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100 * rate(windows_net_packets_received_discarded{instance=$host}[5m]) / (rate(windows_net_packets_received_discarded{instance=$host}[5m]) + rate(windows_net_packets_received_total{instance=$host}[5m]))"
+            "query": "100 * rate(wmi_net_packets_received_discarded{instance=$host}[5m]) / (rate(wmi_net_packets_received_discarded{instance=$host}[5m]) + rate(wmi_net_packets_received_total{instance=$host}[5m]))"
           }
         ],
         "axesConfiguration": {
@@ -3374,7 +3374,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100 * rate(windows_net_packets_outbound_discarded{instance=$host}[5m]) / (rate(windows_net_packets_outbound_discarded{instance=$host}[5m]) + rate(windows_net_packets_sent_total{instance=$host}[5m]))"
+            "query": "100 * rate(wmi_net_packets_outbound_discarded{instance=$host}[5m]) / (rate(wmi_net_packets_outbound_discarded{instance=$host}[5m]) + rate(wmi_net_packets_sent_total{instance=$host}[5m]))"
           }
         ],
         "axesConfiguration": {
@@ -3433,7 +3433,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100 * (rate(windows_net_bytes_total{instance=$host}[5m])) * 8 /  windows_net_current_bandwidth{instance=$host}"
+            "query": "100 * (rate(wmi_net_bytes_total{instance=$host}[5m])) * 8 /  wmi_net_current_bandwidth{instance=$host}"
           }
         ],
         "axesConfiguration": {
@@ -3492,7 +3492,7 @@
               "unit": "byteRate",
               "yAxis": "auto"
             },
-            "query": "windows_net_current_bandwidth{instance=$host} - ((rate(windows_net_bytes_total{instance=$host}[5m])) * 8) "
+            "query": "wmi_net_current_bandwidth{instance=$host} - ((rate(wmi_net_bytes_total{instance=$host}[5m])) * 8) "
           }
         ],
         "axesConfiguration": {
@@ -3551,7 +3551,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(windows_net_packets_received_total{instance=$host}[5m])"
+            "query": "rate(wmi_net_packets_received_total{instance=$host}[5m])"
           }
         ],
         "axesConfiguration": {
@@ -3610,7 +3610,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(windows_net_packets_sent_total{instance=$host}[5m])"
+            "query": "rate(wmi_net_packets_sent_total{instance=$host}[5m])"
           }
         ],
         "axesConfiguration": {
@@ -3669,7 +3669,7 @@
               "unit": "byteRate",
               "yAxis": "auto"
             },
-            "query": "rate(windows_net_bytes_received_total{instance=$host}[5m])"
+            "query": "rate(wmi_net_bytes_received_total{instance=$host}[5m])"
           }
         ],
         "axesConfiguration": {
@@ -3728,7 +3728,7 @@
               "unit": "byteRate",
               "yAxis": "auto"
             },
-            "query": "rate(windows_net_bytes_sent_total{instance=$host}[5m])"
+            "query": "rate(wmi_net_bytes_sent_total{instance=$host}[5m])"
           }
         ],
         "axesConfiguration": {
@@ -3787,7 +3787,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "windows_os_processes{instance=$host}"
+            "query": "wmi_os_processes{instance=$host}"
           },
           {
             "displayInfo": {
@@ -3803,7 +3803,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "windows_system_threads{instance=$host}"
+            "query": "wmi_system_threads{instance=$host}"
           }
         ],
         "axesConfiguration": {
@@ -3862,7 +3862,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "windows_system_processor_queue_length{instance=$host}"
+            "query": "wmi_system_processor_queue_length{instance=$host}"
           }
         ],
         "axesConfiguration": {
@@ -3921,7 +3921,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100 * (windows_os_paging_limit_bytes{instance=$host} - windows_os_paging_free_bytes{instance=$host}) / windows_os_paging_limit_bytes{instance=$host}"
+            "query": "100 * (wmi_os_paging_limit_bytes{instance=$host} - wmi_os_paging_free_bytes{instance=$host}) / wmi_os_paging_limit_bytes{instance=$host}"
           }
         ],
         "axesConfiguration": {
@@ -3980,7 +3980,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "windows_os_users{instance=$host}"
+            "query": "wmi_os_users{instance=$host}"
           }
         ],
         "axesConfiguration": {
@@ -4039,7 +4039,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(windows_system_context_switches_total{instance=$host}[5m])"
+            "query": "rate(wmi_system_context_switches_total{instance=$host}[5m])"
           }
         ],
         "axesConfiguration": {
@@ -4098,7 +4098,7 @@
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "windows_os_paging_free_bytes{instance=$host}"
+            "query": "wmi_os_paging_free_bytes{instance=$host}"
           }
         ],
         "axesConfiguration": {

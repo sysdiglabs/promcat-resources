@@ -1,6 +1,6 @@
 apiVersion: v1
 kind: Alert
-app: Windows
+app: WMI
 version: 1.0.0
 appVersion:
 - '2016'
@@ -36,42 +36,42 @@ configurations:
 - kind: Prometheus
   data: |
     - alert: HighCPUUsage
-      expr: 100 * sum by (instance) (rate(windows_cpu_time_total{mode != 'idle'}[5m])) / count by (instance) (windows_cpu_core_frequency_mhz) > 95
+      expr: 100 * sum by (instance) (rate(wmi_cpu_time_total{mode != 'idle'}[5m])) / count by (instance) (wmi_cpu_core_frequency_mhz) > 95
       for: 15m
       labels:
         severity: page
       annotations:
         summary: High CPU usage in instance {{$labels.instance}}
     - alert: HighPhysicalMemoryUsage
-      expr: 100 * (windows_cs_physical_memory_bytes - windows_os_physical_memory_free_bytes) / windows_cs_physical_memory_bytes  > 95
+      expr: 100 * (wmi_cs_physical_memory_bytes - wmi_os_physical_memory_free_bytes) / wmi_cs_physical_memory_bytes  > 95
       for: 15m
       labels:
         severity: page
       annotations:
         summary: High physical memory usage in instance {{$labels.instance}}
     - alert: LogicalDiskFull
-      expr: 100 * (windows_logical_disk_size_bytes - windows_logical_disk_free_bytes) / windows_logical_disk_size_bytes  > 95
+      expr: 100 * (wmi_logical_disk_size_bytes - wmi_logical_disk_free_bytes) / wmi_logical_disk_size_bytes  > 95
       for: 15m
       labels:
         severity: page
       annotations:
         summary: Disk {{$labels.volume}} full over 95% in instance {{$labels.instance}}
     - alert: UpTimeLessThanOneHour
-      expr: time() - windows_system_system_up_time  < 3600
+      expr: time() - wmi_system_system_up_time  < 3600
       for: 15m
       labels:
         severity: page
       annotations:
         summary: Up Time of less than 1 hour in instance {{$labels.instance}}
     - alert: HighInboundErrorRate
-      expr: 100 * rate(windows_net_packets_received_errors[5m]) / (rate(windows_net_packets_received_errors[5m]) + rate(windows_net_packets_received_total[5m])>0)  > 75
+      expr: 100 * rate(wmi_net_packets_received_errors[5m]) / (rate(wmi_net_packets_received_errors[5m]) + rate(wmi_net_packets_received_total[5m])>0)  > 75
       for: 10m
       labels:
         severity: page
       annotations:
         summary: High inbound network error rate in instance {{$labels.instance}}
     - alert: HighOutboundErrorRate
-      expr: 100 * rate(windows_net_packets_outbound_errors[5m]) / (rate(windows_net_packets_outbound_errors[5m]) + rate(windows_net_packets_sent_total[5m])>0)  > 75
+      expr: 100 * rate(wmi_net_packets_outbound_errors[5m]) / (rate(wmi_net_packets_outbound_errors[5m]) + rate(wmi_net_packets_sent_total[5m])>0)  > 75
       for: 10m
       labels:
         severity: page
@@ -80,7 +80,7 @@ configurations:
 - data: |-
     {
       "alert": {
-        "condition": "100 * sum by (instance) (rate(windows_cpu_time_total{mode != 'idle'}[5m])) / count by (instance) (windows_cpu_core_frequency_mhz) > 95",
+        "condition": "100 * sum by (instance) (rate(wmi_cpu_time_total{mode != 'idle'}[5m])) / count by (instance) (wmi_cpu_core_frequency_mhz) > 95",
         "customNotification": {
           "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
           "useNewTemplate": false
@@ -101,7 +101,7 @@ configurations:
 - data: |-
     {
       "alert": {
-        "condition": "100 * (windows_cs_physical_memory_bytes - windows_os_physical_memory_free_bytes) / windows_cs_physical_memory_bytes  > 95",
+        "condition": "100 * (wmi_cs_physical_memory_bytes - wmi_os_physical_memory_free_bytes) / wmi_cs_physical_memory_bytes  > 95",
         "customNotification": {
           "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
           "useNewTemplate": false
@@ -122,7 +122,7 @@ configurations:
 - data: |-
     {
       "alert": {
-        "condition": "100 * (windows_logical_disk_size_bytes - windows_logical_disk_free_bytes) / windows_logical_disk_size_bytes  > 95",
+        "condition": "100 * (wmi_logical_disk_size_bytes - wmi_logical_disk_free_bytes) / wmi_logical_disk_size_bytes  > 95",
         "customNotification": {
           "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
           "useNewTemplate": false
@@ -143,7 +143,7 @@ configurations:
 - data: |-
     {
       "alert": {
-        "condition": "time() - windows_system_system_up_time  < 3600",
+        "condition": "time() - wmi_system_system_up_time  < 3600",
         "customNotification": {
           "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
           "useNewTemplate": false
@@ -164,7 +164,7 @@ configurations:
 - data: |-
     {
       "alert": {
-        "condition": "100 * rate(windows_net_packets_received_errors[5m]) / (rate(windows_net_packets_received_errors[5m]) + rate(windows_net_packets_received_total[5m])>0)  > 75",
+        "condition": "100 * rate(wmi_net_packets_received_errors[5m]) / (rate(wmi_net_packets_received_errors[5m]) + rate(wmi_net_packets_received_total[5m])>0)  > 75",
         "customNotification": {
           "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
           "useNewTemplate": false
@@ -185,7 +185,7 @@ configurations:
 - data: |-
     {
       "alert": {
-        "condition": "100 * rate(windows_net_packets_outbound_errors[5m]) / (rate(windows_net_packets_outbound_errors[5m]) + rate(windows_net_packets_sent_total[5m])>0)  > 75",
+        "condition": "100 * rate(wmi_net_packets_outbound_errors[5m]) / (rate(wmi_net_packets_outbound_errors[5m]) + rate(wmi_net_packets_sent_total[5m])>0)  > 75",
         "customNotification": {
           "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
           "useNewTemplate": false
