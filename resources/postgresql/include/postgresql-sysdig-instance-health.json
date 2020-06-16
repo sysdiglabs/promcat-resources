@@ -1,0 +1,909 @@
+{
+  "dashboard": {
+    "description": "",
+    "eventDisplaySettings": {
+      "enabled": false,
+      "queryParams": {
+        "alertStatuses": [],
+        "categories": [],
+        "filter": "",
+        "severities": [],
+        "teamScope": false
+      }
+    },
+    "layout": [
+      {
+        "h": 4,
+        "panelId": 1,
+        "w": 8,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 4,
+        "panelId": 2,
+        "w": 12,
+        "x": 12,
+        "y": 4
+      },
+      {
+        "h": 4,
+        "panelId": 3,
+        "w": 12,
+        "x": 0,
+        "y": 4
+      },
+      {
+        "h": 4,
+        "panelId": 4,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      {
+        "h": 4,
+        "panelId": 5,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      {
+        "h": 4,
+        "panelId": 6,
+        "w": 12,
+        "x": 12,
+        "y": 12
+      },
+      {
+        "h": 4,
+        "panelId": 7,
+        "w": 12,
+        "x": 0,
+        "y": 12
+      },
+      {
+        "h": 4,
+        "panelId": 8,
+        "w": 8,
+        "x": 16,
+        "y": 16
+      },
+      {
+        "h": 4,
+        "panelId": 9,
+        "w": 8,
+        "x": 0,
+        "y": 16
+      },
+      {
+        "h": 4,
+        "panelId": 10,
+        "w": 8,
+        "x": 8,
+        "y": 16
+      },
+      {
+        "h": 4,
+        "panelId": 11,
+        "w": 8,
+        "x": 16,
+        "y": 0
+      },
+      {
+        "h": 4,
+        "panelId": 12,
+        "w": 8,
+        "x": 8,
+        "y": 0
+      }
+    ],
+    "name": "Postgresql - Instance Health",
+    "panels": [
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "pg_up{instance=$instance}"
+          }
+        ],
+        "description": "",
+        "id": 1,
+        "name": "UP",
+        "numberThresholds": {
+          "base": {
+            "displayText": "DOWN",
+            "severity": "high"
+          },
+          "values": [
+            {
+              "displayText": "OK",
+              "inputFormat": "1",
+              "severity": "ok",
+              "value": 0.0
+            }
+          ]
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Rate",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "100 * rate(pg_stat_archiver_failed_count{instance=$instance}[5m]) / (rate(pg_stat_archiver_archived_count{instance=$instance}[5m]) + rate(pg_stat_archiver_failed_count{instance=$instance}[5m]))\n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 2,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "WAL Files Archive Error Rate",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "requested",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "rate(pg_stat_bgwriter_checkpoints_req{instance=$instance}[5m])"
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "scheduled",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "rate(pg_stat_bgwriter_checkpoints_timed{instance=$instance}[5m])"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 3,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Scheduled vs Requested Checkpoints",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "sync to disk",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "ms",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "rate(pg_stat_bgwriter_checkpoint_sync_time{instance=$instance}[5m])"
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "write to disk",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "ms",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "rate(pg_stat_bgwriter_checkpoint_write_time{instance=$instance}[5m])"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 4,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Checkpoint time",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "rate",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "100 * rate(pg_stat_bgwriter_buffers_backend{instance=$instance}[5m])/  (rate(pg_stat_bgwriter_buffers_backend{instance=$instance}[5m]) + rate(pg_stat_bgwriter_buffers_checkpoint{instance=$instance}[5m]) + rate(pg_stat_bgwriter_buffers_clean{instance=$instance}[5m]))\n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 5,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Backend Buffer Write Rate",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "stops",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "rate(pg_stat_bgwriter_maxwritten_clean{instance=$instance}[5m])\n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 6,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Background Writer Stops for Max Write Buffers",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "buffers",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "rate(pg_stat_bgwriter_buffers_alloc{instance=$instance}[5m])\n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 7,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Buffers Allocated",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "{{datname}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "avg(rate(pg_stat_activity_max_tx_duration{instance=$instance,datname!~'template.*'}[5m])) by (datname)\n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 8,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Max Transaction Time by DB",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "rate",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "100 * sum(pg_stat_activity_count{instance=$instance}) by (instance)  / ((sum(pg_settings_max_connections{instance=$instance}) by (instance)) - sum(pg_settings_superuser_reserved_connections{instance=$instance}) by (instance))\n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 9,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Connections Usage Percentage",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "connections",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "((sum(pg_settings_max_connections{instance=$instance}) by (instance)) - sum(pg_settings_superuser_reserved_connections{instance=$instance}) by (instance)) - sum(pg_stat_activity_count{instance=$instance}) by (instance) \n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 10,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Available Connections",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "{{datname}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "pg_database_size_bytes{instance=$instance}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B",
+            "maxValue": null,
+            "minInputFormat": "B",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 11,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "DBs Size",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "time() - pg_postmaster_start_time_seconds{instance=$instance}"
+          }
+        ],
+        "description": "",
+        "id": 12,
+        "name": "Postmaster Uptime",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "high"
+          },
+          "values": [
+            {
+              "displayText": "",
+              "inputFormat": "s",
+              "severity": "ok",
+              "value": 3600.0
+            },
+            {
+              "displayText": "",
+              "inputFormat": "s",
+              "severity": "low",
+              "value": 1800.0
+            }
+          ]
+        },
+        "type": "advancedNumber"
+      }
+    ],
+    "schema": 3,
+    "scopeExpressionList": [
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": false,
+          "canMonitor": false,
+          "category": "appinfo",
+          "createdAt": 1592224621354,
+          "customerId": 25008,
+          "deferred": false,
+          "documentId": "25008-41224731627681078",
+          "documentTimestamp": 1592224621354,
+          "documentType": "metric",
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.AppMetric$Tag",
+          "generator": {
+            "aggregationForGroup": "none",
+            "aggregations": [
+              "distinct"
+            ],
+            "avg": false,
+            "canCalculate": false,
+            "canFilter": true,
+            "canGroupBy": false,
+            "canMonitor": false,
+            "category": "appinfo",
+            "concat": false,
+            "context": [],
+            "count": false,
+            "countDistinct": false,
+            "deferred": false,
+            "experimental": false,
+            "groupAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "groupBy": [],
+            "heuristic": false,
+            "hidden": false,
+            "id": "instance_url",
+            "identity": false,
+            "label": true,
+            "lastSeen": 1591239369776,
+            "max": false,
+            "metricType": "segmentBy",
+            "min": false,
+            "namespaces": [
+              "host"
+            ],
+            "rateOfChange": false,
+            "scale": 1.0,
+            "scopes": [],
+            "sum": false,
+            "timeAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "timeAvg": false,
+            "type": "string"
+          },
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "instance_url",
+          "identity": false,
+          "lastSeen": 1591239369776,
+          "metricType": "tag",
+          "namespaces": [
+            "host"
+          ],
+          "routingInfo": {
+            "customerId": 25008,
+            "routing": "25008"
+          },
+          "scale": 1.0,
+          "scopes": [],
+          "segment": false,
+          "segmentations": [],
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "instance",
+        "isVariable": true,
+        "operand": "instance_url",
+        "operator": "equals",
+        "value": [],
+        "variable": true
+      }
+    ]
+  }
+}

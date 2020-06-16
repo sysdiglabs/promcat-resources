@@ -1,0 +1,1365 @@
+{
+  "dashboard": {
+    "description": "",
+    "eventDisplaySettings": {
+      "enabled": false,
+      "queryParams": {
+        "alertStatuses": [],
+        "categories": [],
+        "filter": "",
+        "severities": [],
+        "teamScope": false
+      }
+    },
+    "layout": [
+      {
+        "h": 2,
+        "panelId": 2,
+        "w": 8,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 4,
+        "panelId": 3,
+        "w": 8,
+        "x": 8,
+        "y": 0
+      },
+      {
+        "h": 4,
+        "panelId": 4,
+        "w": 8,
+        "x": 16,
+        "y": 0
+      },
+      {
+        "h": 4,
+        "panelId": 5,
+        "w": 8,
+        "x": 0,
+        "y": 4
+      },
+      {
+        "h": 4,
+        "panelId": 6,
+        "w": 8,
+        "x": 8,
+        "y": 4
+      },
+      {
+        "h": 4,
+        "panelId": 7,
+        "w": 8,
+        "x": 16,
+        "y": 4
+      },
+      {
+        "h": 4,
+        "panelId": 8,
+        "w": 8,
+        "x": 0,
+        "y": 8
+      },
+      {
+        "h": 4,
+        "panelId": 9,
+        "w": 8,
+        "x": 8,
+        "y": 8
+      },
+      {
+        "h": 4,
+        "panelId": 10,
+        "w": 8,
+        "x": 16,
+        "y": 8
+      },
+      {
+        "h": 4,
+        "panelId": 11,
+        "w": 8,
+        "x": 0,
+        "y": 12
+      },
+      {
+        "h": 4,
+        "panelId": 12,
+        "w": 8,
+        "x": 8,
+        "y": 12
+      },
+      {
+        "h": 4,
+        "panelId": 13,
+        "w": 8,
+        "x": 0,
+        "y": 16
+      },
+      {
+        "h": 4,
+        "panelId": 14,
+        "w": 8,
+        "x": 8,
+        "y": 16
+      },
+      {
+        "h": 2,
+        "panelId": 15,
+        "w": 8,
+        "x": 0,
+        "y": 2
+      },
+      {
+        "h": 4,
+        "panelId": 16,
+        "w": 8,
+        "x": 16,
+        "y": 12
+      },
+      {
+        "h": 4,
+        "panelId": 17,
+        "w": 8,
+        "x": 16,
+        "y": 16
+      }
+    ],
+    "name": "Postgresql - DB Golden Signals",
+    "panels": [
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "pg_stat_database_numbackends{instance=$instance,datname=$db}\n"
+          }
+        ],
+        "description": "",
+        "id": 2,
+        "name": "Backends connected",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "high"
+          },
+          "values": [
+            {
+              "displayText": "",
+              "inputFormat": "1",
+              "severity": "ok",
+              "value": 0.0
+            }
+          ]
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "rate",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "100 * avg(rate(pg_stat_database_blks_hit{instance=$instance,datname=$db}[5m]) / (rate(pg_stat_database_blks_hit{instance=$instance,datname=$db}[5m]) + rate(pg_stat_database_blks_read{instance=$instance,datname=$db}[5m])))\n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 3,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Hit Rate",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "rate",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "100 * rate(pg_stat_database_tup_fetched{instance=$instance,datname=$db}[5m]) / rate(pg_stat_database_tup_returned{instance=$instance,datname=$db}[5m]) \n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 4,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Fetched / Returned Tuples",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "{{mode}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "rate(pg_locks_count{instance=$instance,datname=$db}[5m])\n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 5,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Locks by Mode ",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "lock timeouts",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "rate(pg_stat_database_conflicts_confl_lock{instance=$instance,datname=$db}[5m])\n"
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "deadlocks",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "rate(pg_stat_database_conflicts_confl_deadlock{instance=$instance,datname=$db}[5m])\n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 6,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Query Locks Errors ",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "deadlocks",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "rate(pg_stat_database_deadlocks{instance=$instance,datname=$db}[5m])\n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 7,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Deadlocks",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "{{state}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "rate(pg_stat_activity_count{instance=$instance,datname=$db}[5m])\n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 8,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Connections by state",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "{{state}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "(rate(pg_stat_activity_max_tx_duration{instance=$instance,datname=$db}[5m]))\n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 9,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Max Duration by State",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "duration",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "ms",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "rate(pg_stat_database_blk_read_time{instance=$instance,datname=$db}[5m]) / rate(pg_stat_database_blks_read{instance=$instance,datname=$db}[5m])\n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 10,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "File Read Duration",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "commit",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "/s",
+              "unit": "numberRate",
+              "yAxis": "auto"
+            },
+            "query": "rate(pg_stat_database_xact_commit{instance=$instance,datname=$db}[5m]) \n"
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "rollback",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "/s",
+              "unit": "numberRate",
+              "yAxis": "auto"
+            },
+            "query": "rate(pg_stat_database_xact_rollback{instance=$instance,datname=$db}[5m]) \n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "/s",
+            "maxValue": null,
+            "minInputFormat": "/s",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 11,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "IOPS",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "fetched",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "/s",
+              "unit": "numberRate",
+              "yAxis": "auto"
+            },
+            "query": "rate(pg_stat_database_tup_fetched{instance=$instance,datname=$db}[5m]) "
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "returned",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "/s",
+              "unit": "numberRate",
+              "yAxis": "auto"
+            },
+            "query": "rate(pg_stat_database_tup_returned{instance=$instance,datname=$db}[5m]) "
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "/s",
+            "maxValue": null,
+            "minInputFormat": "/s",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 12,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Fetched / Returned Tuples",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "insert",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "/s",
+              "unit": "numberRate",
+              "yAxis": "auto"
+            },
+            "query": "rate(pg_stat_database_tup_inserted{instance=$instance,datname=$db}[5m]) "
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "update",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "/s",
+              "unit": "numberRate",
+              "yAxis": "auto"
+            },
+            "query": "rate(pg_stat_database_tup_updated{instance=$instance,datname=$db}[5m]) "
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "delete",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "/s",
+              "unit": "numberRate",
+              "yAxis": "auto"
+            },
+            "query": "rate(pg_stat_database_tup_deleted{instance=$instance,datname=$db}[5m]) "
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "/s",
+            "maxValue": null,
+            "minInputFormat": "/s",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 13,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "IOPS by Function",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Data written",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B/s",
+              "unit": "byteRate",
+              "yAxis": "auto"
+            },
+            "query": "rate(pg_stat_database_temp_bytes{instance=$instance,datname=$db}[5m]) "
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B/s",
+            "maxValue": null,
+            "minInputFormat": "B/s",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 14,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Data Written to Temporary Files",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "pg_database_size_bytes{instance=$instance,datname=$db}\n"
+          }
+        ],
+        "description": "",
+        "id": 15,
+        "name": "DB Size",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "high"
+          },
+          "values": [
+            {
+              "displayText": "",
+              "inputFormat": "B",
+              "severity": "ok",
+              "value": 0.0
+            }
+          ]
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "rate",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "100 * sum by (datname)(rate(pg_stat_user_tables_n_tup_hot_upd{instance=$instance,datname=$db}[5m])) / (sum by (datname)(rate(pg_stat_user_tables_n_tup_hot_upd{instance=$instance,datname=$db}[5m])) + sum by (datname)(rate(pg_stat_database_tup_updated{instance=$instance,datname=$db}[5m])))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 16,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Heap Only Tuple Updates Rate",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "index scan",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by (datname)(pg_stat_user_tables_idx_scan{instance=$instance,datname=$db})"
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "seq scan",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by (datname)(pg_stat_user_tables_seq_scan{instance=$instance,datname=$db})"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 17,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true
+        },
+        "name": "Index vs Sequential Scans",
+        "type": "advancedTimechart"
+      }
+    ],
+    "schema": 3,
+    "scopeExpressionList": [
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": false,
+          "canMonitor": false,
+          "category": "appinfo",
+          "createdAt": 1592224622241,
+          "customerId": 25008,
+          "deferred": false,
+          "documentId": "25008-41224731627681078",
+          "documentTimestamp": 1592224622241,
+          "documentType": "metric",
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.AppMetric$Tag",
+          "generator": {
+            "aggregationForGroup": "none",
+            "aggregations": [
+              "distinct"
+            ],
+            "avg": false,
+            "canCalculate": false,
+            "canFilter": true,
+            "canGroupBy": false,
+            "canMonitor": false,
+            "category": "appinfo",
+            "concat": false,
+            "context": [],
+            "count": false,
+            "countDistinct": false,
+            "deferred": false,
+            "experimental": false,
+            "groupAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "groupBy": [],
+            "heuristic": false,
+            "hidden": false,
+            "id": "instance_url",
+            "identity": false,
+            "label": true,
+            "lastSeen": 1591239369776,
+            "max": false,
+            "metricType": "segmentBy",
+            "min": false,
+            "namespaces": [
+              "host"
+            ],
+            "rateOfChange": false,
+            "scale": 1.0,
+            "scopes": [],
+            "sum": false,
+            "timeAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "timeAvg": false,
+            "type": "string"
+          },
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "instance_url",
+          "identity": false,
+          "lastSeen": 1591239369776,
+          "metricType": "tag",
+          "namespaces": [
+            "host"
+          ],
+          "routingInfo": {
+            "customerId": 25008,
+            "routing": "25008"
+          },
+          "scale": 1.0,
+          "scopes": [],
+          "segment": false,
+          "segmentations": [],
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "instance",
+        "isVariable": true,
+        "operand": "instance_url",
+        "operator": "equals",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": false,
+          "canMonitor": false,
+          "category": "prometheus",
+          "createdAt": 1592224622241,
+          "customerId": 25008,
+          "deferred": false,
+          "documentId": "25008-2551515084608344802",
+          "documentTimestamp": 1592224622241,
+          "documentType": "metric",
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
+          "generator": {
+            "aggregationForGroup": "none",
+            "aggregations": [
+              "distinct"
+            ],
+            "avg": false,
+            "canCalculate": false,
+            "canFilter": true,
+            "canGroupBy": false,
+            "canMonitor": false,
+            "category": "prometheus",
+            "concat": false,
+            "context": [],
+            "count": false,
+            "countDistinct": false,
+            "deferred": false,
+            "experimental": false,
+            "groupAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "groupBy": [],
+            "heuristic": false,
+            "hidden": false,
+            "id": "datname",
+            "identity": false,
+            "label": true,
+            "lastSeen": 1592223257577,
+            "max": false,
+            "metricType": "segmentBy",
+            "min": false,
+            "namespaces": [
+              "host",
+              "host.process",
+              "host.container",
+              "cloudProvider",
+              "mesos",
+              "ecs",
+              "kubernetes.cluster",
+              "kubernetes.namespace",
+              "kubernetes.deployment",
+              "kubernetes.job",
+              "kubernetes.daemonSet",
+              "kubernetes.service",
+              "kubernetes.node",
+              "kubernetes.replicaSet",
+              "kubernetes.statefulSet",
+              "kubernetes.resourcequota",
+              "kubernetes.persistentvolume",
+              "kubernetes.persistentvolumeclaim",
+              "kubernetes.pod"
+            ],
+            "rateOfChange": false,
+            "scale": 1.0,
+            "scopes": [],
+            "sum": false,
+            "timeAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "timeAvg": false,
+            "type": "string"
+          },
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "datname",
+          "identity": false,
+          "lastSeen": 1592223257577,
+          "metricType": "tag",
+          "namespaces": [
+            "host",
+            "host.process",
+            "host.container",
+            "cloudProvider",
+            "mesos",
+            "ecs",
+            "kubernetes.cluster",
+            "kubernetes.namespace",
+            "kubernetes.deployment",
+            "kubernetes.job",
+            "kubernetes.daemonSet",
+            "kubernetes.service",
+            "kubernetes.node",
+            "kubernetes.replicaSet",
+            "kubernetes.statefulSet",
+            "kubernetes.resourcequota",
+            "kubernetes.persistentvolume",
+            "kubernetes.persistentvolumeclaim",
+            "kubernetes.pod"
+          ],
+          "routingInfo": {
+            "customerId": 25008,
+            "routing": "25008"
+          },
+          "scale": 1.0,
+          "scopes": [],
+          "segment": false,
+          "segmentations": [],
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "db",
+        "isVariable": true,
+        "operand": "datname",
+        "operator": "equals",
+        "value": [],
+        "variable": true
+      }
+    ]
+  }
+}
