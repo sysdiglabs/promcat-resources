@@ -37,3 +37,11 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
+    - name: build and push docker image
+      uses: docker/build-push-action@v1
+      with:
+        username: _json_key
+        password: ${{ secrets.GRC_REGISTRY_SECRET }}
+        registry: gcr.io
+        repository: mateo-burillo-ns/promcat-resources
+        tags: latest
