@@ -4,50 +4,17 @@ app: AWS ALB
 version: 1.0.0
 appVersion:
 - 1.0.0
-maintainers: Configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
+maintainers: |
+    Configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
+
+    Using [Yace - yet another cloudwatch exporter](https://github.com/ivx/yet-another-cloudwatch-exporter) with Apache 2.0 license.
 data: |-
   # AWS Application Load Balancer
   Elastic Load Balancing automatically distributes incoming application traffic across multiple targets, such as Amazon EC2 instances, containers, IP addresses, and Lambda functions.
   An Application Load Balancer functions at the application layer, the seventh layer of the Open Systems Interconnection (OSI) model.
 
   The metrics for AWS ALB are obtained through AWS Cloudwatch. Using the [YACE exporter](https://github.com/ivx/yet-another-cloudwatch-exporter).
-
-  # Exporter configuration
-  ## AWS permissions
-  The exporter needs permissions to access the resources from the AWS account.
-
-  First, create an AWS IAM policy on your AWS infrastructure allowing read CloudWatch metrics and get resources by tags.
-  Here is a AWS IAM configuration example:
-
-  ```
-  {
-      "Version": "2012-10-17",
-      "Statement": [
-          {
-              "Sid": "CloudWatchExporterPolicy",
-              "Effect": "Allow",
-              "Action": [
-                  "tag:GetResources",
-                  "cloudwatch:ListTagsForResource",
-                  "cloudwatch:GetMetricStatistics",
-                  "cloudwatch:GetMetricData",
-                  "cloudwatch:ListMetrics"
-              ],
-              "Resource": "*"
-          }
-      ]
-  }
-  ```
-
-  Then, create a file $HOME/.aws/credentials as the following, substituting the values with your key and password:
-
-  ```
-  # CREDENTIALS FOR AWS ACCOUNT
-  aws_region = us-east-1
-  aws_access_key_id = AYYYYYZZZZZZ3BLXXXXX
-  aws_secret_access_key = bXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  ```
-
+  
   ## Cloudwatch billing considerations
   Using AWS Cloudwatch for monitoring can incur in additional costs in your AWS billing.
   Check the [AWS Cloudwatch documentation](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_limits.html) for further details.
