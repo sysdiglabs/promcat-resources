@@ -4,51 +4,15 @@ app: AWS S3
 version: 1.0.0
 appVersion:
 - 1.0.0
-maintainers: Configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
+maintainers: |
+    Configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
+
+    Using [Yace - yet another cloudwatch exporter](https://github.com/ivx/yet-another-cloudwatch-exporter) with Apache 2.0 license.
 data: |-
   # AWS S3
   Amazon Simple Storage Service (Amazon S3) is an object storage service that offers industry-leading scalability, data availability, security, and performance.
 
   The metrics for AWS S3 are obtained through AWS Cloudwatch. Using the [YACE exporter](https://github.com/ivx/yet-another-cloudwatch-exporter).
-
-  # Exporter configuration
-  ## AWS permissions
-  The exporter needs permissions to access the resources from the AWS account.
-
-  First, create an AWS IAM policy on your AWS infrastructure allowing read CloudWatch metrics and get resources by tags.
-  Here is a AWS IAM configuration example:
-
-  ```
-  {
-      "Version": "2012-10-17",
-      "Statement": [
-          {
-              "Sid": "CloudWatchExporterPolicy",
-              "Effect": "Allow",
-              "Action": [
-                  "tag:GetResources",
-                  "cloudwatch:ListTagsForResource",
-                  "cloudwatch:GetMetricStatistics",
-                  "cloudwatch:GetMetricData",
-                  "cloudwatch:ListMetrics"
-              ],
-              "Resource": "*"
-          }
-      ]
-  }
-  ```
-
-  Then, create a file $HOME/.aws/credentials as the following, substituting the values with your key and password:
-
-  ```
-  # CREDENTIALS FOR AWS ACCOUNT
-  aws_region = us-east-1
-  aws_access_key_id = AYYYYYZZZZZZ3BLXXXXX
-  aws_secret_access_key = bXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  ```
-  ## Enabling requests metrics for S3 Buckets
-  If you want to get the CloudWatch request metrics for the objects in a bucket, you must create a metrics configuration for the bucket.
-  When enabled, request metrics are reported for all object operations.
 
   ## Cloudwatch billing considerations
   Using AWS Cloudwatch for monitoring can incur in additional costs in your AWS billing.
