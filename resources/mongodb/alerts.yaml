@@ -1,0 +1,180 @@
+apiVersion: v1
+kind: Alert
+app: mongodb
+version: 1.0.0
+appVersion:
+- '4.2'
+description: |+
+  # Alerts
+  ## MongoServerDown
+  Mongo server detected down by instance.
+
+  ## UpTimeLessThanOneHour
+  Uptime of less than one hour in instance.
+
+  ## AssertsDetected
+  Asserts detected in instance.
+
+  ## HighLatency
+  High latency in instance.
+
+  ## HighTicketUtilization
+  Ticket usage over 75% in instance.
+
+  ## RecurrentCursorTimeout
+  Recurrent cursors timeout in instance.
+
+  ## RecurrentMemoryPageFaults
+  Recurrent memory page faults in instance.
+
+configurations:
+- kind: Prometheus
+  file: include/mongo-prometheus-alerts.yaml
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "mongodb_up != 1",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "MongoServerDown",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "mongodb_instance_uptime_seconds < 3600",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "UpTimeLessThanOneHour",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "rate(mongodb_asserts_total{type=~\"regular|user|message\"}[5m])",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "AssertsDetected",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "rate(mongodb_mongod_op_latencies_latency_total[5m]) / \nrate(mongodb_mongod_op_latencies_ops_total[5m]) > 250000\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "HighLatency",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "(mongodb_mongod_wiredtiger_concurrent_transactions_out_tickets / \nmongodb_mongod_wiredtiger_concurrent_transactions_total_tickets)\n> 0.75\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "HighTicketUtilization",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "rate(mongodb_mongod_metrics_cursor_timed_out_total[5m]) > 0\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "RecurrentCursorTimeout",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 30,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "rate(mongodb_extra_info_page_faults_total[5m]) > 0\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "RecurrentMemoryPageFaults",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 30,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+

@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: SetupGuide
+app: 'mongodb'
+version: 1.0.0
+appVersion:
+- '4.2'
+description: |
+  # Configuring MongoDB for the exporter
+  To install MongoDB, you can download the _mongo-deploy.yaml_ file and run:
+  ```
+  kubectl apply -f mongo-deploy.yaml
+  ```
+
+  If you want to use a no-admin user for the exporter, you will have to create the user and grant the roles to be able to scrape statistics. 
+
+  In the mongo shell:
+  ```
+  use admin
+  db.auth("your-admin-user", "your-admin-password")
+  db.createUser(
+     {
+        user: "exporter-user",
+        pwd: "exporter-pass",
+        roles: [ 
+          { role: "clusterMonitor", db: "admin" },
+          { role: "read", db: "admin" },
+          { role: "read", db: "local" } 
+        ]
+     }
+  )
+  ```
+
+  # Installing the exporter
+  To install the MongoDB exporter, we will use the [Helm chart](https://github.com/helm/charts/tree/master/stable/prometheus-mongodb-exporter) available. 
+
+  First, create a _values.yaml_ file with the following parameters:
+  ```
+  fullnameOverride: "mongodb-exporter"
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9216"
+  serviceMonitor:
+    enabled: false
+  mongodb:
+    uri: mongodb://exporter-user:exporter-pass@mongodb:27017
+  ```
+
+  Note that the _mongodb.uri_ parameter is a valid [MongoDB URI](https://docs.mongodb.com/manual/reference/connection-string/).
+  In this URI, include the user and password of the exporter. The Helm chart will create a Kubernetes Secret with the URI so it is not visible. 
+
+  The metrics will be available in the port 9216 of the exporter pod.
+
+  # SYSDIG AGENT CONFIGURATION
+  In the _values.yaml_ of the Helm chart we will include the Prometheus annotations configuring the port of the exporter as scraping port.    
+
+  Also, in the Sysdig Agent configuration, be sure to have these lines of configuration to scrape the containers with Prometheus annotations.
+  ```
+  process_filter:
+    - include:
+        kubernetes.pod.annotation.prometheus.io/scrape: true
+        conf:
+          path: "{kubernetes.pod.annotation.prometheus.io/path}"
+          port: "{kubernetes.pod.annotation.prometheus.io/port}"
+  ```
+configurations:
+- name: mongo-deploy.yaml
+  file: include/mongo-deploy.yaml

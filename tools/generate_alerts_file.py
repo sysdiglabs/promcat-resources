@@ -26,7 +26,10 @@ newConfigurations = []
 
 prometheusAlerts = pypromcat.filterConfigurationsPerKind(yamlFile["configurations"],"Prometheus")
 for prometheusAlert in prometheusAlerts:
-  newConfigurations.append(prometheusAlert)
+  configToAppend = prometheusAlert.copy()
+  if 'file' in prometheusAlert:
+    del configToAppend['data']
+  newConfigurations.append(configToAppend)
 
 sysdigAlertsArray = pypromcat.sysdigAlerts2PromcatConfigurations(pypromcat.createArrayOfSysdigAlerts(yamlFile))
 for sysdigAlert in sysdigAlertsArray:
@@ -35,7 +38,7 @@ for sysdigAlert in sysdigAlertsArray:
 yamlFile["configurations"] = newConfigurations
 
 newDescription = ""
-newDescription = newDescription + "# Alerts\n"
+newDescription += "# Alerts\n"
 
 for prometheusAlertElement in prometheusAlerts:
   prometheusAlertsYaml = pypromcat.loadYaml(prometheusAlertElement["data"])
@@ -56,9 +59,9 @@ for prometheusAlertElement in prometheusAlerts:
 yamlFile["description"] = newDescription
 
 outputformatted = pypromcat.dict2BeautyYaml(yamlFile)
-if (args.outputFile == None):
-  print(outputformatted)
+if args.outputFile is None:
+    print(outputformatted)
 else:
-  f = open(args.outputFile, "w")
-  f.write(outputformatted)
-  f.close()
+    f = open(args.outputFile, "w")
+    f.write(outputformatted)
+    f.close()
