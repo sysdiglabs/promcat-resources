@@ -4,31 +4,6 @@ app: redis
 version: 1.0.0
 appVersion:
 - <=6
-description: |
-  # Alerts
-  ## LowUptime
-  Uptime of less than 1 hour in a redis instance.
-
-  ## HighMemoryUsage
-  High memory usage in instance.
-
-  ## HighClientsUsage
-  High client connections usage in instance.
-
-  ## HighResponseTime
-  Response time over 250ms in instance.
-
-  ## HighFragmentationRatio
-  High fragmentation in instance.
-
-  ## HighKeysEvictionRatio
-  High keys eviction ratio in instance.
-
-  ## RecurrentRejectedConnections
-  High keys eviction ratio in instance.
-
-  ## LowHitRatio
-  Low keyspace hit ratio in instance.
 configurations:
 - kind: Prometheus
   data: |
@@ -262,3 +237,4 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
+descriptionFile: ALERTS.md

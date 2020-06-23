@@ -31,7 +31,7 @@ descriptionFileNames = {
 }
 yamlFile = pypromcat.loadRawYamlFile(args.file)
 
-if yamlFile["kind"] not in ["Description","SetupGuide","RecordingRule"]:
+if yamlFile["kind"] not in ["Description","SetupGuide","RecordingRule","Alert"]:
   print("This is not an supported file: " + args.file)
   exit (1)
 
