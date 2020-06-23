@@ -25,6 +25,12 @@ def loadYaml(input):
 def loadYamlFile(path):
   file = open(path)
   yamlFile = loadYaml(file)
+
+  if 'descriptionFile' in yamlFile:
+    fileToIncludePath = os.path.dirname(path) + "/" + yamlFile["descriptionFile"]
+    with open(fileToIncludePath, 'r') as file:
+      yamlFile["description"] =  file.read()
+
   if "configurations" in yamlFile:
     for configuration in yamlFile["configurations"]:
       if "file" in configuration:
