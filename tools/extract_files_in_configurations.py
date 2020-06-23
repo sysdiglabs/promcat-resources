@@ -5,7 +5,7 @@ import os
 import re
 
 def generateFileName(resource,configuration):
-  if resource["kind"] == "ExporterConfig":
+  if resource["kind"] == "SetupGuide":
     return configuration["name"]
   elif resource["kind"] == "Dashboard":
     fileName = "dashboard"
@@ -42,7 +42,7 @@ except BaseException as exception:
 
 yamlFile = pypromcat.loadRawYamlFile(args.file)
 
-if yamlFile["kind"] not in ["ExporterConfig","Dashboard"]:
+if yamlFile["kind"] not in ["SetupGuide","Dashboard"]:
   print("This is not an supported file: " + args.file)
   exit (1)
 

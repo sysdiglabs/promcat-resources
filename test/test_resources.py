@@ -18,8 +18,7 @@ recordingRules = []
 recordingRules_names = {}
 
 all_resources = [descriptions, dashboards, setupGuides, alerts, recordingRules]
-kinds_with_description = ['SetupGuide', 'Alert', 'RecordingRule']
-kinds_with_data = ['Description']
+kinds_with_description = ['Description','SetupGuide', 'Alert', 'RecordingRule']
 kinds_with_configurations = ['Dashboard', 'Alert', 'SetupGuide', 'RecordingRule']
 kinds_with_maintainers = ['Description']
 
@@ -84,10 +83,11 @@ def loadResources():
 # General tests
 # Checks that a resource name does not exists in a list
 def checkDuplicatedResourceInApp(res,names):
-  if (not res['app'] in names):
-    names[res["app"]] = []    
+  if res['app'] not in names:
+    names[res["app"]] = []
   for appVersion in res["appVersion"]:
-    assert (res['app'] != "") and (type(res['app']) == str) and (not appVersion in names[res['app']])
+    assert (res['app'] != "" and type(res['app']) == str
+            and appVersion not in names[res['app']])
     names[res['app']].append(str(appVersion))
   
 
@@ -113,7 +113,7 @@ def checkValidSysdigDashboard(element):
     print('*** Sysdig dashboard must have an unique root element "dashboard"')
     return False
   for key in dashboard["dashboard"].keys():
-    if (not key in sysdig_dashboard_keys_level_1):
+    if key not in sysdig_dashboard_keys_level_1:
       print('*** Key not supported in Sysdig dashboard: ' + key)
       return False
   return True
@@ -206,8 +206,7 @@ def testMaintainers():
           and ('maintainers' in res))
         checkStringNotEmpty(res, res['maintainers'])
       else:
-        assert ((res['app'] != "") and (res['kind'] != "") \
-          and (not 'maintainers' in res))
+        assert res['app'] != "" and res['kind'] != "" and 'maintainers' not in res
       
 
 # Descriptions elements
@@ -221,24 +220,8 @@ def testDescriptionElement():
           and ('description' in res))
         checkStringNotEmpty(res, res['description'])
       else:
-        assert ((res['app'] != "") and (res['kind'] != "") \
-          and (not 'description' in res))
+        assert res['app'] != "" and res['kind'] != "" and 'description' not in res
       
-# Tests for data elements
-# For the resources with data
-# - Is string, not empty
-def testDataElement():
-  for kind in all_resources:
-    for res in kind:
-      if (res["kind"] in kinds_with_data):
-        assert ((res['app'] != "") and (res['kind'] != "") \
-          and ('data' in res))
-        checkStringNotEmpty(res, res['data'])
-      else:
-        assert ((res['app'] != "") and (res['kind'] != "") \
-          and (not 'data' in res))
-
-
 # Tests for configurations elements
 # For the resources with configurations:
 # Is list not empty
@@ -252,8 +235,7 @@ def testConfigurationsElement():
         for config in res['configurations']:
           checkStringNotEmpty(res, config['data'])
       else:
-        assert ((res['app'] != "") and (res['kind'] != "") \
-          and (not 'configurations' in res))
+        assert res['app'] != "" and res['kind'] != "" and 'configurations' not in res
 
 # Test in dashboards:
 # - in configurations: 
@@ -269,8 +251,8 @@ def testDashboards():
     for config in res['configurations']:
       checkStringNotEmpty(res,config['name'])
       checkStringNotEmpty(res,config['kind'])
-      assert ((res['app'] != "") and (res['kind'] != "") \
-        and ((config['kind'] == 'Grafana') or (config['kind'] == 'Sysdig')))
+      assert (res['app'] != "" and res['kind'] != ""
+              and config['kind'] in ['Grafana', 'Sysdig'])
       checkStringNotEmpty(res,config['image'])
       checkFileExists(res, 'resources/' + config['image'])
       checkStringNotEmpty(res,config['description'])
@@ -293,8 +275,8 @@ def testAlerts():
   for res in alerts:
     for config in res['configurations']:
       checkStringNotEmpty(res,config['kind'])
-      assert ((res['app'] != "") and (res['kind'] != "") \
-        and ((config['kind'] == 'Prometheus') or (config['kind'] == 'Sysdig')))
+      assert (res['app'] != "" and res['kind'] != ""
+              and config['kind'] in ['Prometheus', 'Sysdig'])
       checkStringNotEmpty(res,config['data'])
       if (config['kind'] == 'Sysdig'):
         assert ((res['app'] != "") and (config['kind'] != "") \
@@ -306,7 +288,7 @@ def testAlerts():
 # Test that for every appVersion exists at least 1 resource
 def testExistResourcesForAllAppVersions():
   for app in apps_versions:
-    for appVersionToFind in apps_versions[app]:     
+    for appVersionToFind in apps_versions[app]: 
       existsResource = False
       for kind in all_resources:
         for res in kind:
@@ -314,8 +296,8 @@ def testExistResourcesForAllAppVersions():
             and (appVersionToFind in res["appVersion"]):
             existsResource = True
             break
-        if existsResource == True:
+        if existsResource:
           break
-      if existsResource == False:
+      if not existsResource:
         print("No resource found for app: '" + app + "' version: '" + appVersionToFind + "'")
         exit (1)

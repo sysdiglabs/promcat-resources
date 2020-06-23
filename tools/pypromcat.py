@@ -81,13 +81,13 @@ def removeTrailingSpaces(data):
 def removeTrailingSpacesFromAllElements(data):
   if type(data) == dict: 
     for element in data:  
-      if type(data[element]) == dict or type(data[element]) == list:
+      if type(data[element]) in [dict, list]:
         data[element] = removeTrailingSpacesFromAllElements(data[element])
       elif type(data[element]) == str: 
         data[element] = removeTrailingSpaces(data[element])
   if type(data) == list:
     for idx in range(len(data)):
-      if type(data[idx]) == dict or type(data[idx]) == list:
+      if type(data[idx]) in [dict, list]:
         data[idx] = removeTrailingSpacesFromAllElements(data[idx])
       elif type(data[idx]) == str: 
         data[idx] = removeTrailingSpaces(data[idx])
