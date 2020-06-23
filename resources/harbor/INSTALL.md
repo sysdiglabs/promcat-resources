@@ -1,0 +1,18 @@
+# Installing the exporter
+To install the exporter follow this steps:
+
+After installing the helm chart of Harbor as reference:
+
+```
+  helm install harbor harbor/harbor
+```
+
+Install the exporter, with the next configuration
+
+```
+  kubectl apply -f harbor.yaml
+```
+
+```
+  kubectl apply -f sysdig-agent.yaml
+```
