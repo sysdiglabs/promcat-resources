@@ -4,11 +4,6 @@ app: AWS Fargate
 version: 1.0.0
 appVersion:
 - 1.3.0
-description: |
-  # aws_ecs_containerinsights_cpu_utilization_rate_average
-  This rule calculates the CPU utilization by service.
-  # aws_ecs_containerinsights_memory_utilization_rate_average
-  This rule calculates the memory utilization by service.
 configurations:
 - kind: Prometheus
   data: |-
@@ -16,3 +11,4 @@ configurations:
       expr: avg by (dimension_ServiceName)(aws_ecs_containerinsights_cpu_utilized_average / aws_ecs_containerinsights_cpu_reserved_average)
     - record: aws_ecs_containerinsights_memory_utilization_rate_average
       expr: avg by (dimension_ServiceName)(aws_ecs_containerinsights_memory_utilized_average / aws_ecs_containerinsights_memory_reserved_average)
+descriptionFile: RECORDING-RULES.md

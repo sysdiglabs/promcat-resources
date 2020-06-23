@@ -4,11 +4,6 @@ app: Istio
 version: 1.0.0
 appVersion:
 - '1.5'
-description: |
-  The recording rules for Sysdig, just download it and apply it.
-    ```
-      kubectl apply -f rules.yaml
-    ```
 configurations:
 - kind: Prometheus
   data: |
@@ -531,3 +526,4 @@ configurations:
             "record": "istio_response_bytes_bucket:source:bydestination:not_mutual_tls:histogram99"
             "labels":
               "sysdig": "true"
+descriptionFile: RECORDING-RULES.md
