@@ -4,11 +4,7 @@ app: Openshift
 version: 1.0.0
 appVersion:
 - '4.3'
-description: |
-  The recording rules for Sysdig, just download it and apply it.
-    ```
-      kubectl apply -f rules.yaml
-    ```
 configurations:
 - name: rules.yaml
   file: include/rules.yaml
+descriptionFile: RECORDING-RULES.md

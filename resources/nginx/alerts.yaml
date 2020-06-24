@@ -4,10 +4,6 @@ app: Nginx
 version: 1.0.0
 appVersion:
 - '1.17'
-description: |
-  # Alerts
-  ## NoIntancesUp
-  This alert detects when there is no instances with a certain label 'app' for more than 10 minutes.
 configurations:
 - kind: Prometheus
   data: |
@@ -39,3 +35,4 @@ configurations:
       }
     }
   kind: Sysdig
+descriptionFile: ALERTS.md
