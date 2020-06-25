@@ -9,7 +9,7 @@ You can find all the content organized and ready to use in [promcat.io](https://
 <p align="center"><img width="500" src="images/promcat-screenshot.png"></p>
 
 # What can I find?
-PromCat comes as crossroad for anyone that is looking for how to monitor for first time a cloud application. 
+PromCat comes as a crossroad for anyone that is looking for how to monitor a cloud application either with Prometheus or with Sysdig Monitor. 
 
 Here you will find the following contents for each application: 
 * Setup Guides: A complete step-by-step guide to install and configure the Prometheus exporter or the metrics module of the application.
@@ -28,7 +28,7 @@ As any open source project, all contributions are welcome.
 You can contribute by:
 * Opening issues in this repository
 * Clone the repository and submit a pull request
-* Participate in the #promcat channel of the [Sysdig public slack](sysdig.slack.com)
+* Participate in the #promcat channel of the [Sysdig public slack](http://sysdig.slack.com)
 
 As the main objective of PromCat is to offer high quality resources for professional users, all contributions will be review and tested before merging to mainstream by the maintainers.
 
