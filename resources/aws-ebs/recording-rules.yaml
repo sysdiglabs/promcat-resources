@@ -4,9 +4,6 @@ app: AWS EBS
 version: 1.0.0
 appVersion:
 - 1.0.0
-description: |
-  # aws_ebs_volume_read_operation_time_average and aws_ebs_volume_write_operation_time_average
-  This rules calculates the average time of read/write operations in the volume.
 configurations:
 - kind: Prometheus
   data: |
@@ -16,3 +13,4 @@ configurations:
     - record: aws_ebs_volume_write_operation_time_average
       expr: |
         aws_ebs_volume_total_write_time_sum / aws_ebs_volume_write_ops_sum
+descriptionFile: RECORDING-RULES.md

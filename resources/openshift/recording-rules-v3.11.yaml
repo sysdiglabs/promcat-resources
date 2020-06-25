@@ -4,11 +4,6 @@ app: Openshift
 version: 1.0.0
 appVersion:
 - '3.11'
-description: |
-  The recording rules for Sysdig, just download it and apply it.
-    ```
-      kubectl apply -f rules.yaml
-    ```
 configurations:
 - kind: Prometheus
   data: |
@@ -320,3 +315,4 @@ configurations:
             "record": "go_goroutines:kube_proxy"
             "labels":
               "sysdig": "true"
+descriptionFile: RECORDING-RULES.md
