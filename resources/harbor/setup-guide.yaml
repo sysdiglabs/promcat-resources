@@ -4,25 +4,7 @@ app: Harbor
 version: 1.0.0
 appVersion:
 - '1.1'
-description: |
-  # Installing the exporter
-  To install the exporter follow this steps:
-
-  After installing the helm chart of Harbor as reference:
-
-  ```
-    helm install harbor harbor/harbor
-  ```
-
-  Install the exporter, with the next configuration
-
-  ```
-    kubectl apply -f harbor.yaml
-  ```
-
-  ```
-    kubectl apply -f sysdig-agent.yaml
-  ```
 configurations:
 - name: harbor.yaml
   file: include/harbor.yaml
+descriptionFile: INSTALL.md

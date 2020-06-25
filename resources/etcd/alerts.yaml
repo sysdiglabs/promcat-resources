@@ -1,0 +1,436 @@
+apiVersion: v1
+kind: Alert
+app: etcd
+version: 1.0.0
+appVersion:
+- 3.4.0
+configurations:
+- kind: Prometheus
+  data: |
+    - alert: etcdMembersDown
+      annotations:
+        message: 'etcd cluster "{{ $labels.job }}": members are down ({{ $value }}).'
+      expr: |
+        max by (job) (
+          sum by (job) (up:kubernetes{job=~"etcd"} == bool 0)
+        or
+          count by (job,endpoint) (
+            sum by (job,endpoint,To) (rate(etcd_network_peer_sent_failures_total:sysdig{job=~"etcd"}[3m])) > 0.01
+          )
+        )
+        > 0
+      for: 3m
+      labels:
+        severity: critical
+    - alert: etcdInsufficientMembers
+      annotations:
+        message: 'etcd cluster "{{ $labels.job }}": insufficient members ({{ $value }}).'
+      expr: |
+        sum(up:kubernetes{job=~"etcd"} == bool 1) by (job) < ((count(up:kubernetes{job=~"etcd"}) by (job) + 1) / 2)
+      for: 3m
+      labels:
+        severity: critical
+    - alert: etcdNoLeader
+      annotations:
+        message: 'etcd cluster "{{ $labels.job }}": member {{ $labels.instance }} has no leader.'
+      expr: |
+        etcd_server_has_leader:sysdig{job=~"etcd"} == 0
+      for: 1m
+      labels:
+        severity: critical
+    - alert: etcdHighNumberOfLeaderChanges
+      annotations:
+        message: 'etcd cluster "{{ $labels.job }}": {{ $value }} leader changes within the last 15 minutes. Frequent elections may be a sign of insufficient resources, high network latency, or disruptions by other components and should be investigated.'
+      expr: |
+        increase((max by (job) (etcd_server_leader_changes_seen_total:sysdig{job=~"etcd"}) or 0*absent(etcd_server_leader_changes_seen_total:sysdig{job=~"etcd"}))[15m:1m]) >= 3
+      for: 5m
+      labels:
+        severity: warning
+    - alert: etcdHighNumberOfFailedGRPCRequests
+      annotations:
+        message: 'etcd cluster "{{ $labels.job }}": {{ $value }}% of requests for {{ $labels.grpc_method }} failed on etcd instance {{ $labels.instance }}.'
+      expr: |
+        100 * sum(rate(grpc_server_handled_total:sysdig{job=~"etcd", grpc_code!="OK"}[5m])) BY (job, instance, grpc_service, grpc_method)
+          /
+        sum(rate(grpc_server_handled_total:sysdig{job=~"etcd"}[5m])) BY (job, instance, grpc_service, grpc_method)
+          > 1
+      for: 10m
+      labels:
+        severity: warning
+    - alert: etcdHighNumberOfFailedGRPCRequests
+      annotations:
+        message: 'etcd cluster "{{ $labels.job }}": {{ $value }}% of requests for {{ $labels.grpc_method }} failed on etcd instance {{ $labels.instance }}.'
+      expr: |
+        100 * sum(rate(grpc_server_handled_total:sysdig{job=~"etcd", grpc_code!="OK"}[5m])) BY (job, instance, grpc_service, grpc_method)
+          /
+        sum(rate(grpc_server_handled_total:sysdig{job=~"etcd"}[5m])) BY (job, instance, grpc_service, grpc_method)
+          > 5
+      for: 5m
+      labels:
+        severity: critical
+    - alert: etcdGRPCRequestsSlow
+      annotations:
+        message: 'etcd cluster "{{ $labels.job }}": gRPC requests to {{ $labels.grpc_method }} are taking {{ $value }}s on etcd instance {{ $labels.instance }}.'
+      expr: |
+        histogram_quantile(0.99, sum(rate(grpc_server_handling_seconds_bucket:sysdig{job=~"etcd", grpc_type="unary"}[5m])) by (job, instance, grpc_service, grpc_method, le))
+        > 0.15
+      for: 10m
+      labels:
+        severity: critical
+    - alert: etcdMemberCommunicationSlow
+      annotations:
+        message: 'etcd cluster "{{ $labels.job }}": member communication with {{ $labels.To }} is taking {{ $value }}s on etcd instance {{ $labels.instance }}.'
+      expr: |
+        histogram_quantile(0.99, rate(etcd_network_peer_round_trip_time_seconds_bucket:sysdig{job=~"etcd"}[5m]))
+        > 0.15
+      for: 10m
+      labels:
+        severity: warning
+    - alert: etcdHighNumberOfFailedProposals
+      annotations:
+        message: 'etcd cluster "{{ $labels.job }}": {{ $value }} proposal failures within the last 30 minutes on etcd instance {{ $labels.instance }}.'
+      expr: |
+        rate(etcd_server_proposals_failed_total:sysdig{job=~"etcd"}[15m]) > 5
+      for: 15m
+      labels:
+        severity: warning
+    - alert: etcdHighFsyncDurations
+      annotations:
+        message: 'etcd cluster "{{ $labels.job }}": 99th percentile fync durations are {{ $value }}s on etcd instance {{ $labels.instance }}.'
+      expr: |
+        histogram_quantile(0.99, rate(etcd_disk_wal_fsync_duration_seconds_bucket:sysdig{job=~"etcd"}[5m]))
+        > 0.5
+      for: 10m
+      labels:
+        severity: warning
+    - alert: etcdHighCommitDurations
+      annotations:
+        message: 'etcd cluster "{{ $labels.job }}": 99th percentile commit durations {{ $value }}s on etcd instance {{ $labels.instance }}.'
+      expr: |
+        histogram_quantile(0.99, rate(etcd_disk_backend_commit_duration_seconds_bucket:sysdig{job=~"etcd"}[5m]))
+        > 0.25
+      for: 10m
+      labels:
+        severity: warning
+    - alert: etcdHighNumberOfFailedHTTPRequests
+      annotations:
+        message: '{{ $value }}% of requests for {{ $labels.method }} failed on etcd instance {{ $labels.instance }}'
+      expr: |
+        sum(rate(etcd_http_failed_total:sysdig{job=~"etcd", code!="404"}[5m])) BY (method) / sum(rate(etcd_http_received_total{job=~"etcd"}[5m]))
+        BY (method) > 0.01
+      for: 10m
+      labels:
+        severity: warning
+    - alert: etcdHighNumberOfFailedHTTPRequests
+      annotations:
+        message: '{{ $value }}% of requests for {{ $labels.method }} failed on etcd instance {{ $labels.instance }}.'
+      expr: |
+        sum(rate(etcd_http_failed_total:sysdig{job=~"etcd", code!="404"}[5m])) BY (method) / sum(rate(etcd_http_received_total{job=~"etcd"}[5m]))
+        BY (method) > 0.05
+      for: 10m
+      labels:
+        severity: critical
+    - alert: etcdHTTPRequestsSlow
+      annotations:
+        message: etcd instance {{ $labels.instance }} HTTP requests to {{ $labels.method }} are slow.
+      expr: |
+        histogram_quantile(0.99, rate(etcd_http_successful_duration_seconds_bucket[5m]))
+        > 0.15
+      for: 10m
+      labels:
+        severity: warning
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "max by (job) (\n  sum by (job) (up:kubernetes{job=~\"etcd\"} == bool 0)\nor\n  count by (job,endpoint) (\n    sum by (job,endpoint,To) (rate(etcd_network_peer_sent_failures_total:sysdig{job=~\"etcd\"}[3m])) > 0.01\n  )\n)\n> 0\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "etcdMembersDown",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 3,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum(up:kubernetes{job=~\"etcd\"} == bool 1) by (job) < ((count(up:kubernetes{job=~\"etcd\"}) by (job) + 1) / 2)\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "etcdInsufficientMembers",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 3,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "etcd_server_has_leader:sysdig{job=~\"etcd\"} == 0\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "etcdNoLeader",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 1,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "increase((max by (job) (etcd_server_leader_changes_seen_total:sysdig{job=~\"etcd\"}) or 0*absent(etcd_server_leader_changes_seen_total:sysdig{job=~\"etcd\"}))[15m:1m]) >= 3\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "etcdHighNumberOfLeaderChanges",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "100 * sum(rate(grpc_server_handled_total:sysdig{job=~\"etcd\", grpc_code!=\"OK\"}[5m])) BY (job, instance, grpc_service, grpc_method)\n  /\nsum(rate(grpc_server_handled_total:sysdig{job=~\"etcd\"}[5m])) BY (job, instance, grpc_service, grpc_method)\n  > 1\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "etcdHighNumberOfFailedGRPCRequests",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "100 * sum(rate(grpc_server_handled_total:sysdig{job=~\"etcd\", grpc_code!=\"OK\"}[5m])) BY (job, instance, grpc_service, grpc_method)\n  /\nsum(rate(grpc_server_handled_total:sysdig{job=~\"etcd\"}[5m])) BY (job, instance, grpc_service, grpc_method)\n  > 5\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "etcdHighNumberOfFailedGRPCRequests",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "histogram_quantile(0.99, sum(rate(grpc_server_handling_seconds_bucket:sysdig{job=~\"etcd\", grpc_type=\"unary\"}[5m])) by (job, instance, grpc_service, grpc_method, le))\n> 0.15\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "etcdGRPCRequestsSlow",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "histogram_quantile(0.99, rate(etcd_network_peer_round_trip_time_seconds_bucket:sysdig{job=~\"etcd\"}[5m]))\n> 0.15\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "etcdMemberCommunicationSlow",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "rate(etcd_server_proposals_failed_total:sysdig{job=~\"etcd\"}[15m]) > 5\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "etcdHighNumberOfFailedProposals",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 15,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "histogram_quantile(0.99, rate(etcd_disk_wal_fsync_duration_seconds_bucket:sysdig{job=~\"etcd\"}[5m]))\n> 0.5\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "etcdHighFsyncDurations",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "histogram_quantile(0.99, rate(etcd_disk_backend_commit_duration_seconds_bucket:sysdig{job=~\"etcd\"}[5m]))\n> 0.25\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "etcdHighCommitDurations",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum(rate(etcd_http_failed_total:sysdig{job=~\"etcd\", code!=\"404\"}[5m])) BY (method) / sum(rate(etcd_http_received_total{job=~\"etcd\"}[5m]))\nBY (method) > 0.01\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "etcdHighNumberOfFailedHTTPRequests",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum(rate(etcd_http_failed_total:sysdig{job=~\"etcd\", code!=\"404\"}[5m])) BY (method) / sum(rate(etcd_http_received_total{job=~\"etcd\"}[5m]))\nBY (method) > 0.05\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "etcdHighNumberOfFailedHTTPRequests",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "histogram_quantile(0.99, rate(etcd_http_successful_duration_seconds_bucket[5m]))\n> 0.15\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "etcdHTTPRequestsSlow",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+descriptionFile: ALERTS.md

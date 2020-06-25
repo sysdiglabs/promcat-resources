@@ -29,9 +29,9 @@ Extract names of panels in Grafana dashboards:
 grep "\"title\": " file_name.json | sed 's/\"title\": \"'// | sed 's/\",//' | sed -e 's/^ *//g' |  code -
 ```
 
-Extract names and sentences from grafana dashboards:
+Extract names, format and expressions from grafana dashboards:
 ```
-grep "\"title\": \|\"expr\": " filename.json | sed 's/\"title\": \"'// | sed 's/\"expr\": \"'// | sed 's/\",//' | sed -e 's/^ *//g' |  code -
+grep "\"title\": \|\"expr\": \|\"format\": \|\"legendFormat\": " file_name.json | sed 's/\"expr\"/\n\"expr\"/' | sed 's/\": \"/\": /' | sed 's/\",//' | sed -e 's/^ *//g' |  code -
 ```
 
 Extract names of panels in Sysdig dashboards:

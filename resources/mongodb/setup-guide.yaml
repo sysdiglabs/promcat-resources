@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: SetupGuide
+app: mongodb
+version: 1.0.0
+appVersion:
+- '4.2'
+configurations:
+- name: mongo-deploy.yaml
+  file: include/mongo-deploy.yaml
+descriptionFile: INSTALL.md

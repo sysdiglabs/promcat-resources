@@ -4,15 +4,6 @@ app: AWS ALB
 version: 1.0.0
 appVersion:
 - 1.0.0
-description: |
-  # aws_alb_httpcode_elb_4_xx_error_rate_count_sum
-  This rule calculates error rate of errors with code 4XX generated in the load balancer.
-  # aws_alb_httpcode_elb_5_xx_error_rate_count_sum
-  This rule calculates error rate of errors with code 5XX generated in the load balancer.
-  # aws_alb_tg_httpcode_target_4_xx_error_rate_count_sum
-  This rule calculates error rate of errors with code 4XX generated in the target groups.
-  # aws_alb_tg_httpcode_target_5_xx_error_rate_count_sum
-  This rule calculates error rate of errors with code 5XX generated in the target groups.
 configurations:
 - kind: Prometheus
   data: |
@@ -48,3 +39,4 @@ configurations:
         + sum(aws_alb_tg_httpcode_target_4_xx_count_sum or vector(0))
         + sum(aws_alb_tg_httpcode_target_5_xx_count_sum or vector(0)) > 0)
         or vector(0))
+descriptionFile: RECORDING-RULES.md
