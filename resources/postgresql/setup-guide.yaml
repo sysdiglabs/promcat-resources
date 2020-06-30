@@ -4,7 +4,9 @@ app: postgreSQL
 version: 1.0.0
 appVersion:
 - <=12
+descriptionFile: INSTALL.md
 configurations:
 - name: postgresql-deploy.yaml
   file: include/postgresql-deploy.yaml
-descriptionFile: INSTALL.md
+- name: sysdig-agent-config.yaml
+  file: include/sysdig-agent-config.yaml
