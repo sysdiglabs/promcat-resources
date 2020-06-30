@@ -4,7 +4,10 @@ app: AWS Lambda
 version: 1.0.0
 appVersion:
 - 1.0.0
+descriptionFile: INSTALL.md
 configurations:
 - name: lambda-deploy.yaml
   file: include/lambda-deploy.yaml
-descriptionFile: INSTALL.md
+- name: sysdig-agent-config.yaml
+  file: include/sysdig-agent-config.yaml
+

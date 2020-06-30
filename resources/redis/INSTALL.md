@@ -8,5 +8,19 @@ kubectl apply -f redis-deploy.yaml
 ```
 
 # Sysdig Agent configuration
-No need for special configuration in the agent.
-Just, be sure to annotate the deployment with the prometheus tags as shown in the deployment file below.
+Be sure to annotate the deployment with the prometheus tags as shown in the deployment file below.
+
+Also, in the Sysdig Agent configuration, be sure to have these lines of configuration to scrape the containers with Prometheus annotations.
+```yaml
+process_filter:
+  - include:
+      kubernetes.pod.annotation.prometheus.io/scrape: true
+      conf:
+        path: "{kubernetes.pod.annotation.prometheus.io/path}"
+        port: "{kubernetes.pod.annotation.prometheus.io/port}"
+```
+
+You can download the sample configuration file below and apply it by:
+```bash
+kubectl apply -f sysdig-agent-config.yaml
+```
