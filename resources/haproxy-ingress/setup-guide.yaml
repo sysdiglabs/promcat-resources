@@ -4,7 +4,8 @@ app: HAProxy Ingress
 version: 1.0.0
 appVersion:
 - '2.1'
-configurations:
-- name: agent-deploy.yaml
-  file: include/agent-deploy.yaml
 descriptionFile: INSTALL.md
+configurations:
+- name: sysdig-agent-config.yaml
+  file: include/sysdig-agent-config.yaml
+

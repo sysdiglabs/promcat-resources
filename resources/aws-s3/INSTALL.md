@@ -81,3 +81,8 @@ process_filter:
         path: "{kubernetes.pod.annotation.prometheus.io/path}"
         port: "{kubernetes.pod.annotation.prometheus.io/port}"
 ```
+
+You can download the sample configuration file below and apply it by:
+```bash
+kubectl apply -f sysdig-agent-config.yaml
+```

@@ -4,7 +4,9 @@ app: apache
 version: 1.0.0
 appVersion:
 - '2.4'
+descriptionFile: INSTALL.md
 configurations:
 - name: apache-deploy.yaml
   file: include/apache-deploy.yaml
-descriptionFile: INSTALL.md
+- name: sysdig-agent-config.yaml
+  file: include/sysdig-agent-config.yaml
