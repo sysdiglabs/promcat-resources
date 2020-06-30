@@ -4,7 +4,9 @@ app: redis
 version: 1.0.0
 appVersion:
 - <=6
+descriptionFile: INSTALL.md
 configurations:
 - name: redis-deploy.yaml
   file: include/redis-deploy.yaml
-descriptionFile: INSTALL.md
+- name: sysdig-agent-config.yaml
+  file: include/sysdig-agent-config.yaml

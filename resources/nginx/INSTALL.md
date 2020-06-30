@@ -19,3 +19,8 @@ process_filter:
         tags:
           app: "{kubernetes.pod.label.app}"
 ```
+
+You can download the sample configuration file below and apply it by:
+```bash
+kubectl apply -f sysdig-agent-config.yaml
+```

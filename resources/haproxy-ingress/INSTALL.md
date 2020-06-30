@@ -14,5 +14,11 @@ kubectl patch deployment haproxy-ingress-kubernetes-ingress \
 ```
 After executing this line, the pods will automatically restart with the new annotations.
 
-Finally, HAProxy generates metrics for the scopes global, frontend, backend and server. This last scope usually have a high cardinality.
+# SYSDIG AGENT CONFIGURATION
+HAProxy generates metrics for the scopes global, frontend, backend and server. This last scope usually have a high cardinality.
 To scrape only the other scopes, we will use this configuration for the prometheus.yaml configuration file of the Sysdig Agent.
+
+You can download the sample configuration file below and apply it by:
+```bash
+kubectl apply -f sysdig-agent-config.yaml
+```
