@@ -1,4 +1,4 @@
-# Prerquisites
+# Prerequisites
   To have all metrics in sysdig and because the limit of the timeseries you have to deploy a Prometheus create the recording rules that we later will use to filter only the metrics we need
   So to deploy a Prometheus you will need [helm](https://helm.sh/docs/intro/install/) and [helmfile](https://github.com/roboll/helmfile)
 
@@ -8,6 +8,7 @@
 
   1. Install the helm chart with helm file for Prometheus, you have to download the `helmfile.yaml` and the files for the rules `recording_rules.yaml` 
     and to configure the prometheus `prometheus.yaml`
+    
     ```
     helmfile sync
     ```
