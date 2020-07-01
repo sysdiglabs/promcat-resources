@@ -1,38 +1,49 @@
-# Configuring the etcd to get the metrics
-Etcd exposes all their metrics by default but the Prometheus has to know where it is and also the metrics have to be gathered with SSL, so we need to get the certificates first.
-1. Getting the certificates
-  The certificates are located in the master node in `/etc/kubernetes/pki/etcd-manager-main/etcd-clients-ca.key` and `/etc/kubernetes/pki/etcd-manager-main/etcd-clients-ca.crt`
-  Let's get them and save it to create the secrets after
-2. Creating the secrets for the certificates
-  Once we have the certificates let’s proceed to create the secrets in the namespace where it is the Prometheus server, in our case, it will be located in the namespace monitoring.
-  Let's create the secrets
+# Prerequisites
+Kubernetes generates a high number of metrics for the control plane. As the Sysdig Agent has a limit of timesieres that can send to Sysdig Monitor, you have to deploy a Prometheus server and create the recording rules that we provide. This way, we will filter only the metrics that we need.
 
-```
+To deploy a Prometheus server you will need:
+* [helm](https://helm.sh/docs/intro/install/)  
+* [helmfile](https://github.com/roboll/helmfile)
+
+## Extracting the SSL certificates to Secrets
+Etcd exposes all their metrics by default but Prometheus has to know where it is. 
+
+First, you need to get the SSL certificates.
+1. Getting the certificates: 
+The certificates are located in the master node in `/etc/kubernetes/pki/etcd-manager-main/etcd-clients-ca.key` and `/etc/kubernetes/pki/etcd-manager-main/etcd-clients-ca.crt`. Save them in you local computer.
+2. Creating the secrets for the certificates:
+Once we have the certificates let’s proceed to create the secrets in the namespace where the Prometheus server is located. In our case, it will be located in the namespace `monitoring`. 
+To create the secrets, run:
+```bash
 kubectl -n monitoring create secret generic etcd-ca --from-file=etcd-clients-ca.key --from-file etcd-clients-ca.crt
 ```
+# Installing and configuring Prometheus
+## Installing a new Prometheus with helm
+In this section we will explain how to install and configure a new Prometheus server with the recording rules.  
 
-# One line deployment
-To have all metrics in sysdig and because the limit of the timeseries you have to deploy a Prometheus create the recording rules that we later will use to filter only the metrics we need
-So to deploy a Prometheus you will need [helm](https://helm.sh/docs/intro/install/) and [helmfile](https://github.com/roboll/helmfile)
-1. Install the helm chart with helm file for Prometheus, you have to download the `helmfile.yaml` and the files for the rules `recording_rules.yaml` 
-and to configure the prometheus `prometheus.yaml`
+Download the following files: 
+- helmfile.yaml
+- recording_rules.yaml
+- prometheus.yaml
 
+Execute:
 ```
 helmfile sync
 ```
 
-# With your prometheus
-If you have already a prometheus server up and running.
-1. Let’s mount the volume with the certificates
+## Configuring an existing Prometheus
+In this section we will explain how to configure an existing Prometheus server
 
-```
+1. Let’s mount the volume with the certificates
+```bash
 kubectl -n monitoring patch sts prometheus-server -p '{"spec":{"template":{"spec":{"volumes":[{"name":"etcd-ca","secret":{"defaultMode":420,"secretName":"etcd-ca"}}]}}}}'
+
 kubectl -n monitoring patch sts prometheus-server -p '{"spec":{"template":{"spec":{"containers":[{"name":"prometheus-server","volumeMounts": [{"mountPath": "/opt/draios/kubernetes/prometheus/secrets","name": "etcd-ca"}]}]}}}}'
 ```
 
-2. Add the job to Prometheus
-  To have the Prometheus scrapping the etcd endpoint it is necessary to add a job so just add this to the job part in the configmap of Prometheus inside of scrape_configs.
-  You have a configmap for download with all jobs for kubernetes control plane if you want it and as reference.
+2. Add the job to Prometheus:
+To have the Prometheus scrapping the etcd endpoint it is necessary to add a job.  Add this to the job part in the ConfigMap of Prometheus, inside of `scrape_configs`.
+You can download the file `prometheus-cm.yaml` with all jobs for kubernetes control plane as a reference.
 
 ```
 kubectl -n monitoring edit cm prometheus-server
@@ -63,19 +74,23 @@ scrape_configs:
     cert_file: /opt/draios/kubernetes/prometheus/secrets/etcd-clients-ca.crt
     key_file: /opt/draios/kubernetes/prometheus/secrets/etcd-clients-ca.key
 ```
-    
-# Sysdig Agent configuration, Federating the Prometheus
-In order to get the metrics in Sysdig the agent has to federate the Prometheus as do in the Kubernetes control plane so let's go to the Sysdig agent configuration part.
 
-If we choose not filtering the metrics will be saving a lot of useless metrics with debugging in the name, so if you want to avoid this just apply the rules and you only 
-will get the metrics you need to have the dashboards and alerts working.
-To install the rules just apply this commands.
-```
+# Configuring the Sysdig Agent
+In order to get the metrics in Sysdig the agent has to federate the Prometheus.
+
+If we choose to filter the metrics, it will save a lot of useless metrics with debugging in the name. If you want to avoid this, just apply the rules and you only 
+will get the metrics that you need to have the dashboards and alerts working.
+
+To install the rules just apply this commands:
+```bash 
 kubectl apply -f etcd-rules.yaml
+
 kubectl -n monitoring patch deployment prometheus-server -p '{"spec":{"template":{"spec":{"volumes":[{"name":"etcd-rules","configMap":{"defaultMode":420,"name":"etcd-rules"}}]}}}}'
+
 kubectl -n monitoring patch deployment prometheus-server -p '{"spec":{"template":{"spec":{"containers":[{"name":"prometheus-server","volumeMounts": [{"mountPath": "/opt/rules","name": "etcd-rules"}]}]}}}}'
 ```
-For federate the Prometheus just add the prometheus.yaml to the configuration of sysdig-agent.yaml
+
+To federate the Prometheus just add the `prometheus.yaml` to the configuration, aas it is done in the `sysdig-agent-example.yaml` file:
 ```yaml
 prometheus.yaml: |-
 global:
