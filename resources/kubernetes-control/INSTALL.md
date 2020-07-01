@@ -45,10 +45,8 @@ To create the secrets, run:
 ```bash
 kubectl -n monitoring create secret generic etcd-ca --from-file=etcd-clients-ca.key --from-file etcd-clients-ca.crt
 ```
----
-**NOTE**
-
-> If you are using kops, you will have to change the cluster spec to expose the port for the proxy. To edit the cluster, run:
+# Exposing the Proxy port in kops
+If you are using kops, you will have to change the cluster spec to expose the port for the proxy. To edit the cluster, run:
 
 ```bash
 kops --state s3://name-of-s3 --name cluster-name edit cluster
@@ -64,7 +62,7 @@ And update the cluster:
 ```bash
 kops --state s3://name-of-s3 --name cluster-name rolling-update cluster --yes
 ```
----
+
 # Configuring the Sysdig Agent
 To use the Sysdig agent, you have to create the recording rules for only scrape the metrics we will use in our dashboards.
 
