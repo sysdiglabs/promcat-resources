@@ -222,7 +222,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100 * sum(rate(apache_http_response_codes_total{app='$app',code=~'4..|5..'}[5m])) / sum(rate(apache_http_response_codes_total{app='$app'}[5m]))",
+          "expr": "100 * sum(rate(apache_http_response_codes_total{app='$app',code=~'4..|5..'}[$__interval])) / sum(rate(apache_http_response_codes_total{app='$app'}[$__interval]))",
           "interval": "",
           "legendFormat": "Error rate",
           "refId": "A"
@@ -311,7 +311,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(apache_duration_total{app='$app'}[5m])) / sum(rate(apache_accesses_total{app='$app'}[5m]))",
+          "expr": "sum(rate(apache_duration_total{app='$app'}[$__interval])) / sum(rate(apache_accesses_total{app='$app'}[$__interval]))",
           "interval": "",
           "legendFormat": "Time",
           "refId": "A"
@@ -760,7 +760,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (code)(rate(apache_http_response_codes_total{app='$app'}[5m]))",
+          "expr": "sum by (code)(rate(apache_http_response_codes_total{app='$app'}[$__interval]))",
           "interval": "",
           "legendFormat": "{{code}}",
           "refId": "A"
@@ -849,7 +849,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(apache_sent_kilobytes_total{app='$app'}[5m]))",
+          "expr": "sum(rate(apache_sent_kilobytes_total{app='$app'}[$__interval]))",
           "interval": "",
           "legendFormat": "KBs",
           "refId": "A"
@@ -938,7 +938,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(apache_sent_kilobytes_total{app='$app'}[5m])) / sum(rate(apache_accesses_total[5m]))",
+          "expr": "sum(rate(apache_sent_kilobytes_total{app='$app'}[$__interval])) / sum(rate(apache_accesses_total[$__interval]))",
           "interval": "",
           "legendFormat": "Size",
           "refId": "A"

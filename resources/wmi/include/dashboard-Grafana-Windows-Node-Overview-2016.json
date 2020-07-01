@@ -76,7 +76,7 @@
       "pluginVersion": "6.7.3",
       "targets": [
         {
-          "expr": "100 * sum(rate(wmi_cpu_time_total{instance='$host',mode != 'idle'}[5m])) / count(wmi_cpu_core_frequency_mhz{instance='$host'})",
+          "expr": "100 * sum(rate(wmi_cpu_time_total{instance='$host',mode != 'idle'}[$__interval])) / count(wmi_cpu_core_frequency_mhz{instance='$host'})",
           "refId": "A"
         }
       ],
@@ -183,7 +183,7 @@
       "pluginVersion": "6.7.3",
       "targets": [
         {
-          "expr": "100 * (rate(wmi_net_bytes_total{instance='$host'}[5m])) * 8 /  wmi_net_current_bandwidth{instance='$host'}",
+          "expr": "100 * (rate(wmi_net_bytes_total{instance='$host'}[$__interval])) * 8 /  wmi_net_current_bandwidth{instance='$host'}",
           "legendFormat": "{{nic}}",
           "refId": "A"
         }
@@ -723,7 +723,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100 * avg by (mode) (rate(wmi_cpu_time_total{instance='$host'}[5m]))",
+          "expr": "100 * avg by (mode) (rate(wmi_cpu_time_total{instance='$host'}[$__interval]))",
           "legendFormat": "{{mode}}",
           "refId": "A"
         }
@@ -907,7 +907,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100 * sum by (core) (rate(wmi_cpu_time_total{instance='$host',mode != 'idle'}[5m]))",
+          "expr": "100 * sum by (core) (rate(wmi_cpu_time_total{instance='$host',mode != 'idle'}[$__interval]))",
           "legendFormat": "{{core}}",
           "refId": "A"
         }
@@ -1195,7 +1195,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(wmi_logical_disk_reads_total{instance='$host'}[5m])",
+          "expr": "rate(wmi_logical_disk_reads_total{instance='$host'}[$__interval])",
           "legendFormat": "{{volume}}",
           "refId": "A"
         }
@@ -1284,7 +1284,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(wmi_logical_disk_read_bytes_total{instance='$host'}[5m])",
+          "expr": "rate(wmi_logical_disk_read_bytes_total{instance='$host'}[$__interval])",
           "legendFormat": "{{volume}}",
           "refId": "A"
         }
@@ -1552,7 +1552,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(wmi_logical_disk_writes_total{instance='$host'}[5m])",
+          "expr": "rate(wmi_logical_disk_writes_total{instance='$host'}[$__interval])",
           "legendFormat": "{{volume}}",
           "refId": "A"
         }
@@ -1641,7 +1641,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(wmi_logical_disk_write_bytes_total{instance='$host'}[5m])",
+          "expr": "rate(wmi_logical_disk_write_bytes_total{instance='$host'}[$__interval])",
           "legendFormat": "{{volume}}",
           "refId": "A"
         }
@@ -1731,7 +1731,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "irate(wmi_logical_disk_split_ios_total{instance='$host'}[5m])",
+          "expr": "irate(wmi_logical_disk_split_ios_total{instance='$host'}[$__interval])",
           "instant": false,
           "legendFormat": "{{volume}}",
           "refId": "A"
@@ -1837,7 +1837,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100 * rate(wmi_net_packets_received_errors{instance='$host'}[5m]) / (rate(wmi_net_packets_received_errors{instance='$host'}[5m]) + rate(wmi_net_packets_received_total{instance='$host'}[5m]))",
+          "expr": "100 * rate(wmi_net_packets_received_errors{instance='$host'}[$__interval]) / (rate(wmi_net_packets_received_errors{instance='$host'}[$__interval]) + rate(wmi_net_packets_received_total{instance='$host'}[$__interval]))",
           "legendFormat": "{{nic}}",
           "refId": "A"
         }
@@ -1926,7 +1926,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100 * rate(wmi_net_packets_outbound_errors{instance='$host'}[5m]) / (rate(wmi_net_packets_outbound_errors{instance='$host'}[5m]) + rate(wmi_net_packets_sent_total{instance='$host'}[5m]))",
+          "expr": "100 * rate(wmi_net_packets_outbound_errors{instance='$host'}[$__interval]) / (rate(wmi_net_packets_outbound_errors{instance='$host'}[$__interval]) + rate(wmi_net_packets_sent_total{instance='$host'}[$__interval]))",
           "legendFormat": "{{nic}}",
           "refId": "A"
         }
@@ -2015,7 +2015,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100 * rate(wmi_net_packets_received_discarded{instance='$host'}[5m]) / (rate(wmi_net_packets_received_discarded{instance='$host'}[5m]) + rate(wmi_net_packets_received_total{instance='$host'}[5m]))",
+          "expr": "100 * rate(wmi_net_packets_received_discarded{instance='$host'}[$__interval]) / (rate(wmi_net_packets_received_discarded{instance='$host'}[$__interval]) + rate(wmi_net_packets_received_total{instance='$host'}[$__interval]))",
           "legendFormat": "{{nic}}",
           "refId": "A"
         }
@@ -2104,7 +2104,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100 * rate(wmi_net_packets_outbound_discarded{instance='$host'}[5m]) / (rate(wmi_net_packets_outbound_discarded{instance='$host'}[5m]) + rate(wmi_net_packets_sent_total{instance='$host'}[5m]))",
+          "expr": "100 * rate(wmi_net_packets_outbound_discarded{instance='$host'}[$__interval]) / (rate(wmi_net_packets_outbound_discarded{instance='$host'}[$__interval]) + rate(wmi_net_packets_sent_total{instance='$host'}[$__interval]))",
           "legendFormat": "{{nic}}",
           "refId": "A"
         }
@@ -2194,7 +2194,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100 * (rate(wmi_net_bytes_total{instance='$host'}[5m])) * 8 /  wmi_net_current_bandwidth{instance='$host'}",
+          "expr": "100 * (rate(wmi_net_bytes_total{instance='$host'}[$__interval])) * 8 /  wmi_net_current_bandwidth{instance='$host'}",
           "legendFormat": "{{nic}}",
           "refId": "A"
         }
@@ -2283,7 +2283,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(wmi_net_packets_received_total{instance='$host'}[5m])",
+          "expr": "rate(wmi_net_packets_received_total{instance='$host'}[$__interval])",
           "interval": "",
           "legendFormat": "{{nic}}",
           "refId": "A"
@@ -2373,7 +2373,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(wmi_net_bytes_received_total{instance='$host'}[5m])",
+          "expr": "rate(wmi_net_bytes_received_total{instance='$host'}[$__interval])",
           "legendFormat": "{{nic}}",
           "refId": "A"
         }
@@ -2463,7 +2463,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "wmi_net_current_bandwidth{instance='$host'} - ((rate(wmi_net_bytes_total{instance='$host'}[5m])) * 8) ",
+          "expr": "wmi_net_current_bandwidth{instance='$host'} - ((rate(wmi_net_bytes_total{instance='$host'}[$__interval])) * 8) ",
           "legendFormat": "{{nic}}",
           "refId": "A"
         }
@@ -2552,7 +2552,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(wmi_net_packets_sent_total{instance='$host'}[5m])",
+          "expr": "rate(wmi_net_packets_sent_total{instance='$host'}[$__interval])",
           "legendFormat": "{{nic}}",
           "refId": "A"
         }
@@ -2641,7 +2641,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(wmi_net_bytes_sent_total{instance='$host'}[5m])",
+          "expr": "rate(wmi_net_bytes_sent_total{instance='$host'}[$__interval])",
           "legendFormat": "{{nic}}",
           "refId": "A"
         }
@@ -3109,7 +3109,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(wmi_system_context_switches_total{instance='$host'}[5m])",
+          "expr": "rate(wmi_system_context_switches_total{instance='$host'}[$__interval])",
           "legendFormat": "Switches",
           "refId": "A"
         }

@@ -280,13 +280,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(pg_stat_bgwriter_checkpoints_req{instance='$instance'}[5m])",
+          "expr": "rate(pg_stat_bgwriter_checkpoints_req{instance='$instance'}[$__interval])",
           "interval": "",
           "legendFormat": "requested",
           "refId": "A"
         },
         {
-          "expr": "rate(pg_stat_bgwriter_checkpoints_timed{instance='$instance'}[5m])",
+          "expr": "rate(pg_stat_bgwriter_checkpoints_timed{instance='$instance'}[$__interval])",
           "interval": "",
           "legendFormat": "scheduled",
           "refId": "B"
@@ -375,7 +375,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100 * rate(pg_stat_archiver_failed_count{instance='$instance'}[5m]) / (rate(pg_stat_archiver_archived_count{instance='$instance'}[5m]) + rate(pg_stat_archiver_failed_count{instance='$instance'}[5m]))",
+          "expr": "100 * rate(pg_stat_archiver_failed_count{instance='$instance'}[$__interval]) / (rate(pg_stat_archiver_archived_count{instance='$instance'}[$__interval]) + rate(pg_stat_archiver_failed_count{instance='$instance'}[$__interval]))",
           "interval": "",
           "legendFormat": "Percentage",
           "refId": "A"
@@ -464,13 +464,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(pg_stat_bgwriter_checkpoint_sync_time{instance='$instance'}[5m])",
+          "expr": "rate(pg_stat_bgwriter_checkpoint_sync_time{instance='$instance'}[$__interval])",
           "interval": "",
           "legendFormat": "synchronizing to disk",
           "refId": "B"
         },
         {
-          "expr": "rate(pg_stat_bgwriter_checkpoint_write_time{instance='$instance'}[5m])",
+          "expr": "rate(pg_stat_bgwriter_checkpoint_write_time{instance='$instance'}[$__interval])",
           "interval": "",
           "legendFormat": "writting to disk",
           "refId": "A"
@@ -559,7 +559,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100 * rate(pg_stat_bgwriter_buffers_backend{instance='$instance'}[5m])/  (rate(pg_stat_bgwriter_buffers_backend{instance='$instance'}[5m]) + rate(pg_stat_bgwriter_buffers_checkpoint{instance='$instance'}[5m]) + rate(pg_stat_bgwriter_buffers_clean{instance='$instance'}[5m]))",
+          "expr": "100 * rate(pg_stat_bgwriter_buffers_backend{instance='$instance'}[$__interval])/  (rate(pg_stat_bgwriter_buffers_backend{instance='$instance'}[$__interval]) + rate(pg_stat_bgwriter_buffers_checkpoint{instance='$instance'}[$__interval]) + rate(pg_stat_bgwriter_buffers_clean{instance='$instance'}[$__interval]))",
           "interval": "",
           "legendFormat": "Percentage",
           "refId": "B"
@@ -648,7 +648,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(pg_stat_bgwriter_buffers_alloc{instance='$instance'}[5m])",
+          "expr": "rate(pg_stat_bgwriter_buffers_alloc{instance='$instance'}[$__interval])",
           "interval": "",
           "legendFormat": "buffers",
           "refId": "B"
@@ -737,7 +737,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(pg_stat_bgwriter_maxwritten_clean{instance='$instance'}[5m])",
+          "expr": "rate(pg_stat_bgwriter_maxwritten_clean{instance='$instance'}[$__interval])",
           "interval": "",
           "legendFormat": "stops",
           "refId": "A"
@@ -1004,7 +1004,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "avg(rate(pg_stat_activity_max_tx_duration{instance='$instance',datname!~\"template.*\"}[5m])) by (datname)",
+          "expr": "avg(rate(pg_stat_activity_max_tx_duration{instance='$instance',datname!~\"template.*\"}[$__interval])) by (datname)",
           "interval": "",
           "legendFormat": "{{datname}}",
           "refId": "B"

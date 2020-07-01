@@ -114,7 +114,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100 * avg(rate(pg_stat_database_blks_hit{instance='$instance',datname='$db'}[5m]) / (rate(pg_stat_database_blks_hit{instance='$instance',datname='$db'}[5m]) + rate(pg_stat_database_blks_read{instance='$instance',datname='$db'}[5m])))",
+          "expr": "100 * avg(rate(pg_stat_database_blks_hit{instance='$instance',datname='$db'}[$__interval]) / (rate(pg_stat_database_blks_hit{instance='$instance',datname='$db'}[$__interval]) + rate(pg_stat_database_blks_read{instance='$instance',datname='$db'}[$__interval])))",
           "interval": "",
           "legendFormat": "Hit rate",
           "refId": "A"
@@ -204,7 +204,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100 * rate(pg_stat_database_tup_fetched{instance='$instance',datname='$db'}[5m]) / rate(pg_stat_database_tup_returned{instance='$instance',datname='$db'}[5m]) ",
+          "expr": "100 * rate(pg_stat_database_tup_fetched{instance='$instance',datname='$db'}[$__interval]) / rate(pg_stat_database_tup_returned{instance='$instance',datname='$db'}[$__interval]) ",
           "interval": "",
           "legendFormat": "Rate",
           "refId": "A"
@@ -343,7 +343,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(pg_locks_count{instance='$instance',datname='$db'}[5m])",
+          "expr": "rate(pg_locks_count{instance='$instance',datname='$db'}[$__interval])",
           "interval": "",
           "legendFormat": "{{mode}}",
           "refId": "A"
@@ -433,13 +433,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(pg_stat_database_conflicts_confl_lock{instance='$instance',datname='$db'}[5m])",
+          "expr": "rate(pg_stat_database_conflicts_confl_lock{instance='$instance',datname='$db'}[$__interval])",
           "interval": "",
           "legendFormat": "lock timeouts",
           "refId": "A"
         },
         {
-          "expr": "rate(pg_stat_database_conflicts_confl_deadlock{instance='$instance',datname='$db'}[5m])",
+          "expr": "rate(pg_stat_database_conflicts_confl_deadlock{instance='$instance',datname='$db'}[$__interval])",
           "interval": "",
           "legendFormat": "deadlocks",
           "refId": "B"
@@ -529,7 +529,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(pg_stat_database_deadlocks{instance='$instance',datname='$db'}[5m])",
+          "expr": "rate(pg_stat_database_deadlocks{instance='$instance',datname='$db'}[$__interval])",
           "interval": "",
           "legendFormat": "Deadlocks",
           "refId": "A"
@@ -619,7 +619,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(pg_stat_activity_count{instance='$instance',datname='$db'}[5m])",
+          "expr": "rate(pg_stat_activity_count{instance='$instance',datname='$db'}[$__interval])",
           "interval": "",
           "legendFormat": "{{state}}",
           "refId": "A"
@@ -709,7 +709,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(rate(pg_stat_activity_max_tx_duration{instance='$instance',datname='$db'}[5m]))",
+          "expr": "(rate(pg_stat_activity_max_tx_duration{instance='$instance',datname='$db'}[$__interval]))",
           "interval": "",
           "legendFormat": "{{state}}",
           "refId": "A"
@@ -799,7 +799,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(pg_stat_database_blk_read_time{instance='$instance',datname='$db'}[5m]) / rate(pg_stat_database_blks_read{instance='$instance',datname='$db'}[5m])",
+          "expr": "rate(pg_stat_database_blk_read_time{instance='$instance',datname='$db'}[$__interval]) / rate(pg_stat_database_blks_read{instance='$instance',datname='$db'}[$__interval])",
           "interval": "",
           "legendFormat": "Duration",
           "refId": "A"
@@ -889,13 +889,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(pg_stat_database_xact_commit{instance='$instance',datname='$db'}[5m]) ",
+          "expr": "rate(pg_stat_database_xact_commit{instance='$instance',datname='$db'}[$__interval]) ",
           "interval": "",
           "legendFormat": "Commit",
           "refId": "A"
         },
         {
-          "expr": "rate(pg_stat_database_xact_rollback{instance='$instance',datname='$db'}[5m]) ",
+          "expr": "rate(pg_stat_database_xact_rollback{instance='$instance',datname='$db'}[$__interval]) ",
           "interval": "",
           "legendFormat": "Rollback",
           "refId": "C"
@@ -985,13 +985,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(pg_stat_database_tup_fetched{instance='$instance',datname='$db'}[5m]) ",
+          "expr": "rate(pg_stat_database_tup_fetched{instance='$instance',datname='$db'}[$__interval]) ",
           "interval": "",
           "legendFormat": "fetched",
           "refId": "A"
         },
         {
-          "expr": "rate(pg_stat_database_tup_returned{instance='$instance',datname='$db'}[5m]) ",
+          "expr": "rate(pg_stat_database_tup_returned{instance='$instance',datname='$db'}[$__interval]) ",
           "interval": "",
           "legendFormat": "returned",
           "refId": "B"
@@ -1081,7 +1081,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100 * sum by (datname)(rate(pg_stat_user_tables_n_tup_hot_upd{instance='$instance',datname='$db'}[5m])) / (sum by (datname)(rate(pg_stat_user_tables_n_tup_hot_upd{instance='$instance',datname='$db'}[5m])) + sum by (datname)(rate(pg_stat_database_tup_updated{instance='$instance',datname='$db'}[5m])))",
+          "expr": "100 * sum by (datname)(rate(pg_stat_user_tables_n_tup_hot_upd{instance='$instance',datname='$db'}[$__interval])) / (sum by (datname)(rate(pg_stat_user_tables_n_tup_hot_upd{instance='$instance',datname='$db'}[$__interval])) + sum by (datname)(rate(pg_stat_database_tup_updated{instance='$instance',datname='$db'}[$__interval])))",
           "interval": "",
           "legendFormat": "rate",
           "refId": "A"
@@ -1171,19 +1171,19 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(pg_stat_database_tup_inserted{instance='$instance',datname='$db'}[5m]) ",
+          "expr": "rate(pg_stat_database_tup_inserted{instance='$instance',datname='$db'}[$__interval]) ",
           "interval": "",
           "legendFormat": "insert",
           "refId": "A"
         },
         {
-          "expr": "rate(pg_stat_database_tup_updated{instance='$instance',datname='$db'}[5m]) ",
+          "expr": "rate(pg_stat_database_tup_updated{instance='$instance',datname='$db'}[$__interval]) ",
           "interval": "",
           "legendFormat": "update",
           "refId": "C"
         },
         {
-          "expr": "rate(pg_stat_database_tup_deleted{instance='$instance',datname='$db'}[5m]) ",
+          "expr": "rate(pg_stat_database_tup_deleted{instance='$instance',datname='$db'}[$__interval]) ",
           "interval": "",
           "legendFormat": "delete",
           "refId": "B"
@@ -1273,7 +1273,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(pg_stat_database_temp_bytes{instance='$instance',datname='$db'}[5m])",
+          "expr": "rate(pg_stat_database_temp_bytes{instance='$instance',datname='$db'}[$__interval])",
           "interval": "",
           "legendFormat": "Data Written",
           "refId": "A"

@@ -166,7 +166,7 @@
       "pluginVersion": "6.7.3",
       "targets": [
         {
-          "expr": "100 * max(rate(haproxy_backend_sessions_total{proxy='$proxy'}[5m]) / haproxy_backend_limit_sessions{proxy='$proxy'})",
+          "expr": "100 * max(rate(haproxy_backend_sessions_total{proxy='$proxy'}[$__interval]) / haproxy_backend_limit_sessions{proxy='$proxy'})",
           "interval": "",
           "legendFormat": "{{proxy}}",
           "refId": "A"
@@ -269,7 +269,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100 * sum(rate(haproxy_backend_http_responses_total{code!=\"2xx\",proxy='$proxy'}[5m])) / sum(rate(haproxy_backend_http_responses_total{proxy='$proxy'}[5m])) ",
+          "expr": "100 * sum(rate(haproxy_backend_http_responses_total{code!=\"2xx\",proxy='$proxy'}[$__interval])) / sum(rate(haproxy_backend_http_responses_total{proxy='$proxy'}[$__interval])) ",
           "interval": "",
           "legendFormat": "Error rate",
           "refId": "A"
@@ -358,13 +358,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(haproxy_backend_requests_denied_total{proxy=\"$proxy\"}[5m])) / sum(rate(haproxy_backend_http_requests_total{proxy=\"$proxy\"}[5m]))",
+          "expr": "sum(rate(haproxy_backend_requests_denied_total{proxy=\"$proxy\"}[$__interval])) / sum(rate(haproxy_backend_http_requests_total{proxy=\"$proxy\"}[$__interval]))",
           "interval": "",
           "legendFormat": "Requets",
           "refId": "A"
         },
         {
-          "expr": "sum(rate(haproxy_backend_responses_denied_total{proxy=\"$proxy\"}[5m])) / sum(rate(haproxy_backend_http_responses_total{proxy=\"$proxy\"}[5m]))",
+          "expr": "sum(rate(haproxy_backend_responses_denied_total{proxy=\"$proxy\"}[$__interval])) / sum(rate(haproxy_backend_http_responses_total{proxy=\"$proxy\"}[$__interval]))",
           "interval": "",
           "legendFormat": "Responses",
           "refId": "B"
@@ -453,7 +453,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (code) (rate(haproxy_backend_http_responses_total{code!=\"2xx\",proxy='$proxy'}[5m])) ",
+          "expr": "sum by (code) (rate(haproxy_backend_http_responses_total{code!=\"2xx\",proxy='$proxy'}[$__interval])) ",
           "interval": "",
           "legendFormat": "{{code}}",
           "refId": "A"
@@ -542,13 +542,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(haproxy_backend_client_aborts_total{proxy=\"$proxy\"}[5m])) ",
+          "expr": "sum(rate(haproxy_backend_client_aborts_total{proxy=\"$proxy\"}[$__interval])) ",
           "interval": "",
           "legendFormat": "By Client",
           "refId": "A"
         },
         {
-          "expr": "sum(rate(haproxy_backend_server_aborts_total{proxy=\"$proxy\"}[5m])) ",
+          "expr": "sum(rate(haproxy_backend_server_aborts_total{proxy=\"$proxy\"}[$__interval])) ",
           "interval": "",
           "legendFormat": "By Server",
           "refId": "B"
@@ -823,13 +823,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(haproxy_backend_bytes_in_total{proxy=\"$proxy\"}[5m]))",
+          "expr": "sum(rate(haproxy_backend_bytes_in_total{proxy=\"$proxy\"}[$__interval]))",
           "interval": "",
           "legendFormat": "Inbound",
           "refId": "A"
         },
         {
-          "expr": "sum(rate(haproxy_backend_bytes_out_total{proxy=\"$proxy\"}[5m]))",
+          "expr": "sum(rate(haproxy_backend_bytes_out_total{proxy=\"$proxy\"}[$__interval]))",
           "interval": "",
           "legendFormat": "Outbound",
           "refId": "B"
@@ -919,7 +919,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(haproxy_backend_http_responses_total{proxy=\"$proxy\"}[5m]))",
+          "expr": "sum(rate(haproxy_backend_http_responses_total{proxy=\"$proxy\"}[$__interval]))",
           "interval": "",
           "legendFormat": "IOPS",
           "refId": "A"
@@ -1009,13 +1009,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(haproxy_backend_bytes_in_total{proxy=\"$proxy\"}[5m])) / sum(rate(haproxy_backend_http_requests_total{proxy=\"$proxy\"}[5m])) ",
+          "expr": "sum(rate(haproxy_backend_bytes_in_total{proxy=\"$proxy\"}[$__interval])) / sum(rate(haproxy_backend_http_requests_total{proxy=\"$proxy\"}[$__interval])) ",
           "interval": "",
           "legendFormat": "Inbound",
           "refId": "A"
         },
         {
-          "expr": "sum(rate(haproxy_backend_bytes_out_total{proxy=\"$proxy\"}[5m])) / sum(rate(haproxy_backend_http_responses_total{proxy=\"$proxy\"}[5m])) ",
+          "expr": "sum(rate(haproxy_backend_bytes_out_total{proxy=\"$proxy\"}[$__interval])) / sum(rate(haproxy_backend_http_responses_total{proxy=\"$proxy\"}[$__interval])) ",
           "interval": "",
           "legendFormat": "Outbound",
           "refId": "B"

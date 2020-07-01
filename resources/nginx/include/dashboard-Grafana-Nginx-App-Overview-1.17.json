@@ -112,7 +112,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(nginx_http_requests_total{app='$app'}[5m])",
+          "expr": "rate(nginx_http_requests_total{app='$app'}[$__interval])",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
@@ -290,7 +290,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(rate(nginx_connections_accepted{app='$app'}[5m])) - (rate(nginx_connections_handled{app='$app'}[5m]))",
+          "expr": "(rate(nginx_connections_accepted{app='$app'}[$__interval])) - (rate(nginx_connections_handled{app='$app'}[$__interval]))",
           "hide": false,
           "interval": "",
           "legendFormat": "{{instance}}",
@@ -482,14 +482,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(nginx_connections_accepted{app='$app'}[5m]))",
+          "expr": "sum(rate(nginx_connections_accepted{app='$app'}[$__interval]))",
           "hide": false,
           "interval": "",
           "legendFormat": "Accepted",
           "refId": "A"
         },
         {
-          "expr": "sum(rate(nginx_connections_handled{app='$app'}[5m]))",
+          "expr": "sum(rate(nginx_connections_handled{app='$app'}[$__interval]))",
           "hide": false,
           "interval": "",
           "legendFormat": "Handled",

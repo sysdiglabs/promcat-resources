@@ -459,7 +459,7 @@
      "steppedLine": false,
      "targets": [
        {
-         "expr": "sum(rate(haproxy_process_ssl_connections_total[5m]))",
+         "expr": "sum(rate(haproxy_process_ssl_connections_total[$__interval]))",
          "interval": "",
          "legendFormat": "conns",
          "refId": "A"
@@ -635,19 +635,19 @@
      "steppedLine": false,
      "targets": [
        {
-         "expr": "sum(rate(haproxy_frontend_requests_denied_total[5m]))",
+         "expr": "sum(rate(haproxy_frontend_requests_denied_total[$__interval]))",
          "interval": "",
          "legendFormat": "Requests Denied",
          "refId": "A"
        },
        {
-         "expr": "sum(rate(haproxy_frontend_responses_denied_total[5m]))",
+         "expr": "sum(rate(haproxy_frontend_responses_denied_total[$__interval]))",
          "interval": "",
          "legendFormat": "Responses Denied",
          "refId": "B"
        },
        {
-         "expr": "sum(rate(haproxy_frontend_request_errors_total[5m]))",
+         "expr": "sum(rate(haproxy_frontend_request_errors_total[$__interval]))",
          "interval": "",
          "legendFormat": "Request Error",
          "refId": "C"
@@ -1005,13 +1005,13 @@
      "steppedLine": false,
      "targets": [
        {
-         "expr": "sum(rate(haproxy_frontend_denied_connections_total[5m]))",
+         "expr": "sum(rate(haproxy_frontend_denied_connections_total[$__interval]))",
          "interval": "",
          "legendFormat": "Connection Denied",
          "refId": "A"
        },
        {
-         "expr": "sum(rate(haproxy_frontend_denied_sessions_total[5m]))",
+         "expr": "sum(rate(haproxy_frontend_denied_sessions_total[$__interval]))",
          "interval": "",
          "legendFormat": "Session Denied",
          "refId": "B"
@@ -1099,7 +1099,7 @@
      "steppedLine": false,
      "targets": [
        {
-         "expr": "sum by (proxy) (rate(haproxy_frontend_bytes_in_total[5m]))",
+         "expr": "sum by (proxy) (rate(haproxy_frontend_bytes_in_total[$__interval]))",
          "interval": "",
          "legendFormat": "{{proxy}}",
          "refId": "A"
@@ -1187,7 +1187,7 @@
      "steppedLine": false,
      "targets": [
        {
-         "expr": "sum by (proxy) (rate(haproxy_frontend_connections_total[5m]))",
+         "expr": "sum by (proxy) (rate(haproxy_frontend_connections_total[$__interval]))",
          "interval": "",
          "legendFormat": "{{proxy}}",
          "refId": "A"
@@ -1276,7 +1276,7 @@
      "steppedLine": false,
      "targets": [
        {
-         "expr": "sum by (proxy) (rate(haproxy_frontend_bytes_out_total[5m]))",
+         "expr": "sum by (proxy) (rate(haproxy_frontend_bytes_out_total[$__interval]))",
          "interval": "",
          "legendFormat": "{{proxy}}",
          "refId": "A"
@@ -1365,7 +1365,7 @@
      "steppedLine": false,
      "targets": [
        {
-         "expr": "sum by (proxy)(rate(haproxy_frontend_connections_total[5m]))",
+         "expr": "sum by (proxy)(rate(haproxy_frontend_connections_total[$__interval]))",
          "interval": "",
          "legendFormat": "{{proxy}}",
          "refId": "A"

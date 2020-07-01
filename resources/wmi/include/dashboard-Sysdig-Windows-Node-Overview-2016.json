@@ -814,7 +814,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100 * avg by (mode) (rate(wmi_cpu_time_total{instance=$host}[5m]))"
+            "query": "100 * avg by (mode) (rate(wmi_cpu_time_total{instance=$host}[$__interval]))"
           }
         ],
         "axesConfiguration": {
@@ -873,7 +873,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100 * sum(rate(wmi_cpu_time_total{instance=$host,mode != 'idle'}[5m])) / count(wmi_cpu_core_frequency_mhz{instance=$host})"
+            "query": "100 * sum(rate(wmi_cpu_time_total{instance=$host,mode != 'idle'}[$__interval])) / count(wmi_cpu_core_frequency_mhz{instance=$host})"
           }
         ],
         "description": "",
@@ -2516,7 +2516,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100 * sum by (core) (rate(wmi_cpu_time_total{instance=$host,mode != 'idle'}[5m]))"
+            "query": "100 * sum by (core) (rate(wmi_cpu_time_total{instance=$host,mode != 'idle'}[$__interval]))"
           }
         ],
         "axesConfiguration": {
@@ -2843,7 +2843,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(wmi_logical_disk_writes_total{instance=$host}[5m])"
+            "query": "rate(wmi_logical_disk_writes_total{instance=$host}[$__interval])"
           }
         ],
         "axesConfiguration": {
@@ -2902,7 +2902,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(wmi_logical_disk_reads_total{instance=$host}[5m])"
+            "query": "rate(wmi_logical_disk_reads_total{instance=$host}[$__interval])"
           }
         ],
         "axesConfiguration": {
@@ -2961,7 +2961,7 @@
               "unit": "byteRate",
               "yAxis": "auto"
             },
-            "query": "rate(wmi_logical_disk_read_bytes_total{instance=$host}[5m])"
+            "query": "rate(wmi_logical_disk_read_bytes_total{instance=$host}[$__interval])"
           }
         ],
         "axesConfiguration": {
@@ -3020,7 +3020,7 @@
               "unit": "byteRate",
               "yAxis": "auto"
             },
-            "query": "rate(wmi_logical_disk_write_bytes_total{instance=$host}[5m])"
+            "query": "rate(wmi_logical_disk_write_bytes_total{instance=$host}[$__interval])"
           }
         ],
         "axesConfiguration": {
@@ -3138,7 +3138,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(wmi_logical_disk_split_ios_total{instance=$host}[5m])"
+            "query": "rate(wmi_logical_disk_split_ios_total{instance=$host}[$__interval])"
           }
         ],
         "axesConfiguration": {
@@ -3197,7 +3197,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100 * rate(wmi_net_packets_received_errors{instance=$host}[5m]) / (rate(wmi_net_packets_received_errors{instance=$host}[5m]) + rate(wmi_net_packets_received_total{instance=$host}[5m]))"
+            "query": "100 * rate(wmi_net_packets_received_errors{instance=$host}[$__interval]) / (rate(wmi_net_packets_received_errors{instance=$host}[$__interval]) + rate(wmi_net_packets_received_total{instance=$host}[$__interval]))"
           }
         ],
         "axesConfiguration": {
@@ -3256,7 +3256,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100 * rate(wmi_net_packets_outbound_errors{instance=$host}[5m]) / (rate(wmi_net_packets_outbound_errors{instance=$host}[5m]) + rate(wmi_net_packets_sent_total{instance=$host}[5m]))"
+            "query": "100 * rate(wmi_net_packets_outbound_errors{instance=$host}[$__interval]) / (rate(wmi_net_packets_outbound_errors{instance=$host}[$__interval]) + rate(wmi_net_packets_sent_total{instance=$host}[$__interval]))"
           }
         ],
         "axesConfiguration": {
@@ -3315,7 +3315,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100 * rate(wmi_net_packets_received_discarded{instance=$host}[5m]) / (rate(wmi_net_packets_received_discarded{instance=$host}[5m]) + rate(wmi_net_packets_received_total{instance=$host}[5m]))"
+            "query": "100 * rate(wmi_net_packets_received_discarded{instance=$host}[$__interval]) / (rate(wmi_net_packets_received_discarded{instance=$host}[$__interval]) + rate(wmi_net_packets_received_total{instance=$host}[$__interval]))"
           }
         ],
         "axesConfiguration": {
@@ -3374,7 +3374,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100 * rate(wmi_net_packets_outbound_discarded{instance=$host}[5m]) / (rate(wmi_net_packets_outbound_discarded{instance=$host}[5m]) + rate(wmi_net_packets_sent_total{instance=$host}[5m]))"
+            "query": "100 * rate(wmi_net_packets_outbound_discarded{instance=$host}[$__interval]) / (rate(wmi_net_packets_outbound_discarded{instance=$host}[$__interval]) + rate(wmi_net_packets_sent_total{instance=$host}[$__interval]))"
           }
         ],
         "axesConfiguration": {
@@ -3433,7 +3433,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100 * (rate(wmi_net_bytes_total{instance=$host}[5m])) * 8 /  wmi_net_current_bandwidth{instance=$host}"
+            "query": "100 * (rate(wmi_net_bytes_total{instance=$host}[$__interval])) * 8 /  wmi_net_current_bandwidth{instance=$host}"
           }
         ],
         "axesConfiguration": {
@@ -3492,7 +3492,7 @@
               "unit": "byteRate",
               "yAxis": "auto"
             },
-            "query": "wmi_net_current_bandwidth{instance=$host} - ((rate(wmi_net_bytes_total{instance=$host}[5m])) * 8) "
+            "query": "wmi_net_current_bandwidth{instance=$host} - ((rate(wmi_net_bytes_total{instance=$host}[$__interval])) * 8) "
           }
         ],
         "axesConfiguration": {
@@ -3551,7 +3551,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(wmi_net_packets_received_total{instance=$host}[5m])"
+            "query": "rate(wmi_net_packets_received_total{instance=$host}[$__interval])"
           }
         ],
         "axesConfiguration": {
@@ -3610,7 +3610,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(wmi_net_packets_sent_total{instance=$host}[5m])"
+            "query": "rate(wmi_net_packets_sent_total{instance=$host}[$__interval])"
           }
         ],
         "axesConfiguration": {
@@ -3669,7 +3669,7 @@
               "unit": "byteRate",
               "yAxis": "auto"
             },
-            "query": "rate(wmi_net_bytes_received_total{instance=$host}[5m])"
+            "query": "rate(wmi_net_bytes_received_total{instance=$host}[$__interval])"
           }
         ],
         "axesConfiguration": {
@@ -3728,7 +3728,7 @@
               "unit": "byteRate",
               "yAxis": "auto"
             },
-            "query": "rate(wmi_net_bytes_sent_total{instance=$host}[5m])"
+            "query": "rate(wmi_net_bytes_sent_total{instance=$host}[$__interval])"
           }
         ],
         "axesConfiguration": {
@@ -4039,7 +4039,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(wmi_system_context_switches_total{instance=$host}[5m])"
+            "query": "rate(wmi_system_context_switches_total{instance=$host}[$__interval])"
           }
         ],
         "axesConfiguration": {
