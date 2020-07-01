@@ -5,41 +5,19 @@ version: 1.0.0
 appVersion:
 - 1.14.0
 description: |
-  # Installing the exporter
+  # Prerquisites
+  To have all metrics in sysdig and because the limit of the timeseries you have to deploy a Prometheus create the recording rules that we later will use to filter only the metrics we need
+  So to deploy a Prometheus you will need [helm](https://helm.sh/docs/intro/install/) and [helmfile](https://github.com/roboll/helmfile)
 
-  To install the exporter follow this steps:
+  # Installing the prometheus
 
-  1. Create the namespace if it is not already created
-    ```
-    kubectl create ns monitoring
-    ```
-  2. Install the helm chart for Prometheus
-    ```
-    helm install prometheus -n monitoring stable/prometheus
-    ```
-  3. Add a new replica to fix the rolling update
-    ```
-    kubectl -n monitoring patch deploy prometheus-server -p '{"spec":{"strategy": {"type": "Recreate"}}}'
-    kubectl -n monitoring patch deploy prometheus-server -p '{"spec":{"template":{"metadata":{"annotations":{"prometheus.io/scrape": "true", "prometheus.io/port": "9090"}}}}}'
-    ```
-    Or just apply the deploy yaml provided
-     ```
-    kubectl -n monitoring apply -f prometheus-deploy.yaml
-    ```
-  4. Apply the configuration for prometheus, is the configmap prometheus-server, the configuration has the recording rules and the alerts added if we only want
-     the prometheus part we have to delete this lines:
-    ```
-    kubectl -n monitoring edit cm prometheus-server
-    ```
-    ```
-    - /opt/rules/rules.yaml
-    - /opt/alerts/alerts.yaml
-    ```
-    Once we have the file with only the configmap for prometheus we have to apply, if we have save it as prometheus-cm.yaml then execute the next command:
-    ```
-    kubectl apply -f prometheus-cm.yaml
-    ```
+  To get the metrics follow this steps:
 
+  1. Install the helm chart with helm file for Prometheus, you have to download the `helmfile.yaml` and the files for the rules `recording_rules.yaml` 
+    and to configure the prometheus `prometheus.yaml`
+    ```
+    helmfile sync
+    ```
     ---
     **NOTE**
 
@@ -66,19 +44,16 @@ description: |
 
   If we want to use the Sysdig agent too, we have to create the recording rules for only scrape the metrics we will use in our dashboards.
 
-  1. Apply the rules
-    We have to add the recording rules and alerts rules in the prometheus configuration that we have in the next tabs and applied the configuration for our Sysdig agent then we will have our metrics in Sysdig.
-    ```
-    kubectl apply -f rules.yaml
-    ```
-  2. Update the Prometheus server configuration with the new configmap for recording rules and with the annotations to federate the Prometheus with the Sysdig agent. Copy the configuration and save it as config.yaml
+  1. Copy the configuration and save it as config.yaml
     ```
     kubectl apply -f sysdig-agent.yaml
     ```
 configurations:
+- name: helmfile.yaml
+  file: include/helmfile.yaml
 - name: sysdig-agent.yaml
   file: include/sysdig-agent.yaml
-- name: prometheus-deploy.yaml
-  file: include/prometheus-deploy.yaml
-- name: prometheus-cm.yaml
-  file: include/prometheus-cm.yaml
+- name: prometheus.yaml
+  file: include/prometheus.yaml
+- name: recording_rules.yaml
+  file: include/recording_rules.yaml

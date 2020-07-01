@@ -2,7 +2,7 @@
   "dashboard": {
     "description": "",
     "eventDisplaySettings": {
-      "enabled": true,
+      "enabled": false,
       "queryParams": {
         "alertStatuses": [],
         "categories": [],
@@ -13,91 +13,353 @@
     },
     "layout": [
       {
-        "h": 3,
+        "h": 4,
         "panelId": 1,
+        "w": 8,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 4,
+        "panelId": 2,
+        "w": 8,
+        "x": 8,
+        "y": 0
+      },
+      {
+        "h": 4,
+        "panelId": 3,
+        "w": 8,
+        "x": 16,
+        "y": 0
+      },
+      {
+        "h": 6,
+        "panelId": 4,
+        "w": 12,
+        "x": 0,
+        "y": 4
+      },
+      {
+        "h": 6,
+        "panelId": 5,
+        "w": 12,
+        "x": 12,
+        "y": 4
+      },
+      {
+        "h": 4,
+        "panelId": 6,
+        "w": 8,
+        "x": 0,
+        "y": 10
+      },
+      {
+        "h": 4,
+        "panelId": 7,
+        "w": 8,
+        "x": 8,
+        "y": 10
+      },
+      {
+        "h": 4,
+        "panelId": 8,
         "w": 8,
         "x": 0,
         "y": 14
       },
       {
-        "h": 3,
-        "panelId": 2,
+        "h": 4,
+        "panelId": 9,
+        "w": 8,
+        "x": 16,
+        "y": 10
+      },
+      {
+        "h": 4,
+        "panelId": 10,
         "w": 8,
         "x": 8,
         "y": 14
       },
       {
-        "h": 3,
-        "panelId": 3,
+        "h": 4,
+        "panelId": 11,
         "w": 8,
         "x": 16,
         "y": 14
-      },
-      {
-        "h": 3,
-        "panelId": 4,
-        "w": 24,
-        "x": 0,
-        "y": 11
-      },
-      {
-        "h": 3,
-        "panelId": 5,
-        "w": 7,
-        "x": 0,
-        "y": 8
-      },
-      {
-        "h": 3,
-        "panelId": 6,
-        "w": 17,
-        "x": 7,
-        "y": 8
-      },
-      {
-        "h": 4,
-        "panelId": 8,
-        "w": 12,
-        "x": 0,
-        "y": 4
-      },
-      {
-        "h": 4,
-        "panelId": 9,
-        "w": 10,
-        "x": 4,
-        "y": 0
-      },
-      {
-        "h": 4,
-        "panelId": 10,
-        "w": 4,
-        "x": 0,
-        "y": 0
-      },
-      {
-        "h": 4,
-        "panelId": 11,
-        "w": 10,
-        "x": 14,
-        "y": 0
-      },
-      {
-        "h": 4,
-        "panelId": 12,
-        "w": 12,
-        "x": 12,
-        "y": 4
       }
     ],
-    "name": "Kubernetes / Proxy",
+    "name": "Kubernetes / etcd",
     "panels": [
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Memory",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "avg(etcd_server_has_leader:sysdig * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
+          }
+        ],
+        "description": "",
+        "id": 1,
+        "name": "Etcd has a leader?",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": [
+            {
+              "displayText": "Yes",
+              "inputFormat": "1",
+              "severity": "ok",
+              "value": 1.0
+            },
+            {
+              "displayText": "Some",
+              "inputFormat": "1",
+              "severity": "low",
+              "value": 0.4
+            },
+            {
+              "displayText": "No",
+              "inputFormat": "1",
+              "severity": "high",
+              "value": 0.0
+            }
+          ]
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "max(etcd_server_leader_changes_seen_total:sysdig * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
+          }
+        ],
+        "description": "",
+        "id": 2,
+        "name": "The number of leader changes seen",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "max(etcd_server_proposals_failed_total:sysdig * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
+          }
+        ],
+        "description": "",
+        "id": 3,
+        "name": "The total number of failed proposals seen",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "RPC Rate",
+              "timeSeriesDisplayNameTemplate": "{{cluster}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(rate(grpc_server_started_total:sysdig{grpc_type=\"unary\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+          },
+          {
+            "displayInfo": {
+              "displayName": "RPC Failed Rate",
+              "timeSeriesDisplayNameTemplate": "{{cluster}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(rate(grpc_server_handled_total:sysdig{grpc_type=\"unary\",grpc_code!=\"OK\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 4,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "RPC Rate",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Watch Streams",
+              "timeSeriesDisplayNameTemplate": "{{cluster}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(grpc_server_started_total:sysdig{grpc_service=\"etcdserverpb.Watch\",grpc_type=\"bidi_stream\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster) - sum(grpc_server_handled_total:sysdig{grpc_service=\"etcdserverpb.Watch\",grpc_type=\"bidi_stream\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Lease Streams",
+              "timeSeriesDisplayNameTemplate": "{{cluster}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(grpc_server_started_total:sysdig{grpc_service=\"etcdserverpb.Lease\",grpc_type=\"bidi_stream\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster) - sum(grpc_server_handled_total:sysdig{grpc_service=\"etcdserverpb.Lease\",grpc_type=\"bidi_stream\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 5,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Active Streams",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "DB size",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} DB Size",
               "type": "lines"
             },
             "enabled": true,
@@ -108,7 +370,7 @@
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "process_resident_memory_bytes:kube_proxy* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "etcd_debugging_mvcc_db_total_size_in_bytes:sysdig * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -141,349 +403,6 @@
           }
         },
         "description": "",
-        "id": 1,
-        "legendConfiguration": {
-          "enabled": true,
-          "layout": "table",
-          "position": "right",
-          "showCurrent": true
-        },
-        "name": "Memory",
-        "type": "advancedTimechart"
-      },
-      {
-        "advancedQueries": [
-          {
-            "displayInfo": {
-              "displayName": "Cpu usage",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
-              "yAxis": "auto"
-            },
-            "query": "rate(process_cpu_seconds_total:kube_proxy[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
-          }
-        ],
-        "axesConfiguration": {
-          "bottom": {
-            "enabled": true
-          },
-          "left": {
-            "decimals": 2,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          },
-          "right": {
-            "decimals": null,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          }
-        },
-        "description": "",
-        "id": 2,
-        "legendConfiguration": {
-          "enabled": true,
-          "layout": "table",
-          "position": "right",
-          "showCurrent": true
-        },
-        "name": "CPU usage",
-        "type": "advancedTimechart"
-      },
-      {
-        "advancedQueries": [
-          {
-            "displayInfo": {
-              "displayName": "Goroutines",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
-              "yAxis": "auto"
-            },
-            "query": "go_goroutines:kube_proxy* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
-          }
-        ],
-        "axesConfiguration": {
-          "bottom": {
-            "enabled": true
-          },
-          "left": {
-            "decimals": 2,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          },
-          "right": {
-            "decimals": null,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          }
-        },
-        "description": "",
-        "id": 3,
-        "legendConfiguration": {
-          "enabled": true,
-          "layout": "table",
-          "position": "right",
-          "showCurrent": true
-        },
-        "name": "Goroutines",
-        "type": "advancedTimechart"
-      },
-      {
-        "advancedQueries": [
-          {
-            "displayInfo": {
-              "displayName": "Get request p99",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{verb}} {{url}}",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "s",
-              "unit": "relativeTime",
-              "yAxis": "auto"
-            },
-            "query": "rest_client_request_latency_seconds_bucket:get:kube_proxy* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
-          }
-        ],
-        "axesConfiguration": {
-          "bottom": {
-            "enabled": true
-          },
-          "left": {
-            "decimals": null,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "ns",
-            "maxValue": null,
-            "minInputFormat": "ns",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          },
-          "right": {
-            "decimals": null,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          }
-        },
-        "description": "",
-        "id": 4,
-        "legendConfiguration": {
-          "enabled": true,
-          "layout": "table",
-          "position": "right",
-          "showCurrent": true
-        },
-        "name": "Get Request Latency 99th Quantile",
-        "type": "advancedTimechart"
-      },
-      {
-        "advancedQueries": [
-          {
-            "displayInfo": {
-              "displayName": "Request rate",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} 2xx",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
-              "yAxis": "auto"
-            },
-            "query": "sum(rate(rest_client_requests_total:kube_proxy{code=~\"2..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
-          },
-          {
-            "displayInfo": {
-              "displayName": "Request rate",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} 3xx",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
-              "yAxis": "auto"
-            },
-            "query": "sum(rate(rest_client_requests_total:kube_proxy{code=~\"3..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
-          },
-          {
-            "displayInfo": {
-              "displayName": "Request rate",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} 4xx",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
-              "yAxis": "auto"
-            },
-            "query": "sum(rate(rest_client_requests_total:kube_proxy{code=~\"4..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
-          },
-          {
-            "displayInfo": {
-              "displayName": "Request rate",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} 5xx",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
-              "yAxis": "auto"
-            },
-            "query": "sum(rate(rest_client_requests_total:kube_proxy{code=~\"5..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
-          }
-        ],
-        "axesConfiguration": {
-          "bottom": {
-            "enabled": true
-          },
-          "left": {
-            "decimals": 2,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          },
-          "right": {
-            "decimals": null,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          }
-        },
-        "description": "",
-        "id": 5,
-        "legendConfiguration": {
-          "enabled": true,
-          "layout": "table",
-          "position": "right",
-          "showCurrent": true
-        },
-        "name": "Kube API Request Rate",
-        "type": "advancedTimechart"
-      },
-      {
-        "advancedQueries": [
-          {
-            "displayInfo": {
-              "displayName": "Post request latency p99",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{verb}} {{url}}",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "s",
-              "unit": "relativeTime",
-              "yAxis": "auto"
-            },
-            "query": "rest_client_request_latency_seconds_bucket:post:kube_proxy* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
-          }
-        ],
-        "axesConfiguration": {
-          "bottom": {
-            "enabled": true
-          },
-          "left": {
-            "decimals": null,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "ns",
-            "maxValue": null,
-            "minInputFormat": "ns",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          },
-          "right": {
-            "decimals": null,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          }
-        },
-        "description": "",
         "id": 6,
         "legendConfiguration": {
           "enabled": true,
@@ -491,26 +410,42 @@
           "position": "right",
           "showCurrent": true
         },
-        "name": "Post Request Latency 99th Quantile",
+        "name": "DB Size",
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Rate",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
+              "displayName": "Disk sync duration",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} WAL fsync",
               "type": "lines"
             },
             "enabled": true,
             "format": {
               "decimals": null,
               "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
+              "inputFormat": "s",
+              "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "kubeproxy_network_programming_duration_seconds_count:kube_proxy* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "histogram_quantile(0.99, sum(rate(etcd_disk_wal_fsync_duration_seconds_bucket:sysdig[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (instance, le, cluster))"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Disk sync duration",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} DB fsync",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.99, sum(rate(etcd_disk_backend_commit_duration_seconds_bucket:sysdig[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (instance, le, cluster))"
           }
         ],
         "axesConfiguration": {
@@ -518,13 +453,72 @@
             "enabled": true
           },
           "left": {
-            "decimals": 2,
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
             "displayFormat": "auto",
             "displayName": null,
             "enabled": true,
             "maxInputFormat": "1",
             "maxValue": null,
             "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 7,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Disk sync duration",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Memory",
+              "timeSeriesDisplayNameTemplate": "{{cluster}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "process_resident_memory_bytes:kubernetes{job=\"etcd\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B",
+            "maxValue": null,
+            "minInputFormat": "B",
             "minValue": null,
             "scale": "linear",
             "unit": "auto"
@@ -550,15 +544,15 @@
           "position": "right",
           "showCurrent": true
         },
-        "name": "Network Programming Rate",
+        "name": "Memory",
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "rate",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
+              "displayName": "Number of consensus proposals commited",
+              "timeSeriesDisplayNameTemplate": "{{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -569,7 +563,23 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(kubeproxy_sync_proxy_rules_duration_seconds_count:kube_proxy[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
+            "query": "sum(rate(etcd_server_proposals_committed_total:sysdig[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Number of consensus proposals applied",
+              "timeSeriesDisplayNameTemplate": "{{cluster}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(rate(etcd_server_proposals_applied_total:sysdig[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
           }
         ],
         "axesConfiguration": {
@@ -577,7 +587,7 @@
             "enabled": true
           },
           "left": {
-            "decimals": 2,
+            "decimals": null,
             "displayFormat": "auto",
             "displayName": null,
             "enabled": true,
@@ -609,45 +619,14 @@
           "position": "right",
           "showCurrent": true
         },
-        "name": "Rules Sync Rate",
+        "name": "The total number of consensus proposals committed ",
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "",
-              "timeSeriesDisplayNameTemplate": "",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
-              "yAxis": "auto"
-            },
-            "query": "sum(up:kube_proxy* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
-          }
-        ],
-        "description": "",
-        "id": 10,
-        "name": "UP",
-        "numberThresholds": {
-          "base": {
-            "displayText": "",
-            "severity": "none"
-          },
-          "values": []
-        },
-        "type": "advancedNumber"
-      },
-      {
-        "advancedQueries": [
-          {
-            "displayInfo": {
-              "displayName": "Latency",
+              "displayName": "Cpu usage",
               "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
               "type": "lines"
             },
@@ -659,7 +638,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "kubeproxy_sync_proxy_rules_duration_seconds_bucket:kube_proxy* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"etcd\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -667,7 +646,66 @@
             "enabled": true
           },
           "left": {
-            "decimals": 2,
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 10,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "CPU usage",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "go_goroutines:kubernetes{job=\"etcd\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
             "displayFormat": "auto",
             "displayName": null,
             "enabled": true,
@@ -699,66 +737,7 @@
           "position": "right",
           "showCurrent": true
         },
-        "name": "Rule Sync Latency 99th Quantile",
-        "type": "advancedTimechart"
-      },
-      {
-        "advancedQueries": [
-          {
-            "displayInfo": {
-              "displayName": "Network Programming Latency 99th Quantile",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
-              "yAxis": "auto"
-            },
-            "query": "kubeproxy_network_programming_duration_seconds_bucket:kube_proxy* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
-          }
-        ],
-        "axesConfiguration": {
-          "bottom": {
-            "enabled": true
-          },
-          "left": {
-            "decimals": 2,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          },
-          "right": {
-            "decimals": null,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          }
-        },
-        "description": "",
-        "id": 12,
-        "legendConfiguration": {
-          "enabled": true,
-          "layout": "table",
-          "position": "right",
-          "showCurrent": true
-        },
-        "name": "Network Programming Latency 99th Quantile",
+        "name": "Goroutines",
         "type": "advancedTimechart"
       }
     ],
@@ -771,11 +750,11 @@
           "canGroupBy": true,
           "canMonitor": false,
           "category": "kubernetes",
-          "createdAt": 1593440814451,
+          "createdAt": 1593440813244,
           "customerId": 25008,
           "deferred": false,
           "documentId": "25008--6139949314852700299",
-          "documentTimestamp": 1593440814451,
+          "documentTimestamp": 1593440813244,
           "documentType": "metric",
           "experimental": false,
           "firstSeen": 1583235308502,
