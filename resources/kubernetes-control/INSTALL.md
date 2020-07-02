@@ -15,6 +15,7 @@ Download the following files:
 - prometheus.yaml
 
 execute: 
+
 ```bash 
 helmfile sync
 ```
@@ -29,6 +30,7 @@ kubectl -n monitoring patch sts prometheus-server -p '{"spec":{"template":{"meta
 ```
 
 Or download the file `prometheus-deploy.yaml` and apply it:
+
 ```bash
 kubectl -n monitoring apply -f prometheus-deploy.yaml
 ```
@@ -42,6 +44,7 @@ The certificates are located in the master node in `/etc/kubernetes/pki/etcd-man
 2. Creating the secrets for the certificates:
 Once we have the certificates let’s proceed to create the secrets in the namespace where the Prometheus server is located. In our case, it will be located in the namespace `monitoring`. 
 To create the secrets, run:
+
 ```bash
 kubectl -n monitoring create secret generic etcd-ca --from-file=etcd-clients-ca.key --from-file etcd-clients-ca.crt
 ```
@@ -53,12 +56,14 @@ kops --state s3://name-of-s3 --name cluster-name edit cluster
 ```
 
 And add the following lines:
+
 ```yaml
 kubeProxy:
   metricsBindAddress: 0.0.0.0
 ```
 
 And update the cluster:
+
 ```bash
 kops --state s3://name-of-s3 --name cluster-name rolling-update cluster --yes
 ```
@@ -67,6 +72,7 @@ kops --state s3://name-of-s3 --name cluster-name rolling-update cluster --yes
 To use the Sysdig agent, you have to create the recording rules for only scrape the metrics we will use in our dashboards.
 
 1. Copy the agent configuration provided and save it as `sysdig-agent.yaml`. Then apply it:
+
 ```
 kubectl apply -f sysdig-agent.yaml
 ```
