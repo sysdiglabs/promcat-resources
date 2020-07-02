@@ -150,7 +150,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"controller-manager\"}[5m])"
+            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"controller-manager\"}[$__interval])"
           }
         ],
         "axesConfiguration": {
@@ -327,7 +327,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"2..\"}[5m]))"
+            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"2..\"}[$__interval]))"
           },
           {
             "displayInfo": {
@@ -343,7 +343,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"3..\"}[5m]))"
+            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"3..\"}[$__interval]))"
           },
           {
             "displayInfo": {
@@ -359,7 +359,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"4..\"}[5m]))"
+            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"4..\"}[$__interval]))"
           },
           {
             "displayInfo": {
@@ -375,7 +375,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"5..\"}[5m]))"
+            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"5..\"}[$__interval]))"
           }
         ],
         "axesConfiguration": {
@@ -552,7 +552,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(workqueue_depth:kubernetes_control_manager[5m])) by (instance, name)"
+            "query": "sum(rate(workqueue_depth:kubernetes_control_manager[$__interval])) by (instance, name)"
           }
         ],
         "axesConfiguration": {
@@ -611,7 +611,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(workqueue_adds_total:kubernetes_control_manager[5m])) by (instance, name)"
+            "query": "sum(rate(workqueue_adds_total:kubernetes_control_manager[$__interval])) by (instance, name)"
           }
         ],
         "axesConfiguration": {

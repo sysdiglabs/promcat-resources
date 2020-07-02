@@ -568,7 +568,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(irate(elasticsearch_indices_indexing_index_total{instance=~$instance,cluster=$cluster}[5m]))"
+            "query": "sum(irate(elasticsearch_indices_indexing_index_total{instance=~$instance,cluster=$cluster}[$__interval]))"
           }
         ],
         "description": "",

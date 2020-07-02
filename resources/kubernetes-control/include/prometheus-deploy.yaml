@@ -89,6 +89,8 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
+        - mountPath: /opt/draios/kubernetes/prometheus/secrets
+          name: etcd-ca
         - mountPath: /etc/config
           name: config-volume
         - mountPath: /opt/rules
@@ -109,6 +111,10 @@ spec:
       serviceAccountName: prometheus-server
       terminationGracePeriodSeconds: 300
       volumes:
+      - name: etcd-ca
+        secret:
+          defaultMode: 420
+          secretName: etcd-ca
       - configMap:
           defaultMode: 420
           name: prometheus-server

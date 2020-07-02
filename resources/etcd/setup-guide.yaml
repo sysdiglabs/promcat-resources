@@ -5,8 +5,14 @@ version: 1.0.0
 appVersion:
 - 3.4.0
 configurations:
-- name: etcd-rules.yaml
-  file: include/etcd-rules.yaml
+- name: helmfile.yaml
+  file: include/helmfile.yaml
+- name: recording_rules.yaml
+  file: include/recording_rules.yaml
+- name: prometheus.yaml
+  file: include/prometheus.yaml
+- name: prometheus.yml.gotmpl
+  file: include/prometheus.yml.gotmpl
 - name: sysdig-agent-example.yaml
   file: include/sysdig-agent-example.yaml
 - name: prometheus-cm.yaml

@@ -1,12 +1,12 @@
 # This is a basic workflow to help you get started with Actions
 
-name: testAndBuild
+name: buildandDeploy
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    branches: [ staging ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -42,4 +42,18 @@ jobs:
         password: ${{ secrets.GRC_REGISTRY_SECRET }}
         registry: gcr.io
         repository: mateo-burillo-ns/promcat-resources
-        tags: latest
+        tags: staging
+    - name: Install dependencies for kubectl
+      run: |
+        curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+        chmod +x ./kubectl
+        sudo mv ./kubectl /usr/local/bin/kubectl
+    - name: Deploy in staging
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+      run: |
+        echo "$GOOGLE_APPLICATION_CREDENTIALS" | base64 --decode > /tmp/config
+        export GOOGLE_APPLICATION_CREDENTIALS=/tmp/config
+        export KUBECONFIG=deployment/promhub_kubeconfig
+        chmod +x deployment/staging/deploy.sh
+        sh ./deployment/staging/deploy.sh

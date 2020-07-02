@@ -132,7 +132,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_asserts_total{instance='$instance'}[$__interval])",
+          "expr": "rate(mongodb_asserts_total{instance='$instance'}[5m])",
           "interval": "",
           "legendFormat": "{{type}}",
           "refId": "A"
@@ -222,7 +222,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_extra_info_page_faults_total{instance='$instance'}[$__interval])",
+          "expr": "rate(mongodb_extra_info_page_faults_total{instance='$instance'}[5m])",
           "interval": "",
           "legendFormat": "Page faults",
           "refId": "A"
@@ -550,7 +550,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_mongod_op_latencies_latency_total{instance='$instance'}[$__interval]) / rate(mongodb_mongod_op_latencies_ops_total{instance='$instance'}[$__interval])",
+          "expr": "rate(mongodb_mongod_op_latencies_latency_total{instance='$instance'}[5m]) / rate(mongodb_mongod_op_latencies_ops_total{instance='$instance'}[5m])",
           "interval": "",
           "legendFormat": "{{type}}",
           "refId": "A"
@@ -1096,7 +1096,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_mongod_metrics_cursor_timed_out_total{instance='$instance'}[$__interval])",
+          "expr": "rate(mongodb_mongod_metrics_cursor_timed_out_total{instance='$instance'}[5m])",
           "interval": "",
           "legendFormat": "Cursors",
           "refId": "A"
@@ -1187,7 +1187,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_connections_metrics_created_total{instance='$instance'}[$__interval])",
+          "expr": "rate(mongodb_connections_metrics_created_total{instance='$instance'}[5m])",
           "interval": "",
           "legendFormat": "Conns",
           "refId": "A"
@@ -1278,7 +1278,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_network_bytes_total{instance='$instance'}[$__interval])",
+          "expr": "rate(mongodb_network_bytes_total{instance='$instance'}[5m])",
           "interval": "",
           "legendFormat": "{{state}}",
           "refId": "A"
@@ -1369,7 +1369,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_network_metrics_num_requests_total{instance='$instance'}[$__interval])",
+          "expr": "rate(mongodb_network_metrics_num_requests_total{instance='$instance'}[5m])",
           "interval": "",
           "legendFormat": "IOPS",
           "refId": "A"
@@ -1460,7 +1460,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_op_counters_total{instance='$instance'}[$__interval])",
+          "expr": "rate(mongodb_op_counters_total{instance='$instance'}[5m])",
           "interval": "",
           "legendFormat": "{{type}}",
           "refId": "A"
@@ -1642,7 +1642,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_mongod_wiredtiger_cache_bytes_total{instance='$instance'}[$__interval])",
+          "expr": "rate(mongodb_mongod_wiredtiger_cache_bytes_total{instance='$instance'}[5m])",
           "interval": "",
           "legendFormat": "{{type}}",
           "refId": "A"
@@ -1824,7 +1824,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_mongod_wiredtiger_cache_evicted_total[$__interval])",
+          "expr": "rate(mongodb_mongod_wiredtiger_cache_evicted_total[5m])",
           "interval": "",
           "legendFormat": "{{type}}",
           "refId": "A"

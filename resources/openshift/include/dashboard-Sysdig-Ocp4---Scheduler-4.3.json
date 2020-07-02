@@ -143,7 +143,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"scheduler\"}[5m])"
+            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"scheduler\"}[$__interval])"
           }
         ],
         "axesConfiguration": {
@@ -261,7 +261,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"2..\"}[5m]))"
+            "query": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"2..\"}[$__interval]))"
           },
           {
             "displayInfo": {
@@ -277,7 +277,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"3..\"}[5m]))"
+            "query": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"3..\"}[$__interval]))"
           },
           {
             "displayInfo": {
@@ -293,7 +293,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"4..\"}[5m]))"
+            "query": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"4..\"}[$__interval]))"
           },
           {
             "displayInfo": {
@@ -309,7 +309,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"5..\"}[5m]))"
+            "query": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"5..\"}[$__interval]))"
           }
         ],
         "axesConfiguration": {
@@ -565,7 +565,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(scheduler_e2e_scheduling_duration_seconds_count:kube_scheduler[5m])) by (instance)"
+            "query": "sum(rate(scheduler_e2e_scheduling_duration_seconds_count:kube_scheduler[$__interval])) by (instance)"
           },
           {
             "displayInfo": {
@@ -581,7 +581,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(scheduler_binding_duration_seconds_count:kube_scheduler[5m])) by (instance)"
+            "query": "sum(rate(scheduler_binding_duration_seconds_count:kube_scheduler[$__interval])) by (instance)"
           },
           {
             "displayInfo": {
@@ -597,7 +597,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(scheduler_scheduling_algorithm_duration_seconds_count:kube_scheduler[5m])) by (instance)"
+            "query": "sum(rate(scheduler_scheduling_algorithm_duration_seconds_count:kube_scheduler[$__interval])) by (instance)"
           },
           {
             "displayInfo": {
@@ -613,7 +613,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(scheduler_volume_scheduling_duration_seconds_count:kube_scheduler[5m])) by (instance)"
+            "query": "sum(rate(scheduler_volume_scheduling_duration_seconds_count:kube_scheduler[$__interval])) by (instance)"
           }
         ],
         "axesConfiguration": {

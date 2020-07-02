@@ -333,7 +333,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(kubelet_node_config_error:kubelet[5m]))"
+            "query": "sum(rate(kubelet_node_config_error:kubelet[$__interval]))"
           }
         ],
         "description": "",
@@ -364,7 +364,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(kubelet_runtime_operations_total:kubelet[5m])) by (operation_type, instance)"
+            "query": "sum(rate(kubelet_runtime_operations_total:kubelet[$__interval])) by (operation_type, instance)"
           }
         ],
         "axesConfiguration": {
@@ -423,7 +423,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(kubelet_runtime_operations_errors_total:kubelet[5m])) by (instance, operation_type)"
+            "query": "sum(rate(kubelet_runtime_operations_errors_total:kubelet[$__interval])) by (instance, operation_type)"
           }
         ],
         "axesConfiguration": {
@@ -541,7 +541,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(kubelet_pod_start_duration_seconds_count:kubelet[5m])) by (instance)"
+            "query": "sum(rate(kubelet_pod_start_duration_seconds_count:kubelet[$__interval])) by (instance)"
           },
           {
             "displayInfo": {
@@ -557,7 +557,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(kubelet_pod_worker_duration_seconds_count:kubelet[5m])) by (instance)"
+            "query": "sum(rate(kubelet_pod_worker_duration_seconds_count:kubelet[$__interval])) by (instance)"
           }
         ],
         "axesConfiguration": {
@@ -691,7 +691,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(storage_operation_duration_seconds_count:kubelet[5m])) by (instance, operation_name, volume_plugin)"
+            "query": "sum(rate(storage_operation_duration_seconds_count:kubelet[$__interval])) by (instance, operation_name, volume_plugin)"
           }
         ],
         "axesConfiguration": {
@@ -750,7 +750,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(storage_operation_errors_total:kubelet[5m])) by (instance, operation_name, volume_plugin)"
+            "query": "sum(rate(storage_operation_errors_total:kubelet[$__interval])) by (instance, operation_name, volume_plugin)"
           }
         ],
         "axesConfiguration": {
@@ -868,7 +868,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(kubelet_cgroup_manager_duration_seconds_count:kubelet[5m])) by (instance, operation_type)"
+            "query": "sum(rate(kubelet_cgroup_manager_duration_seconds_count:kubelet[$__interval])) by (instance, operation_type)"
           }
         ],
         "axesConfiguration": {
@@ -986,7 +986,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"2..\"}[5m]))"
+            "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"2..\"}[$__interval]))"
           },
           {
             "displayInfo": {
@@ -1002,7 +1002,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"3..\"}[5m]))"
+            "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"3..\"}[$__interval]))"
           },
           {
             "displayInfo": {
@@ -1018,7 +1018,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"4..\"}[5m]))"
+            "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"4..\"}[$__interval]))"
           },
           {
             "displayInfo": {
@@ -1034,7 +1034,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"5..\"}[5m]))"
+            "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"5..\"}[$__interval]))"
           }
         ],
         "axesConfiguration": {
@@ -1211,7 +1211,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"kubelet\"}[5m])"
+            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"kubelet\"}[$__interval])"
           }
         ],
         "axesConfiguration": {
