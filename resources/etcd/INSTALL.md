@@ -14,9 +14,11 @@ The certificates are located in the master node in `/etc/kubernetes/pki/etcd-man
 2. Creating the secrets for the certificates:
 Once we have the certificates let’s proceed to create the secrets in the namespace where the Prometheus server is located. In our case, it will be located in the namespace `monitoring`. 
 To create the secrets, run:
+
 ```bash
 kubectl -n monitoring create secret generic etcd-ca --from-file=etcd-clients-ca.key --from-file etcd-clients-ca.crt
 ```
+
 # Installing and configuring Prometheus
 ## Installing a new Prometheus with helm
 In this section we will explain how to install and configure a new Prometheus server with the recording rules.  
@@ -27,6 +29,7 @@ Download the following files:
 - prometheus.yaml
 
 Execute:
+
 ```
 helmfile sync
 ```
@@ -35,6 +38,7 @@ helmfile sync
 In this section we will explain how to configure an existing Prometheus server
 
 1. Let’s mount the volume with the certificates
+
 ```bash
 kubectl -n monitoring patch sts prometheus-server -p '{"spec":{"template":{"spec":{"volumes":[{"name":"etcd-ca","secret":{"defaultMode":420,"secretName":"etcd-ca"}}]}}}}'
 
@@ -82,6 +86,7 @@ If we choose to filter the metrics, it will save a lot of useless metrics with d
 will get the metrics that you need to have the dashboards and alerts working.
 
 To install the rules just apply this commands:
+
 ```bash 
 kubectl apply -f etcd-rules.yaml
 
@@ -91,6 +96,7 @@ kubectl -n monitoring patch deployment prometheus-server -p '{"spec":{"template"
 ```
 
 To federate the Prometheus just add the `prometheus.yaml` to the configuration, as it is done in the `sysdig-agent-example.yaml` file:
+
 ```yaml
 prometheus.yaml: |-
 global:
@@ -111,7 +117,9 @@ scrape_configs:
       namespace: monitoring
       deployment: prometheus-server
 ```
+
 Copy the agent configuration provided and save it as `sysdig-agent.yaml`. Then apply it:
+
 ```bash
 kubectl apply -f sysdig-agent.yaml
 ```
