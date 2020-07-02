@@ -3,5 +3,5 @@ kubectl version --client
 kubectl -n staging get po
 kubectl -n staging delete jobs.batch dbimport
 kubectl -n staging get po
-kubectl apply -f dbimport-job.yaml
+kubectl apply -f deployment/staging/dbimport-job.yaml
 kubectl -n staging get po
