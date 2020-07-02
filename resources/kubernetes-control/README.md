@@ -16,6 +16,7 @@ With this metrics we can see the information about:
 - Control manager
 - Scheduler
 - Proxy
+- etcd
 
 # Attributions
 Configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).

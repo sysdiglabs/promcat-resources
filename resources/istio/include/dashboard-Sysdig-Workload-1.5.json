@@ -154,7 +154,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(irate(istio_requests_total:sysdig{reporter=\"destination\"}[5m])) by (destination_workload)"
+            "query": "sum(irate(istio_requests_total:sysdig{reporter=\"destination\"}[$__interval])) by (destination_workload)"
           }
         ],
         "axesConfiguration": {
@@ -213,7 +213,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100*(sum(irate(istio_requests_total:sysdig{reporter=\"destination\",response_code!~\"5.*\"}[5m])) / sum(irate(istio_requests_total:sysdig{reporter=\"destination\"}[5m])))"
+            "query": "100*(sum(irate(istio_requests_total:sysdig{reporter=\"destination\",response_code!~\"5.*\"}[$__interval])) / sum(irate(istio_requests_total:sysdig{reporter=\"destination\"}[$__interval])))"
           }
         ],
         "axesConfiguration": {
@@ -481,7 +481,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(irate(istio_requests_total:sysdig{connection_security_policy=\"mutual_tls\", reporter=\"destination\"}[5m])) by (source_workload, source_workload_namespace, response_code)"
+            "query": "sum(irate(istio_requests_total:sysdig{connection_security_policy=\"mutual_tls\", reporter=\"destination\"}[$__interval])) by (source_workload, source_workload_namespace, response_code)"
           },
           {
             "displayInfo": {
@@ -497,7 +497,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(irate(istio_requests_total:sysdig{connection_security_policy!=\"mutual_tls\", reporter=\"destination\"}[5m])) by (source_workload, source_workload_namespace, response_code)"
+            "query": "sum(irate(istio_requests_total:sysdig{connection_security_policy!=\"mutual_tls\", reporter=\"destination\"}[$__interval])) by (source_workload, source_workload_namespace, response_code)"
           }
         ],
         "axesConfiguration": {
@@ -556,7 +556,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100*(sum(irate(istio_requests_total:sysdig{reporter=\"destination\", connection_security_policy=\"mutual_tls\", response_code!~\"5.*\"}[5m])) by (source_workload, source_workload_namespace) / sum(irate(istio_requests_total:sysdig{reporter=\"destination\", connection_security_policy=\"mutual_tls\"}[5m])) by (source_workload, source_workload_namespace))"
+            "query": "100*(sum(irate(istio_requests_total:sysdig{reporter=\"destination\", connection_security_policy=\"mutual_tls\", response_code!~\"5.*\"}[$__interval])) by (source_workload, source_workload_namespace) / sum(irate(istio_requests_total:sysdig{reporter=\"destination\", connection_security_policy=\"mutual_tls\"}[$__interval])) by (source_workload, source_workload_namespace))"
           },
           {
             "displayInfo": {
@@ -572,7 +572,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100*(sum(irate(istio_requests_total:sysdig{reporter=\"destination\", connection_security_policy!=\"mutual_tls\", response_code!~\"5.*\"}[5m])) by (source_workload, source_workload_namespace) / sum(irate(istio_requests_total:sysdig{reporter=\"destination\", connection_security_policy!=\"mutual_tls\"}[5m])) by (source_workload, source_workload_namespace))"
+            "query": "100*(sum(irate(istio_requests_total:sysdig{reporter=\"destination\", connection_security_policy!=\"mutual_tls\", response_code!~\"5.*\"}[$__interval])) by (source_workload, source_workload_namespace) / sum(irate(istio_requests_total:sysdig{reporter=\"destination\", connection_security_policy!=\"mutual_tls\"}[$__interval])) by (source_workload, source_workload_namespace))"
           }
         ],
         "axesConfiguration": {
@@ -1294,7 +1294,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(irate(istio_requests_total:sysdig{connection_security_policy=\"mutual_tls\", reporter=\"source\"}[5m])) by (destination_service, response_code)"
+            "query": "sum(irate(istio_requests_total:sysdig{connection_security_policy=\"mutual_tls\", reporter=\"source\"}[$__interval])) by (destination_service, response_code)"
           },
           {
             "displayInfo": {
@@ -1310,7 +1310,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(irate(istio_requests_total:sysdig{connection_security_policy!=\"mutual_tls\", reporter=\"source\"}[5m])) by (destination_service, response_code)"
+            "query": "sum(irate(istio_requests_total:sysdig{connection_security_policy!=\"mutual_tls\", reporter=\"source\"}[$__interval])) by (destination_service, response_code)"
           }
         ],
         "axesConfiguration": {
@@ -1369,7 +1369,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(irate(istio_requests_total{reporter=\"source\", connection_security_policy=\"mutual_tls\",response_code!~\"5.*\"}[5m])) by (destination_service) / sum(irate(istio_requests_total{reporter=\"source\", connection_security_policy=\"mutual_tls\"}[5m])) by (destination_service)"
+            "query": "sum(irate(istio_requests_total{reporter=\"source\", connection_security_policy=\"mutual_tls\",response_code!~\"5.*\"}[$__interval])) by (destination_service) / sum(irate(istio_requests_total{reporter=\"source\", connection_security_policy=\"mutual_tls\"}[$__interval])) by (destination_service)"
           },
           {
             "displayInfo": {
@@ -1385,7 +1385,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(irate(istio_requests_total{reporter=\"source\", connection_security_policy!=\"mutual_tls\",response_code!~\"5.*\"}[5m])) by (destination_service) / sum(irate(istio_requests_total{reporter=\"source\", connection_security_policy!=\"mutual_tls\"}[5m])) by (destination_service)"
+            "query": "sum(irate(istio_requests_total{reporter=\"source\", connection_security_policy!=\"mutual_tls\",response_code!~\"5.*\"}[$__interval])) by (destination_service) / sum(irate(istio_requests_total{reporter=\"source\", connection_security_policy!=\"mutual_tls\"}[$__interval])) by (destination_service)"
           }
         ],
         "axesConfiguration": {

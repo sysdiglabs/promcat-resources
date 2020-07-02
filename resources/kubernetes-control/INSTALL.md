@@ -1,70 +1,72 @@
-# Installing the exporter
+# Prerequisites
+Kubernetes generates a high number of metrics for the control plane. As the Sysdig Agent has a limit of timesieres that can send to Sysdig Monitor, you have to deploy a Prometheus server and create the recording rules that we provide. This way, we will filter only the metrics that we need.
 
-To install the exporter follow this steps:
+To deploy a Prometheus server you will need:
+* [helm](https://helm.sh/docs/intro/install/)  
+* [helmfile](https://github.com/roboll/helmfile)
 
-1. Create the namespace if it is not already created
-  ```
-  kubectl create ns monitoring
-  ```
-2. Install the helm chart for Prometheus
-  ```
-  helm install prometheus -n monitoring stable/prometheus
-  ```
-3. Add a new replica to fix the rolling update
-  ```sh
-  kubectl -n monitoring patch deploy prometheus-server -p '{"spec":{"strategy": {"type": "Recreate"}}}'
-  kubectl -n monitoring patch deploy prometheus-server -p '{"spec":{"template":{"metadata":{"annotations":{"prometheus.io/scrape": "true", "prometheus.io/port": "9090"}}}}}'
-  ```
-  Or just apply the deploy yaml provided
-   ```
-  kubectl -n monitoring apply -f prometheus-deploy.yaml
-  ```
-4. Apply the configuration for prometheus, is the configmap prometheus-server, the configuration has the recording rules and the alerts added if we only want
-   the prometheus part we have to delete this lines:
-  ```
-  kubectl -n monitoring edit cm prometheus-server
-  ```
-  ```
-  - /opt/rules/rules.yaml
-  - /opt/alerts/alerts.yaml
-  ```
-  Once we have the file with only the configmap for prometheus we have to apply, if we have save it as prometheus-cm.yaml then execute the next command:
-  ```
-  kubectl apply -f prometheus-cm.yaml
-  ```
+# Installing and configuring Prometheus
+## Installing a new Prometheus with helm
+In this section we will explain how to install and configure a new prometheus server with the recording rules.  
 
-  ---
-  **NOTE**
+Download the following files: 
+- helmfile.yaml
+- recording_rules.yaml
+- prometheus.yaml
 
-  If you are using kops, you will have to change the cluster spec to expose the port for the proxy
+execute: 
+```bash 
+helmfile sync
+```
 
-  ```
-  kops --state s3://name-of-s3 --name cluster-name edit cluster
-  ```
+## Configuring an existing Prometheus
+In this section we will explain how to configure an existing Prometheus server with the recording rules.
 
-  And add the follow
+To do this, you can either annotate the StatefulSet:
 
-  ```yaml
-  kubeProxy:
-    metricsBindAddress: 0.0.0.0
-  ```
+```bash
+kubectl -n monitoring patch sts prometheus-server -p '{"spec":{"template":{"metadata":{"annotations":{"prometheus.io/scrape": "true", "prometheus.io/port": "9090"}}}}}'
+```
 
-  And update the cluster
+Or download the file `prometheus-deploy.yaml` and apply it:
+```bash
+kubectl -n monitoring apply -f prometheus-deploy.yaml
+```
 
-  ```
-  kops --state s3://name-of-s3 --name cluster-name rolling-update cluster --yes
-  ```
+# Configuring the etcd to get the metrics
+Etcd exposes all their metrics by default but Prometheus has to know where it is. 
 
-  ---
+First, you need to get the SSL certificates.
+1. Getting the certificates: 
+The certificates are located in the master node in `/etc/kubernetes/pki/etcd-manager-main/etcd-clients-ca.key` and `/etc/kubernetes/pki/etcd-manager-main/etcd-clients-ca.crt`. Save them in you local computer.
+2. Creating the secrets for the certificates:
+Once we have the certificates let’s proceed to create the secrets in the namespace where the Prometheus server is located. In our case, it will be located in the namespace `monitoring`. 
+To create the secrets, run:
+```bash
+kubectl -n monitoring create secret generic etcd-ca --from-file=etcd-clients-ca.key --from-file etcd-clients-ca.crt
+```
+# Exposing the Proxy port in kops
+If you are using kops, you will have to change the cluster spec to expose the port for the proxy. To edit the cluster, run:
 
-If we want to use the Sysdig agent too, we have to create the recording rules for only scrape the metrics we will use in our dashboards.
+```bash
+kops --state s3://name-of-s3 --name cluster-name edit cluster
+```
 
-1. Apply the rules
-  We have to add the recording rules and alerts rules in the prometheus configuration that we have in the next tabs and applied the configuration for our Sysdig agent then we will have our metrics in Sysdig.
-  ```
-  kubectl apply -f rules.yaml
-  ```
-2. Update the Prometheus server configuration with the new configmap for recording rules and with the annotations to federate the Prometheus with the Sysdig agent. Copy the configuration and save it as config.yaml
-  ```
-  kubectl apply -f sysdig-agent.yaml
-  ```
+And add the following lines:
+```yaml
+kubeProxy:
+  metricsBindAddress: 0.0.0.0
+```
+
+And update the cluster:
+```bash
+kops --state s3://name-of-s3 --name cluster-name rolling-update cluster --yes
+```
+
+# Configuring the Sysdig Agent
+To use the Sysdig agent, you have to create the recording rules for only scrape the metrics we will use in our dashboards.
+
+1. Copy the agent configuration provided and save it as `sysdig-agent.yaml`. Then apply it:
+```
+kubectl apply -f sysdig-agent.yaml
+```

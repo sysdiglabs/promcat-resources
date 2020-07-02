@@ -1,6 +1,16 @@
 {
   "dashboard": {
     "description": "",
+    "eventDisplaySettings": {
+      "enabled": false,
+      "queryParams": {
+        "alertStatuses": [],
+        "categories": [],
+        "filter": "",
+        "severities": [],
+        "teamScope": false
+      }
+    },
     "layout": [
       {
         "h": 3,
@@ -73,7 +83,7 @@
           {
             "displayInfo": {
               "displayName": "Memory",
-              "timeSeriesDisplayNameTemplate": "{{instance}}",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
               "type": "lines"
             },
             "enabled": true,
@@ -84,7 +94,7 @@
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "process_resident_memory_bytes:kubernetes{job=\"scheduler\"}"
+            "query": "process_resident_memory_bytes:kube_scheduler* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -132,7 +142,7 @@
           {
             "displayInfo": {
               "displayName": "Cpu usage",
-              "timeSeriesDisplayNameTemplate": "{{instance}}",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
               "type": "lines"
             },
             "enabled": true,
@@ -143,7 +153,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"scheduler\"}[5m])"
+            "query": "rate(process_cpu_seconds_total:kube_scheduler[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -191,7 +201,7 @@
           {
             "displayInfo": {
               "displayName": "Goroutines",
-              "timeSeriesDisplayNameTemplate": "{{instance}}",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
               "type": "lines"
             },
             "enabled": true,
@@ -202,7 +212,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "go_goroutines:kubernetes{job=\"scheduler\"}"
+            "query": "go_goroutines:kube_scheduler * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -250,7 +260,7 @@
           {
             "displayInfo": {
               "displayName": "Request rate",
-              "timeSeriesDisplayNameTemplate": "2xx",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} 2xx",
               "type": "lines"
             },
             "enabled": true,
@@ -261,12 +271,12 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"2..\"}[5m]))"
+            "query": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"2..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
           },
           {
             "displayInfo": {
               "displayName": "Request rate",
-              "timeSeriesDisplayNameTemplate": "3xx",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} 3xx",
               "type": "lines"
             },
             "enabled": true,
@@ -277,12 +287,12 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"3..\"}[5m]))"
+            "query": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"3..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
           },
           {
             "displayInfo": {
               "displayName": "Request rate",
-              "timeSeriesDisplayNameTemplate": "4xx",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} 4xx",
               "type": "lines"
             },
             "enabled": true,
@@ -293,12 +303,12 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"4..\"}[5m]))"
+            "query": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"4..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
           },
           {
             "displayInfo": {
               "displayName": "Request rate",
-              "timeSeriesDisplayNameTemplate": "5xx",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} 5xx",
               "type": "lines"
             },
             "enabled": true,
@@ -309,7 +319,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"5..\"}[5m]))"
+            "query": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"5..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
           }
         ],
         "axesConfiguration": {
@@ -357,7 +367,7 @@
           {
             "displayInfo": {
               "displayName": "Get Request Latency p99",
-              "timeSeriesDisplayNameTemplate": "{{verb}} {{url}}",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{verb}} {{url}}",
               "type": "lines"
             },
             "enabled": true,
@@ -368,7 +378,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "rest_client_request_latency_seconds_bucket:kube_scheduler{verb=\"GET\"}"
+            "query": "rest_client_request_latency_seconds_bucket:kube_scheduler{verb=\"GET\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -415,8 +425,8 @@
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "",
-              "timeSeriesDisplayNameTemplate": "{{instance}} e2e",
+              "displayName": "-",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} e2e",
               "type": "lines"
             },
             "enabled": true,
@@ -427,12 +437,12 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "scheduler_volume_scheduling_duration_seconds_count:kube_scheduler"
+            "query": "scheduler_volume_scheduling_duration_seconds_count:kube_scheduler* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           },
           {
             "displayInfo": {
-              "displayName": "",
-              "timeSeriesDisplayNameTemplate": "{{instance}} scheduling algorithm",
+              "displayName": "-",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} scheduling algorithm",
               "type": "lines"
             },
             "enabled": true,
@@ -443,12 +453,12 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "scheduler_scheduling_algorithm_duration_seconds_bucket:kube_scheduler"
+            "query": "scheduler_scheduling_algorithm_duration_seconds_bucket:kube_scheduler* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           },
           {
             "displayInfo": {
-              "displayName": "",
-              "timeSeriesDisplayNameTemplate": "{{instance}} volume",
+              "displayName": "-",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} volume",
               "type": "lines"
             },
             "enabled": true,
@@ -459,12 +469,12 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "scheduler_volume_scheduling_duration_seconds_bucket:kube_scheduler"
+            "query": "scheduler_volume_scheduling_duration_seconds_bucket:kube_scheduler* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           },
           {
             "displayInfo": {
-              "displayName": "",
-              "timeSeriesDisplayNameTemplate": "{{instance}} binding",
+              "displayName": "-",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} binding",
               "type": "lines"
             },
             "enabled": true,
@@ -475,7 +485,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "scheduler_binding_duration_seconds_bucket:kube_scheduler"
+            "query": "scheduler_binding_duration_seconds_bucket:kube_scheduler* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -534,7 +544,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(up:kube_scheduler)"
+            "query": "sum(up:kube_scheduler* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
           }
         ],
         "description": "",
@@ -554,7 +564,7 @@
           {
             "displayInfo": {
               "displayName": "Scheduling Rate e2e",
-              "timeSeriesDisplayNameTemplate": "{{instance}} e2e",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} e2e",
               "type": "lines"
             },
             "enabled": true,
@@ -565,12 +575,12 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(scheduler_e2e_scheduling_duration_seconds_count:kube_scheduler[5m])) by (instance)"
+            "query": "sum(rate(scheduler_e2e_scheduling_duration_seconds_count:kube_scheduler[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (instance, cluster)"
           },
           {
             "displayInfo": {
               "displayName": "Scheduling Rate binding",
-              "timeSeriesDisplayNameTemplate": "{{instance}} binding",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} binding",
               "type": "lines"
             },
             "enabled": true,
@@ -581,12 +591,12 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(scheduler_binding_duration_seconds_count:kube_scheduler[5m])) by (instance)"
+            "query": "sum(rate(scheduler_binding_duration_seconds_count:kube_scheduler[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (instance, cluster)"
           },
           {
             "displayInfo": {
               "displayName": "Scheduling Rate algorithm",
-              "timeSeriesDisplayNameTemplate": "{{instance}} scheduling algorithm",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} scheduling algorithm",
               "type": "lines"
             },
             "enabled": true,
@@ -597,12 +607,12 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(scheduler_scheduling_algorithm_duration_seconds_count:kube_scheduler[5m])) by (instance)"
+            "query": "sum(rate(scheduler_scheduling_algorithm_duration_seconds_count:kube_scheduler[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (instance, cluster)"
           },
           {
             "displayInfo": {
               "displayName": "Scheduling Rate volume",
-              "timeSeriesDisplayNameTemplate": "{{instance}} volume",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} volume",
               "type": "lines"
             },
             "enabled": true,
@@ -613,7 +623,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(scheduler_volume_scheduling_duration_seconds_count:kube_scheduler[5m])) by (instance)"
+            "query": "sum(rate(scheduler_volume_scheduling_duration_seconds_count:kube_scheduler[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (instance, cluster)"
           }
         ],
         "axesConfiguration": {
@@ -661,7 +671,7 @@
           {
             "displayInfo": {
               "displayName": "Post Request Latency p99",
-              "timeSeriesDisplayNameTemplate": "{{verb}} {{url}}",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{verb}} {{url}}",
               "type": "lines"
             },
             "enabled": true,
@@ -672,7 +682,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rest_client_request_latency_seconds_bucket:kube_scheduler{verb=\"POST\"}"
+            "query": "rest_client_request_latency_seconds_bucket:kube_scheduler{verb=\"POST\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -717,6 +727,111 @@
       }
     ],
     "schema": 3,
-    "scopeExpressionList": []
+    "scopeExpressionList": [
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "category": "kubernetes",
+          "createdAt": 1593440815006,
+          "customerId": 25008,
+          "deferred": false,
+          "documentId": "25008--6139949314852700299",
+          "documentTimestamp": 1593440815006,
+          "documentType": "metric",
+          "experimental": false,
+          "firstSeen": 1583235308502,
+          "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+          "generator": {
+            "aggregationForGroup": "none",
+            "aggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "avg": false,
+            "canCalculate": false,
+            "canFilter": true,
+            "canGroupBy": true,
+            "canMonitor": false,
+            "category": "kubernetes",
+            "concat": false,
+            "context": [
+              "container"
+            ],
+            "count": false,
+            "countDistinct": false,
+            "deferred": false,
+            "experimental": false,
+            "firstSeen": 1583235308502,
+            "groupAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "groupBy": [],
+            "heuristic": false,
+            "hidden": false,
+            "id": "kubernetes.cluster.name",
+            "identity": false,
+            "label": true,
+            "lastSeen": 1593439747779,
+            "max": false,
+            "metricType": "none",
+            "min": false,
+            "namespaces": [
+              "kubernetes.cluster"
+            ],
+            "rateOfChange": false,
+            "scale": 1.0,
+            "scopes": [],
+            "sum": false,
+            "timeAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "timeAvg": false,
+            "type": "string"
+          },
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.cluster.name",
+          "identity": false,
+          "lastSeen": 1593439747779,
+          "metricType": "tag",
+          "namespaces": [
+            "kubernetes.cluster"
+          ],
+          "routingInfo": {
+            "customerId": 25008,
+            "routing": "25008"
+          },
+          "scale": 1.0,
+          "scopes": [],
+          "segment": false,
+          "segmentations": [],
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "cluster",
+        "isVariable": true,
+        "operand": "kubernetes.cluster.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      }
+    ]
   }
 }
