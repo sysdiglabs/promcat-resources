@@ -90,7 +90,7 @@ kubectl -n monitoring patch deployment prometheus-server -p '{"spec":{"template"
 kubectl -n monitoring patch deployment prometheus-server -p '{"spec":{"template":{"spec":{"containers":[{"name":"prometheus-server","volumeMounts": [{"mountPath": "/opt/rules","name": "etcd-rules"}]}]}}}}'
 ```
 
-To federate the Prometheus just add the `prometheus.yaml` to the configuration, aas it is done in the `sysdig-agent-example.yaml` file:
+To federate the Prometheus just add the `prometheus.yaml` to the configuration, as it is done in the `sysdig-agent-example.yaml` file:
 ```yaml
 prometheus.yaml: |-
 global:
@@ -110,4 +110,8 @@ scrape_configs:
   - tags:
       namespace: monitoring
       deployment: prometheus-server
+```
+Copy the agent configuration provided and save it as `sysdig-agent.yaml`. Then apply it:
+```bash
+kubectl apply -f sysdig-agent.yaml
 ```
