@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: wait-script
-  namespace: staging
+  namespace: promhub
   labels:
     name: wait-script
 data:
@@ -20,7 +20,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: dbimport
-  namespace: staging
+  namespace: promhub
   labels:
     app: dbimport
 spec:
@@ -38,7 +38,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: dbimport
-        image: gcr.io/mateo-burillo-ns/promcat-dbimport:staging
+        image: gcr.io/mateo-burillo-ns/promcat-dbimport:latest
         imagePullPolicy: Always
         command: ["/bin/sh", "-c", "sleep 10 && /bin/dbimport && touch /resources/file.unlock"]
         env:
@@ -55,7 +55,7 @@ spec:
           - name: resources
             mountPath: /resources
       - name: resources
-        image: gcr.io/mateo-burillo-ns/promcat-resources:staging
+        image: gcr.io/mateo-burillo-ns/promcat-resources:latest
         imagePullPolicy: Always
         command: ["/bin/sh", "-c", "cp -r /resources/* /shared-resources && /bin/sh /wait/wait.sh"]
         volumeMounts:
