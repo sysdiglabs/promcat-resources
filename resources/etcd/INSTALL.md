@@ -15,7 +15,7 @@ The certificates are located in the master node in `/etc/kubernetes/pki/etcd-man
 Once we have the certificates let’s proceed to create the secrets in the namespace where the Prometheus server is located. In our case, it will be located in the namespace `monitoring`. 
 To create the secrets, run:
 
-```bash
+```
 kubectl -n monitoring create secret generic etcd-ca --from-file=etcd-clients-ca.key --from-file etcd-clients-ca.crt
 ```
 
@@ -39,7 +39,7 @@ In this section we will explain how to configure an existing Prometheus server
 
 1. Let’s mount the volume with the certificates
 
-```bash
+```
 kubectl -n monitoring patch sts prometheus-server -p '{"spec":{"template":{"spec":{"volumes":[{"name":"etcd-ca","secret":{"defaultMode":420,"secretName":"etcd-ca"}}]}}}}'
 
 kubectl -n monitoring patch sts prometheus-server -p '{"spec":{"template":{"spec":{"containers":[{"name":"prometheus-server","volumeMounts": [{"mountPath": "/opt/draios/kubernetes/prometheus/secrets","name": "etcd-ca"}]}]}}}}'
@@ -87,7 +87,7 @@ will get the metrics that you need to have the dashboards and alerts working.
 
 To install the rules just apply this commands:
 
-```bash 
+```
 kubectl apply -f etcd-rules.yaml
 
 kubectl -n monitoring patch deployment prometheus-server -p '{"spec":{"template":{"spec":{"volumes":[{"name":"etcd-rules","configMap":{"defaultMode":420,"name":"etcd-rules"}}]}}}}'
@@ -120,6 +120,6 @@ scrape_configs:
 
 Copy the agent configuration provided and save it as `sysdig-agent.yaml`. Then apply it:
 
-```bash
+```
 kubectl apply -f sysdig-agent.yaml
 ```
