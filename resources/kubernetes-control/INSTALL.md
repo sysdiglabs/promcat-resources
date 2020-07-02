@@ -16,7 +16,7 @@ Download the following files:
 
 execute: 
 
-```bash 
+```
 helmfile sync
 ```
 
@@ -25,13 +25,13 @@ In this section we will explain how to configure an existing Prometheus server w
 
 To do this, you can either annotate the StatefulSet:
 
-```bash
+```
 kubectl -n monitoring patch sts prometheus-server -p '{"spec":{"template":{"metadata":{"annotations":{"prometheus.io/scrape": "true", "prometheus.io/port": "9090"}}}}}'
 ```
 
 Or download the file `prometheus-deploy.yaml` and apply it:
 
-```bash
+```
 kubectl -n monitoring apply -f prometheus-deploy.yaml
 ```
 
@@ -45,13 +45,13 @@ The certificates are located in the master node in `/etc/kubernetes/pki/etcd-man
 Once we have the certificates let’s proceed to create the secrets in the namespace where the Prometheus server is located. In our case, it will be located in the namespace `monitoring`. 
 To create the secrets, run:
 
-```bash
+```
 kubectl -n monitoring create secret generic etcd-ca --from-file=etcd-clients-ca.key --from-file etcd-clients-ca.crt
 ```
 # Exposing the Proxy port in kops
 If you are using kops, you will have to change the cluster spec to expose the port for the proxy. To edit the cluster, run:
 
-```bash
+```
 kops --state s3://name-of-s3 --name cluster-name edit cluster
 ```
 
@@ -64,7 +64,7 @@ kubeProxy:
 
 And update the cluster:
 
-```bash
+```
 kops --state s3://name-of-s3 --name cluster-name rolling-update cluster --yes
 ```
 
