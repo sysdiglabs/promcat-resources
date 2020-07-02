@@ -1,6 +1,6 @@
 import pypromcat
 import argparse
-
+import os
 
 parser = argparse.ArgumentParser(description='Generate from an alerts.yaml with Prometheus alerts a new one with sysdig alerts and description.')
 parser.add_argument('-f',
@@ -22,20 +22,25 @@ except BaseException as exception:
 
 
 yamlFile = pypromcat.loadYamlFile(args.file)
+filesDirectory = os.path.dirname(args.file)
 newConfigurations = []
 
 prometheusAlerts = pypromcat.filterConfigurationsPerKind(yamlFile["configurations"],"Prometheus")
 for prometheusAlert in prometheusAlerts:
-  newConfigurations.append(prometheusAlert)
+  configToAppend = prometheusAlert.copy()
+  if 'file' in prometheusAlert:
+    del configToAppend['data']
+  newConfigurations.append(configToAppend)
 
 sysdigAlertsArray = pypromcat.sysdigAlerts2PromcatConfigurations(pypromcat.createArrayOfSysdigAlerts(yamlFile))
 for sysdigAlert in sysdigAlertsArray:
   newConfigurations.append(sysdigAlert)
-
+  
+yamlFile["descriptionFile"] = 'ALERTS.md'
 yamlFile["configurations"] = newConfigurations
 
 newDescription = ""
-newDescription = newDescription + "# Alerts\n"
+newDescription += "# Alerts\n"
 
 for prometheusAlertElement in prometheusAlerts:
   prometheusAlertsYaml = pypromcat.loadYaml(prometheusAlertElement["data"])
@@ -52,13 +57,15 @@ for prometheusAlertElement in prometheusAlerts:
                          + alert["annotations"]["runbook_url"] \
                         + ")\n\n"
 
+f = open(filesDirectory + "/ALERTS.md", "w")
+f.write(newDescription)
+f.close()
 
-yamlFile["description"] = newDescription
 
 outputformatted = pypromcat.dict2BeautyYaml(yamlFile)
-if (args.outputFile == None):
-  print(outputformatted)
+if args.outputFile is None:
+    print(outputformatted)
 else:
-  f = open(args.outputFile, "w")
-  f.write(outputformatted)
-  f.close()
+    f = open(args.outputFile, "w")
+    f.write(outputformatted)
+    f.close()

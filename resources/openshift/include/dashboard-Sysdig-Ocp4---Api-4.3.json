@@ -164,7 +164,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"apiserver\"}[5m])"
+            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"apiserver\"}[$__interval])"
           }
         ],
         "axesConfiguration": {
@@ -357,7 +357,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(etcd_helper_cache_hit_total:kubernetes_apiservers[5m])) by (instance)"
+            "query": "sum(rate(etcd_helper_cache_hit_total:kubernetes_apiservers[$__interval])) by (instance)"
           },
           {
             "displayInfo": {
@@ -373,7 +373,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(etcd_helper_cache_miss_total:kubernetes_apiservers[5m])) by (instance)"
+            "query": "sum(rate(etcd_helper_cache_miss_total:kubernetes_apiservers[$__interval])) by (instance)"
           }
         ],
         "axesConfiguration": {
@@ -432,7 +432,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(etcd_helper_cache_entry_total:kubernetes_apiservers[5m])"
+            "query": "rate(etcd_helper_cache_entry_total:kubernetes_apiservers[$__interval])"
           }
         ],
         "axesConfiguration": {
@@ -550,7 +550,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(workqueue_depth:kubernetes_apiservers[5m])) by (instance, name)"
+            "query": "sum(rate(workqueue_depth:kubernetes_apiservers[$__interval])) by (instance, name)"
           }
         ],
         "axesConfiguration": {
@@ -609,7 +609,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(workqueue_adds_total:kubernetes_apiservers[5m])) by (instance, name)"
+            "query": "sum(rate(workqueue_adds_total:kubernetes_apiservers[$__interval])) by (instance, name)"
           }
         ],
         "axesConfiguration": {
@@ -727,7 +727,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"2..\"}[5m]))"
+            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"2..\"}[$__interval]))"
           },
           {
             "displayInfo": {
@@ -743,7 +743,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"3..\"}[5m]))"
+            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"3..\"}[$__interval]))"
           },
           {
             "displayInfo": {
@@ -759,7 +759,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"4..\"}[5m]))"
+            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"4..\"}[$__interval]))"
           },
           {
             "displayInfo": {
@@ -775,7 +775,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"5..\"}[5m]))"
+            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"5..\"}[$__interval]))"
           }
         ],
         "axesConfiguration": {

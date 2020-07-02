@@ -1,0 +1,89 @@
+apiVersion: v1
+kind: Dashboard
+app: 'mongodb'
+version: 1.0.0
+appVersion:
+- '4.2'
+configurations:
+- name: 'Instance Health'
+  kind: Sysdig
+  image: 'mongodb/images/mongodb-sysdig-instance-health.png'
+  description: |
+    This dashboard offers information on:
+    * UP
+    * Asserts (errors)
+    * Memory page faults
+    * Uptime
+    * DBs Size
+    * Memory
+    * Response Time
+    * Lock Queue
+    * Lock Clients
+    * Global Lock Ratio
+    * Tickets Usage
+    * Cursors Opened
+    * Cursors Timed Out
+    * Connections
+    * Network I/O
+    * Requests
+    * Operations
+    * Cache Size
+    * Cache I/O
+    * Cache Dirty Pages Rate
+    * Cache Evicted Pages
+  file: include/dashboard-sysdig-mongo-instance-health.json
+- name: 'Database Details'
+  kind: Sysdig
+  image: 'mongodb/images/mongodb-sysdig-db-detail.png'
+  description: |
+    This dashboard offers information on:
+    * Data Size
+    * Index Size
+    * Documents
+    * Index
+    * Collections
+    * Database Size
+    * Objects and Indexes
+    * Collections
+  file: include/dashboard-sysdig-mongo-db-details.json
+- name: 'Instance Health'
+  kind: Grafana
+  image: 'mongodb/images/mongodb-grafana-instance-health.png'
+  description: |
+    This dashboard offers information on:
+    * UP
+    * Asserts (errors)
+    * Memory page faults
+    * Uptime
+    * DBs Size
+    * Memory
+    * Response Time
+    * Lock Queue
+    * Lock Clients
+    * Global Lock Ratio
+    * Tickets Usage
+    * Cursors Opened
+    * Cursors Timed Out
+    * Connections
+    * Network I/O
+    * Requests
+    * Operations
+    * Cache Size
+    * Cache I/O
+    * Cache Dirty Pages Rate
+    * Cache Evicted Pages
+  file: include/dashboard-grafana-mongo-instance-health.json
+- name: 'Database Details'
+  kind: Grafana
+  image: 'mongodb/images/mongodb-grafana-db-detail.png'
+  description: |
+    This dashboard offers information on:
+    * Data Size
+    * Index Size
+    * Documents
+    * Index
+    * Collections
+    * Database Size
+    * Objects and Indexes
+    * Collections
+  file: include/dashboard-grafana-mongo-db-details.json

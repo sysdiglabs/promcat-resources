@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: SetupGuide
+app: mongodb
+version: 1.0.0
+appVersion:
+- '4.2'
+descriptionFile: INSTALL.md
+configurations:
+- name: mongo-deploy.yaml
+  file: include/mongo-deploy.yaml
+- name: sysdig-agent-config.yaml
+  file: include/sysdig-agent-config.yaml
+
