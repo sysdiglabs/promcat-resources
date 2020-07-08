@@ -3,7 +3,7 @@ repositories:
     url: https://kubernetes-charts.storage.googleapis.com
 releases:
   - name: prometheus-controlplane
-    namespace: monitoring
+    namespace: prometheus
     chart: stable/prometheus
     atomic: true
     values:
