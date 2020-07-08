@@ -16,11 +16,32 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 22,
-  "iteration": 1591343206859,
+  "iteration": 1593756789525,
   "links": [],
   "panels": [
     {
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 6,
         "w": 8,
@@ -30,35 +51,18 @@
       "id": 2,
       "options": {
         "colorMode": "value",
-        "fieldOptions": {
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
           "calcs": [
             "mean"
           ],
-          "defaults": {
-            "decimals": 0,
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "red",
-                  "value": null
-                },
-                {
-                  "color": "green",
-                  "value": 1
-                }
-              ]
-            }
-          },
-          "overrides": [],
+          "fields": "",
           "values": false
-        },
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto"
+        }
       },
-      "pluginVersion": "6.7.3",
+      "pluginVersion": "7.0.4",
       "targets": [
         {
           "expr": "sum(apache_up{app='$app'})",
@@ -74,6 +78,28 @@
     },
     {
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 3600
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 6,
         "w": 8,
@@ -83,36 +109,18 @@
       "id": 13,
       "options": {
         "colorMode": "value",
-        "fieldOptions": {
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
           "calcs": [
             "lastNotNull"
           ],
-          "defaults": {
-            "decimals": 0,
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "red",
-                  "value": null
-                },
-                {
-                  "color": "green",
-                  "value": 3600
-                }
-              ]
-            },
-            "unit": "s"
-          },
-          "overrides": [],
+          "fields": "",
           "values": false
-        },
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto"
+        }
       },
-      "pluginVersion": "6.7.3",
+      "pluginVersion": "7.0.4",
       "targets": [
         {
           "expr": "max(apache_uptime_seconds_total{app='$app'})",
@@ -128,6 +136,28 @@
     },
     {
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 300
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 6,
         "w": 8,
@@ -137,36 +167,18 @@
       "id": 5,
       "options": {
         "colorMode": "value",
-        "fieldOptions": {
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
           "calcs": [
             "lastNotNull"
           ],
-          "defaults": {
-            "decimals": 0,
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 300
-                }
-              ]
-            },
-            "unit": "s"
-          },
-          "overrides": [],
+          "fields": "",
           "values": false
-        },
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto"
+        }
       },
-      "pluginVersion": "6.7.3",
+      "pluginVersion": "7.0.4",
       "targets": [
         {
           "expr": "min(time() - apache_http_last_request_seconds{app='$app',code=~\"2..\"})",
@@ -187,6 +199,12 @@
       "dashes": false,
       "datasource": null,
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -276,6 +294,12 @@
       "dashes": false,
       "datasource": null,
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -365,6 +389,12 @@
       "dashes": false,
       "datasource": null,
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -455,6 +485,12 @@
       "dashes": false,
       "datasource": null,
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -545,6 +581,12 @@
       "dashes": false,
       "datasource": null,
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -635,6 +677,12 @@
       "dashes": false,
       "datasource": null,
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -724,6 +772,12 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -813,6 +867,12 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -902,6 +962,12 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -938,7 +1004,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(apache_sent_kilobytes_total{app='$app'}[5m])) / sum(rate(apache_accesses_total[5m]))",
+          "expr": "sum(rate(apache_sent_kilobytes_total{app='$app'}[5m])) / sum(rate(apache_accesses_total{app='$app'}[5m]))",
           "interval": "",
           "legendFormat": "Size",
           "refId": "A"
@@ -987,7 +1053,7 @@
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 22,
+  "schemaVersion": 25,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -995,14 +1061,15 @@
       {
         "allValue": null,
         "current": {
-          "text": "apache",
-          "value": "apache"
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
         },
         "datasource": "Sysdig PromQL",
         "definition": "label_values(apache_up,app)",
         "hide": 0,
         "includeAll": false,
-        "index": -1,
         "label": null,
         "multi": false,
         "name": "app",
@@ -1021,12 +1088,11 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
-      "5s",
       "10s",
       "30s",
       "1m",
@@ -1041,8 +1107,5 @@
   "timezone": "",
   "title": "Apache App Overview",
   "uid": "4XqpimmMz",
-  "variables": {
-    "list": []
-  },
-  "version": 9
+  "version": 10
 }

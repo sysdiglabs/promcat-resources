@@ -73,7 +73,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(nginx_up{app=$app} or vector(0))\n"
+            "query": "sum((nginx_up{} * on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet} or vector(0))\n"
           }
         ],
         "description": "",
@@ -99,8 +99,8 @@
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Requests/instance",
-              "timeSeriesDisplayNameTemplate": "{{instance}}",
+              "displayName": "Container - ReplicaSet - Cluster",
+              "timeSeriesDisplayNameTemplate": "{{container_id}} - {{owner_name}} - {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -111,7 +111,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(nginx_http_requests_total{app=$app}[5m])\n"
+            "query": "(rate(nginx_http_requests_total{}[$__interval])\n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}\n"
           }
         ],
         "axesConfiguration": {
@@ -158,8 +158,8 @@
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Conns/instance",
-              "timeSeriesDisplayNameTemplate": "{{instance}}",
+              "displayName": "Container - ReplicaSet - Cluster",
+              "timeSeriesDisplayNameTemplate": "{{container_id}} - {{owner_name}} - {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -170,7 +170,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "nginx_connections_waiting{app=$app}\n"
+            "query": "(nginx_connections_waiting{}  * on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}\n\n"
           }
         ],
         "axesConfiguration": {
@@ -217,8 +217,8 @@
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Conns/instance",
-              "timeSeriesDisplayNameTemplate": "{{instance}}",
+              "displayName": "Container - ReplicaSet - Cluster",
+              "timeSeriesDisplayNameTemplate": "{{container_id}} - {{owner_name}} - {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -229,7 +229,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "(rate(nginx_connections_accepted{app=$app}[5m])) - (rate(nginx_connections_handled{app=$app}[5m]))\n"
+            "query": "(((rate(nginx_connections_accepted{}[$__interval])) - (rate(nginx_connections_handled{}[$__interval])))\n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}\n"
           }
         ],
         "axesConfiguration": {
@@ -276,8 +276,8 @@
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "Active",
+              "displayName": " Active: ReplicaSet - Cluster",
+              "timeSeriesDisplayNameTemplate": "Active: {{owner_name}} - {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -288,12 +288,12 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(nginx_connections_active{app=$app})"
+            "query": "sum by (cluster,owner_name)((nginx_connections_active{} * on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet})"
           },
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "Reading",
+              "displayName": " Reading: ReplicaSet - Cluster",
+              "timeSeriesDisplayNameTemplate": "Reading: {{owner_name}} - {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -304,12 +304,12 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(nginx_connections_reading{app=$app})\n"
+            "query": "sum by (cluster,owner_name)((nginx_connections_reading{} * on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet})\n"
           },
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "Writing",
+              "displayName": " Writing: ReplicaSet - Cluster",
+              "timeSeriesDisplayNameTemplate": "Writing: {{owner_name}} - {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -320,7 +320,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(nginx_connections_writing{app=$app})\n"
+            "query": "sum by (cluster,owner_name)((nginx_connections_writing{} * on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet})\n"
           }
         ],
         "axesConfiguration": {
@@ -367,8 +367,8 @@
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "Accepted",
+              "displayName": "Accepted: ReplicaSet - Cluster ",
+              "timeSeriesDisplayNameTemplate": "Accepted: {{owner_name}} - {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -379,12 +379,12 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(nginx_connections_accepted{app=$app}[5m]))\n"
+            "query": "sum by (cluster,owner_name)((rate(nginx_connections_accepted{}[$__interval])* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet})\n"
           },
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "Handled",
+              "displayName": " Handled: ReplicaSet - Cluster ",
+              "timeSeriesDisplayNameTemplate": "Handled: {{owner_name}} - {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -395,7 +395,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(nginx_connections_handled{app=$app}[5m]))\n"
+            "query": "sum by (cluster,owner_name)((rate(nginx_connections_handled{}[$__interval])* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet})\n"
           }
         ],
         "axesConfiguration": {
@@ -445,34 +445,40 @@
         "descriptor": {
           "aggregationForGroup": "none",
           "canFilter": true,
-          "canGroupBy": false,
+          "canGroupBy": true,
           "canMonitor": false,
-          "category": "prometheus",
-          "createdAt": 1589982403304,
-          "customerId": 995,
+          "category": "kubernetes",
+          "createdAt": 1593761167568,
+          "customerId": 25008,
           "deferred": false,
-          "documentId": "995-3513521122408218977",
-          "documentTimestamp": 1589982403304,
+          "documentId": "25008--6139949314852700299",
+          "documentTimestamp": 1593761167568,
           "documentType": "metric",
           "experimental": false,
-          "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
+          "firstSeen": 1583235308502,
+          "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
           "generator": {
             "aggregationForGroup": "none",
             "aggregations": [
-              "distinct"
+              "concat",
+              "distinct",
+              "count"
             ],
             "avg": false,
             "canCalculate": false,
             "canFilter": true,
-            "canGroupBy": false,
+            "canGroupBy": true,
             "canMonitor": false,
-            "category": "prometheus",
+            "category": "kubernetes",
             "concat": false,
-            "context": [],
+            "context": [
+              "container"
+            ],
             "count": false,
             "countDistinct": false,
             "deferred": false,
             "experimental": false,
+            "firstSeen": 1583235308502,
             "groupAggregations": [
               "concat",
               "distinct",
@@ -481,33 +487,15 @@
             "groupBy": [],
             "heuristic": false,
             "hidden": false,
-            "id": "app",
+            "id": "kubernetes.cluster.name",
             "identity": false,
             "label": true,
-            "lastSeen": 1589979174314,
+            "lastSeen": 1593759013409,
             "max": false,
-            "metricType": "segmentBy",
+            "metricType": "none",
             "min": false,
             "namespaces": [
-              "host",
-              "host.process",
-              "host.container",
-              "cloudProvider",
-              "mesos",
-              "ecs",
-              "kubernetes.cluster",
-              "kubernetes.namespace",
-              "kubernetes.deployment",
-              "kubernetes.job",
-              "kubernetes.daemonSet",
-              "kubernetes.service",
-              "kubernetes.node",
-              "kubernetes.replicaSet",
-              "kubernetes.statefulSet",
-              "kubernetes.resourcequota",
-              "kubernetes.persistentvolume",
-              "kubernetes.persistentvolumeclaim",
-              "kubernetes.pod"
+              "kubernetes.cluster"
             ],
             "rateOfChange": false,
             "scale": 1.0,
@@ -528,34 +516,16 @@
           ],
           "heuristic": false,
           "hidden": false,
-          "id": "app",
+          "id": "kubernetes.cluster.name",
           "identity": false,
-          "lastSeen": 1589979174314,
+          "lastSeen": 1593759013409,
           "metricType": "tag",
           "namespaces": [
-            "host",
-            "host.process",
-            "host.container",
-            "cloudProvider",
-            "mesos",
-            "ecs",
-            "kubernetes.cluster",
-            "kubernetes.namespace",
-            "kubernetes.deployment",
-            "kubernetes.job",
-            "kubernetes.daemonSet",
-            "kubernetes.service",
-            "kubernetes.node",
-            "kubernetes.replicaSet",
-            "kubernetes.statefulSet",
-            "kubernetes.resourcequota",
-            "kubernetes.persistentvolume",
-            "kubernetes.persistentvolumeclaim",
-            "kubernetes.pod"
+            "kubernetes.cluster"
           ],
           "routingInfo": {
-            "customerId": 995,
-            "routing": "995"
+            "customerId": 25008,
+            "routing": "25008"
           },
           "scale": 1.0,
           "scopes": [],
@@ -568,10 +538,218 @@
           ],
           "type": "string"
         },
-        "displayName": "app",
+        "displayName": "cluster",
         "isVariable": true,
-        "operand": "app",
-        "operator": "equals",
+        "operand": "kubernetes.cluster.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "category": "kubernetes",
+          "createdAt": 1593761167568,
+          "customerId": 25008,
+          "deferred": false,
+          "documentId": "25008--7083949535721519842",
+          "documentTimestamp": 1593761167568,
+          "documentType": "metric",
+          "experimental": false,
+          "firstSeen": 1583235308502,
+          "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+          "generator": {
+            "aggregationForGroup": "none",
+            "aggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "avg": false,
+            "canCalculate": false,
+            "canFilter": true,
+            "canGroupBy": true,
+            "canMonitor": false,
+            "category": "kubernetes",
+            "concat": false,
+            "context": [
+              "container"
+            ],
+            "count": false,
+            "countDistinct": false,
+            "deferred": false,
+            "experimental": false,
+            "firstSeen": 1583235308502,
+            "groupAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "groupBy": [],
+            "heuristic": false,
+            "hidden": false,
+            "id": "kubernetes.namespace.name",
+            "identity": false,
+            "label": true,
+            "lastSeen": 1593760937408,
+            "max": false,
+            "metricType": "none",
+            "min": false,
+            "namespaces": [
+              "kubernetes.namespace"
+            ],
+            "rateOfChange": false,
+            "scale": 1.0,
+            "scopes": [],
+            "sum": false,
+            "timeAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "timeAvg": false,
+            "type": "string"
+          },
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.namespace.name",
+          "identity": false,
+          "lastSeen": 1593760937408,
+          "metricType": "tag",
+          "namespaces": [
+            "kubernetes.namespace"
+          ],
+          "routingInfo": {
+            "customerId": 25008,
+            "routing": "25008"
+          },
+          "scale": 1.0,
+          "scopes": [],
+          "segment": false,
+          "segmentations": [],
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "namespace",
+        "isVariable": true,
+        "operand": "kubernetes.namespace.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "category": "kubernetes",
+          "createdAt": 1593761167568,
+          "customerId": 25008,
+          "deferred": false,
+          "documentId": "25008-9123524798813735958",
+          "documentTimestamp": 1593761167568,
+          "documentType": "metric",
+          "experimental": false,
+          "firstSeen": 1583235308502,
+          "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+          "generator": {
+            "aggregationForGroup": "none",
+            "aggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "avg": false,
+            "canCalculate": false,
+            "canFilter": true,
+            "canGroupBy": true,
+            "canMonitor": false,
+            "category": "kubernetes",
+            "concat": false,
+            "context": [
+              "container"
+            ],
+            "count": false,
+            "countDistinct": false,
+            "deferred": false,
+            "experimental": false,
+            "firstSeen": 1583235308502,
+            "groupAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "groupBy": [],
+            "heuristic": false,
+            "hidden": false,
+            "id": "kubernetes.replicaSet.name",
+            "identity": false,
+            "label": true,
+            "lastSeen": 1593761025080,
+            "max": false,
+            "metricType": "none",
+            "min": false,
+            "namespaces": [
+              "kubernetes.replicaSet"
+            ],
+            "rateOfChange": false,
+            "scale": 1.0,
+            "scopes": [],
+            "sum": false,
+            "timeAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "timeAvg": false,
+            "type": "string"
+          },
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.replicaSet.name",
+          "identity": false,
+          "lastSeen": 1593761025080,
+          "metricType": "tag",
+          "namespaces": [
+            "kubernetes.replicaSet"
+          ],
+          "routingInfo": {
+            "customerId": 25008,
+            "routing": "25008"
+          },
+          "scale": 1.0,
+          "scopes": [],
+          "segment": false,
+          "segmentations": [],
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "replicaSet",
+        "isVariable": true,
+        "operand": "kubernetes.replicaSet.name",
+        "operator": "in",
         "value": [],
         "variable": true
       }

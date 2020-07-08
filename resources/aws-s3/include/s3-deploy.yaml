@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: yace
-        image: quay.io/invisionag/yet-another-cloudwatch-exporter:v0.16.0-alpha
+        image: quay.io/invisionag/yet-another-cloudwatch-exporter:v0.18.0-alpha
         args:
           - "--scraping-interval=7200"
           - "--config.file=/tmp/config.yml"
@@ -70,7 +70,7 @@ spec:
     spec:
       containers:
       - name: yace
-        image: quay.io/invisionag/yet-another-cloudwatch-exporter:v0.16.0-alpha
+        image: quay.io/invisionag/yet-another-cloudwatch-exporter:v0.18.0-alpha
         ports:
         - containerPort: 5000
         volumeMounts:
@@ -103,7 +103,8 @@ data:
   config.yml: |
     discovery:
       jobs:
-      - region: us-east-1
+      - regions: 
+        - us-east-1
         type: s3
         metrics:
           - name: NumberOfObjects
@@ -132,7 +133,8 @@ data:
   config.yml: |
     discovery:
       jobs:
-      - region: us-east-1
+      - regions: 
+        - us-east-1
         type: s3
         awsDimensions:
           - FilterId
