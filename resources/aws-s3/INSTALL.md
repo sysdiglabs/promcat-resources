@@ -39,6 +39,10 @@ aws_access_key_id = AYYYYYZZZZZZ3BLXXXXX
 aws_secret_access_key = bXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
+# Configuring the resources to monitor
+The YACE exporter uses an API call that filters the resources by tags. 
+This implies that if you want to monitor a resource, **it has to have at least one tag**. Else, it will not be scraped.
+
 # Installing the exporter
 This setup creates two instances of the yace exporter:
 - One for daily metrics with scraping interval of 2 hours

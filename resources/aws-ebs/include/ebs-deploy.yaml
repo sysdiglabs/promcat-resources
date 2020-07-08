@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: yace
-        image: quay.io/invisionag/yet-another-cloudwatch-exporter:v0.16.0-alpha
+        image: quay.io/invisionag/yet-another-cloudwatch-exporter:v0.18.0-alpha
         ports:
         - containerPort: 5000
         volumeMounts:
@@ -56,9 +56,9 @@ data:
   config.yml: |
     discovery:
       jobs:
-      - region: us-east-1
+      - regions: 
+        - us-east-1
         type: ebs
-        enableMetricData: true
         metrics:
           - name: VolumeReadBytes
             statistics:

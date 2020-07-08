@@ -303,14 +303,15 @@ kind: Secret
 metadata:
   name: postgres-secret
 data:
-  # Add in POSTGRES_PASSWORD the result of:
+  # Substitute "==" after POSTGRES_PASSWORD with the output of:
   # echo ADMIN-PASSWORD | base64  
   POSTGRES_PASSWORD: ==
-  # Add in POSTGRES_EXPORTER_PASSWORD the result of:
-  # echo EXPORTER-PASSWORD | base64 -> admin123
+  # Substitute "==" after POSTGRES_EXPORTER_PASSWORD with the output of:
+  # echo EXPORTER-PASSWORD | base64
   POSTGRES_EXPORTER_PASSWORD: ==
-  # Add in modify-exporter-user-password.sql the result of:
+  # Add after modify-exporter-user-password.sql substitute "==" with the result of:
   # echo "ALTER USER postgres_exporter WITH PASSWORD 'password';" | base64
+  # Pay spacial attention to indenting for each line of the output
   modify-exporter-user-password.sql: |
     ==
   

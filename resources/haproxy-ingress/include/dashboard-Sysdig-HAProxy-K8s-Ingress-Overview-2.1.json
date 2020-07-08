@@ -728,7 +728,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(haproxy_process_ssl_connections_total[5m]))"
+            "query": "sum(rate(haproxy_process_ssl_connections_total[$__interval]))"
           }
         ],
         "axesConfiguration": {
@@ -846,7 +846,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(haproxy_frontend_requests_denied_total[5m]))"
+            "query": "sum(rate(haproxy_frontend_requests_denied_total[$__interval]))"
           },
           {
             "displayInfo": {
@@ -862,7 +862,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(haproxy_frontend_responses_denied_total[5m]))"
+            "query": "sum(rate(haproxy_frontend_responses_denied_total[$__interval]))"
           },
           {
             "displayInfo": {
@@ -878,7 +878,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(haproxy_frontend_request_errors_total[5m]))"
+            "query": "sum(rate(haproxy_frontend_request_errors_total[$__interval]))"
           }
         ],
         "axesConfiguration": {
@@ -1130,7 +1130,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(haproxy_frontend_denied_connections_total[5m]))"
+            "query": "sum(rate(haproxy_frontend_denied_connections_total[$__interval]))"
           },
           {
             "displayInfo": {
@@ -1146,7 +1146,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(haproxy_frontend_denied_sessions_total[5m]))"
+            "query": "sum(rate(haproxy_frontend_denied_sessions_total[$__interval]))"
           }
         ],
         "axesConfiguration": {
@@ -1205,7 +1205,7 @@
               "unit": "byteRate",
               "yAxis": "auto"
             },
-            "query": "sum by (proxy) (rate(haproxy_frontend_bytes_in_total[5m]))"
+            "query": "sum by (proxy) (rate(haproxy_frontend_bytes_in_total[$__interval]))"
           }
         ],
         "axesConfiguration": {
@@ -1264,7 +1264,7 @@
               "unit": "byteRate",
               "yAxis": "auto"
             },
-            "query": "sum by (proxy) (rate(haproxy_frontend_bytes_out_total[5m]))"
+            "query": "sum by (proxy) (rate(haproxy_frontend_bytes_out_total[$__interval]))"
           }
         ],
         "axesConfiguration": {
@@ -1323,7 +1323,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum by (proxy) (rate(haproxy_frontend_connections_total[5m]))"
+            "query": "sum by (proxy) (rate(haproxy_frontend_connections_total[$__interval]))"
           }
         ],
         "axesConfiguration": {
@@ -1382,7 +1382,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum by (proxy)(rate(haproxy_frontend_connections_total[5m]))"
+            "query": "sum by (proxy)(rate(haproxy_frontend_connections_total[$__interval]))"
           }
         ],
         "axesConfiguration": {

@@ -45,7 +45,7 @@ spec:
           - name: DATABASE_URL
             valueFrom:
               secretKeyRef:
-                name: staging
+                name: promhub
                 key: database-url
           - name: RESOURCES_PATH
             value: /resources/resources
