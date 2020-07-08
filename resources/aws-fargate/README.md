@@ -1,7 +1,10 @@
-# AWS Fargate
-AWS Fargate is a serverless compute engine for containers that works with both Amazon Elastic Container Service (ECS) and Amazon Elastic Kubernetes Service (EKS).
+# AWS Fargate and ECS
+AWS ECS (Elastic Container Service) is a container orchestration solution that can run either in Fargate or in EC2 instances.
+All the configuration files, dashboards and alerts listed in this section works with ECS in both kind of infrastructure.
 
-The metrics for AWS Fargate are obtained through AWS Cloudwatch. Using the [YACE exporter](https://github.com/ivx/yet-another-cloudwatch-exporter).
+AWS Fargate is a serverless compute engine for containers that works with Amazon Elastic Container Service (ECS).
+
+The metrics for AWS ECS are obtained through AWS Cloudwatch using the [YACE exporter](https://github.com/ivx/yet-another-cloudwatch-exporter).
 
 Check out our blog post on [Monitoring AWS Fargate](https://sysdig.com/blog/monitor-aws-fargate-prometheus/), covering the main metrics to monitor and alert.
 
@@ -32,7 +35,7 @@ Cloudwatch offers the following metrics for AWS Fargate:
 
 > Note: The metrics NetworkRxBytes and NetworkTxBytes are available only for containers in bridge network mode.
 
-For further information, consult the [Cloudwatch documentation on Fargate metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Container-Insights-metrics-ECS.html).
+For further information, consult the [Cloudwatch documentation on Container Insights for ECS metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Container-Insights-metrics-ECS.html).
 
 # Attributions
 Configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
