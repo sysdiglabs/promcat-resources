@@ -1,3 +1,13 @@
+alertmanager:
+  enabled: false
+alertmanagerFiles:
+  alertmanager.yml: ""
+kubeStateMetrics:
+  enabled: true
+nodeExporter:
+  enabled: false
+pushgateway:
+  enabled: false
 server:
   persistentVolume:
     size: 20Gi
@@ -12,11 +22,16 @@ server:
     evaluation_interval: 1m
     scrape_interval: 1m
     scrape_timeout: 10s
+  extraVolumeMounts:
+    - mountPath: /opt/draios/kubernetes/prometheus/secrets
+      name: etcd-ca
+  extraVolumes:
+    - name: etcd-ca
+      secret:
+        defaultMode: 420
+        secretName: etcd-ca
 serverFiles:
   prometheus.yml:
-# Remove indentation, which is added by "indent"
 {{ readFile "prometheus.yaml" | indent 4 }}
-  recording_rules:
-    # Or use nindent to skip indent for first line
+  recording_rules.yml:
 {{ readFile "recording_rules.yaml" | indent 4 }}
-
