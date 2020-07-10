@@ -21,12 +21,13 @@ data:
       sysdig_sd_configs:
       - tags:
           namespace: monitoring
-          deployment: prometheus-server
+          statefulset: prometheus-controlplane-server
   dragent.yaml: |-
     metrics_excess_log: true
     use_promscrape: true
     prometheus:
       enabled: true
+      max_metrics: 3000
       process_filter:
         - exclude:
             process.name: docker-proxy
