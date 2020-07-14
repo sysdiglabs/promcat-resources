@@ -21,5 +21,5 @@
 The metrics filtered are around 600
 
 # Attributions
-The exporter is maintained by (Instaclustr) https://github.com/instaclustr/cassandra-exporter
+Using the [Cassandra exporter](https://github.com/instaclustr/cassandra-exporter) with license Apache 2.0
 Configuration files, dashboards and alerts maintained by [Sysdig team](https://sysdig.com/).
