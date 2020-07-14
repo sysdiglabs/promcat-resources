@@ -1,0 +1,163 @@
+apiVersion: v1
+kind: Alert
+app: cassandra
+version: 1.0.0
+appVersion:
+- 3.11.6
+descriptionFile: ALERTS.md
+configurations:
+- kind: Prometheus
+  data: |-
+    - alert: HighCpuUtilizationRate
+      expr: avg_over_time(cassandra_table_estimated_pending_compactions:cassandra)[30m] > 100
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Cassandra compaction task pending (instance {{ $labels.instance }})"
+        description: "Many Cassandra compaction tasks are pending. You might need to increase I/O capacity by adding nodes to the cluster.\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: CassandraWriteLatency
+      expr: cassandra_client_request_latency_seconds:cassandra{quantile="0.95", operation="write"} > 100000
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Cassandra write latency (instance {{ $labels.instance }})"
+        description: "High write latency on {{ $labels.instance }} cassandra node\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: CassandraReadLatency
+      expr: cassandra_client_request_latency_seconds:cassandra{quantile="0.95", operation="read"} > 100000
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Cassandra read latency (instance {{ $labels.instance }})"
+        description: "High read latency on {{ $labels.instance }} cassandra node\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: CassandraCommitlogPendingTasks
+      expr: cassandra_commit_log_pending_tasks:cassandra > 15
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Cassandra commitlog pending tasks (instance {{ $labels.instance }})"
+        description: "Unexpected number of Cassandra commitlog pending tasks\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: CassandraConnectionTimeoutsTotal
+      expr: rate(cassandra_client_request_timeouts_total:cassandra[1m]) > 5
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Cassandra connection timeouts total (instance {{ $labels.instance }})"
+        description: "Some connection between nodes are ending in timeout\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "avg_over_time(cassandra_table_estimated_pending_compactions:cassandra)[30m] > 100",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "HighCpuUtilizationRate",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "cassandra_client_request_latency_seconds:cassandra{quantile=\"0.95\", operation=\"write\"} > 100000",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "CassandraWriteLatency",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "cassandra_client_request_latency_seconds:cassandra{quantile=\"0.95\", operation=\"read\"} > 100000",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "CassandraReadLatency",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "cassandra_commit_log_pending_tasks:cassandra > 15",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "CassandraCommitlogPendingTasks",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "rate(cassandra_client_request_timeouts_total:cassandra[1m]) > 5",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "CassandraConnectionTimeoutsTotal",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+description: |+
+  # Alerts
+
+...

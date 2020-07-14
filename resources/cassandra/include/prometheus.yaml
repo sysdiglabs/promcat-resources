@@ -1,0 +1,19 @@
+scrape_configs:
+- job_name: cassandra
+  honor_labels: true
+  kubernetes_sd_configs:
+  - role: pod
+  relabel_configs:
+  - action: keep
+    source_labels:
+    - __meta_kubernetes_namespace
+    - __meta_kubernetes_pod_name
+    - __meta_kubernetes_pod_container_name
+    separator: '/'
+    regex: 'cassandra/cassandra.+/cassandra-exporter'
+  - source_labels:
+    - __meta_kubernetes_pod_name
+    action: replace
+    target_label: instance
+  - action: labelmap
+    regex: __meta_kubernetes_pod_label_(.+)
