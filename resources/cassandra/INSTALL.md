@@ -1,12 +1,12 @@
 # Prerequisites
-The cassandra exporter generates a high number of metrics as the Sysdig Agent has a limit of timeseries that can send to Sysdig Monitor, you have to deploy a Prometheus server and create the recording rules that we provide. This way, we will filter only the metrics that we need.
+The cassandra exporter generates a high number of metrics. As the Sysdig Agent has a limit of time series that can send to Sysdig Monitor, you have to deploy a Prometheus server and create the recording rules that we provide to filter only the metrics used in dashboards and alerts.
 
 To deploy a Prometheus server you will need:
 * [helm](https://helm.sh/docs/intro/install/)  
 * [helmfile](https://github.com/roboll/helmfile)
 
 # Installing the exporter
-Cassandra expose the metrics with jmx, the exporter gather this metrics and expose them with a prometheus format, usually the jmx is unsecured and it has not user or password, in this case the best way to do it is to use a sidecar with the exporter.
+Cassandra expose the metrics with jmx and the exporter gather this metrics and expose them in Prometheus format. Usually jmx is unsecured and it has not user or password. In this case, the best way to deploy it is to add a sidecar with the exporter.
 
 ```yaml
     - name: cassandra-exporter
@@ -41,14 +41,14 @@ Download the following files:
 - prometheus.yaml
 - prometheus.yml.gotmpl
 
-execute: 
+execute
 
 ```
 helmfile sync
 ```
 
 # Sysdig Agent configuration
-To use the Sysdig agent, you have to create the recording rules for only scrape the metrics we will use in our dashboards.
+To use the Sysdig agent, first create the recording rules to scrape only the metrics that will be use in the dashboards.
 
 1. Copy the agent configuration provided and save it as `sysdig-agent.yaml`. Then apply it:
 

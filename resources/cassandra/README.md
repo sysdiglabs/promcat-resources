@@ -21,4 +21,5 @@
 The metrics filtered are around 600
 
 # Attributions
+The exporter is maintained by (Instaclustr) https://github.com/instaclustr/cassandra-exporter
 Configuration files, dashboards and alerts maintained by [Sysdig team](https://sysdig.com/).
