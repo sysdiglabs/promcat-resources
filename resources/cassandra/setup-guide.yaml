@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: SetupGuide
+app: 'cassandra'
+version: 1.0.0
+appVersion:
+  - '3.11.6'
+configurations:
+- name: configuration.yaml
+  file: include/configuration.yaml
+descriptionFile: INSTALL.md

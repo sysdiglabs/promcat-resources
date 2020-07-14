@@ -1,0 +1,843 @@
+{
+  "dashboard": {
+    "description": "",
+    "eventDisplaySettings": {
+      "enabled": true,
+      "queryParams": {
+        "alertStatuses": [],
+        "categories": [],
+        "filter": "",
+        "severities": [],
+        "teamScope": false
+      }
+    },
+    "layout": [
+      {
+        "h": 3,
+        "panelId": 1,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 2,
+        "w": 6,
+        "x": 12,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 3,
+        "w": 6,
+        "x": 6,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 4,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 5,
+        "w": 6,
+        "x": 0,
+        "y": 3
+      },
+      {
+        "h": 3,
+        "panelId": 6,
+        "w": 6,
+        "x": 6,
+        "y": 3
+      },
+      {
+        "h": 3,
+        "panelId": 7,
+        "w": 6,
+        "x": 12,
+        "y": 3
+      },
+      {
+        "h": 3,
+        "panelId": 8,
+        "w": 6,
+        "x": 18,
+        "y": 3
+      },
+      {
+        "h": 6,
+        "panelId": 9,
+        "w": 12,
+        "x": 0,
+        "y": 6
+      },
+      {
+        "h": 6,
+        "panelId": 10,
+        "w": 12,
+        "x": 12,
+        "y": 6
+      },
+      {
+        "h": 6,
+        "panelId": 11,
+        "w": 12,
+        "x": 0,
+        "y": 12
+      },
+      {
+        "h": 6,
+        "panelId": 12,
+        "w": 12,
+        "x": 12,
+        "y": 12
+      },
+      {
+        "h": 6,
+        "panelId": 13,
+        "w": 12,
+        "x": 0,
+        "y": 18
+      },
+      {
+        "h": 6,
+        "panelId": 14,
+        "w": 12,
+        "x": 12,
+        "y": 18
+      }
+    ],
+    "name": "Cassandra",
+    "panels": [
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(up:cassandra * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+          }
+        ],
+        "description": "",
+        "id": 1,
+        "name": "Nodes up",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "avg(cassandra_client_request_latency_seconds:cassandra{operation=\"write\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+          }
+        ],
+        "description": "",
+        "id": 2,
+        "name": "ClientWrite avg duration",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "avg(cassandra_client_request_latency_seconds:cassandra{operation=\"read\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+          }
+        ],
+        "description": "",
+        "id": 3,
+        "name": "ClientRead avg duration",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "(sum(cassandra_jvm_memory_pool_used_bytes:cassandra{type=\"HEAP\"} * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster) / sum(cassandra_jvm_memory_pool_maximum_bytes:cassandra{type=\"HEAP\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)) * 100\n"
+          }
+        ],
+        "description": "",
+        "id": 4,
+        "name": "JVM Heap usage",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(cassandra_table_estimated_pending_compactions:cassandra * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)\n"
+          }
+        ],
+        "description": "",
+        "id": 5,
+        "name": "Pending compactions",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(cassandra_commit_log_pending_tasks:cassandra * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)\n"
+          }
+        ],
+        "description": "",
+        "id": 6,
+        "name": "Pending tasks",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(rate(cassandra_client_request_unavailable_exceptions_total:cassandra[5m]) * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)\n"
+          }
+        ],
+        "description": "",
+        "id": 7,
+        "name": "Unavailable exceptions",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "(sum(cassandra_storage_filesystem_usable_bytes:cassandra* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)/sum(cassandra_storage_filesystem_bytes_total:cassandra* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)) * 100"
+          }
+        ],
+        "description": "",
+        "id": 8,
+        "name": "Total disk available",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{consistency}} {{instance}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "cassandra_client_request_latency_seconds:cassandra{quantile=\"0.95\", operation=\"read\"} * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 9,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "95thPercentile read latency",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{consistency}} {{instance}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "cassandra_client_request_latency_seconds:cassandra{quantile=\"0.95\", operation=\"write\"} * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 10,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "95thPercentile write latency",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{instance}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "cassandra_storage_filesystem_usable_bytes:cassandra * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B",
+            "maxValue": null,
+            "minInputFormat": "B",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 11,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Avaiable disk by instance",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{instance}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "cassandra_client_native_connections:cassandra * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 12,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Users conected",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{instance}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "cassandra_os_1m_load_average:cassandra * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 13,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "CPU load ratio",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Memory free",
+              "timeSeriesDisplayNameTemplate": "{{instance}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "cassandra_os_free_memory_bytes:cassandra * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Memory total",
+              "timeSeriesDisplayNameTemplate": "{{instance}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "cassandra_os_memory_bytes_total:cassandra * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B",
+            "maxValue": null,
+            "minInputFormat": "B",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 14,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "JVM usage",
+        "type": "advancedTimechart"
+      }
+    ],
+    "schema": 3,
+    "scopeExpressionList": [
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "category": "kubernetes",
+          "createdAt": 1594712406176,
+          "customerId": 25008,
+          "deferred": false,
+          "documentId": "25008--6139949314852700299",
+          "documentTimestamp": 1594712406176,
+          "documentType": "metric",
+          "experimental": false,
+          "firstSeen": 1583235308502,
+          "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+          "generator": {
+            "aggregationForGroup": "none",
+            "aggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "avg": false,
+            "canCalculate": false,
+            "canFilter": true,
+            "canGroupBy": true,
+            "canMonitor": false,
+            "category": "kubernetes",
+            "concat": false,
+            "context": [
+              "container"
+            ],
+            "count": false,
+            "countDistinct": false,
+            "deferred": false,
+            "experimental": false,
+            "firstSeen": 1583235308502,
+            "groupAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "groupBy": [],
+            "heuristic": false,
+            "hidden": false,
+            "id": "kubernetes.cluster.name",
+            "identity": false,
+            "label": true,
+            "lastSeen": 1594711929247,
+            "max": false,
+            "metricType": "none",
+            "min": false,
+            "namespaces": [
+              "kubernetes.cluster"
+            ],
+            "rateOfChange": false,
+            "scale": 1.0,
+            "scopes": [],
+            "sum": false,
+            "timeAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "timeAvg": false,
+            "type": "string"
+          },
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.cluster.name",
+          "identity": false,
+          "lastSeen": 1594711929247,
+          "metricType": "tag",
+          "namespaces": [
+            "kubernetes.cluster"
+          ],
+          "routingInfo": {
+            "customerId": 25008,
+            "routing": "25008"
+          },
+          "scale": 1.0,
+          "scopes": [],
+          "segment": false,
+          "segmentations": [],
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "cluster",
+        "isVariable": true,
+        "operand": "kubernetes.cluster.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      }
+    ]
+  }
+}
