@@ -5,6 +5,14 @@ version: 1.0.0
 appVersion:
   - '3.11.6'
 configurations:
-- name: configuration.yaml
-  file: include/configuration.yaml
+- name: helmfile.yaml
+  file: include/helmfile.yaml
+- name: prometheus.yml.gotmpl
+  file: include/prometheus.yml.gotmpl
+- name: sysdig-agent.yaml
+  file: include/sysdig-agent.yaml
+- name: prometheus.yaml
+  file: include/prometheus.yaml
+- name: recording_rules.yaml
+  file: include/recording_rules.yaml
 descriptionFile: INSTALL.md
