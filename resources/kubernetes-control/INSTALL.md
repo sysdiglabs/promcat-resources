@@ -27,6 +27,7 @@ Download the following files:
 - helmfile.yaml
 - recording_rules.yaml
 - prometheus.yaml
+- prometheus.yml.gotmpl
 
 execute: 
 

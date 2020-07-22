@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: sysdig-agent
-  namespace: agent
+  namespace: sysdig-agent
 data:
   prometheus.yaml: |-
     global:
@@ -20,11 +20,12 @@ data:
           - '{sysdig="true"}'
       sysdig_sd_configs:
       - tags:
-          namespace: monitoring
-          statefulset: prometheus-controlplane-server
+          namespace: cassandra
+          statefulset: prometheus-cassandra-server
   dragent.yaml: |-
     metrics_excess_log: true
     use_promscrape: true
+    app_checks_enabled: false
     prometheus:
       enabled: true
       max_metrics: 3000
