@@ -1,5 +1,5 @@
 # Prerequisites
-KSM and cAdvisor generates a high number of metrics. As the Sysdig Agent has a limit of timesieres that can send to Sysdig Monitor, you have to deploy a Prometheus server and create the recording rules that we provide. This way, we will filter only the metrics that we need.
+KSM and cAdvisor generates a high number of metrics. As the Sysdig Agent has a limit of time series that can send to Sysdig Monitor, you have to deploy a Prometheus server and create the recording rules that we provide. This way, we will filter only the metrics that we need.
 
 To deploy a Prometheus server you will need:
 * [helm](https://helm.sh/docs/intro/install/)  
@@ -37,9 +37,19 @@ kubectl -n monitoring apply -f prometheus-deploy.yaml
 ```
 
 # Configuring the Sysdig Agent
-To use the Sysdig agent, you have to create the recording rules for only scrape the metrics we will use in our dashboards.
+To be able to install the Sysdig Agent, be sure to have at least one EC2 instance in your EKS cluster.
 
-1. Copy the agent configuration provided and save it as `sysdig-agent.yaml`. Then apply it:
+1. Install with helm Sysdig Agent in your cluster: 
+
+```
+kubectl create ns sysdig-agent
+helm install -n sysdig-agent \
+     --set sysdig.accessKey=<YOUR-ACCESS-KEY> \
+     --set sysdig.settings.k8s_cluster_name=<YOUR-CLUSTER-NAME> \
+     sysdig-agent sysdiglabs/sysdig
+```
+
+2. Copy the agent configuration provided and save it as `sysdig-agent.yaml`. Then apply it:
 
 ```
 kubectl apply -f sysdig-agent.yaml

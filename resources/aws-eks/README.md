@@ -9,7 +9,7 @@ The main challenge in EKS is to gather metrics for Fargate pods. To be able to c
 Being a fully managed Kubernetes service and due to the restrictions to access control plane endpoint, most of the control plane metrics are not available. 
 
 # Number of time series generated
-A newly created cluster generated about 450 metrics. The number increases with the number of pods and workloads.
+A newly created cluster generates ~450 metrics. The number increases with the number of pods and workloads.
 
 # Attributions
 Configuration files, dashboards and alerts maintained by [Sysdig team](https://sysdig.com/).
