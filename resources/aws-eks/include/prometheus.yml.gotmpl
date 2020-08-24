@@ -1,0 +1,29 @@
+alertmanager:
+  enabled: false
+alertmanagerFiles:
+  alertmanager.yml: ""
+kubeStateMetrics:
+  enabled: true
+nodeExporter:
+  enabled: false
+pushgateway:
+  enabled: false
+server:
+  persistentVolume:
+    size: 20Gi
+  statefulSet:
+    enabled: true
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9090"
+  strategy:
+    type: recreate
+  global:
+    evaluation_interval: 1m
+    scrape_interval: 1m
+    scrape_timeout: 10s
+serverFiles:
+  prometheus.yml:
+{{ readFile "prometheus.yaml" | indent 4 }}
+  recording_rules.yml:
+{{ readFile "recording_rules.yaml" | indent 4 }}
