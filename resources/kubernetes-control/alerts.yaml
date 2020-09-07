@@ -40,7 +40,7 @@ configurations:
         "message": "Cluster has overcommitted CPU resource requests for Namespaces."
         "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecpuovercommit"
       "expr": |
-        sum(kube_resourcequota:sysdig{job=kubernetes-service-endpoints", type="hard", resource="cpu"})
+        sum(kube_resourcequota:sysdig{job="kubernetes-service-endpoints", type="hard", resource="cpu"})
           /
         sum(kube_node_status_allocatable_cpu_cores:sysdig)
           > 1.5
