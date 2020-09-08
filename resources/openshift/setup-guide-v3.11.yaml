@@ -1,10 +1,12 @@
 apiVersion: v1
-kind: RecordingRule
+kind: SetupGuide
 app: Openshift
 version: 1.0.0
 appVersion:
 - '3.11'
 configurations:
+- name: sysdig-agent.yaml
+  file: include/sysdig-agent.yaml
 - name: rules.yaml
   file: include/rules-v3.11.yaml
-descriptionFile: RECORDING-RULES.md
+descriptionFile: INSTALL.md

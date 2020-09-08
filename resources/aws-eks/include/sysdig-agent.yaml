@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: sysdig-agent
-  namespace: agent
+  namespace: sysdig-agent
 data:
   prometheus.yaml: |-
     global:
@@ -22,12 +22,23 @@ data:
       - tags:
           namespace: monitoring
           statefulset: prometheus-controlplane-server
+      relabel_configs:
+        - replacement: 'your-cluster-name'
+          target_label: cluster
   dragent.yaml: |-
+    new_k8s: true
+    k8s_cluster_name: your-cluster-name
     metrics_excess_log: true
+    app_checks_enabled: false
+    10s_flush_enable: true
     use_promscrape: true
     prometheus:
       enabled: true
+      log_errors: true
       max_metrics: 3000
+      max_metrics_per_process: 20000
+      interval: 10
+      ingest_calculated: false
       process_filter:
         - exclude:
             process.name: docker-proxy

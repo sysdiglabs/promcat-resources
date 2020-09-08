@@ -1,0 +1,494 @@
+apiVersion: v1
+kind: Alert
+app: AWS EKS
+version: 1.0.0
+appVersion:
+- 1.15-1.17
+descriptionFile: ALERTS.md
+configurations:
+- kind: Prometheus
+  file: include/prometheus-alerts.yaml
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "rate(kube_pod_container_status_restarts_total:sysdig{job=\"kubernetes-service-endpoints\"}[5m]) * 60 * 5 > 0\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "KubePodCrashLooping",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 15,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum by (namespace, pod) (\n  max by(namespace, pod) (\n    kube_pod_status_phase:sysdig{job=\"kubernetes-service-endpoints\", phase=~\"Pending|Unknown\"}\n  ) * on(namespace, pod) group_left(owner_kind) topk by(namespace, pod) (\n    1, max by(namespace, pod, owner_kind) (kube_pod_owner:sysdig{owner_kind!=\"Job\"})\n  )\n) > 0\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "KubePodNotReady",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 15,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "kube_deployment_status_observed_generation:sysdig{job=\"kubernetes-service-endpoints\"}\n  !=\nkube_deployment_metadata_generation:sysdig{job=\"kubernetes-service-endpoints\"}\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "KubeDeploymentGenerationMismatch",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 15,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "(\n  kube_workload_status_desired:sysdig{job=\"kubernetes-service-endpoints\",workload_type=\"deployment\"}\n    !=\n  kube_workload_status_available:sysdig{job=\"kubernetes-service-endpoints\",workload_type=\"deployment\"}\n) and (\n  changes(kube_workload_status_updated:sysdig{job=\"kubernetes-service-endpoints\",workload_type=\"deployment\"}[5m])\n    ==\n  0\n)\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "KubeDeploymentReplicasMismatch",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 15,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "(\n  kube_workload_status_desired:sysdig{job=\"kubernetes-service-endpoints\",workload_type=\"statefulset\"}\n    !=\n  kube_workload_status_available:sysdig{job=\"kubernetes-service-endpoints\",workload_type=\"statefulset\"}\n) and (\n  changes(kube_workload_status_updated:sysdig{job=\"kubernetes-service-endpoints\",workload_type=\"statefulset\"}[5m])\n    ==\n  0\n)\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "KubeStatefulSetReplicasMismatch",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 15,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "kube_statefulset_status_observed_generation:sysdig{job=\"kubernetes-service-endpoints\"}\n  !=\nkube_statefulset_metadata_generation:sysdig{job=\"kubernetes-service-endpoints\"}\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "KubeStatefulSetGenerationMismatch",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 15,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "(\n  max without (revision) (\n    kube_statefulset_status_current_revision:sysdig{job=\"kubernetes-service-endpoints\"}\n      unless\n    kube_statefulset_status_update_revision:sysdig{job=\"kubernetes-service-endpoints\"}\n  )\n    *\n  (\n    kube_statefulset_replicas:sysdig{job=\"kubernetes-service-endpoints\"}\n      !=\n    kube_workload_status_updated:sysdig{job=\"kubernetes-service-endpoints\",workload_type=\"statefulset\"}\n  )\n)  and (\n  changes(kube_workload_status_updated:sysdig{job=\"kubernetes-service-endpoints\",workload_type=\"statefulset\"}[5m])\n    ==\n  0\n)\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "KubeStatefulSetUpdateNotRolledOut",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 15,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "kube_daemonset_status_number_ready:sysdig{job=\"kubernetes-service-endpoints\"}\n  /\nkube_daemonset_status_desired_number_scheduled:sysdig{job=\"kubernetes-service-endpoints\"} < 1.00\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "KubeDaemonSetRolloutStuck",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 15,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum by (namespace, pod, container) (kube_pod_container_status_waiting_reason:sysdig{job=\"kubernetes-service-endpoints\"}) > 0\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "KubeContainerWaiting",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 60,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "kube_daemonset_status_desired_number_scheduled:sysdig{job=\"kubernetes-service-endpoints\"}\n  -\nkube_daemonset_status_current_number_scheduled:sysdig{job=\"kubernetes-service-endpoints\"} > 0\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "KubeDaemonSetNotScheduled",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "kube_daemonset_status_number_misscheduled:sysdig{job=\"kubernetes-service-endpoints\"} > 0\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "KubeDaemonSetMisScheduled",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 15,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "kube_job_spec_completions:sysdig{job=\"kubernetes-service-endpoints\"} - kube_job_status_succeeded:sysdig{job=\"kubernetes-service-endpoints\"}  > 0\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "KubeJobCompletion",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 60,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "kube_job_failed:sysdig{job=\"kubernetes-service-endpoints\"}  > 0\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "KubeJobFailed",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 15,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum(namespace:kube_pod_container_resource_requests_cpu_cores:sum{})\n  /\nsum(kube_node_status_allocatable_cpu_cores:sysdig)\n  >\n(count(kube_node_status_allocatable_cpu_cores:sysdig)-1) / count(kube_node_status_allocatable_cpu_cores:sysdig)\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "KubeCPUOvercommit",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum(namespace:kube_pod_container_resource_requests_memory_bytes:sum{})\n  /\nsum(kube_node_status_allocatable_memory_bytes:sysdig)\n  >\n(count(kube_node_status_allocatable_memory_bytes:sysdig)-1)\n  /\ncount(kube_node_status_allocatable_memory_bytes:sysdig)\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "KubeMemoryOvercommit",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum(kube_resourcequota:sysdig{job=\"kubernetes-service-endpoints\", type=\"hard\", resource=\"cpu\"})\n  /\nsum(kube_node_status_allocatable_cpu_cores:sysdig)\n  > 1.5\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "KubeCPUQuotaOvercommit",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum(kube_resourcequota:sysdig{job=\"kubernetes-service-endpoints\", type=\"hard\", resource=\"memory\"})\n  /\nsum(kube_node_status_allocatable_memory_bytes:sysdig{job=\"node-exporter\"})\n  > 1.5\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "KubeMemoryQuotaOvercommit",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "kube_resourcequota:sysdig{job=\"kubernetes-service-endpoints\", type=\"used\"}\n  / ignoring(instance, job, type)\n(kube_resourcequota:sysdig{job=\"kubernetes-service-endpoints\", type=\"hard\"} > 0)\n  >= 1\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "KubeQuotaFullyUsed",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 15,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum(increase(container_cpu_cfs_throttled_periods_total:sysdig{container!=\"\", }[5m])) by (container, pod, namespace)\n  /\nsum(increase(container_cpu_cfs_periods_total:sysdig{}[5m])) by (container, pod, namespace)\n  > ( 25 / 100 )\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "CPUThrottlingHigh",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 15,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "kube_node_status_condition:sysdig{job=\"kubernetes-service-endpoints\",condition=\"Ready\",status=\"true\"} == 0\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "KubeNodeNotReady",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 15,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "(kube_node_spec_taint:sysdig{job=\"kubernetes-service-endpoints\",key=\"node.kubernetes.io/unreachable\",effect=\"NoSchedule\"} unless ignoring(key,value) kube_node_spec_taint:sysdig{job=\"kubernetes-service-endpoints\",key=~\"ToBeDeletedByClusterAutoscaler|cloud.google.com/impending-node-termination|aws-node-termination-handler/spot-itn\"}) == 1\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "KubeNodeUnreachable",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 0,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "count by(node) (\n  (kube_pod_status_phase:sysdig{job=\"kubernetes-service-endpoints\",phase=\"Running\"} == 1) * on(instance,pod,namespace,cluster) group_left(node) topk by(instance,pod,namespace,cluster) (1, kube_pod_info:sysdig{job=\"kubernetes-service-endpoints\"})\n)\n/\nmax by(node) (\n  kube_node_status_capacity_pods:sysdig{job=\"kubernetes-service-endpoints\"} != 1\n) > 0.95\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "KubeletTooManyPods",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 15,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum(changes(kube_node_status_condition:sysdig{status=\"true\",condition=\"Ready\"}[15m])) by (node) > 2\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "KubeNodeReadinessFlapping",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 15,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+

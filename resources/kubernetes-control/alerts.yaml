@@ -40,7 +40,7 @@ configurations:
         "message": "Cluster has overcommitted CPU resource requests for Namespaces."
         "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecpuovercommit"
       "expr": |
-        sum(kube_resourcequota:sysdig{job="kube-state-metrics", type="hard", resource="cpu"})
+        sum(kube_resourcequota:sysdig{job="kubernetes-service-endpoints", type="hard", resource="cpu"})
           /
         sum(kube_node_status_allocatable_cpu_cores:sysdig)
           > 1.5
@@ -52,7 +52,7 @@ configurations:
         "message": "Cluster has overcommitted memory resource requests for Namespaces."
         "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubememovercommit"
       "expr": |
-        sum(kube_resourcequota:sysdig{job="kube-state-metrics", type="hard", resource="memory"})
+        sum(kube_resourcequota:sysdig{job="kubernetes-service-endpoints", type="hard", resource="memory"})
           /
         sum(kube_node_status_allocatable_memory_bytes:sysdig{job="node-exporter"})
           > 1.5
@@ -64,9 +64,9 @@ configurations:
         "message": "Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota."
         "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded"
       "expr": |
-        kube_resourcequota:sysdig{job="kube-state-metrics", type="used"}
+        kube_resourcequota:sysdig{job="kubernetes-service-endpoints", type="used"}
           / ignoring(instance, job, type)
-        (kube_resourcequota:sysdig{job="kube-state-metrics", type="hard"} > 0)
+        (kube_resourcequota:sysdig{job="kubernetes-service-endpoints", type="hard"} > 0)
           > 0.90
       "for": "15m"
       "labels":
@@ -116,7 +116,7 @@ configurations:
         "message": "The persistent volume {{ $labels.persistentvolume }} has status {{ $labels.phase }}."
         "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumeerrors"
       "expr": |
-        kube_persistentvolume_status_phase:sysdig{phase=~"Failed|Pending",job="kube-state-metrics"} > 0
+        kube_persistentvolume_status_phase:sysdig{phase=~"Failed|Pending",job="kubernetes-service-endpoints"} > 0
       "for": "5m"
       "labels":
         "severity": "critical"
@@ -284,7 +284,7 @@ configurations:
         "message": "{{ $labels.node }} has been unready for more than 15 minutes."
         "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodenotready"
       "expr": |
-        kube_node_status_condition:sysdig{job="kube-state-metrics",condition="Ready",status="true"} == 0
+        kube_node_status_condition:sysdig{job="kubernetes-service-endpoints",condition="Ready",status="true"} == 0
       "for": "15m"
       "labels":
         "severity": "warning"
@@ -293,7 +293,7 @@ configurations:
         "message": "{{ $labels.node }} is unreachable and some workloads may be rescheduled."
         "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodeunreachable"
       "expr": |
-        kube_node_spec_taint:sysdig{job="kube-state-metrics",key="node.kubernetes.io/unreachable",effect="NoSchedule"} == 1
+        kube_node_spec_taint:sysdig{job="kubernetes-service-endpoints",key="node.kubernetes.io/unreachable",effect="NoSchedule"} == 1
       "for": "2m"
       "labels":
         "severity": "warning"
@@ -302,7 +302,7 @@ configurations:
         "message": "Kubelet '{{ $labels.node }}' is running at {{ $value | humanizePercentage }} of its Pod capacity."
         "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubelettoomanypods"
       "expr": |
-        max(max(kubelet_running_pod_count:sysdig{job="kubelet"}) by(instance) * on(instance) group_left(node) kubelet_node_name:sysdig{job="kubelet"}) by(node) / max(kube_node_status_capacity_pods{job="kube-state-metrics"}) by(node) > 0.95
+        max(max(kubelet_running_pod_count:sysdig{job="kubelet"}) by(instance) * on(instance) group_left(node) kubelet_node_name:sysdig{job="kubelet"}) by(node) / max(kube_node_status_capacity_pods{job="kubernetes-service-endpoints"}) by(node) > 0.95
       "for": "15m"
       "labels":
         "severity": "warning"
@@ -408,7 +408,7 @@ configurations:
   data: |-
     {
       "alert": {
-        "condition": "sum(kube_resourcequota:sysdig{job=\"kube-state-metrics\", type=\"hard\", resource=\"cpu\"})\n  /\nsum(kube_node_status_allocatable_cpu_cores:sysdig)\n  > 1.5\n",
+        "condition": "sum(kube_resourcequota:sysdig{job=\"kubernetes-service-endpoints\", type=\"hard\", resource=\"cpu\"})\n  /\nsum(kube_node_status_allocatable_cpu_cores:sysdig)\n  > 1.5\n",
         "customNotification": {
           "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
           "useNewTemplate": false
@@ -429,7 +429,7 @@ configurations:
   data: |-
     {
       "alert": {
-        "condition": "sum(kube_resourcequota:sysdig{job=\"kube-state-metrics\", type=\"hard\", resource=\"memory\"})\n  /\nsum(kube_node_status_allocatable_memory_bytes:sysdig{job=\"node-exporter\"})\n  > 1.5\n",
+        "condition": "sum(kube_resourcequota:sysdig{job=\"kubernetes-service-endpoints\", type=\"hard\", resource=\"memory\"})\n  /\nsum(kube_node_status_allocatable_memory_bytes:sysdig{job=\"node-exporter\"})\n  > 1.5\n",
         "customNotification": {
           "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
           "useNewTemplate": false
@@ -450,7 +450,7 @@ configurations:
   data: |-
     {
       "alert": {
-        "condition": "kube_resourcequota:sysdig{job=\"kube-state-metrics\", type=\"used\"}\n  / ignoring(instance, job, type)\n(kube_resourcequota:sysdig{job=\"kube-state-metrics\", type=\"hard\"} > 0)\n  > 0.90\n",
+        "condition": "kube_resourcequota:sysdig{job=\"kubernetes-service-endpoints\", type=\"used\"}\n  / ignoring(instance, job, type)\n(kube_resourcequota:sysdig{job=\"kubernetes-service-endpoints\", type=\"hard\"} > 0)\n  > 0.90\n",
         "customNotification": {
           "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
           "useNewTemplate": false
@@ -534,7 +534,7 @@ configurations:
   data: |-
     {
       "alert": {
-        "condition": "kube_persistentvolume_status_phase:sysdig{phase=~\"Failed|Pending\",job=\"kube-state-metrics\"} > 0\n",
+        "condition": "kube_persistentvolume_status_phase:sysdig{phase=~\"Failed|Pending\",job=\"kubernetes-service-endpoints\"} > 0\n",
         "customNotification": {
           "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
           "useNewTemplate": false
@@ -828,7 +828,7 @@ configurations:
   data: |-
     {
       "alert": {
-        "condition": "kube_node_status_condition:sysdig{job=\"kube-state-metrics\",condition=\"Ready\",status=\"true\"} == 0\n",
+        "condition": "kube_node_status_condition:sysdig{job=\"kubernetes-service-endpoints\",condition=\"Ready\",status=\"true\"} == 0\n",
         "customNotification": {
           "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
           "useNewTemplate": false
@@ -849,7 +849,7 @@ configurations:
   data: |-
     {
       "alert": {
-        "condition": "kube_node_spec_taint:sysdig{job=\"kube-state-metrics\",key=\"node.kubernetes.io/unreachable\",effect=\"NoSchedule\"} == 1\n",
+        "condition": "kube_node_spec_taint:sysdig{job=\"kubernetes-service-endpoints\",key=\"node.kubernetes.io/unreachable\",effect=\"NoSchedule\"} == 1\n",
         "customNotification": {
           "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
           "useNewTemplate": false
@@ -870,7 +870,7 @@ configurations:
   data: |-
     {
       "alert": {
-        "condition": "max(max(kubelet_running_pod_count:sysdig{job=\"kubelet\"}) by(instance) * on(instance) group_left(node) kubelet_node_name:sysdig{job=\"kubelet\"}) by(node) / max(kube_node_status_capacity_pods{job=\"kube-state-metrics\"}) by(node) > 0.95\n",
+        "condition": "max(max(kubelet_running_pod_count:sysdig{job=\"kubelet\"}) by(instance) * on(instance) group_left(node) kubelet_node_name:sysdig{job=\"kubelet\"}) by(node) / max(kube_node_status_capacity_pods{job=\"kubernetes-service-endpoints\"}) by(node) > 0.95\n",
         "customNotification": {
           "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
           "useNewTemplate": false

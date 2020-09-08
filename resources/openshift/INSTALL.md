@@ -18,7 +18,11 @@ The Prometheus is behind an oauth proxy so we have to create the secret with the
   
   kubectl -n sysdig-agent patch ds sysdig-agent -p '{"spec":{"template":{"spec":{"containers":[{"name":"sysdig","volumeMounts": [{"mountPath": "/opt/draios/kubernetes/prometheus/secrets","name": "prometheus-k8s-token"}]}]}}}}'
   ```
-4. Apply the sysdig configuration
+4. Apply the recording rules
+  ```sh
+  kubectl apply -f rules.yaml 
+  ```
+5. Apply the sysdig configuration
   ```
   kubectl edit cm sysdig-agent
   ```

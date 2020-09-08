@@ -3,9 +3,10 @@ kind: SetupGuide
 app: Openshift
 version: 1.0.0
 appVersion:
-- '3.11'
 - '4.3'
 configurations:
 - name: sysdig-agent.yaml
   file: include/sysdig-agent.yaml
+- name: rules.yaml
+  file: include/rules-v4.3.yaml
 descriptionFile: INSTALL.md
