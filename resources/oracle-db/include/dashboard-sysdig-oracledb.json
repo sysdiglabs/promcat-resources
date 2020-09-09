@@ -1,0 +1,3843 @@
+{
+  "dashboard": {
+    "description": "",
+    "eventDisplaySettings": {
+      "enabled": true,
+      "queryParams": {
+        "alertStatuses": [],
+        "categories": [],
+        "filter": "",
+        "severities": [],
+        "teamScope": false
+      }
+    },
+    "layout": [
+      {
+        "h": 2,
+        "panelId": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 6,
+        "panelId": 2,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      {
+        "h": 6,
+        "panelId": 3,
+        "w": 12,
+        "x": 0,
+        "y": 2
+      },
+      {
+        "h": 6,
+        "panelId": 4,
+        "w": 12,
+        "x": 12,
+        "y": 2
+      },
+      {
+        "h": 6,
+        "panelId": 5,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      {
+        "h": 6,
+        "panelId": 6,
+        "w": 8,
+        "x": 0,
+        "y": 14
+      },
+      {
+        "h": 6,
+        "panelId": 7,
+        "w": 8,
+        "x": 8,
+        "y": 14
+      },
+      {
+        "h": 6,
+        "panelId": 8,
+        "w": 8,
+        "x": 16,
+        "y": 14
+      },
+      {
+        "h": 6,
+        "panelId": 9,
+        "w": 8,
+        "x": 0,
+        "y": 20
+      },
+      {
+        "h": 6,
+        "panelId": 10,
+        "w": 8,
+        "x": 0,
+        "y": 26
+      },
+      {
+        "h": 6,
+        "panelId": 11,
+        "w": 8,
+        "x": 8,
+        "y": 20
+      },
+      {
+        "h": 6,
+        "panelId": 12,
+        "w": 8,
+        "x": 16,
+        "y": 20
+      },
+      {
+        "h": 6,
+        "panelId": 13,
+        "w": 8,
+        "x": 8,
+        "y": 26
+      },
+      {
+        "h": 6,
+        "panelId": 14,
+        "w": 8,
+        "x": 16,
+        "y": 26
+      }
+    ],
+    "name": "Oracle DB",
+    "panels": [
+      {
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_up",
+                  "documentTimestamp": 1599642813640,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_up",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_up",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_up",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            }
+          }
+        ],
+        "description": "",
+        "id": 1,
+        "name": "UP",
+        "numberThresholds": {
+          "base": {
+            "displayText": "Down",
+            "severity": "high"
+          },
+          "useDefaults": null,
+          "values": [
+            {
+              "displayText": "UP",
+              "inputFormat": "1",
+              "severity": "ok",
+              "value": 1.0
+            }
+          ]
+        },
+        "type": "basicNumber"
+      },
+      {
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Used",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_resource_current_utilization",
+                  "documentTimestamp": 1599642813640,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_resource_current_utilization",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_resource_current_utilization",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_resource_current_utilization",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "deferred": false,
+                    "description": "resource_name",
+                    "documentId": "resource_name",
+                    "documentTimestamp": 1599642813640,
+                    "documentType": "metric",
+                    "documented": true,
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "resource_name",
+                    "identity": false,
+                    "metricType": "tag",
+                    "name": "resource_name",
+                    "namespaces": [
+                      "cloudProvider",
+                      "host.container",
+                      "ecs",
+                      "host.fs",
+                      "host.file",
+                      "host",
+                      "kubernetes",
+                      "kubernetes.cluster",
+                      "kubernetes.daemonSet",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.namespace",
+                      "kubernetes.node",
+                      "kubernetes.pod",
+                      "kubernetes.replicaSet",
+                      "kubernetes.service",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.hpa",
+                      "link",
+                      "mesos",
+                      "host.net",
+                      "host.process",
+                      "prometheus",
+                      "swarm"
+                    ],
+                    "routingInfo": {
+                      "customerId": null,
+                      "routing": null
+                    },
+                    "scale": 0.0,
+                    "scopes": [],
+                    "segment": false,
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": "Resource name",
+                  "id": "resource_name",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Limit",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_resource_limit_value",
+                  "documentTimestamp": 1599642813640,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_resource_limit_value",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_resource_limit_value",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_resource_limit_value",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 2,
+        "name": "Resources usage vs limits",
+        "type": "basicTable"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Exec",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "rate(oracledb_activity_execute_count[$__interval]) * on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}"
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Parse",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "rate(oracledb_activity_parse_count_total[$__interval]) * on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}"
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "User Commits",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "rate(oracledb_activity_user_commits[$__interval]) * on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}"
+          },
+          {
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "User Rollbacks",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "rate(oracledb_activity_user_rollbacks[$__interval]) * on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 3,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Activity",
+        "type": "advancedTimechart"
+      },
+      {
+        "applyScopeToAll": false,
+        "applySegmentationToAll": false,
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "stackedArea"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_sessions_value",
+                  "documentTimestamp": 1599642813640,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_sessions_value",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_sessions_value",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "sum",
+                "id": "oracledb_sessions_value",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "deferred": false,
+                    "description": "status",
+                    "documentId": "status",
+                    "documentTimestamp": 1599642813640,
+                    "documentType": "metric",
+                    "documented": true,
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "status",
+                    "identity": false,
+                    "metricType": "tag",
+                    "name": "status",
+                    "namespaces": [
+                      "cloudProvider",
+                      "host.container",
+                      "ecs",
+                      "host.fs",
+                      "host.file",
+                      "host",
+                      "kubernetes",
+                      "kubernetes.cluster",
+                      "kubernetes.daemonSet",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.namespace",
+                      "kubernetes.node",
+                      "kubernetes.pod",
+                      "kubernetes.replicaSet",
+                      "kubernetes.service",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.hpa",
+                      "link",
+                      "mesos",
+                      "host.net",
+                      "host.process",
+                      "prometheus",
+                      "swarm"
+                    ],
+                    "routingInfo": {
+                      "customerId": null,
+                      "routing": null
+                    },
+                    "scale": 0.0,
+                    "scopes": [],
+                    "segment": false,
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": null,
+                  "id": "status",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 4,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Sessions",
+        "type": "basicTimechart"
+      },
+      {
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Used",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_tablespace_bytes",
+                  "documentTimestamp": 1599642813640,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_tablespace_bytes",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_tablespace_bytes",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "byte"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_tablespace_bytes",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "deferred": false,
+                    "description": "tablespace",
+                    "documentId": "tablespace",
+                    "documentTimestamp": 1599642813640,
+                    "documentType": "metric",
+                    "documented": true,
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "tablespace",
+                    "identity": false,
+                    "metricType": "tag",
+                    "name": "tablespace",
+                    "namespaces": [
+                      "cloudProvider",
+                      "host.container",
+                      "ecs",
+                      "host.fs",
+                      "host.file",
+                      "host",
+                      "kubernetes",
+                      "kubernetes.cluster",
+                      "kubernetes.daemonSet",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.namespace",
+                      "kubernetes.node",
+                      "kubernetes.pod",
+                      "kubernetes.replicaSet",
+                      "kubernetes.service",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.hpa",
+                      "link",
+                      "mesos",
+                      "host.net",
+                      "host.process",
+                      "prometheus",
+                      "swarm"
+                    ],
+                    "routingInfo": {
+                      "customerId": null,
+                      "routing": null
+                    },
+                    "scale": 0.0,
+                    "scopes": [],
+                    "segment": false,
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": "Tablespace",
+                  "id": "tablespace",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Free",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_tablespace_free",
+                  "documentTimestamp": 1599642813640,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_tablespace_free",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_tablespace_free",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_tablespace_free",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 5,
+        "name": "Tablespace Usage",
+        "type": "basicTable"
+      },
+      {
+        "applyScopeToAll": false,
+        "applySegmentationToAll": false,
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Administrative",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_wait_time_administrative",
+                  "documentTimestamp": 1599642813640,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_wait_time_administrative",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_wait_time_administrative",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_wait_time_administrative",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [],
+              "limit": 10
+            }
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Application",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_wait_time_application",
+                  "documentTimestamp": 1599642813640,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_wait_time_application",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_wait_time_application",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_wait_time_application",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [],
+              "limit": 10
+            }
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Commit",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_wait_time_commit",
+                  "documentTimestamp": 1599642813640,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_wait_time_commit",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_wait_time_commit",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_wait_time_commit",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [],
+              "limit": 10
+            }
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Concurrency",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_wait_time_concurrency",
+                  "documentTimestamp": 1599642813640,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_wait_time_concurrency",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_wait_time_concurrency",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_wait_time_concurrency",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [],
+              "limit": 10
+            }
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Config",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_wait_time_configuration",
+                  "documentTimestamp": 1599642813640,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_wait_time_configuration",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_wait_time_configuration",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_wait_time_configuration",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [],
+              "limit": 10
+            }
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Network",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_wait_time_network",
+                  "documentTimestamp": 1599642813640,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_wait_time_network",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_wait_time_network",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_wait_time_network",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [],
+              "limit": 10
+            }
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Other",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_wait_time_other",
+                  "documentTimestamp": 1599642813640,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_wait_time_other",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_wait_time_other",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_wait_time_other",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [],
+              "limit": 10
+            }
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Scheduler",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_wait_time_scheduler",
+                  "documentTimestamp": 1599642813640,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_wait_time_scheduler",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_wait_time_scheduler",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_wait_time_scheduler",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [],
+              "limit": 10
+            }
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "System IO",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_wait_time_system_io",
+                  "documentTimestamp": 1599642813640,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_wait_time_system_io",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_wait_time_system_io",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_wait_time_system_io",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [],
+              "limit": 10
+            }
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "User IO",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_wait_time_user_io",
+                  "documentTimestamp": 1599642813640,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_wait_time_user_io",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_wait_time_user_io",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_wait_time_user_io",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 6,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Wait time",
+        "type": "basicTimechart"
+      },
+      {
+        "applyScopeToAll": false,
+        "applySegmentationToAll": false,
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "P95",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "\u00b5s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_slow_queries_p95_time_usecs",
+                  "documentTimestamp": 1599642813640,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_slow_queries_p95_time_usecs",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_slow_queries_p95_time_usecs",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_slow_queries_p95_time_usecs",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [],
+              "limit": 10
+            }
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "P99",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "\u00b5s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_slow_queries_p99_time_usecs",
+                  "documentTimestamp": 1599642813640,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_slow_queries_p99_time_usecs",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_slow_queries_p99_time_usecs",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_slow_queries_p99_time_usecs",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 7,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Slow Queries",
+        "type": "basicTimechart"
+      },
+      {
+        "applyScopeToAll": false,
+        "applySegmentationToAll": false,
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "P95",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_big_queries_p95_rows",
+                  "documentTimestamp": 1599642813640,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_big_queries_p95_rows",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_big_queries_p95_rows",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_big_queries_p95_rows",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [],
+              "limit": 10
+            }
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "P99",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_big_queries_p99_rows",
+                  "documentTimestamp": 1599642813641,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_big_queries_p99_rows",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_big_queries_p99_rows",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_big_queries_p99_rows",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 8,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Big Queries",
+        "type": "basicTimechart"
+      },
+      {
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "P95",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_size_dba_segments_top100_table_bytes",
+                  "documentTimestamp": 1599642813641,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_size_dba_segments_top100_table_bytes",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_size_dba_segments_top100_table_bytes",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "byte"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_size_dba_segments_top100_table_bytes",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "deferred": false,
+                    "description": "segment_name",
+                    "documentId": "segment_name",
+                    "documentTimestamp": 1599642813641,
+                    "documentType": "metric",
+                    "documented": true,
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "segment_name",
+                    "identity": false,
+                    "metricType": "tag",
+                    "name": "segment_name",
+                    "namespaces": [
+                      "cloudProvider",
+                      "host.container",
+                      "ecs",
+                      "host.fs",
+                      "host.file",
+                      "host",
+                      "kubernetes",
+                      "kubernetes.cluster",
+                      "kubernetes.daemonSet",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.namespace",
+                      "kubernetes.node",
+                      "kubernetes.pod",
+                      "kubernetes.replicaSet",
+                      "kubernetes.service",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.hpa",
+                      "link",
+                      "mesos",
+                      "host.net",
+                      "host.process",
+                      "prometheus",
+                      "swarm"
+                    ],
+                    "routingInfo": {
+                      "customerId": null,
+                      "routing": null
+                    },
+                    "scale": 0.0,
+                    "scopes": [],
+                    "segment": false,
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": null,
+                  "id": "segment_name",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 9,
+        "name": "Top DBA Tables",
+        "type": "basicToplist"
+      },
+      {
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "P95",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_size_user_segments_top100_table_bytes",
+                  "documentTimestamp": 1599642813641,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_size_user_segments_top100_table_bytes",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_size_user_segments_top100_table_bytes",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "byte"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_size_user_segments_top100_table_bytes",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "deferred": false,
+                    "description": "segment_name",
+                    "documentId": "segment_name",
+                    "documentTimestamp": 1599642813641,
+                    "documentType": "metric",
+                    "documented": true,
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "segment_name",
+                    "identity": false,
+                    "metricType": "tag",
+                    "name": "segment_name",
+                    "namespaces": [
+                      "cloudProvider",
+                      "host.container",
+                      "ecs",
+                      "host.fs",
+                      "host.file",
+                      "host",
+                      "kubernetes",
+                      "kubernetes.cluster",
+                      "kubernetes.daemonSet",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.namespace",
+                      "kubernetes.node",
+                      "kubernetes.pod",
+                      "kubernetes.replicaSet",
+                      "kubernetes.service",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.hpa",
+                      "link",
+                      "mesos",
+                      "host.net",
+                      "host.process",
+                      "prometheus",
+                      "swarm"
+                    ],
+                    "routingInfo": {
+                      "customerId": null,
+                      "routing": null
+                    },
+                    "scale": 0.0,
+                    "scopes": [],
+                    "segment": false,
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": null,
+                  "id": "segment_name",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 10,
+        "name": "Top User Tables",
+        "type": "basicToplist"
+      },
+      {
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "P95",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_size_dba_segments_top100_table_partition_bytes",
+                  "documentTimestamp": 1599642813641,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_size_dba_segments_top100_table_partition_bytes",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_size_dba_segments_top100_table_partition_bytes",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "byte"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_size_dba_segments_top100_table_partition_bytes",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "deferred": false,
+                    "description": "segment_name",
+                    "documentId": "segment_name",
+                    "documentTimestamp": 1599642813641,
+                    "documentType": "metric",
+                    "documented": true,
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "segment_name",
+                    "identity": false,
+                    "metricType": "tag",
+                    "name": "segment_name",
+                    "namespaces": [
+                      "cloudProvider",
+                      "host.container",
+                      "ecs",
+                      "host.fs",
+                      "host.file",
+                      "host",
+                      "kubernetes",
+                      "kubernetes.cluster",
+                      "kubernetes.daemonSet",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.namespace",
+                      "kubernetes.node",
+                      "kubernetes.pod",
+                      "kubernetes.replicaSet",
+                      "kubernetes.service",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.hpa",
+                      "link",
+                      "mesos",
+                      "host.net",
+                      "host.process",
+                      "prometheus",
+                      "swarm"
+                    ],
+                    "routingInfo": {
+                      "customerId": null,
+                      "routing": null
+                    },
+                    "scale": 0.0,
+                    "scopes": [],
+                    "segment": false,
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": null,
+                  "id": "segment_name",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 11,
+        "name": "Top DBA Partition Tables",
+        "type": "basicToplist"
+      },
+      {
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "P95",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_size_dba_segments_top100_cluster_bytes",
+                  "documentTimestamp": 1599642813641,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_size_dba_segments_top100_cluster_bytes",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_size_dba_segments_top100_cluster_bytes",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "byte"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_size_dba_segments_top100_cluster_bytes",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "deferred": false,
+                    "description": "segment_name",
+                    "documentId": "segment_name",
+                    "documentTimestamp": 1599642813641,
+                    "documentType": "metric",
+                    "documented": true,
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "segment_name",
+                    "identity": false,
+                    "metricType": "tag",
+                    "name": "segment_name",
+                    "namespaces": [
+                      "cloudProvider",
+                      "host.container",
+                      "ecs",
+                      "host.fs",
+                      "host.file",
+                      "host",
+                      "kubernetes",
+                      "kubernetes.cluster",
+                      "kubernetes.daemonSet",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.namespace",
+                      "kubernetes.node",
+                      "kubernetes.pod",
+                      "kubernetes.replicaSet",
+                      "kubernetes.service",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.hpa",
+                      "link",
+                      "mesos",
+                      "host.net",
+                      "host.process",
+                      "prometheus",
+                      "swarm"
+                    ],
+                    "routingInfo": {
+                      "customerId": null,
+                      "routing": null
+                    },
+                    "scale": 0.0,
+                    "scopes": [],
+                    "segment": false,
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": null,
+                  "id": "segment_name",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 12,
+        "name": "Top DBA Cluster Tables",
+        "type": "basicToplist"
+      },
+      {
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "P95",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_size_user_segments_top100_table_partition_bytes",
+                  "documentTimestamp": 1599642813641,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_size_user_segments_top100_table_partition_bytes",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_size_user_segments_top100_table_partition_bytes",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "byte"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_size_user_segments_top100_table_partition_bytes",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "deferred": false,
+                    "description": "segment_name",
+                    "documentId": "segment_name",
+                    "documentTimestamp": 1599642813641,
+                    "documentType": "metric",
+                    "documented": true,
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "segment_name",
+                    "identity": false,
+                    "metricType": "tag",
+                    "name": "segment_name",
+                    "namespaces": [
+                      "cloudProvider",
+                      "host.container",
+                      "ecs",
+                      "host.fs",
+                      "host.file",
+                      "host",
+                      "kubernetes",
+                      "kubernetes.cluster",
+                      "kubernetes.daemonSet",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.namespace",
+                      "kubernetes.node",
+                      "kubernetes.pod",
+                      "kubernetes.replicaSet",
+                      "kubernetes.service",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.hpa",
+                      "link",
+                      "mesos",
+                      "host.net",
+                      "host.process",
+                      "prometheus",
+                      "swarm"
+                    ],
+                    "routingInfo": {
+                      "customerId": null,
+                      "routing": null
+                    },
+                    "scale": 0.0,
+                    "scopes": [],
+                    "segment": false,
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": null,
+                  "id": "segment_name",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 13,
+        "name": "Top User Partition Tables",
+        "type": "basicToplist"
+      },
+      {
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "P95",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "oracledb_size_user_segments_top100_cluster_bytes",
+                  "documentTimestamp": 1599642813642,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "oracledb_size_user_segments_top100_cluster_bytes",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "oracledb_size_user_segments_top100_cluster_bytes",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "routingInfo": {
+                    "customerId": null,
+                    "routing": null
+                  },
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "byte"
+                },
+                "groupAggregation": "avg",
+                "id": "oracledb_size_user_segments_top100_cluster_bytes",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "deferred": false,
+                    "description": "segment_name",
+                    "documentId": "segment_name",
+                    "documentTimestamp": 1599642813642,
+                    "documentType": "metric",
+                    "documented": true,
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "segment_name",
+                    "identity": false,
+                    "metricType": "tag",
+                    "name": "segment_name",
+                    "namespaces": [
+                      "cloudProvider",
+                      "host.container",
+                      "ecs",
+                      "host.fs",
+                      "host.file",
+                      "host",
+                      "kubernetes",
+                      "kubernetes.cluster",
+                      "kubernetes.daemonSet",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.namespace",
+                      "kubernetes.node",
+                      "kubernetes.pod",
+                      "kubernetes.replicaSet",
+                      "kubernetes.service",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.hpa",
+                      "link",
+                      "mesos",
+                      "host.net",
+                      "host.process",
+                      "prometheus",
+                      "swarm"
+                    ],
+                    "routingInfo": {
+                      "customerId": null,
+                      "routing": null
+                    },
+                    "scale": 0.0,
+                    "scopes": [],
+                    "segment": false,
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": null,
+                  "id": "segment_name",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 14,
+        "name": "Top User Cluster Tables",
+        "type": "basicToplist"
+      }
+    ],
+    "schema": 3,
+    "scopeExpressionList": [
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "category": "kubernetes",
+          "createdAt": 1599642813591,
+          "customerId": 25008,
+          "deferred": false,
+          "documentId": "25008--6139949314852700299",
+          "documentTimestamp": 1599642813591,
+          "documentType": "metric",
+          "experimental": false,
+          "firstSeen": 1583235308502,
+          "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+          "generator": {
+            "aggregationForGroup": "none",
+            "aggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "avg": false,
+            "canCalculate": false,
+            "canFilter": true,
+            "canGroupBy": true,
+            "canMonitor": false,
+            "category": "kubernetes",
+            "concat": false,
+            "context": [
+              "container"
+            ],
+            "count": false,
+            "countDistinct": false,
+            "deferred": false,
+            "experimental": false,
+            "firstSeen": 1583235308502,
+            "groupAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "groupBy": [],
+            "heuristic": false,
+            "hidden": false,
+            "id": "kubernetes.cluster.name",
+            "identity": false,
+            "label": true,
+            "lastSeen": 1599641947344,
+            "max": false,
+            "metricType": "none",
+            "min": false,
+            "namespaces": [
+              "kubernetes.cluster"
+            ],
+            "rateOfChange": false,
+            "scale": 1.0,
+            "scopes": [],
+            "sum": false,
+            "timeAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "timeAvg": false,
+            "type": "string"
+          },
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.cluster.name",
+          "identity": false,
+          "lastSeen": 1599641947344,
+          "metricType": "tag",
+          "namespaces": [
+            "kubernetes.cluster"
+          ],
+          "routingInfo": {
+            "customerId": 25008,
+            "routing": "25008"
+          },
+          "scale": 1.0,
+          "scopes": [],
+          "segment": false,
+          "segmentations": [],
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "cluster",
+        "isVariable": true,
+        "operand": "kubernetes.cluster.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "category": "kubernetes",
+          "createdAt": 1599642813591,
+          "customerId": 25008,
+          "deferred": false,
+          "documentId": "25008--7083949535721519842",
+          "documentTimestamp": 1599642813591,
+          "documentType": "metric",
+          "experimental": false,
+          "firstSeen": 1583235308502,
+          "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+          "generator": {
+            "aggregationForGroup": "none",
+            "aggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "avg": false,
+            "canCalculate": false,
+            "canFilter": true,
+            "canGroupBy": true,
+            "canMonitor": false,
+            "category": "kubernetes",
+            "concat": false,
+            "context": [
+              "container"
+            ],
+            "count": false,
+            "countDistinct": false,
+            "deferred": false,
+            "experimental": false,
+            "firstSeen": 1583235308502,
+            "groupAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "groupBy": [],
+            "heuristic": false,
+            "hidden": false,
+            "id": "kubernetes.namespace.name",
+            "identity": false,
+            "label": true,
+            "lastSeen": 1599642370818,
+            "max": false,
+            "metricType": "none",
+            "min": false,
+            "namespaces": [
+              "kubernetes.namespace"
+            ],
+            "rateOfChange": false,
+            "scale": 1.0,
+            "scopes": [],
+            "sum": false,
+            "timeAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "timeAvg": false,
+            "type": "string"
+          },
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.namespace.name",
+          "identity": false,
+          "lastSeen": 1599642370818,
+          "metricType": "tag",
+          "namespaces": [
+            "kubernetes.namespace"
+          ],
+          "routingInfo": {
+            "customerId": 25008,
+            "routing": "25008"
+          },
+          "scale": 1.0,
+          "scopes": [],
+          "segment": false,
+          "segmentations": [],
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "namespace",
+        "isVariable": true,
+        "operand": "kubernetes.namespace.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      }
+    ]
+  }
+}
