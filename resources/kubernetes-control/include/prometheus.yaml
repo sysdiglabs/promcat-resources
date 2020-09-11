@@ -273,3 +273,24 @@ scrape_configs:
     insecure_skip_verify: true
     cert_file: /opt/draios/kubernetes/prometheus/secrets/ca.crt
     key_file: /opt/draios/kubernetes/prometheus/secrets/ca.key
+- job_name: kube-dns
+  honor_labels: true
+  kubernetes_sd_configs:
+  - role: pod
+  relabel_configs:
+  - action: keep
+    source_labels:
+    - __meta_kubernetes_namespace
+    - __meta_kubernetes_pod_name
+    separator: '/'
+    regex: 'kube-system/coredns.+'
+  - source_labels: 
+    - __meta_kubernetes_pod_container_port_name
+    action: keep
+    regex: metrics
+  - source_labels:
+    - __meta_kubernetes_pod_name
+    action: replace
+    target_label: instance
+  - action: labelmap
+    regex: __meta_kubernetes_pod_label_(.+)
