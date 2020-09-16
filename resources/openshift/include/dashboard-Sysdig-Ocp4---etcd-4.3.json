@@ -1,100 +1,365 @@
 {
   "dashboard": {
     "description": "",
+    "eventDisplaySettings": {
+      "enabled": false,
+      "queryParams": {
+        "alertStatuses": [],
+        "categories": [],
+        "filter": "",
+        "severities": [],
+        "teamScope": false
+      }
+    },
     "layout": [
       {
-        "h": 3,
+        "h": 4,
         "panelId": 1,
-        "w": 9,
-        "x": 0,
-        "y": 17
-      },
-      {
-        "h": 3,
-        "panelId": 2,
         "w": 8,
-        "x": 9,
-        "y": 17
-      },
-      {
-        "h": 3,
-        "panelId": 3,
-        "w": 7,
-        "x": 17,
-        "y": 17
-      },
-      {
-        "h": 3,
-        "panelId": 4,
-        "w": 7,
-        "x": 17,
-        "y": 14
-      },
-      {
-        "h": 3,
-        "panelId": 5,
-        "w": 8,
-        "x": 9,
-        "y": 14
-      },
-      {
-        "h": 3,
-        "panelId": 6,
-        "w": 9,
         "x": 0,
-        "y": 14
+        "y": 0
       },
       {
         "h": 4,
-        "panelId": 7,
-        "w": 24,
-        "x": 0,
-        "y": 10
+        "panelId": 2,
+        "w": 8,
+        "x": 8,
+        "y": 0
+      },
+      {
+        "h": 4,
+        "panelId": 3,
+        "w": 8,
+        "x": 16,
+        "y": 0
       },
       {
         "h": 6,
-        "panelId": 8,
+        "panelId": 4,
+        "w": 12,
+        "x": 0,
+        "y": 4
+      },
+      {
+        "h": 6,
+        "panelId": 5,
         "w": 12,
         "x": 12,
         "y": 4
       },
       {
-        "h": 6,
-        "panelId": 9,
-        "w": 12,
+        "h": 4,
+        "panelId": 6,
+        "w": 8,
         "x": 0,
-        "y": 4
+        "y": 10
+      },
+      {
+        "h": 4,
+        "panelId": 7,
+        "w": 8,
+        "x": 8,
+        "y": 10
+      },
+      {
+        "h": 4,
+        "panelId": 8,
+        "w": 8,
+        "x": 0,
+        "y": 14
+      },
+      {
+        "h": 4,
+        "panelId": 9,
+        "w": 8,
+        "x": 16,
+        "y": 10
       },
       {
         "h": 4,
         "panelId": 10,
-        "w": 10,
-        "x": 14,
-        "y": 0
+        "w": 8,
+        "x": 8,
+        "y": 14
       },
       {
         "h": 4,
         "panelId": 11,
-        "w": 10,
-        "x": 4,
-        "y": 0
-      },
-      {
-        "h": 4,
-        "panelId": 12,
-        "w": 4,
-        "x": 0,
-        "y": 0
+        "w": 8,
+        "x": 16,
+        "y": 14
       }
     ],
-    "name": "Ocp4 / API server",
+    "name": "Kubernetes / etcd",
     "panels": [
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Memory",
-              "timeSeriesDisplayNameTemplate": "{{instance}}",
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "avg(etcd_server_has_leader:sysdig * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
+          }
+        ],
+        "description": "",
+        "id": 1,
+        "name": "Etcd has a leader?",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": [
+            {
+              "displayText": "Yes",
+              "inputFormat": "1",
+              "severity": "ok",
+              "value": 1.0
+            },
+            {
+              "displayText": "Some",
+              "inputFormat": "1",
+              "severity": "low",
+              "value": 0.4
+            },
+            {
+              "displayText": "No",
+              "inputFormat": "1",
+              "severity": "high",
+              "value": 0.0
+            }
+          ]
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "max(etcd_server_leader_changes_seen_total:sysdig * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
+          }
+        ],
+        "description": "",
+        "id": 2,
+        "name": "The number of leader changes seen",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "max(etcd_server_proposals_failed_total:sysdig * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
+          }
+        ],
+        "description": "",
+        "id": 3,
+        "name": "The total number of failed proposals seen",
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "RPC Rate",
+              "timeSeriesDisplayNameTemplate": "{{cluster}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(rate(grpc_server_started_total:sysdig{grpc_type=\"unary\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+          },
+          {
+            "displayInfo": {
+              "displayName": "RPC Failed Rate",
+              "timeSeriesDisplayNameTemplate": "{{cluster}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(rate(grpc_server_handled_total:sysdig{grpc_type=\"unary\",grpc_code!=\"OK\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 4,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "RPC Rate",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Watch Streams",
+              "timeSeriesDisplayNameTemplate": "{{cluster}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(grpc_server_started_total:sysdig{grpc_service=\"etcdserverpb.Watch\",grpc_type=\"bidi_stream\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster) - sum(grpc_server_handled_total:sysdig{grpc_service=\"etcdserverpb.Watch\",grpc_type=\"bidi_stream\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Lease Streams",
+              "timeSeriesDisplayNameTemplate": "{{cluster}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(grpc_server_started_total:sysdig{grpc_service=\"etcdserverpb.Lease\",grpc_type=\"bidi_stream\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster) - sum(grpc_server_handled_total:sysdig{grpc_service=\"etcdserverpb.Lease\",grpc_type=\"bidi_stream\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 5,
+        "legendConfiguration": {
+          "enabled": true,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true
+        },
+        "name": "Active Streams",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "DB size",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} DB Size",
               "type": "lines"
             },
             "enabled": true,
@@ -105,7 +370,7 @@
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "process_resident_memory_bytes:kubernetes{job=\"apiserver\"}"
+            "query": "etcd_debugging_mvcc_db_total_size_in_bytes:sysdig * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -138,333 +403,6 @@
           }
         },
         "description": "",
-        "id": 1,
-        "legendConfiguration": {
-          "enabled": true,
-          "layout": "table",
-          "position": "right",
-          "showCurrent": true
-        },
-        "name": "Memory",
-        "type": "advancedTimechart"
-      },
-      {
-        "advancedQueries": [
-          {
-            "displayInfo": {
-              "displayName": "Cpu usage",
-              "timeSeriesDisplayNameTemplate": "{{instance}}",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
-              "yAxis": "auto"
-            },
-            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"apiserver\"}[$__interval])"
-          }
-        ],
-        "axesConfiguration": {
-          "bottom": {
-            "enabled": true
-          },
-          "left": {
-            "decimals": 2,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          },
-          "right": {
-            "decimals": null,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          }
-        },
-        "description": "",
-        "id": 2,
-        "legendConfiguration": {
-          "enabled": true,
-          "layout": "table",
-          "position": "right",
-          "showCurrent": true
-        },
-        "name": "CPU usage",
-        "type": "advancedTimechart"
-      },
-      {
-        "advancedQueries": [
-          {
-            "displayInfo": {
-              "displayName": "",
-              "timeSeriesDisplayNameTemplate": "{{instance}}",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
-              "yAxis": "auto"
-            },
-            "query": "go_goroutines:kubernetes{job=\"apiserver\"}"
-          }
-        ],
-        "axesConfiguration": {
-          "bottom": {
-            "enabled": true
-          },
-          "left": {
-            "decimals": 2,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          },
-          "right": {
-            "decimals": null,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          }
-        },
-        "description": "",
-        "id": 3,
-        "legendConfiguration": {
-          "enabled": true,
-          "layout": "table",
-          "position": "right",
-          "showCurrent": true
-        },
-        "name": "Goroutines",
-        "type": "advancedTimechart"
-      },
-      {
-        "advancedQueries": [
-          {
-            "displayInfo": {
-              "displayName": "ETCD get",
-              "timeSeriesDisplayNameTemplate": "{{instance}} get",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "s",
-              "unit": "relativeTime",
-              "yAxis": "auto"
-            },
-            "query": "etcd_request_cache_get_duration_seconds_bucket:kubernetes_apiservers"
-          },
-          {
-            "displayInfo": {
-              "displayName": "ETCD add",
-              "timeSeriesDisplayNameTemplate": "{{instance}} miss",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "s",
-              "unit": "relativeTime",
-              "yAxis": "auto"
-            },
-            "query": "etcd_request_cache_add_duration_seconds_bucket:kubernetes_apiservers"
-          }
-        ],
-        "axesConfiguration": {
-          "bottom": {
-            "enabled": true
-          },
-          "left": {
-            "decimals": null,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "ns",
-            "maxValue": null,
-            "minInputFormat": "ns",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          },
-          "right": {
-            "decimals": null,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          }
-        },
-        "description": "",
-        "id": 4,
-        "legendConfiguration": {
-          "enabled": true,
-          "layout": "table",
-          "position": "right",
-          "showCurrent": true
-        },
-        "name": "ETCD Cache Duration 99th Quantile ",
-        "type": "advancedTimechart"
-      },
-      {
-        "advancedQueries": [
-          {
-            "displayInfo": {
-              "displayName": "ETCD hit",
-              "timeSeriesDisplayNameTemplate": "{{instance}} hit",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
-              "yAxis": "auto"
-            },
-            "query": "sum(rate(etcd_helper_cache_hit_total:kubernetes_apiservers[$__interval])) by (instance)"
-          },
-          {
-            "displayInfo": {
-              "displayName": "ETCD miss",
-              "timeSeriesDisplayNameTemplate": "{{instance}} miss",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
-              "yAxis": "auto"
-            },
-            "query": "sum(rate(etcd_helper_cache_miss_total:kubernetes_apiservers[$__interval])) by (instance)"
-          }
-        ],
-        "axesConfiguration": {
-          "bottom": {
-            "enabled": true
-          },
-          "left": {
-            "decimals": 2,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          },
-          "right": {
-            "decimals": null,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          }
-        },
-        "description": "",
-        "id": 5,
-        "legendConfiguration": {
-          "enabled": true,
-          "layout": "table",
-          "position": "right",
-          "showCurrent": true
-        },
-        "name": "ETCD Cache Hit/Miss Rate ",
-        "type": "advancedTimechart"
-      },
-      {
-        "advancedQueries": [
-          {
-            "displayInfo": {
-              "displayName": "ETCD cache entry",
-              "timeSeriesDisplayNameTemplate": "{{instance}}",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
-              "yAxis": "auto"
-            },
-            "query": "rate(etcd_helper_cache_entry_total:kubernetes_apiservers[$__interval])"
-          }
-        ],
-        "axesConfiguration": {
-          "bottom": {
-            "enabled": true
-          },
-          "left": {
-            "decimals": 2,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          },
-          "right": {
-            "decimals": null,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          }
-        },
-        "description": "",
         "id": 6,
         "legendConfiguration": {
           "enabled": true,
@@ -472,15 +410,15 @@
           "position": "right",
           "showCurrent": true
         },
-        "name": "ETCD Cache Entry Total ",
+        "name": "DB Size",
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Work queue latency",
-              "timeSeriesDisplayNameTemplate": "{{instance}}",
+              "displayName": "Disk sync duration",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} WAL fsync",
               "type": "lines"
             },
             "enabled": true,
@@ -491,7 +429,23 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "workqueue_queue_duration_seconds_bucket:kubernetes_apiservers"
+            "query": "histogram_quantile(0.99, sum(rate(etcd_disk_wal_fsync_duration_seconds_bucket:sysdig[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (instance, le, cluster))"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Disk sync duration",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} DB fsync",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.99, sum(rate(etcd_disk_backend_commit_duration_seconds_bucket:sysdig[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (instance, le, cluster))"
           }
         ],
         "axesConfiguration": {
@@ -531,26 +485,26 @@
           "position": "right",
           "showCurrent": true
         },
-        "name": "Work Queue Latency",
+        "name": "Disk sync duration",
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Work queue depth",
-              "timeSeriesDisplayNameTemplate": "{{instance}} {{name}}",
+              "displayName": "Memory",
+              "timeSeriesDisplayNameTemplate": "{{cluster}}",
               "type": "lines"
             },
             "enabled": true,
             "format": {
               "decimals": null,
               "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
+              "inputFormat": "B",
+              "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "sum(rate(workqueue_depth:kubernetes_apiservers[$__interval])) by (instance, name)"
+            "query": "process_resident_memory_bytes:kubernetes{job=\"etcd\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -558,13 +512,13 @@
             "enabled": true
           },
           "left": {
-            "decimals": 2,
+            "decimals": null,
             "displayFormat": "auto",
             "displayName": null,
             "enabled": true,
-            "maxInputFormat": "1",
+            "maxInputFormat": "B",
             "maxValue": null,
-            "minInputFormat": "1",
+            "minInputFormat": "B",
             "minValue": null,
             "scale": "linear",
             "unit": "auto"
@@ -590,15 +544,15 @@
           "position": "right",
           "showCurrent": true
         },
-        "name": "Work Queue Depth",
+        "name": "Memory",
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Work queue rate",
-              "timeSeriesDisplayNameTemplate": "{{instance}} {{name}}",
+              "displayName": "Number of consensus proposals commited",
+              "timeSeriesDisplayNameTemplate": "{{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -609,7 +563,23 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(workqueue_adds_total:kubernetes_apiservers[$__interval])) by (instance, name)"
+            "query": "sum(rate(etcd_server_proposals_committed_total:sysdig[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Number of consensus proposals applied",
+              "timeSeriesDisplayNameTemplate": "{{cluster}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(rate(etcd_server_proposals_applied_total:sysdig[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
           }
         ],
         "axesConfiguration": {
@@ -617,7 +587,7 @@
             "enabled": true
           },
           "left": {
-            "decimals": 2,
+            "decimals": null,
             "displayFormat": "auto",
             "displayName": null,
             "enabled": true,
@@ -649,26 +619,26 @@
           "position": "right",
           "showCurrent": true
         },
-        "name": "Work Queue Add Rate ",
+        "name": "The total number of consensus proposals committed ",
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Request duration",
-              "timeSeriesDisplayNameTemplate": "{{verb}}",
+              "displayName": "Cpu usage",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
               "type": "lines"
             },
             "enabled": true,
             "format": {
               "decimals": null,
               "displayFormat": "auto",
-              "inputFormat": "s",
-              "unit": "relativeTime",
+              "inputFormat": "1",
+              "unit": "number",
               "yAxis": "auto"
             },
-            "query": "apiserver_request_duration_seconds_bucket:kubernetes_apiservers{verb!=\"WATCH\"}"
+            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"etcd\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -680,9 +650,9 @@
             "displayFormat": "auto",
             "displayName": null,
             "enabled": true,
-            "maxInputFormat": "ns",
+            "maxInputFormat": "1",
             "maxValue": null,
-            "minInputFormat": "ns",
+            "minInputFormat": "1",
             "minValue": null,
             "scale": "linear",
             "unit": "auto"
@@ -708,15 +678,15 @@
           "position": "right",
           "showCurrent": true
         },
-        "name": "Request duration 99th quantile",
+        "name": "CPU usage",
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Api request",
-              "timeSeriesDisplayNameTemplate": "2xx",
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
               "type": "lines"
             },
             "enabled": true,
@@ -727,55 +697,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"2..\"}[$__interval]))"
-          },
-          {
-            "displayInfo": {
-              "displayName": "Api request",
-              "timeSeriesDisplayNameTemplate": "3xx",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
-              "yAxis": "auto"
-            },
-            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"3..\"}[$__interval]))"
-          },
-          {
-            "displayInfo": {
-              "displayName": "Api request",
-              "timeSeriesDisplayNameTemplate": "4xx",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
-              "yAxis": "auto"
-            },
-            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"4..\"}[$__interval]))"
-          },
-          {
-            "displayInfo": {
-              "displayName": "Api request",
-              "timeSeriesDisplayNameTemplate": "5xx",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
-              "yAxis": "auto"
-            },
-            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"5..\"}[$__interval]))"
+            "query": "go_goroutines:kubernetes{job=\"etcd\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -783,7 +705,7 @@
             "enabled": true
           },
           "left": {
-            "decimals": 2,
+            "decimals": null,
             "displayFormat": "auto",
             "displayName": null,
             "enabled": true,
@@ -815,42 +737,116 @@
           "position": "right",
           "showCurrent": true
         },
-        "name": "RPC Rate",
+        "name": "Goroutines",
         "type": "advancedTimechart"
-      },
-      {
-        "advancedQueries": [
-          {
-            "displayInfo": {
-              "displayName": "",
-              "timeSeriesDisplayNameTemplate": "",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
-              "yAxis": "auto"
-            },
-            "query": "sum(up:kubernetes{job=\"apiserver\"})"
-          }
-        ],
-        "description": "",
-        "id": 12,
-        "name": "Up",
-        "numberThresholds": {
-          "base": {
-            "displayText": "",
-            "severity": "none"
-          },
-          "values": []
-        },
-        "type": "advancedNumber"
       }
     ],
     "schema": 3,
-    "scopeExpressionList": []
+    "scopeExpressionList": [
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "category": "kubernetes",
+          "createdAt": 1593440813244,
+          "customerId": 25008,
+          "deferred": false,
+          "documentId": "25008--6139949314852700299",
+          "documentTimestamp": 1593440813244,
+          "documentType": "metric",
+          "experimental": false,
+          "firstSeen": 1583235308502,
+          "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+          "generator": {
+            "aggregationForGroup": "none",
+            "aggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "avg": false,
+            "canCalculate": false,
+            "canFilter": true,
+            "canGroupBy": true,
+            "canMonitor": false,
+            "category": "kubernetes",
+            "concat": false,
+            "context": [
+              "container"
+            ],
+            "count": false,
+            "countDistinct": false,
+            "deferred": false,
+            "experimental": false,
+            "firstSeen": 1583235308502,
+            "groupAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "groupBy": [],
+            "heuristic": false,
+            "hidden": false,
+            "id": "kubernetes.cluster.name",
+            "identity": false,
+            "label": true,
+            "lastSeen": 1593439747779,
+            "max": false,
+            "metricType": "none",
+            "min": false,
+            "namespaces": [
+              "kubernetes.cluster"
+            ],
+            "rateOfChange": false,
+            "scale": 1.0,
+            "scopes": [],
+            "sum": false,
+            "timeAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "timeAvg": false,
+            "type": "string"
+          },
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.cluster.name",
+          "identity": false,
+          "lastSeen": 1593439747779,
+          "metricType": "tag",
+          "namespaces": [
+            "kubernetes.cluster"
+          ],
+          "routingInfo": {
+            "customerId": 25008,
+            "routing": "25008"
+          },
+          "scale": 1.0,
+          "scopes": [],
+          "segment": false,
+          "segmentations": [],
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "cluster",
+        "isVariable": true,
+        "operand": "kubernetes.cluster.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      }
+    ]
   }
 }

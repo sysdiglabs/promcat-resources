@@ -10,22 +10,22 @@ spec:
   "groups":
     - "name": "Sysdig.k8s.general.rules"
       "rules":
-      - "expr": up{job=~"kubelet|apiserver|controller-manager|kube-controller-manager|scheduler"}
+      - "expr": up{job=~"kubelet|apiserver|controller-manager|kube-controller-manager|scheduler|dns-default"}
         "record": "up:kubernetes"
         "labels":
           "sysdig": "true"
       - "expr": |
-          process_resident_memory_bytes{job=~"kubelet|apiserver|controller-manager|kube-controller-amanger|scheduler"}
+          process_resident_memory_bytes{job=~"kubelet|apiserver|controller-manager|kube-controller-amanger|scheduler|dns-default"}
         "record": "process_resident_memory_bytes:kubernetes"
         "labels":
           "sysdig": "true"
       - "expr": |
-          process_cpu_seconds_total{job=~"kubelet|apiserver|controller-manager|kube-controller-amanger|scheduler"}
+          process_cpu_seconds_total{job=~"kubelet|apiserver|controller-manager|kube-controller-amanger|scheduler|dns-default"}
         "record": "process_cpu_seconds_total:kubernetes"
         "labels":
           "sysdig": "true"
       - "expr": |
-          go_goroutines{job=~"kubelet|apiserver|controller-manager|kube-controller-amanger|scheduler"}
+          go_goroutines{job=~"kubelet|apiserver|controller-manager|kube-controller-amanger|scheduler|dns-default"}
         "record": "go_goroutines:kubernetes"
         "labels":
           "sysdig": "true"
@@ -182,7 +182,7 @@ spec:
         "record": "rest_client_requests_total:kube_scheduler"
         "labels":
           "sysdig": "true"
-
+    
     - "name": "Sysdig.k8s.api.rules"
       "rules":
       - "expr": apiserver_request_total{job="apiserver"}
@@ -256,7 +256,7 @@ spec:
         "record": "rest_client_requests_total:kubernetes_control_manager"
         "labels":
           "sysdig": "true"
-
+    
     - "name": "Sysdig.k8s.kube_proxy.rules"
       "rules":
       - "expr": up{k8s_app="kube-proxy"}
@@ -304,5 +304,180 @@ spec:
       - "expr": |
           go_goroutines{k8s_app="kube-proxy"}
         "record": "go_goroutines:kube_proxy"
+        "labels":
+          "sysdig": "true"
+
+    - "name": "Sysdig.k8s.etcd.rules"
+      "rules":
+      - "expr": up{job=~"etcd"}
+        "record": "up:kubernetes"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          process_resident_memory_bytes{job=~"etcd"}
+        "record": "process_resident_memory_bytes:kubernetes"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          process_cpu_seconds_total{job=~"etcd"}
+        "record": "process_cpu_seconds_total:kubernetes"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          go_goroutines{job=~"etcd"}
+        "record": "go_goroutines:kubernetes"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          etcd_server_has_leader
+        "record": "etcd_server_has_leader:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          etcd_server_leader_changes_seen_total
+        "record": "etcd_server_leader_changes_seen_total:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          grpc_server_started_total
+        "record": "grpc_server_started_total:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          sum by (grpc_type,grpc_code)(grpc_server_handled_total)
+        "record": "grpc_server_handled_total:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          grpc_server_handling_seconds_bucket
+        "record": "grpc_server_handling_seconds_bucket:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          etcd_network_peer_round_trip_time_seconds_bucket
+        "record": "etcd_network_peer_round_trip_time_seconds_bucket:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          etcd_debugging_mvcc_db_total_size_in_bytes
+        "record": "etcd_debugging_mvcc_db_total_size_in_bytes:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          etcd_disk_wal_fsync_duration_seconds_bucket
+        "record": "etcd_disk_wal_fsync_duration_seconds_bucket:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          etcd_disk_backend_commit_duration_seconds_bucket
+        "record": "etcd_disk_backend_commit_duration_seconds_bucket:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          etcd_http_failed_total
+        "record": "etcd_http_failed_total:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          etcd_http_successful_duration_seconds_bucket
+        "record": "etcd_http_successful_duration_seconds_bucket:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          etcd_network_client_grpc_received_bytes_total
+        "record": "etcd_network_client_grpc_received_bytes_total:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          etcd_network_client_grpc_sent_bytes_total
+        "record": "etcd_network_client_grpc_sent_bytes_total:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          etcd_network_client_grpc_sent_bytes_total
+        "record": "etcd_network_client_grpc_sent_bytes_total:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          etcd_server_proposals_failed_total
+        "record": "etcd_server_proposals_failed_total:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          etcd_server_proposals_committed_total
+        "record": "etcd_server_proposals_committed_total:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          etcd_server_proposals_applied_total
+        "record": "etcd_server_proposals_applied_total:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          etcd_network_peer_sent_failures_total
+        "record": "etcd_network_peer_sent_failures_total:sysdig"
+        "labels":
+          "sysdig": "true"
+
+    - "name": "Sysdig.k8s.dns.rules"
+      "rules":
+      - "expr": |
+          coredns_panic_count_total
+        "record": "coredns_panic_count_total:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          coredns_dns_response_rcode_count_total
+        "record": "coredns_dns_response_rcode_count_total:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          coredns_forward_response_rcode_count_total
+        "record": "coredns_forward_response_rcode_count_total:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          coredns_dns_request_duration_seconds_bucket
+        "record": "coredns_dns_request_duration_seconds_bucket:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          coredns_dns_request_type_count_total
+        "record": "coredns_dns_request_type_count_total:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          coredns_forward_request_count_total
+        "record": "coredns_forward_request_count_total:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          coredns_cache_hits_total
+        "record": "coredns_cache_hits_total:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          coredns_cache_misses_total
+        "record": "coredns_cache_misses_total:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          coredns_cache_size
+        "record": "coredns_cache_size:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          coredns_plugin_enabled
+        "record": "coredns_plugin_enabled:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          coredns_dns_request_size_bytes_bucket
+        "record": "coredns_dns_request_size_bytes_bucket:sysdig"
+        "labels":
+          "sysdig": "true"
+      - "expr": |
+          coredns_dns_response_size_bytes_bucket
+        "record": "coredns_dns_response_size_bytes_bucket:sysdig"
         "labels":
           "sysdig": "true"
