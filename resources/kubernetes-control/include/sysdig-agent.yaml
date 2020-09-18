@@ -9,7 +9,7 @@ data:
       scrape_interval: 15s
       evaluation_interval: 15s
     scrape_configs:
-    - job_name: 'prometheus' # config for federation
+    - job_name: 'controlPlane' # config for federation
       honor_labels: true
       metrics_path: '/federate'
       metric_relabel_configs:
@@ -18,6 +18,19 @@ data:
       params:
         'match[]':
           - '{sysdig="true"}'
+      sysdig_sd_configs:
+      - tags:
+          namespace: monitoring
+          statefulset: prometheus-controlplane-server
+    - job_name: 'coreDNS' # config for federation
+      honor_labels: true
+      metrics_path: '/federate'
+      metric_relabel_configs:
+      - regex: 'kubernetes_pod_name'
+        action: labeldrop
+      params:
+        'match[]':
+          - '{job="kube-dns"}'
       sysdig_sd_configs:
       - tags:
           namespace: monitoring
