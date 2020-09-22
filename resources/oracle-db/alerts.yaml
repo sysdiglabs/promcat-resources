@@ -4,9 +4,18 @@ app: Oracle Database
 version: 1.0.0
 appVersion:
 - 12.1.0.2
+- 19.3.0.0
 configurations:
 - kind: Prometheus
   data: |
+    - alert: DatabaseDown
+      expr: |
+        oracledb_up < 0
+      for: 10m
+      labels:
+        severity: page
+      annotations:
+        summary: Connection with database not available
     - alert: HighResourceUtilization
       expr: |
         (oracledb_resource_current_utilization / oracledb_resource_limit_value) > 0.85
@@ -18,14 +27,14 @@ configurations:
         summary: High resource utilization of resource {{$labels.resource_name}}
     - alert: UsersTablespaceFull
       expr: |
-        (oracledb_tablespace_bytes{tablespace="USERS"} /
-        (oracledb_tablespace_bytes{tablespace="USERS"} + oracledb_tablespace_free{tablespace="USERS"}))
+        (oracledb_tablespace_bytes /
+        (oracledb_tablespace_bytes + oracledb_tablespace_free))
         > 0.85
       for: 10m
       labels:
         severity: page
       annotations:
-        summary: Tablespace USERS almost full
+        summary: Tablespace almost full {{$labels.tablespace}}
     - alert: SlowQueriesP99
       expr: |
         oracledb_slow_queries_p99_time_usecs * 1000000 > 10
@@ -42,6 +51,27 @@ configurations:
         severity: page
       annotations:
         summary: Percentile 99 of returned rows in queries higher than 1M
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "(oracledb_up < 0)\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "DatabaseDown",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
 - kind: Sysdig
   data: |-
     {
@@ -67,7 +97,7 @@ configurations:
   data: |-
     {
       "alert": {
-        "condition": "(oracledb_tablespace_bytes{tablespace=\"USERS\"} / \n(oracledb_tablespace_bytes{tablespace=\"USERS\"} + oracledb_tablespace_free{tablespace=\"USERS\"})) \n> 0.85\n",
+        "condition": "(oracledb_tablespace_bytes / \n(oracledb_tablespace_bytes + oracledb_tablespace_free)) \n> 0.85\n",
         "customNotification": {
           "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
           "useNewTemplate": false
