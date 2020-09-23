@@ -1,5 +1,7 @@
 # Make sure the Sysdig agent has the right configuration
-In this case you don't need to install any exporter the pod is already annotated and with only the sysdig agent you can scrape it, just make sure to enable the promscrape and that's it.
+Ceph instruments Prometheus metrics and annotates the manager pod with Prometheus annotations, so there is not further configuration needed.
+
+For the Sysdig Agent to discover and scrape it automatically, enable the promscrape option in the agent configuration.
 
 ```yaml
   dragent.yaml: |-
