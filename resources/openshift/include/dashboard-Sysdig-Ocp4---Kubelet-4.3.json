@@ -1,6 +1,16 @@
 {
   "dashboard": {
     "description": "",
+    "eventDisplaySettings": {
+      "enabled": true,
+      "queryParams": {
+        "alertStatuses": [],
+        "categories": [],
+        "filter": "",
+        "severities": [],
+        "teamScope": false
+      }
+    },
     "layout": [
       {
         "h": 2,
@@ -189,7 +199,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(up:kubernetes{job=\"kubelet\",metrics_path=\"/metrics/cadvisor\"})"
+            "query": "sum(up:kubernetes{job=\"kubelet\",metrics_path=\"/metrics/cadvisor\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
           }
         ],
         "description": "",
@@ -220,7 +230,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(kubelet_running_pod_count:kubelet)"
+            "query": "sum(kubelet_running_pod_count:kubelet * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
           }
         ],
         "description": "",
@@ -251,7 +261,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(kubelet_running_container_count:kubelet)"
+            "query": "sum(kubelet_running_container_count:kubelet * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
           }
         ],
         "description": "",
@@ -282,7 +292,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(volume_manager_total_volumes:kubelet{state=\"actual_state_of_world\"})"
+            "query": "sum(volume_manager_total_volumes:kubelet{state=\"actual_state_of_world\"} * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
           }
         ],
         "description": "",
@@ -313,7 +323,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(volume_manager_total_volumes:desired:kubelet{job=\"kubelet\",state=\"desired_state_of_world\"})"
+            "query": "sum(volume_manager_total_volumes:desired:kubelet{job=\"kubelet\",state=\"desired_state_of_world\"} * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
           }
         ],
         "description": "",
@@ -344,7 +354,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(kubelet_node_config_error:kubelet[$__interval]))"
+            "query": "sum(rate(kubelet_node_config_error:kubelet[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
           }
         ],
         "description": "",
@@ -375,7 +385,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(kubelet_runtime_operations_total:kubelet[$__interval])) by (operation_type, instance)"
+            "query": "sum(rate(kubelet_runtime_operations_total:kubelet[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (operation_type, instance)"
           }
         ],
         "axesConfiguration": {
@@ -411,9 +421,11 @@
         "id": 7,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Operation rate",
         "type": "advancedTimechart"
@@ -434,7 +446,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(kubelet_runtime_operations_errors_total:kubelet[$__interval])) by (instance, operation_type)"
+            "query": "sum(rate(kubelet_runtime_operations_errors_total:kubelet[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (instance, operation_type)"
           }
         ],
         "axesConfiguration": {
@@ -470,9 +482,11 @@
         "id": 8,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Operation Error Rate",
         "type": "advancedTimechart"
@@ -493,7 +507,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "operation_duration_seconds:kubelet"
+            "query": "operation_duration_seconds:kubelet * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -529,9 +543,11 @@
         "id": 9,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Operation duration 99th quantile",
         "type": "advancedTimechart"
@@ -552,7 +568,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(kubelet_pod_start_duration_seconds_count:kubelet[$__interval])) by (instance)"
+            "query": "sum(rate(kubelet_pod_start_duration_seconds_count:kubelet[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (instance)"
           },
           {
             "displayInfo": {
@@ -568,7 +584,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(kubelet_pod_worker_duration_seconds_count:kubelet[$__interval])) by (instance)"
+            "query": "sum(rate(kubelet_pod_worker_duration_seconds_count:kubelet[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (instance)"
           }
         ],
         "axesConfiguration": {
@@ -604,9 +620,11 @@
         "id": 10,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Pod Start Rate",
         "type": "advancedTimechart"
@@ -627,7 +645,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "pod_start_duration_seconds:kubelet"
+            "query": "pod_start_duration_seconds:kubelet * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           },
           {
             "displayInfo": {
@@ -643,7 +661,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "pod_worker_duration_seconds:kubelet"
+            "query": "pod_worker_duration_seconds:kubelet * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -679,9 +697,11 @@
         "id": 11,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Pod Start Duration",
         "type": "advancedTimechart"
@@ -702,7 +722,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(storage_operation_duration_seconds_count:kubelet[$__interval])) by (instance, operation_name, volume_plugin)"
+            "query": "sum(rate(storage_operation_duration_seconds_count:kubelet[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (instance, operation_name, volume_plugin)"
           }
         ],
         "axesConfiguration": {
@@ -738,9 +758,11 @@
         "id": 12,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Storage Operation Rate",
         "type": "advancedTimechart"
@@ -761,7 +783,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(storage_operation_errors_total:kubelet[$__interval])) by (instance, operation_name, volume_plugin)"
+            "query": "sum(rate(storage_operation_errors_total:kubelet[$__interval]) * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (instance, operation_name, volume_plugin)"
           }
         ],
         "axesConfiguration": {
@@ -797,9 +819,11 @@
         "id": 13,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Storage Operation Error Rate",
         "type": "advancedTimechart"
@@ -820,7 +844,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "storage_operation_duration_seconds:kubelet"
+            "query": "storage_operation_duration_seconds:kubelet * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -856,9 +880,11 @@
         "id": 14,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Storage Operation Duration 99th quantile",
         "type": "advancedTimechart"
@@ -879,7 +905,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(kubelet_cgroup_manager_duration_seconds_count:kubelet[$__interval])) by (instance, operation_type)"
+            "query": "sum(rate(kubelet_cgroup_manager_duration_seconds_count:kubelet[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (instance, operation_type)"
           }
         ],
         "axesConfiguration": {
@@ -915,9 +941,11 @@
         "id": 15,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Cgroup manager operation rate",
         "type": "advancedTimechart"
@@ -938,7 +966,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(pleg_relist_duration_seconds:kubelet[$__interval])) by (instance)"
+            "query": "sum(rate(pleg_relist_duration_seconds:kubelet[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (instance)"
           }
         ],
         "axesConfiguration": {
@@ -974,9 +1002,11 @@
         "id": 16,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "PLEG relist rate",
         "type": "advancedTimechart"
@@ -997,7 +1027,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "cgroup_manager_duration_seconds:kubelet"
+            "query": "cgroup_manager_duration_seconds:kubelet * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -1033,9 +1063,11 @@
         "id": 17,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Cgroup manager 99th quantile",
         "type": "advancedTimechart"
@@ -1056,7 +1088,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "pleg_relist_interval_seconds:kubelet"
+            "query": "pleg_relist_interval_seconds:kubelet * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -1092,9 +1124,11 @@
         "id": 18,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "PLEG relist interval",
         "type": "advancedTimechart"
@@ -1115,7 +1149,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "pleg_relist_duration_seconds:kubelet"
+            "query": "pleg_relist_duration_seconds:kubelet * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -1151,9 +1185,11 @@
         "id": 19,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "PLEG relist duration",
         "type": "advancedTimechart"
@@ -1174,7 +1210,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"2..\"}[$__interval]))"
+            "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"2..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
           },
           {
             "displayInfo": {
@@ -1190,7 +1226,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"3..\"}[$__interval]))"
+            "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"3..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
           },
           {
             "displayInfo": {
@@ -1206,7 +1242,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"4..\"}[$__interval]))"
+            "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"4..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
           },
           {
             "displayInfo": {
@@ -1222,7 +1258,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"5..\"}[$__interval]))"
+            "query": "sum(rate(rest_client_requests_total_code:kubelet{code=~\"5..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
           }
         ],
         "axesConfiguration": {
@@ -1258,9 +1294,11 @@
         "id": 20,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "RPC Rate",
         "type": "advancedTimechart"
@@ -1281,7 +1319,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "request_duration_seconds:kubelet"
+            "query": "request_duration_seconds:kubelet * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -1317,9 +1355,11 @@
         "id": 21,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Request duration 99th quantile",
         "type": "advancedTimechart"
@@ -1340,7 +1380,7 @@
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "process_resident_memory_bytes:kubernetes{job=\"kubelet\"}"
+            "query": "process_resident_memory_bytes:kubernetes{job=\"kubelet\"} * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -1376,9 +1416,11 @@
         "id": 22,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Memory",
         "type": "advancedTimechart"
@@ -1399,7 +1441,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"kubelet\"}[$__interval])"
+            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"kubelet\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -1435,9 +1477,11 @@
         "id": 23,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "CPU usage",
         "type": "advancedTimechart"
@@ -1458,7 +1502,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "go_goroutines:kubernetes{job=\"kubelet\"}"
+            "query": "go_goroutines:kubernetes{job=\"kubelet\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -1494,9 +1538,11 @@
         "id": 24,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Goroutines",
         "type": "advancedTimechart"
@@ -1511,11 +1557,11 @@
           "canGroupBy": true,
           "canMonitor": false,
           "category": "kubernetes",
-          "createdAt": 1590594984616,
+          "createdAt": 1600966394050,
           "customerId": 25008,
           "deferred": false,
           "documentId": "25008--6139949314852700299",
-          "documentTimestamp": 1590594984616,
+          "documentTimestamp": 1600966394050,
           "documentType": "metric",
           "experimental": false,
           "firstSeen": 1583235308502,
@@ -1553,7 +1599,7 @@
             "id": "kubernetes.cluster.name",
             "identity": false,
             "label": true,
-            "lastSeen": 1590592267419,
+            "lastSeen": 1600962907945,
             "max": false,
             "metricType": "none",
             "min": false,
@@ -1581,7 +1627,7 @@
           "hidden": false,
           "id": "kubernetes.cluster.name",
           "identity": false,
-          "lastSeen": 1590592267419,
+          "lastSeen": 1600962907945,
           "metricType": "tag",
           "namespaces": [
             "kubernetes.cluster"
@@ -1601,14 +1647,12 @@
           ],
           "type": "string"
         },
-        "displayName": "",
-        "isVariable": false,
+        "displayName": "cluster",
+        "isVariable": true,
         "operand": "kubernetes.cluster.name",
         "operator": "in",
-        "value": [
-          "default"
-        ],
-        "variable": false
+        "value": [],
+        "variable": true
       }
     ]
   }

@@ -244,11 +244,11 @@ spec:
         "record": "workqueue_queue_duration_seconds_bucket:kubernetes_control_manager"
         "labels":
           "sysdig": "true"
-      - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job=~"kube-controller-manager", verb="POST"}[5m])) by (verb, url, le))
+      - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job=~"api", verb="POST"}[5m])) by (verb, url, le))
         "record": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:post"
         "labels":
           "sysdig": "true"
-      - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job=~"kube-controller-manager", verb="GET"}[5m])) by (verb, url, le))
+      - "expr": histogram_quantile(0.99, sum(rate(rest_client_request_latency_seconds_bucket{job=~"api", verb="GET"}[5m])) by (verb, url, le))
         "record": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:get"
         "labels":
           "sysdig": "true"
@@ -344,7 +344,7 @@ spec:
         "labels":
           "sysdig": "true"
       - "expr": |
-          sum by (grpc_type,grpc_code)(grpc_server_handled_total)
+          sum by (grpc_type,grpc_code,grpc_service)(grpc_server_handled_total)
         "record": "grpc_server_handled_total:sysdig"
         "labels":
           "sysdig": "true"

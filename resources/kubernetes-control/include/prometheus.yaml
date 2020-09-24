@@ -216,7 +216,7 @@ scrape_configs:
     - __meta_kubernetes_namespace
     - __meta_kubernetes_pod_name
     separator: '/'
-    regex: 'monitoring/prometheus-kube-state-metrics.+'
+    regex: 'monitoring/prometheus-controlplane-kube-state-metrics.+'
   - source_labels:
     - __address__
     action: replace
@@ -271,8 +271,8 @@ scrape_configs:
     replacement: $1:4001
   tls_config:
     insecure_skip_verify: true
-    cert_file: /opt/draios/kubernetes/prometheus/secrets/ca.crt
-    key_file: /opt/draios/kubernetes/prometheus/secrets/ca.key
+    cert_file: /opt/draios/kubernetes/prometheus/secrets/etcd-clients-ca.crt
+    key_file: /opt/draios/kubernetes/prometheus/secrets/etcd-clients-ca.key
 - job_name: kube-dns
   honor_labels: true
   kubernetes_sd_configs:
