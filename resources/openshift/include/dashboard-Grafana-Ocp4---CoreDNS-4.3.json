@@ -43,7 +43,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1599754070723,
+  "iteration": 1600253242096,
   "links": [],
   "panels": [
     {
@@ -113,7 +113,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(up:kubernetes{job=\"kube-dns\"})",
+          "expr": "sum(up:kubernetes{job=\"dns-default\"})",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -201,7 +201,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(coredns_panic_count_total:sysdig{job=\"kube-dns\"})",
+          "expr": "sum(coredns_panic_count_total:sysdig{job=\"dns-default\"})",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -273,7 +273,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(coredns_dns_response_rcode_count_total:sysdig{job=\"kube-dns\",pod=~\"$instance\"}[5m])) by (rcode)",
+          "expr": "sum(rate(coredns_dns_response_rcode_count_total:sysdig{job=\"dns-default\",pod=~\"$instance\"}[5m])) by (rcode)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -281,7 +281,7 @@
           "refId": "A"
         },
         {
-          "expr": "sum(rate(coredns_forward_response_rcode_count_total:sysdig{job=\"kube-dns\",pod=~\"$instance\"}[5m])) by (rcode)",
+          "expr": "sum(rate(coredns_forward_response_rcode_count_total:sysdig{job=\"dns-default\",pod=~\"$instance\"}[5m])) by (rcode)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -381,7 +381,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "histogram_quantile(0.99, sum(rate(coredns_dns_request_duration_seconds_bucket:sysdig{job=\"kube-dns\",pod=~\"$instance\"}[5m])) by (server, zone, le))",
+          "expr": "histogram_quantile(0.99, sum(rate(coredns_dns_request_duration_seconds_bucket:sysdig{job=\"dns-default\",pod=~\"$instance\"}[5m])) by (server, zone, le))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -389,7 +389,7 @@
           "refId": "A"
         },
         {
-          "expr": "histogram_quantile(0.99, sum(rate(coredns_forward_request_duration_seconds_bucket:sysdig{job=\"kube-dns\",pod=~\"$instance\"}[5m])) by (to, le))",
+          "expr": "histogram_quantile(0.99, sum(rate(coredns_forward_request_duration_seconds_bucket:sysdig{job=\"dns-default\",pod=~\"$instance\"}[5m])) by (to, le))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -489,7 +489,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(coredns_dns_request_type_count_total:sysdig{job=\"kube-dns\",pod=~\"$instance\"}[5m])) by (type)",
+          "expr": "sum(rate(coredns_dns_request_type_count_total:sysdig{job=\"dns-default\",pod=~\"$instance\"}[5m])) by (type)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -589,7 +589,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(coredns_dns_request_type_count_total:sysdig{job=\"kube-dns\",pod=~\"$instance\"}[5m])) by (zone)",
+          "expr": "sum(rate(coredns_dns_request_type_count_total:sysdig{job=\"dns-default\",pod=~\"$instance\"}[5m])) by (zone)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -689,7 +689,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(coredns_forward_request_count_total:sysdig{job=\"kube-dns\",pod=~\"$instance\"}[5m])) by (to)",
+          "expr": "sum(rate(coredns_forward_request_count_total:sysdig{job=\"dns-default\",pod=~\"$instance\"}[5m])) by (to)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -805,7 +805,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(coredns_cache_hits_total:sysdig{job=\"kube-dns\",pod=~\"$instance\"}) / (sum(coredns_cache_misses_total:sysdig{job=\"kube-dns\",pod=~\"$instance\"}) + sum(coredns_cache_hits_total:sysdig{job=\"kube-dns\",pod=~\"$instance\"}))",
+          "expr": "sum(coredns_cache_hits_total:sysdig{job=\"dns-default\",pod=~\"$instance\"}) / (sum(coredns_cache_misses_total:sysdig{job=\"dns-default\",pod=~\"$instance\"}) + sum(coredns_cache_hits_total:sysdig{job=\"dns-default\",pod=~\"$instance\"}))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -877,7 +877,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(coredns_cache_hits_total:sysdig{job=\"kube-dns\",pod=~\"$instance\"}[5m])) by (type)",
+          "expr": "sum(rate(coredns_cache_hits_total:sysdig{job=\"dns-default\",pod=~\"$instance\"}[5m])) by (type)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -885,7 +885,7 @@
           "refId": "A"
         },
         {
-          "expr": "sum(rate(coredns_cache_misses_total:sysdig{job=\"kube-dns\",pod=~\"$instance\"}[5m]))",
+          "expr": "sum(rate(coredns_cache_misses_total:sysdig{job=\"dns-default\",pod=~\"$instance\"}[5m]))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -985,7 +985,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(coredns_cache_size:sysdig{job=\"kube-dns\",pod=~\"$instance\"}) by (type)",
+          "expr": "sum(coredns_cache_size:sysdig{job=\"dns-default\",pod=~\"$instance\"}) by (type)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -1101,7 +1101,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "count(sum(coredns_plugin_enabled:sysdig{job=\"kube-dns\",pod=~\"$instance\"}) by (name))",
+          "expr": "count(sum(coredns_plugin_enabled:sysdig{job=\"dns-default\",pod=~\"$instance\"}) by (name))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -1173,7 +1173,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "histogram_quantile(0.99, sum(rate(coredns_dns_request_size_bytes_bucket:sysdig{job=\"kube-dns\",pod=~\"$instance\"}[5m])) by (server, zone, proto, le))",
+          "expr": "histogram_quantile(0.99, sum(rate(coredns_dns_request_size_bytes_bucket:sysdig{job=\"dns-default\",pod=~\"$instance\"}[5m])) by (server, zone, proto, le))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -1181,7 +1181,7 @@
           "refId": "A"
         },
         {
-          "expr": "histogram_quantile(0.50, sum(rate(coredns_dns_request_size_bytes_bucket:sysdig{job=\"kube-dns\",pod=~\"$instance\"}[5m])) by (server, zone, proto, le))",
+          "expr": "histogram_quantile(0.50, sum(rate(coredns_dns_request_size_bytes_bucket:sysdig{job=\"dns-default\",pod=~\"$instance\"}[5m])) by (server, zone, proto, le))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -1281,7 +1281,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "histogram_quantile(0.99, sum(rate(coredns_dns_response_size_bytes_bucket:sysdig{job=\"kube-dns\",pod=~\"$instance\"}[5m])) by (server, zone, proto, le))",
+          "expr": "histogram_quantile(0.99, sum(rate(coredns_dns_response_size_bytes_bucket:sysdig{job=\"dns-default\",pod=~\"$instance\"}[5m])) by (server, zone, proto, le))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -1289,7 +1289,7 @@
           "refId": "A"
         },
         {
-          "expr": "histogram_quantile(0.50, sum(rate(coredns_dns_response_size_bytes_bucket:sysdig{job=\"kube-dns\",pod=~\"$instance\"}[5m])) by (server, zone, proto, le))",
+          "expr": "histogram_quantile(0.50, sum(rate(coredns_dns_response_size_bytes_bucket:sysdig{job=\"dns-default\",pod=~\"$instance\"}[5m])) by (server, zone, proto, le))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -1389,7 +1389,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "process_resident_memory_bytes:kubernetes{job=\"kube-dns\",pod=~\"$instance\"}",
+          "expr": "process_resident_memory_bytes:kubernetes{job=\"dns-default\",pod=~\"$instance\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -1489,7 +1489,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(process_cpu_seconds_total:kubernetes{job=\"kube-dns\",pod=~\"$instance\"}[5m])",
+          "expr": "rate(process_cpu_seconds_total:kubernetes{job=\"dns-default\",pod=~\"$instance\"}[5m])",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -1589,7 +1589,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "go_goroutines:kubernetes{job=\"kube-dns\",pod=~\"$instance\"}",
+          "expr": "go_goroutines:kubernetes{job=\"dns-default\",pod=~\"$instance\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -1670,14 +1670,14 @@
         "allValue": null,
         "current": {},
         "datasource": "$datasource",
-        "definition": "label_values(coredns_dns_response_rcode_count_total:sysdig{job=\"kube-dns\"}, pod)",
+        "definition": "label_values(coredns_dns_response_rcode_count_total:sysdig{job=\"dns-default\"}, pod)",
         "hide": 0,
         "includeAll": true,
         "label": null,
         "multi": false,
         "name": "instance",
         "options": [],
-        "query": "label_values(coredns_dns_response_rcode_count_total:sysdig{job=\"kube-dns\"}, pod)",
+        "query": "label_values(coredns_dns_response_rcode_count_total:sysdig{job=\"dns-default\"}, pod)",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -1719,7 +1719,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "CoreDNS",
-  "uid": "thael1rie7ohG6OY3eMeisahtee2iGoo1gooGhuu",
-  "version": 2
+  "title": "CoreDNS-ocp4",
+  "uid": "GWXjOFOMz",
+  "version": 5
 }

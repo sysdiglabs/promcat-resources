@@ -1,6 +1,16 @@
 {
   "dashboard": {
     "description": "",
+    "eventDisplaySettings": {
+      "enabled": true,
+      "queryParams": {
+        "alertStatuses": [],
+        "categories": [],
+        "filter": "",
+        "severities": [],
+        "teamScope": false
+      }
+    },
     "layout": [
       {
         "h": 3,
@@ -73,7 +83,7 @@
         "y": 0
       }
     ],
-    "name": "Oc4 / Controller Manager",
+    "name": "Ocp4 / Controller Manager",
     "panels": [
       {
         "advancedQueries": [
@@ -91,7 +101,7 @@
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "process_resident_memory_bytes:kubernetes{job=\"controller-manager\"}"
+            "query": "process_resident_memory_bytes:kubernetes{job=\"controller-manager\"} * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -127,9 +137,11 @@
         "id": 1,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Memory",
         "type": "advancedTimechart"
@@ -150,7 +162,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"controller-manager\"}[$__interval])"
+            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"controller-manager\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -186,9 +198,11 @@
         "id": 2,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "CPU usage",
         "type": "advancedTimechart"
@@ -209,7 +223,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "go_goroutines:kubernetes{job=\"controller-manager\"}"
+            "query": "go_goroutines:kubernetes{job=\"controller-manager\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -245,9 +259,11 @@
         "id": 3,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Goroutines",
         "type": "advancedTimechart"
@@ -268,7 +284,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:get"
+            "query": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:get * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -304,9 +320,11 @@
         "id": 4,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Get Request Latency 99th Quantile",
         "type": "advancedTimechart"
@@ -327,7 +345,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"2..\"}[$__interval]))"
+            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"2..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
           },
           {
             "displayInfo": {
@@ -343,7 +361,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"3..\"}[$__interval]))"
+            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"3..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
           },
           {
             "displayInfo": {
@@ -359,7 +377,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"4..\"}[$__interval]))"
+            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"4..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
           },
           {
             "displayInfo": {
@@ -375,7 +393,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"5..\"}[$__interval]))"
+            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"5..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
           }
         ],
         "axesConfiguration": {
@@ -411,9 +429,11 @@
         "id": 5,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Kube API Request Rate",
         "type": "advancedTimechart"
@@ -434,7 +454,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:post"
+            "query": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:post * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -470,9 +490,11 @@
         "id": 6,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Post Request Latency 99th Quantile",
         "type": "advancedTimechart"
@@ -493,7 +515,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "workqueue_queue_duration_seconds_bucket:kubernetes_apiservers"
+            "query": "workqueue_queue_duration_seconds_bucket:kubernetes_apiservers * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -529,9 +551,11 @@
         "id": 7,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Work Queue Latency",
         "type": "advancedTimechart"
@@ -552,7 +576,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(workqueue_depth:kubernetes_control_manager[$__interval])) by (instance, name)"
+            "query": "sum(rate(workqueue_depth:kubernetes_control_manager[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (instance, name)"
           }
         ],
         "axesConfiguration": {
@@ -588,9 +612,11 @@
         "id": 8,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Work Queue Depth",
         "type": "advancedTimechart"
@@ -611,7 +637,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(workqueue_adds_total:kubernetes_control_manager[$__interval])) by (instance, name)"
+            "query": "sum(rate(workqueue_adds_total:kubernetes_control_manager[$__interval]) * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (instance, name)"
           }
         ],
         "axesConfiguration": {
@@ -647,9 +673,11 @@
         "id": 9,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Work Queue Add Rate",
         "type": "advancedTimechart"
@@ -670,7 +698,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(up:controllermanager{job=\"kube-controller-manager\"})"
+            "query": "sum(up:controllermanager{job=\"kube-controller-manager\"} * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
           }
         ],
         "description": "",
@@ -687,6 +715,111 @@
       }
     ],
     "schema": 3,
-    "scopeExpressionList": []
+    "scopeExpressionList": [
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "category": "kubernetes",
+          "createdAt": 1600966392196,
+          "customerId": 25008,
+          "deferred": false,
+          "documentId": "25008--6139949314852700299",
+          "documentTimestamp": 1600966392196,
+          "documentType": "metric",
+          "experimental": false,
+          "firstSeen": 1583235308502,
+          "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+          "generator": {
+            "aggregationForGroup": "none",
+            "aggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "avg": false,
+            "canCalculate": false,
+            "canFilter": true,
+            "canGroupBy": true,
+            "canMonitor": false,
+            "category": "kubernetes",
+            "concat": false,
+            "context": [
+              "container"
+            ],
+            "count": false,
+            "countDistinct": false,
+            "deferred": false,
+            "experimental": false,
+            "firstSeen": 1583235308502,
+            "groupAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "groupBy": [],
+            "heuristic": false,
+            "hidden": false,
+            "id": "kubernetes.cluster.name",
+            "identity": false,
+            "label": true,
+            "lastSeen": 1600962907945,
+            "max": false,
+            "metricType": "none",
+            "min": false,
+            "namespaces": [
+              "kubernetes.cluster"
+            ],
+            "rateOfChange": false,
+            "scale": 1.0,
+            "scopes": [],
+            "sum": false,
+            "timeAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "timeAvg": false,
+            "type": "string"
+          },
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.cluster.name",
+          "identity": false,
+          "lastSeen": 1600962907945,
+          "metricType": "tag",
+          "namespaces": [
+            "kubernetes.cluster"
+          ],
+          "routingInfo": {
+            "customerId": 25008,
+            "routing": "25008"
+          },
+          "scale": 1.0,
+          "scopes": [],
+          "segment": false,
+          "segmentations": [],
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "cluster",
+        "isVariable": true,
+        "operand": "kubernetes.cluster.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      }
+    ]
   }
 }

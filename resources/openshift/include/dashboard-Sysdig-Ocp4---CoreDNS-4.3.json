@@ -125,7 +125,7 @@
         "y": 24
       }
     ],
-    "name": "Kubernetes / CoreDNS",
+    "name": "Ocp4 / CoreDNS",
     "panels": [
       {
         "advancedQueries": [
@@ -143,7 +143,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "up:kubernetes{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "count(up:kubernetes{job=\"dns-default\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
           }
         ],
         "description": "",
@@ -174,7 +174,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "coredns_panic_count_total:sysdig{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "count(coredns_panic_count_total:sysdig{job=\"dns-default\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
           }
         ],
         "description": "",
@@ -205,7 +205,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(coredns_forward_response_rcode_count_total:sysdig{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (rcode)"
+            "query": "sum(rate(coredns_forward_response_rcode_count_total:sysdig{job=\"dns-default\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (rcode)"
           },
           {
             "displayInfo": {
@@ -221,7 +221,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(coredns_dns_response_rcode_count_total:sysdig{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (rcode)"
+            "query": "sum(rate(coredns_dns_response_rcode_count_total:sysdig{job=\"dns-default\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (rcode)"
           }
         ],
         "axesConfiguration": {
@@ -282,7 +282,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "(sum(rate(coredns_dns_request_type_count_total:sysdig{job=\"kube-dns\"}[$__interval]) * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (type))"
+            "query": "(sum(rate(coredns_dns_request_type_count_total:sysdig{job=\"dns-default\"}[$__interval]) * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (type))"
           }
         ],
         "axesConfiguration": {
@@ -343,7 +343,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "histogram_quantile(0.99, sum(rate(coredns_dns_request_duration_seconds_bucket:sysdig{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (server, zone, le))"
+            "query": "histogram_quantile(0.99, sum(rate(coredns_dns_request_duration_seconds_bucket:sysdig{job=\"dns-default\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (server, zone, le))"
           },
           {
             "displayInfo": {
@@ -359,7 +359,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "histogram_quantile(0.99, sum(rate(coredns_forward_request_duration_seconds_bucket:sysdig{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (to, le))"
+            "query": "histogram_quantile(0.99, sum(rate(coredns_forward_request_duration_seconds_bucket:sysdig{job=\"dns-default\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (to, le))"
           }
         ],
         "axesConfiguration": {
@@ -420,7 +420,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "(sum(rate(coredns_dns_request_type_count_total:sysdig{job=\"kube-dns\"}[$__interval]) * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (zone))"
+            "query": "(sum(rate(coredns_dns_request_type_count_total:sysdig{job=\"dns-default\"}[$__interval]) * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (zone))"
           }
         ],
         "axesConfiguration": {
@@ -481,7 +481,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "(sum(rate(coredns_forward_request_count_total:sysdig{job=\"kube-dns\"}[$__interval]) * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (to))"
+            "query": "(sum(rate(coredns_forward_request_count_total:sysdig{job=\"dns-default\"}[$__interval]) * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (to))"
           }
         ],
         "axesConfiguration": {
@@ -542,7 +542,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "sum(coredns_cache_hits_total:sysdig{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) / (sum(coredns_cache_misses_total:sysdig{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) + sum(coredns_cache_hits_total:sysdigƒ{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}))"
+            "query": "sum(coredns_cache_hits_total:sysdig{job=\"dns-default\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) / (sum(coredns_cache_misses_total:sysdig{job=\"dns-default\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) + sum(coredns_cache_hits_total:sysdig{job=\"dns-default\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}))"
           }
         ],
         "description": "",
@@ -573,7 +573,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(coredns_cache_hits_total:sysdig{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (type)"
+            "query": "sum(rate(coredns_cache_hits_total:sysdig{job=\"dns-default\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (type)"
           },
           {
             "displayInfo": {
@@ -589,7 +589,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(coredns_cache_misses_total:sysdig{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
+            "query": "sum(rate(coredns_cache_misses_total:sysdig{job=\"dns-default\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
           }
         ],
         "axesConfiguration": {
@@ -650,7 +650,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(coredns_cache_size:sysdig{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (type)"
+            "query": "sum(coredns_cache_size:sysdig{job=\"dns-default\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (type)"
           }
         ],
         "axesConfiguration": {
@@ -711,7 +711,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "count(sum(coredns_plugin_enabled:sysdig{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (name))"
+            "query": "count(sum(coredns_plugin_enabled:sysdig{job=\"dns-default\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (name))"
           }
         ],
         "description": "",
@@ -742,7 +742,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "histogram_quantile(0.99, sum(rate(coredns_dns_request_size_bytes_bucket:sysdig{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (server, zone, proto, le))"
+            "query": "histogram_quantile(0.99, sum(rate(coredns_dns_request_size_bytes_bucket:sysdig{job=\"dns-default\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (server, zone, proto, le))"
           },
           {
             "displayInfo": {
@@ -758,7 +758,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "histogram_quantile(0.50, sum(rate(coredns_dns_request_size_bytes_bucket:sysdig{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (server, zone, proto, le))"
+            "query": "histogram_quantile(0.50, sum(rate(coredns_dns_request_size_bytes_bucket:sysdig{job=\"dns-default\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (server, zone, proto, le))"
           }
         ],
         "axesConfiguration": {
@@ -819,7 +819,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "histogram_quantile(0.99, sum(rate(coredns_dns_response_size_bytes_bucket:sysdig{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (server, zone, proto, le))"
+            "query": "histogram_quantile(0.99, sum(rate(coredns_dns_response_size_bytes_bucket:sysdig{job=\"dns-default\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (server, zone, proto, le))"
           },
           {
             "displayInfo": {
@@ -835,7 +835,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "histogram_quantile(0.50, sum(rate(coredns_dns_response_size_bytes_bucket:sysdig{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (server, zone, proto, le))"
+            "query": "histogram_quantile(0.50, sum(rate(coredns_dns_response_size_bytes_bucket:sysdig{job=\"dns-default\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (server, zone, proto, le))"
           }
         ],
         "axesConfiguration": {
@@ -885,7 +885,7 @@
           {
             "displayInfo": {
               "displayName": "",
-              "timeSeriesDisplayNameTemplate": "",
+              "timeSeriesDisplayNameTemplate": "{{instance}}",
               "type": "lines"
             },
             "enabled": true,
@@ -896,7 +896,7 @@
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "process_resident_memory_bytes{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "process_resident_memory_bytes:kubernetes{job=\"dns-default\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -946,7 +946,7 @@
           {
             "displayInfo": {
               "displayName": "",
-              "timeSeriesDisplayNameTemplate": "",
+              "timeSeriesDisplayNameTemplate": "{{instance}}",
               "type": "lines"
             },
             "enabled": true,
@@ -957,7 +957,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "rate(process_cpu_seconds_total{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"dns-default\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -1007,7 +1007,7 @@
           {
             "displayInfo": {
               "displayName": "",
-              "timeSeriesDisplayNameTemplate": "",
+              "timeSeriesDisplayNameTemplate": "{{instance}}",
               "type": "lines"
             },
             "enabled": true,
@@ -1018,7 +1018,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "go_goroutines{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "go_goroutines:kubernetes{job=\"dns-default\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -1073,11 +1073,11 @@
           "canGroupBy": true,
           "canMonitor": false,
           "category": "kubernetes",
-          "createdAt": 1599816339843,
+          "createdAt": 1600966395730,
           "customerId": 25008,
           "deferred": false,
           "documentId": "25008--6139949314852700299",
-          "documentTimestamp": 1599816339843,
+          "documentTimestamp": 1600966395730,
           "documentType": "metric",
           "experimental": false,
           "firstSeen": 1583235308502,
@@ -1115,7 +1115,7 @@
             "id": "kubernetes.cluster.name",
             "identity": false,
             "label": true,
-            "lastSeen": 1599816262778,
+            "lastSeen": 1600962907945,
             "max": false,
             "metricType": "none",
             "min": false,
@@ -1143,7 +1143,7 @@
           "hidden": false,
           "id": "kubernetes.cluster.name",
           "identity": false,
-          "lastSeen": 1599816262778,
+          "lastSeen": 1600962907945,
           "metricType": "tag",
           "namespaces": [
             "kubernetes.cluster"
