@@ -1,0 +1,134 @@
+apiVersion: v1
+kind: Alert
+app: AWS SQS
+version: 1.0.0
+appVersion:
+- 1.0.0
+configurations:
+- kind: Prometheus
+  data: |
+    - alert: HighNumberOfMessagesInQueue
+      expr: |
+        (aws_sqs_approximate_number_of_messages_delayed_average +
+          aws_sqs_approximate_number_of_messages_not_visible_average +
+          aws_sqs_approximate_number_of_messages_visible_average)
+        > 100
+      for: 30m
+      labels:
+        severity: warning
+      annotations:
+        summary: High number of messages for a long time in queue {{$labels.dimension_QueueName}}
+- kind: Prometheus
+  data: |
+    - alert: HighLatencyInQueue
+      expr: |
+        aws_sqs_approximate_age_of_oldest_message_maximum > 300
+      for: 30m
+      labels:
+        severity: page
+      annotations:
+        summary: High latency in queue {{$labels.dimension_QueueName}}
+- kind: Prometheus
+  data: |
+    - alert: RecurringEmptyReceives
+      expr: |
+        aws_sqs_number_of_empty_receives_sum > 0
+      for: 120m
+      labels:
+        severity: warning
+      annotations:
+        summary: Recurring empty receives in queue {{$labels.dimension_QueueName}}
+- kind: Prometheus
+  data: |
+    - alert: MessageReceivedInDeadLetterQueue
+      expr: |
+        aws_sqs_number_of_messages_sent_sum{dimension_QueueName=~"dead-letter-.+"} > 0
+      labels:
+        severity: page
+      annotations:
+        summary: Message received in dead-letter queue {{$labels.dimension_QueueName}}
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "(aws_sqs_approximate_number_of_messages_delayed_average + \n  aws_sqs_approximate_number_of_messages_not_visible_average + \n  aws_sqs_approximate_number_of_messages_visible_average) \n> 100\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "HighNumberOfMessagesInQueue",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 30,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "aws_sqs_approximate_age_of_oldest_message_maximum > 300\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "HighLatencyInQueue",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 30,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "aws_sqs_number_of_empty_receives_sum > 0\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "RecurringEmptyReceives",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 120,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "aws_sqs_number_of_messages_sent_sum{dimension_QueueName=~\"dead-letter-.+\"} > 0\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "MessageReceivedInDeadLetterQueue",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 0,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+descriptionFile: ALERTS.md
