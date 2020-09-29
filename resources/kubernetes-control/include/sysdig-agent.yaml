@@ -22,19 +22,6 @@ data:
       - tags:
           namespace: monitoring
           statefulset: prometheus-controlplane-server
-    - job_name: 'coreDNS' # config for federation
-      honor_labels: true
-      metrics_path: '/federate'
-      metric_relabel_configs:
-      - regex: 'kubernetes_pod_name'
-        action: labeldrop
-      params:
-        'match[]':
-          - '{job="kube-dns"}'
-      sysdig_sd_configs:
-      - tags:
-          namespace: monitoring
-          statefulset: prometheus-controlplane-server
   dragent.yaml: |-
     metrics_excess_log: true
     use_promscrape: true

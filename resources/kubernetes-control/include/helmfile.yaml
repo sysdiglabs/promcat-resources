@@ -1,10 +1,10 @@
 repositories:
-  - name: stable
-    url: https://kubernetes-charts.storage.googleapis.com
+  - name: prometheus-community
+    url: https://prometheus-community.github.io/helm-charts
 releases:
   - name: prometheus-controlplane
     namespace: monitoring
-    chart: stable/prometheus
+    chart: prometheus-community/prometheus
     atomic: true
     values:
       - prometheus.yml.gotmpl
