@@ -1,0 +1,178 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: database
+  namespace: database-namespace
+  labels:
+    app: database
+    version: 12.1.0.2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: database
+      version: 12.1.0.2
+  template:
+    metadata:
+      name: database
+      labels:
+        app: database
+        version: 12.1.0.2
+    spec:
+      volumes:
+      - name: dshm
+        emptyDir:
+          medium: Memory
+      # add your volume mount for your persistent storage here
+      containers:
+      - name: database
+        command:
+        - /home/oracle/setup/dockerInit.sh
+        image: container-registry.oracle.com/database/enterprise:12.1.0.2
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: 1Gi
+        ports:
+        - containerPort: 1521
+          hostPort: 1521
+        volumeMounts:
+          - mountPath: /dev/shm
+            name: dshm
+          # add your persistent storage for DB files here
+        env:
+          - name: DB_SID
+            value: oradoc
+          - name: DB_PDB
+            value: orapdb
+          - name: DB_PASSWD
+            value: password123
+          - name: DB_DOMAIN
+            value: my.domain.com
+          - name: DB_BUNDLE
+            value: basic
+          - name: DB_MEMORY
+            value: 8g
+      imagePullSecrets:
+      - name: regsecret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: database
+  namespace: database-namespace
+spec:
+  selector:
+    app: database
+    version: 12.1.0.2
+  ports:
+  - protocol: TCP
+    port: 1521
+    targetPort: 1521
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oracledb-exporter
+  namespace: database-namespace
+spec:
+  selector:
+    matchLabels:
+      app: oracledb-exporter
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: oracledb-exporter
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9161"
+        prometheus.io/path: "/metrics"
+    spec:
+      containers:
+      - name: oracledb-exporter
+        ports:
+        - containerPort: 9161
+        image: iamseth/oracledb_exporter
+        env:
+        - name: DATA_SOURCE_NAME
+          valueFrom:
+            secretKeyRef:
+              name: oracledb-exporter-secret
+              key: datasource
+        - name: CUSTOM_METRICS
+          value: /tmp/custom-metrics.toml
+        volumeMounts:
+          - name:  custom-metrics
+            mountPath:  /tmp/custom-metrics.toml
+            subPath: custom-metrics.toml
+      volumes:
+        - name: custom-metrics
+          configMap:
+            defaultMode: 420
+            name: custom-metrics               
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: custom-metrics
+  namespace: database-namespace
+data:
+  custom-metrics.toml: |
+    [[metric]]
+    context = "slow_queries"
+    metricsdesc = { p95_time_usecs= "Gauge metric with percentile 95 of elapsed time.", p99_time_usecs= "Gauge metric with percentile 99 of elapsed time." }
+    request = "select  percentile_disc(0.95)  within group (order by elapsed_time) as p95_time_usecs, percentile_disc(0.99)  within group (order by elapsed_time) as p99_time_usecs from v$sql where last_active_time >= sysdate - 5/(24*60)"
+
+    [[metric]]
+    context = "big_queries"
+    metricsdesc = { p95_rows= "Gauge metric with percentile 95 of returned rows.", p99_rows= "Gauge metric with percentile 99 of returned rows." }
+    request = "select  percentile_disc(0.95)  within group (order by rownum) as p95_rows, percentile_disc(0.99)  within group (order by rownum) as p99_rows from v$sql where last_active_time >= sysdate - 5/(24*60)"
+
+    [[metric]]
+    context = "size_user_segments_top100"
+    metricsdesc = {table_bytes="Gauge metric with the size of the tables in user segments."}
+    labels = ["segment_name"]
+    request = "select * from (select segment_name,sum(bytes) as table_bytes from user_segments where segment_type='TABLE' group by segment_name) order by table_bytes DESC FETCH NEXT 100 ROWS ONLY"
+
+    [[metric]]
+    context = "size_user_segments_top100"
+    metricsdesc = {table_partition_bytes="Gauge metric with the size of the table partition in user segments."}
+    labels = ["segment_name"]
+    request = "select * from (select segment_name,sum(bytes) as table_partition_bytes from user_segments where segment_type='TABLE PARTITION' group by segment_name) order by table_partition_bytes DESC FETCH NEXT 100 ROWS ONLY"
+
+    [[metric]]
+    context = "size_user_segments_top100"
+    metricsdesc = {cluster_bytes="Gauge metric with the size of the cluster in user segments."}
+    labels = ["segment_name"]
+    request = "select * from (select segment_name,sum(bytes) as cluster_bytes from user_segments where segment_type='CLUSTER' group by segment_name) order by cluster_bytes DESC FETCH NEXT 100 ROWS ONLY"
+
+    [[metric]]
+    context = "size_dba_segments_top100"
+    metricsdesc = {table_bytes="Gauge metric with the size of the tables in user segments."}
+    labels = ["segment_name"]
+    request = "select * from (select segment_name,sum(bytes) as table_bytes from dba_segments where segment_type='TABLE' group by segment_name) order by table_bytes DESC FETCH NEXT 100 ROWS ONLY"
+
+    [[metric]]
+    context = "size_dba_segments_top100"
+    metricsdesc = {table_partition_bytes="Gauge metric with the size of the table partition in user segments."}
+    labels = ["segment_name"]
+    request = "select * from (select segment_name,sum(bytes) as table_partition_bytes from dba_segments where segment_type='TABLE PARTITION' group by segment_name) order by table_partition_bytes DESC FETCH NEXT 100 ROWS ONLY"
+
+    [[metric]]
+    context = "size_dba_segments_top100"
+    metricsdesc = {cluster_bytes="Gauge metric with the size of the cluster in user segments."}
+    labels = ["segment_name"]
+    request = "select * from (select segment_name,sum(bytes) as cluster_bytes from dba_segments where segment_type='CLUSTER' group by segment_name) order by cluster_bytes DESC FETCH NEXT 100 ROWS ONLY"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name:  oracledb-exporter-secret
+  namespace: database-namespace
+data:
+    # Add here the result of: 
+    # echo -n YOUR_CONN_STRING | base64 
+    # YOUR_CONN_STRING be like: system/YOUR-PASS-FOR-SYSTEM@//database:1521/DB_SID.DB_DOMAIN
+    datasource: xxx
+type: Opaque

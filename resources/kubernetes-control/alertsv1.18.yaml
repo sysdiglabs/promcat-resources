@@ -3,7 +3,7 @@ kind: Alert
 app: Kubernetes control plane
 version: 1.0.0
 appVersion:
-- 1.14.0
+- 1.18.0
 configurations:
 - kind: Prometheus
   data: |
@@ -362,6 +362,90 @@ configurations:
       "for": "15m"
       "labels":
         "severity": "critical"
+
+    - alert: CoreDNSDown
+      annotations:
+        message: CoreDNS has disappeared from Prometheus target discovery.
+        runbook_url: https://github.com/povilasv/coredns-mixin/tree/master/runbook.md#alert-name-corednsdown
+      expr: |
+        absent(up{job="kube-dns"} == 1)
+      for: 15m
+      labels:
+        severity: critical
+
+    - alert: CoreDNSLatencyHigh
+      annotations:
+        message: CoreDNS has 99th percentile latency of {{ $value }} seconds for server
+          {{ $labels.server }} zone {{ $labels.zone }} .
+        runbook_url: https://github.com/povilasv/coredns-mixin/tree/master/runbook.md#alert-name-corednslatencyhigh
+      expr: |
+        histogram_quantile(0.99, sum(rate(coredns_dns_request_duration_seconds_bucket{job="kube-dns"}[5m])) by(server, zone, le)) > 4
+      for: 10m
+      labels:
+        severity: critical
+
+    - alert: CoreDNSErrorsHigh
+      annotations:
+        message: CoreDNS is returning SERVFAIL for {{ $value | humanizePercentage }} of
+          requests.
+        runbook_url: https://github.com/povilasv/coredns-mixin/tree/master/runbook.md#alert-name-corednserrorshigh
+      expr: |
+        sum(rate(coredns_dns_response_rcode_count_total{job="kube-dns",rcode="SERVFAIL"}[5m]))
+          /
+        sum(rate(coredns_dns_response_rcode_count_total{job="kube-dns"}[5m])) > 0.03
+      for: 10m
+      labels:
+        severity: critical
+
+    - alert: CoreDNSErrorsHigh
+      annotations:
+        message: CoreDNS is returning SERVFAIL for {{ $value | humanizePercentage }} of
+          requests.
+        runbook_url: https://github.com/povilasv/coredns-mixin/tree/master/runbook.md#alert-name-corednserrorshigh
+      expr: |
+        sum(rate(coredns_dns_response_rcode_count_total{job="kube-dns",rcode="SERVFAIL"}[5m]))
+          /
+        sum(rate(coredns_dns_response_rcode_count_total{job="kube-dns"}[5m])) > 0.01
+      for: 10m
+      labels:
+        severity: warning
+
+    - alert: CoreDNSForwardLatencyHigh
+      annotations:
+        message: CoreDNS has 99th percentile latency of {{ $value }} seconds forwarding
+          requests to {{ $labels.to }}.
+        runbook_url: https://github.com/povilasv/coredns-mixin/tree/master/runbook.md#alert-name-corednsforwardlatencyhigh
+      expr: |
+        histogram_quantile(0.99, sum(rate(coredns_forward_request_duration_seconds_bucket{job="kube-dns"}[5m])) by(to, le)) > 4
+      for: 10m
+      labels:
+        severity: critical
+
+    - alert: CoreDNSForwardErrorsHigh
+      annotations:
+        message: CoreDNS is returning SERVFAIL for {{ $value | humanizePercentage }} of
+          forward requests to {{ $labels.to }}.
+        runbook_url: https://github.com/povilasv/coredns-mixin/tree/master/runbook.md#alert-name-corednsforwarderrorshigh
+      expr: |
+        sum(rate(coredns_forward_response_rcode_count_total{job="kube-dns",rcode="SERVFAIL"}[5m]))
+          /
+        sum(rate(coredns_forward_response_rcode_count_total{job="kube-dns"}[5m])) > 0.03
+      for: 10m
+      labels:
+        severity: critical
+
+    - alert: CoreDNSForwardErrorsHigh
+      annotations:
+        message: CoreDNS is returning SERVFAIL for {{ $value | humanizePercentage }} of
+          forward requests to {{ $labels.to }}.
+        runbook_url: https://github.com/povilasv/coredns-mixin/tree/master/runbook.md#alert-name-corednsforwarderrorshigh
+      expr: |
+        sum(rate(coredns_dns_response_rcode_count_total{job="kube-dns",rcode="SERVFAIL"}[5m]))
+          /
+        sum(rate(coredns_dns_response_rcode_count_total{job="kube-dns"}[5m])) > 0.01
+      for: 10m
+      labels:
+        severity: warning
 - kind: Sysdig
   data: |-
     {
@@ -1013,4 +1097,151 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-descriptionFile: ALERTS.md
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "absent(up{job=\"kube-dns\"} == 1)\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "CoreDNSDown",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 15,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "histogram_quantile(0.99, sum(rate(coredns_dns_request_duration_seconds_bucket{job=\"kube-dns\"}[5m])) by(server, zone, le)) > 4\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "CoreDNSLatencyHigh",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum(rate(coredns_dns_response_rcode_count_total{job=\"kube-dns\",rcode=\"SERVFAIL\"}[5m]))\n  /\nsum(rate(coredns_dns_response_rcode_count_total{job=\"kube-dns\"}[5m])) > 0.03\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "CoreDNSErrorsHigh",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum(rate(coredns_dns_response_rcode_count_total{job=\"kube-dns\",rcode=\"SERVFAIL\"}[5m]))\n  /\nsum(rate(coredns_dns_response_rcode_count_total{job=\"kube-dns\"}[5m])) > 0.01\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "CoreDNSErrorsHigh",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "histogram_quantile(0.99, sum(rate(coredns_forward_request_duration_seconds_bucket{job=\"kube-dns\"}[5m])) by(to, le)) > 4\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "CoreDNSForwardLatencyHigh",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum(rate(coredns_forward_response_rcode_count_total{job=\"kube-dns\",rcode=\"SERVFAIL\"}[5m]))\n  /\nsum(rate(coredns_forward_response_rcode_count_total{job=\"kube-dns\"}[5m])) > 0.03\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "CoreDNSForwardErrorsHigh",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum(rate(coredns_dns_response_rcode_count_total{job=\"kube-dns\",rcode=\"SERVFAIL\"}[5m]))\n  /\nsum(rate(coredns_dns_response_rcode_count_total{job=\"kube-dns\"}[5m])) > 0.01\n",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "CoreDNSForwardErrorsHigh",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 10,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+descriptionFile: ALERTSv1.18.md

@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Dashboard
+app: 'Oracle Database'
+version: 1.0.0
+appVersion:
+- 12.1.0.2
+- 19.3.0.0
+configurations:
+- name: 'Oracle Database'
+  kind: Sysdig
+  image: 'oracle-db/images/oracledb-sysdig-dashboard.png'
+  description: |
+    This dashboard offers information on:
+    * UP
+    * Activity
+    * Sessions
+    * Resource usage
+    * Wait Time
+    * Slow Queries
+    * Big Queries
+    * Top DBA Tables
+    * Top DBA Table Partitions
+    * Top DBA Cluster Tables
+    * Top User Tables
+    * Top User Table Partitions
+    * Top User Cluster Tables
+  file: include/dashboard-sysdig-oracledb.json
+- name: 'Oracle Database'
+  kind: Grafana
+  image: 'oracle-db/images/oracledb-grafana-dashboard.png'
+  description: |
+    This dashboard offers information on:
+    * UP
+    * Activity
+    * Sessions
+    * Resource usage
+    * Wait Time
+    * Slow Queries
+    * Big Queries
+    * Top DBA Tables
+    * Top DBA Table Partitions
+    * Top DBA Cluster Tables
+    * Top User Tables
+    * Top User Table Partitions
+    * Top User Cluster Tables
+  file: include/dashboard-grafana-oracledb.json

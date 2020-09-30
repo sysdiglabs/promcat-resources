@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Alert
-app: cassandra
+app: 'cassandra'
 version: 1.0.0
 appVersion:
-- 3.11.6
+  - '3.11.6'
 descriptionFile: ALERTS.md
 configurations:
 - kind: Prometheus
@@ -157,7 +157,3 @@ configurations:
         "type": "PROMETHEUS"
       }
     }
-description: |+
-  # Alerts
-
-...

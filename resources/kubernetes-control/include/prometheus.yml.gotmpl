@@ -9,6 +9,9 @@ nodeExporter:
 pushgateway:
   enabled: false
 server:
+  nodeSelector:
+    kubernetes.io/role: master
+  tolerations: [{"key": "node-role.kubernetes.io/master", "effect": "NoSchedule"}]
   persistentVolume:
     size: 20Gi
   statefulSet:
