@@ -18,8 +18,6 @@ configurations:
         severity: warning
       annotations:
         summary: High number of messages for a long time in queue {{$labels.dimension_QueueName}}
-- kind: Prometheus
-  data: |
     - alert: HighLatencyInQueue
       expr: |
         aws_sqs_approximate_age_of_oldest_message_maximum > 300
@@ -28,8 +26,6 @@ configurations:
         severity: page
       annotations:
         summary: High latency in queue {{$labels.dimension_QueueName}}
-- kind: Prometheus
-  data: |
     - alert: RecurringEmptyReceives
       expr: |
         aws_sqs_number_of_empty_receives_sum > 0
@@ -38,8 +34,6 @@ configurations:
         severity: warning
       annotations:
         summary: Recurring empty receives in queue {{$labels.dimension_QueueName}}
-- kind: Prometheus
-  data: |
     - alert: MessageReceivedInDeadLetterQueue
       expr: |
         aws_sqs_number_of_messages_sent_sum{dimension_QueueName=~"dead-letter-.+"} > 0
