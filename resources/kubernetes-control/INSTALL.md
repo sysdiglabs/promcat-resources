@@ -1,5 +1,5 @@
 # Prerequisites
-Kubernetes generates a high number of metrics for the control plane. As the Sysdig Agent has a limit of timesieres that can send to Sysdig Monitor, you have to deploy a Prometheus server and create the recording rules that we provide. This way, we will filter only the metrics that we need.
+Kubernetes generates a high number of metrics for the control plane. As the Sysdig Agent has a limit of time-series that can send to Sysdig Monitor, you have to deploy a Prometheus server and create the recording rules that we provide. This way, we will filter only the metrics that we need.
 
 To deploy a Prometheus server you will need:
 * [helm](https://helm.sh/docs/intro/install/)  
