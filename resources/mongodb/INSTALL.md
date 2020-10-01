@@ -41,6 +41,13 @@ mongodb:
 Note that the _mongodb.uri_ parameter is a valid [MongoDB URI](https://docs.mongodb.com/manual/reference/connection-string/).
 In this URI, include the user and password of the exporter. The Helm chart will create a Kubernetes Secret with the URI so it is not visible. 
 
+To install the exporter, run the helm install command:
+```
+helm install -n default \
+  -f values.yaml \
+  mongo-exporter stable/prometheus-mongodb-exporter
+```
+
 The metrics will be available in the port 9216 of the exporter pod.
 
 # SYSDIG AGENT CONFIGURATION
