@@ -19,3 +19,5 @@ For further information, consult [HAProxy Kubernetes ingress controller](https:/
 
 # Attributions
 Configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
+
+Using [HAProxy Kubernetes ingress controller](https://github.com/haproxytech/kubernetes-ingress) with Apache 2.0 license.
