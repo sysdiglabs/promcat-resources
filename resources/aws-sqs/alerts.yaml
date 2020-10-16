@@ -37,6 +37,7 @@ configurations:
     - alert: MessageReceivedInDeadLetterQueue
       expr: |
         aws_sqs_number_of_messages_sent_sum{dimension_QueueName=~"dead-letter-.+"} > 0
+      for: 120m
       labels:
         severity: page
       annotations:
@@ -117,7 +118,7 @@ configurations:
         "name": "MessageReceivedInDeadLetterQueue",
         "rateOfChange": false,
         "reNotify": false,
-        "reNotifyMinutes": 0,
+        "reNotifyMinutes": 120,
         "severity": 4,
         "severityLabel": "LOW",
         "severityLevel": null,
