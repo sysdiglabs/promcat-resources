@@ -317,102 +317,12 @@
                   "canGroupBy": false,
                   "canMonitor": false,
                   "category": "prometheus",
-                  "createdAt": 1588245270376,
-                  "customerId": 995,
                   "deferred": false,
-                  "documentId": "995--2234027315381673292",
-                  "documentTimestamp": 1588245270376,
+                  "documentId": "windows_net_bytes_total",
+                  "documentTimestamp": 1603184789700,
                   "documentType": "metric",
                   "experimental": false,
-                  "firstSeen": 1588109574313,
                   "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
-                  "generator": {
-                    "aggregationForGroup": "avg",
-                    "aggregations": [
-                      "sum",
-                      "avg",
-                      "max",
-                      "min"
-                    ],
-                    "avg": true,
-                    "canCalculate": false,
-                    "canFilter": false,
-                    "canGroupBy": false,
-                    "canMonitor": false,
-                    "category": "prometheus",
-                    "concat": false,
-                    "context": [],
-                    "count": false,
-                    "countDistinct": false,
-                    "deferred": false,
-                    "experimental": false,
-                    "firstSeen": 1588109574313,
-                    "groupAggregations": [
-                      "avg",
-                      "sum",
-                      "min",
-                      "max"
-                    ],
-                    "groupBy": [
-                      "instance",
-                      "nic",
-                      "proc.commandLine",
-                      "host.mac",
-                      "container.id",
-                      "container.name",
-                      "scraping_node",
-                      "proc.name",
-                      "cloudProvider.tag",
-                      "host.hostName",
-                      "agent.tag",
-                      "container.image",
-                      "job",
-                      "container.label"
-                    ],
-                    "heuristic": false,
-                    "hidden": false,
-                    "id": "windows_net_bytes_total",
-                    "identity": false,
-                    "label": false,
-                    "lastSeen": 1588243914199,
-                    "max": true,
-                    "metricType": "counter",
-                    "min": true,
-                    "name": "windows_net_bytes_total",
-                    "namespaces": [
-                      "host",
-                      "host.process",
-                      "host.container",
-                      "cloudProvider",
-                      "mesos",
-                      "ecs",
-                      "kubernetes.cluster",
-                      "kubernetes.namespace",
-                      "kubernetes.deployment",
-                      "kubernetes.job",
-                      "kubernetes.daemonSet",
-                      "kubernetes.service",
-                      "kubernetes.node",
-                      "kubernetes.replicaSet",
-                      "kubernetes.statefulSet",
-                      "kubernetes.resourcequota",
-                      "kubernetes.persistentvolume",
-                      "kubernetes.persistentvolumeclaim",
-                      "kubernetes.pod"
-                    ],
-                    "rateOfChange": false,
-                    "scale": 1.0,
-                    "scopes": [],
-                    "sum": true,
-                    "timeAggregations": [
-                      "avg",
-                      "sum",
-                      "min",
-                      "max"
-                    ],
-                    "timeAvg": false,
-                    "type": "byte"
-                  },
                   "groupAggregations": [
                     "avg",
                     "sum",
@@ -423,7 +333,6 @@
                   "hidden": false,
                   "id": "windows_net_bytes_total",
                   "identity": false,
-                  "lastSeen": 1588243914199,
                   "metricType": "counter",
                   "name": "windows_net_bytes_total",
                   "namespaces": [
@@ -447,34 +356,12 @@
                     "kubernetes.persistentvolumeclaim",
                     "kubernetes.pod"
                   ],
-                  "routingInfo": {
-                    "customerId": 995,
-                    "routing": "995"
-                  },
                   "scale": 1.0,
                   "scopes": [],
                   "segment": false,
-                  "segmentations": [
-                    "agent.tag",
-                    "cloudProvider.tag",
-                    "container.id",
-                    "container.image",
-                    "container.label",
-                    "container.name",
-                    "host.hostName",
-                    "host.mac",
-                    "instance",
-                    "job",
-                    "nic",
-                    "proc.commandLine",
-                    "proc.name",
-                    "scraping_node"
-                  ],
                   "timeAggregations": [
-                    "avg",
-                    "sum",
-                    "min",
-                    "max"
+                    "timeAvg",
+                    "sum"
                   ],
                   "type": "byte"
                 },
@@ -485,274 +372,14 @@
               }
             ],
             "scope": {
-              "expressions": [
-                {
-                  "descriptor": {
-                    "aggregationForGroup": "none",
-                    "canFilter": true,
-                    "canGroupBy": false,
-                    "canMonitor": false,
-                    "category": "prometheus",
-                    "createdAt": 1588245270376,
-                    "customerId": 995,
-                    "deferred": false,
-                    "documentId": "995--5735739363998383830",
-                    "documentTimestamp": 1588245270376,
-                    "documentType": "metric",
-                    "experimental": false,
-                    "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
-                    "generator": {
-                      "aggregationForGroup": "none",
-                      "aggregations": [
-                        "distinct"
-                      ],
-                      "avg": false,
-                      "canCalculate": false,
-                      "canFilter": true,
-                      "canGroupBy": false,
-                      "canMonitor": false,
-                      "category": "prometheus",
-                      "concat": false,
-                      "context": [],
-                      "count": false,
-                      "countDistinct": false,
-                      "deferred": false,
-                      "experimental": false,
-                      "groupAggregations": [
-                        "concat",
-                        "distinct",
-                        "count"
-                      ],
-                      "groupBy": [],
-                      "heuristic": false,
-                      "hidden": false,
-                      "id": "instance",
-                      "identity": false,
-                      "label": true,
-                      "lastSeen": 1588245234159,
-                      "max": false,
-                      "metricType": "segmentBy",
-                      "min": false,
-                      "namespaces": [
-                        "host",
-                        "host.process",
-                        "host.container",
-                        "cloudProvider",
-                        "mesos",
-                        "ecs",
-                        "kubernetes.cluster",
-                        "kubernetes.namespace",
-                        "kubernetes.deployment",
-                        "kubernetes.job",
-                        "kubernetes.daemonSet",
-                        "kubernetes.service",
-                        "kubernetes.node",
-                        "kubernetes.replicaSet",
-                        "kubernetes.statefulSet",
-                        "kubernetes.resourcequota",
-                        "kubernetes.persistentvolume",
-                        "kubernetes.persistentvolumeclaim",
-                        "kubernetes.pod"
-                      ],
-                      "rateOfChange": false,
-                      "scale": 1.0,
-                      "scopes": [],
-                      "sum": false,
-                      "timeAggregations": [
-                        "concat",
-                        "distinct",
-                        "count"
-                      ],
-                      "timeAvg": false,
-                      "type": "string"
-                    },
-                    "groupAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "heuristic": false,
-                    "hidden": false,
-                    "id": "instance",
-                    "identity": false,
-                    "lastSeen": 1588245234159,
-                    "metricType": "tag",
-                    "namespaces": [
-                      "host",
-                      "host.process",
-                      "host.container",
-                      "cloudProvider",
-                      "mesos",
-                      "ecs",
-                      "kubernetes.cluster",
-                      "kubernetes.namespace",
-                      "kubernetes.deployment",
-                      "kubernetes.job",
-                      "kubernetes.daemonSet",
-                      "kubernetes.service",
-                      "kubernetes.node",
-                      "kubernetes.replicaSet",
-                      "kubernetes.statefulSet",
-                      "kubernetes.resourcequota",
-                      "kubernetes.persistentvolume",
-                      "kubernetes.persistentvolumeclaim",
-                      "kubernetes.pod"
-                    ],
-                    "routingInfo": {
-                      "customerId": 995,
-                      "routing": "995"
-                    },
-                    "scale": 1.0,
-                    "scopes": [],
-                    "segment": false,
-                    "segmentations": [],
-                    "timeAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "type": "string"
-                  },
-                  "displayName": "",
-                  "isVariable": false,
-                  "operand": "instance",
-                  "operator": "in",
-                  "value": [],
-                  "variable": false
-                }
-              ],
+              "expressions": [],
               "extendsDashboardScope": true
             },
             "segmentation": {
               "direction": "desc",
               "labels": [
                 {
-                  "descriptor": {
-                    "aggregationForGroup": "none",
-                    "canFilter": true,
-                    "canGroupBy": false,
-                    "canMonitor": false,
-                    "category": "prometheus",
-                    "createdAt": 1588245270376,
-                    "customerId": 995,
-                    "deferred": false,
-                    "documentId": "995--7628529364506768192",
-                    "documentTimestamp": 1588245270376,
-                    "documentType": "metric",
-                    "experimental": false,
-                    "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
-                    "generator": {
-                      "aggregationForGroup": "none",
-                      "aggregations": [
-                        "distinct"
-                      ],
-                      "avg": false,
-                      "canCalculate": false,
-                      "canFilter": true,
-                      "canGroupBy": false,
-                      "canMonitor": false,
-                      "category": "prometheus",
-                      "concat": false,
-                      "context": [],
-                      "count": false,
-                      "countDistinct": false,
-                      "deferred": false,
-                      "experimental": false,
-                      "groupAggregations": [
-                        "concat",
-                        "distinct",
-                        "count"
-                      ],
-                      "groupBy": [],
-                      "heuristic": false,
-                      "hidden": false,
-                      "id": "nic",
-                      "identity": false,
-                      "label": true,
-                      "lastSeen": 1588243914199,
-                      "max": false,
-                      "metricType": "segmentBy",
-                      "min": false,
-                      "namespaces": [
-                        "host",
-                        "host.process",
-                        "host.container",
-                        "cloudProvider",
-                        "mesos",
-                        "ecs",
-                        "kubernetes.cluster",
-                        "kubernetes.namespace",
-                        "kubernetes.deployment",
-                        "kubernetes.job",
-                        "kubernetes.daemonSet",
-                        "kubernetes.service",
-                        "kubernetes.node",
-                        "kubernetes.replicaSet",
-                        "kubernetes.statefulSet",
-                        "kubernetes.resourcequota",
-                        "kubernetes.persistentvolume",
-                        "kubernetes.persistentvolumeclaim",
-                        "kubernetes.pod"
-                      ],
-                      "rateOfChange": false,
-                      "scale": 1.0,
-                      "scopes": [],
-                      "sum": false,
-                      "timeAggregations": [
-                        "concat",
-                        "distinct",
-                        "count"
-                      ],
-                      "timeAvg": false,
-                      "type": "string"
-                    },
-                    "groupAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "heuristic": false,
-                    "hidden": false,
-                    "id": "nic",
-                    "identity": false,
-                    "lastSeen": 1588243914199,
-                    "metricType": "tag",
-                    "namespaces": [
-                      "host",
-                      "host.process",
-                      "host.container",
-                      "cloudProvider",
-                      "mesos",
-                      "ecs",
-                      "kubernetes.cluster",
-                      "kubernetes.namespace",
-                      "kubernetes.deployment",
-                      "kubernetes.job",
-                      "kubernetes.daemonSet",
-                      "kubernetes.service",
-                      "kubernetes.node",
-                      "kubernetes.replicaSet",
-                      "kubernetes.statefulSet",
-                      "kubernetes.resourcequota",
-                      "kubernetes.persistentvolume",
-                      "kubernetes.persistentvolumeclaim",
-                      "kubernetes.pod"
-                    ],
-                    "routingInfo": {
-                      "customerId": 995,
-                      "routing": "995"
-                    },
-                    "scale": 1.0,
-                    "scopes": [],
-                    "segment": false,
-                    "segmentations": [],
-                    "timeAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "type": "string"
-                  },
+                  "descriptor": null,
                   "displayName": "",
                   "id": "nic",
                   "sorting": null
@@ -850,9 +477,11 @@
         "id": 8,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "CPU Usage by Mode",
         "type": "advancedTimechart"
@@ -992,102 +621,12 @@
                   "canGroupBy": false,
                   "canMonitor": false,
                   "category": "prometheus",
-                  "createdAt": 1588245270376,
-                  "customerId": 995,
                   "deferred": false,
-                  "documentId": "995-8214089915913572315",
-                  "documentTimestamp": 1588245270376,
+                  "documentId": "windows_net_current_bandwidth",
+                  "documentTimestamp": 1603184789700,
                   "documentType": "metric",
                   "experimental": false,
-                  "firstSeen": 1588109574347,
                   "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
-                  "generator": {
-                    "aggregationForGroup": "avg",
-                    "aggregations": [
-                      "sum",
-                      "avg",
-                      "max",
-                      "min"
-                    ],
-                    "avg": true,
-                    "canCalculate": false,
-                    "canFilter": false,
-                    "canGroupBy": false,
-                    "canMonitor": false,
-                    "category": "prometheus",
-                    "concat": false,
-                    "context": [],
-                    "count": false,
-                    "countDistinct": false,
-                    "deferred": false,
-                    "experimental": false,
-                    "firstSeen": 1588109574347,
-                    "groupAggregations": [
-                      "avg",
-                      "sum",
-                      "min",
-                      "max"
-                    ],
-                    "groupBy": [
-                      "instance",
-                      "nic",
-                      "proc.commandLine",
-                      "host.mac",
-                      "container.id",
-                      "container.name",
-                      "scraping_node",
-                      "proc.name",
-                      "cloudProvider.tag",
-                      "host.hostName",
-                      "agent.tag",
-                      "container.image",
-                      "job",
-                      "container.label"
-                    ],
-                    "heuristic": false,
-                    "hidden": false,
-                    "id": "windows_net_current_bandwidth",
-                    "identity": false,
-                    "label": false,
-                    "lastSeen": 1588243914199,
-                    "max": true,
-                    "metricType": "gauge",
-                    "min": true,
-                    "name": "windows_net_current_bandwidth",
-                    "namespaces": [
-                      "host",
-                      "host.process",
-                      "host.container",
-                      "cloudProvider",
-                      "mesos",
-                      "ecs",
-                      "kubernetes.cluster",
-                      "kubernetes.namespace",
-                      "kubernetes.deployment",
-                      "kubernetes.job",
-                      "kubernetes.daemonSet",
-                      "kubernetes.service",
-                      "kubernetes.node",
-                      "kubernetes.replicaSet",
-                      "kubernetes.statefulSet",
-                      "kubernetes.resourcequota",
-                      "kubernetes.persistentvolume",
-                      "kubernetes.persistentvolumeclaim",
-                      "kubernetes.pod"
-                    ],
-                    "rateOfChange": false,
-                    "scale": 1.0,
-                    "scopes": [],
-                    "sum": true,
-                    "timeAggregations": [
-                      "avg",
-                      "sum",
-                      "min",
-                      "max"
-                    ],
-                    "timeAvg": false,
-                    "type": "number"
-                  },
                   "groupAggregations": [
                     "avg",
                     "sum",
@@ -1098,8 +637,7 @@
                   "hidden": false,
                   "id": "windows_net_current_bandwidth",
                   "identity": false,
-                  "lastSeen": 1588243914199,
-                  "metricType": "gauge",
+                  "metricType": "counter",
                   "name": "windows_net_current_bandwidth",
                   "namespaces": [
                     "host",
@@ -1122,34 +660,12 @@
                     "kubernetes.persistentvolumeclaim",
                     "kubernetes.pod"
                   ],
-                  "routingInfo": {
-                    "customerId": 995,
-                    "routing": "995"
-                  },
                   "scale": 1.0,
                   "scopes": [],
                   "segment": false,
-                  "segmentations": [
-                    "agent.tag",
-                    "cloudProvider.tag",
-                    "container.id",
-                    "container.image",
-                    "container.label",
-                    "container.name",
-                    "host.hostName",
-                    "host.mac",
-                    "instance",
-                    "job",
-                    "nic",
-                    "proc.commandLine",
-                    "proc.name",
-                    "scraping_node"
-                  ],
                   "timeAggregations": [
-                    "avg",
-                    "sum",
-                    "min",
-                    "max"
+                    "timeAvg",
+                    "sum"
                   ],
                   "type": "number"
                 },
@@ -1160,274 +676,14 @@
               }
             ],
             "scope": {
-              "expressions": [
-                {
-                  "descriptor": {
-                    "aggregationForGroup": "none",
-                    "canFilter": true,
-                    "canGroupBy": false,
-                    "canMonitor": false,
-                    "category": "prometheus",
-                    "createdAt": 1588245270376,
-                    "customerId": 995,
-                    "deferred": false,
-                    "documentId": "995--5735739363998383830",
-                    "documentTimestamp": 1588245270376,
-                    "documentType": "metric",
-                    "experimental": false,
-                    "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
-                    "generator": {
-                      "aggregationForGroup": "none",
-                      "aggregations": [
-                        "distinct"
-                      ],
-                      "avg": false,
-                      "canCalculate": false,
-                      "canFilter": true,
-                      "canGroupBy": false,
-                      "canMonitor": false,
-                      "category": "prometheus",
-                      "concat": false,
-                      "context": [],
-                      "count": false,
-                      "countDistinct": false,
-                      "deferred": false,
-                      "experimental": false,
-                      "groupAggregations": [
-                        "concat",
-                        "distinct",
-                        "count"
-                      ],
-                      "groupBy": [],
-                      "heuristic": false,
-                      "hidden": false,
-                      "id": "instance",
-                      "identity": false,
-                      "label": true,
-                      "lastSeen": 1588245234159,
-                      "max": false,
-                      "metricType": "segmentBy",
-                      "min": false,
-                      "namespaces": [
-                        "host",
-                        "host.process",
-                        "host.container",
-                        "cloudProvider",
-                        "mesos",
-                        "ecs",
-                        "kubernetes.cluster",
-                        "kubernetes.namespace",
-                        "kubernetes.deployment",
-                        "kubernetes.job",
-                        "kubernetes.daemonSet",
-                        "kubernetes.service",
-                        "kubernetes.node",
-                        "kubernetes.replicaSet",
-                        "kubernetes.statefulSet",
-                        "kubernetes.resourcequota",
-                        "kubernetes.persistentvolume",
-                        "kubernetes.persistentvolumeclaim",
-                        "kubernetes.pod"
-                      ],
-                      "rateOfChange": false,
-                      "scale": 1.0,
-                      "scopes": [],
-                      "sum": false,
-                      "timeAggregations": [
-                        "concat",
-                        "distinct",
-                        "count"
-                      ],
-                      "timeAvg": false,
-                      "type": "string"
-                    },
-                    "groupAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "heuristic": false,
-                    "hidden": false,
-                    "id": "instance",
-                    "identity": false,
-                    "lastSeen": 1588245234159,
-                    "metricType": "tag",
-                    "namespaces": [
-                      "host",
-                      "host.process",
-                      "host.container",
-                      "cloudProvider",
-                      "mesos",
-                      "ecs",
-                      "kubernetes.cluster",
-                      "kubernetes.namespace",
-                      "kubernetes.deployment",
-                      "kubernetes.job",
-                      "kubernetes.daemonSet",
-                      "kubernetes.service",
-                      "kubernetes.node",
-                      "kubernetes.replicaSet",
-                      "kubernetes.statefulSet",
-                      "kubernetes.resourcequota",
-                      "kubernetes.persistentvolume",
-                      "kubernetes.persistentvolumeclaim",
-                      "kubernetes.pod"
-                    ],
-                    "routingInfo": {
-                      "customerId": 995,
-                      "routing": "995"
-                    },
-                    "scale": 1.0,
-                    "scopes": [],
-                    "segment": false,
-                    "segmentations": [],
-                    "timeAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "type": "string"
-                  },
-                  "displayName": "",
-                  "isVariable": false,
-                  "operand": "instance",
-                  "operator": "in",
-                  "value": [],
-                  "variable": false
-                }
-              ],
+              "expressions": [],
               "extendsDashboardScope": true
             },
             "segmentation": {
               "direction": "desc",
               "labels": [
                 {
-                  "descriptor": {
-                    "aggregationForGroup": "none",
-                    "canFilter": true,
-                    "canGroupBy": false,
-                    "canMonitor": false,
-                    "category": "prometheus",
-                    "createdAt": 1588245270376,
-                    "customerId": 995,
-                    "deferred": false,
-                    "documentId": "995--7628529364506768192",
-                    "documentTimestamp": 1588245270376,
-                    "documentType": "metric",
-                    "experimental": false,
-                    "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
-                    "generator": {
-                      "aggregationForGroup": "none",
-                      "aggregations": [
-                        "distinct"
-                      ],
-                      "avg": false,
-                      "canCalculate": false,
-                      "canFilter": true,
-                      "canGroupBy": false,
-                      "canMonitor": false,
-                      "category": "prometheus",
-                      "concat": false,
-                      "context": [],
-                      "count": false,
-                      "countDistinct": false,
-                      "deferred": false,
-                      "experimental": false,
-                      "groupAggregations": [
-                        "concat",
-                        "distinct",
-                        "count"
-                      ],
-                      "groupBy": [],
-                      "heuristic": false,
-                      "hidden": false,
-                      "id": "nic",
-                      "identity": false,
-                      "label": true,
-                      "lastSeen": 1588243914199,
-                      "max": false,
-                      "metricType": "segmentBy",
-                      "min": false,
-                      "namespaces": [
-                        "host",
-                        "host.process",
-                        "host.container",
-                        "cloudProvider",
-                        "mesos",
-                        "ecs",
-                        "kubernetes.cluster",
-                        "kubernetes.namespace",
-                        "kubernetes.deployment",
-                        "kubernetes.job",
-                        "kubernetes.daemonSet",
-                        "kubernetes.service",
-                        "kubernetes.node",
-                        "kubernetes.replicaSet",
-                        "kubernetes.statefulSet",
-                        "kubernetes.resourcequota",
-                        "kubernetes.persistentvolume",
-                        "kubernetes.persistentvolumeclaim",
-                        "kubernetes.pod"
-                      ],
-                      "rateOfChange": false,
-                      "scale": 1.0,
-                      "scopes": [],
-                      "sum": false,
-                      "timeAggregations": [
-                        "concat",
-                        "distinct",
-                        "count"
-                      ],
-                      "timeAvg": false,
-                      "type": "string"
-                    },
-                    "groupAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "heuristic": false,
-                    "hidden": false,
-                    "id": "nic",
-                    "identity": false,
-                    "lastSeen": 1588243914199,
-                    "metricType": "tag",
-                    "namespaces": [
-                      "host",
-                      "host.process",
-                      "host.container",
-                      "cloudProvider",
-                      "mesos",
-                      "ecs",
-                      "kubernetes.cluster",
-                      "kubernetes.namespace",
-                      "kubernetes.deployment",
-                      "kubernetes.job",
-                      "kubernetes.daemonSet",
-                      "kubernetes.service",
-                      "kubernetes.node",
-                      "kubernetes.replicaSet",
-                      "kubernetes.statefulSet",
-                      "kubernetes.resourcequota",
-                      "kubernetes.persistentvolume",
-                      "kubernetes.persistentvolumeclaim",
-                      "kubernetes.pod"
-                    ],
-                    "routingInfo": {
-                      "customerId": 995,
-                      "routing": "995"
-                    },
-                    "scale": 1.0,
-                    "scopes": [],
-                    "segment": false,
-                    "segmentations": [],
-                    "timeAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "type": "string"
-                  },
+                  "descriptor": null,
                   "displayName": "",
                   "id": "nic",
                   "sorting": null
@@ -1471,102 +727,12 @@
                   "canGroupBy": false,
                   "canMonitor": false,
                   "category": "prometheus",
-                  "createdAt": 1588245270376,
-                  "customerId": 995,
                   "deferred": false,
-                  "documentId": "995--2551064981596268356",
-                  "documentTimestamp": 1588245270376,
+                  "documentId": "windows_logical_disk_free_bytes",
+                  "documentTimestamp": 1603184789700,
                   "documentType": "metric",
                   "experimental": false,
-                  "firstSeen": 1588109574313,
                   "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
-                  "generator": {
-                    "aggregationForGroup": "avg",
-                    "aggregations": [
-                      "sum",
-                      "avg",
-                      "max",
-                      "min"
-                    ],
-                    "avg": true,
-                    "canCalculate": false,
-                    "canFilter": false,
-                    "canGroupBy": false,
-                    "canMonitor": false,
-                    "category": "prometheus",
-                    "concat": false,
-                    "context": [],
-                    "count": false,
-                    "countDistinct": false,
-                    "deferred": false,
-                    "experimental": false,
-                    "firstSeen": 1588109574313,
-                    "groupAggregations": [
-                      "avg",
-                      "sum",
-                      "min",
-                      "max"
-                    ],
-                    "groupBy": [
-                      "instance",
-                      "proc.commandLine",
-                      "host.mac",
-                      "container.id",
-                      "volume",
-                      "container.name",
-                      "scraping_node",
-                      "proc.name",
-                      "cloudProvider.tag",
-                      "host.hostName",
-                      "agent.tag",
-                      "container.image",
-                      "job",
-                      "container.label"
-                    ],
-                    "heuristic": false,
-                    "hidden": false,
-                    "id": "windows_logical_disk_free_bytes",
-                    "identity": false,
-                    "label": false,
-                    "lastSeen": 1588243914199,
-                    "max": true,
-                    "metricType": "gauge",
-                    "min": true,
-                    "name": "windows_logical_disk_free_bytes",
-                    "namespaces": [
-                      "host",
-                      "host.process",
-                      "host.container",
-                      "cloudProvider",
-                      "mesos",
-                      "ecs",
-                      "kubernetes.cluster",
-                      "kubernetes.namespace",
-                      "kubernetes.deployment",
-                      "kubernetes.job",
-                      "kubernetes.daemonSet",
-                      "kubernetes.service",
-                      "kubernetes.node",
-                      "kubernetes.replicaSet",
-                      "kubernetes.statefulSet",
-                      "kubernetes.resourcequota",
-                      "kubernetes.persistentvolume",
-                      "kubernetes.persistentvolumeclaim",
-                      "kubernetes.pod"
-                    ],
-                    "rateOfChange": false,
-                    "scale": 1.0,
-                    "scopes": [],
-                    "sum": true,
-                    "timeAggregations": [
-                      "avg",
-                      "sum",
-                      "min",
-                      "max"
-                    ],
-                    "timeAvg": false,
-                    "type": "byte"
-                  },
                   "groupAggregations": [
                     "avg",
                     "sum",
@@ -1577,8 +743,7 @@
                   "hidden": false,
                   "id": "windows_logical_disk_free_bytes",
                   "identity": false,
-                  "lastSeen": 1588243914199,
-                  "metricType": "gauge",
+                  "metricType": "counter",
                   "name": "windows_logical_disk_free_bytes",
                   "namespaces": [
                     "host",
@@ -1601,34 +766,12 @@
                     "kubernetes.persistentvolumeclaim",
                     "kubernetes.pod"
                   ],
-                  "routingInfo": {
-                    "customerId": 995,
-                    "routing": "995"
-                  },
                   "scale": 1.0,
                   "scopes": [],
                   "segment": false,
-                  "segmentations": [
-                    "agent.tag",
-                    "cloudProvider.tag",
-                    "container.id",
-                    "container.image",
-                    "container.label",
-                    "container.name",
-                    "host.hostName",
-                    "host.mac",
-                    "instance",
-                    "job",
-                    "proc.commandLine",
-                    "proc.name",
-                    "scraping_node",
-                    "volume"
-                  ],
                   "timeAggregations": [
-                    "avg",
-                    "sum",
-                    "min",
-                    "max"
+                    "timeAvg",
+                    "sum"
                   ],
                   "type": "byte"
                 },
@@ -1639,274 +782,14 @@
               }
             ],
             "scope": {
-              "expressions": [
-                {
-                  "descriptor": {
-                    "aggregationForGroup": "none",
-                    "canFilter": true,
-                    "canGroupBy": false,
-                    "canMonitor": false,
-                    "category": "prometheus",
-                    "createdAt": 1588245270376,
-                    "customerId": 995,
-                    "deferred": false,
-                    "documentId": "995--5735739363998383830",
-                    "documentTimestamp": 1588245270376,
-                    "documentType": "metric",
-                    "experimental": false,
-                    "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
-                    "generator": {
-                      "aggregationForGroup": "none",
-                      "aggregations": [
-                        "distinct"
-                      ],
-                      "avg": false,
-                      "canCalculate": false,
-                      "canFilter": true,
-                      "canGroupBy": false,
-                      "canMonitor": false,
-                      "category": "prometheus",
-                      "concat": false,
-                      "context": [],
-                      "count": false,
-                      "countDistinct": false,
-                      "deferred": false,
-                      "experimental": false,
-                      "groupAggregations": [
-                        "concat",
-                        "distinct",
-                        "count"
-                      ],
-                      "groupBy": [],
-                      "heuristic": false,
-                      "hidden": false,
-                      "id": "instance",
-                      "identity": false,
-                      "label": true,
-                      "lastSeen": 1588245234159,
-                      "max": false,
-                      "metricType": "segmentBy",
-                      "min": false,
-                      "namespaces": [
-                        "host",
-                        "host.process",
-                        "host.container",
-                        "cloudProvider",
-                        "mesos",
-                        "ecs",
-                        "kubernetes.cluster",
-                        "kubernetes.namespace",
-                        "kubernetes.deployment",
-                        "kubernetes.job",
-                        "kubernetes.daemonSet",
-                        "kubernetes.service",
-                        "kubernetes.node",
-                        "kubernetes.replicaSet",
-                        "kubernetes.statefulSet",
-                        "kubernetes.resourcequota",
-                        "kubernetes.persistentvolume",
-                        "kubernetes.persistentvolumeclaim",
-                        "kubernetes.pod"
-                      ],
-                      "rateOfChange": false,
-                      "scale": 1.0,
-                      "scopes": [],
-                      "sum": false,
-                      "timeAggregations": [
-                        "concat",
-                        "distinct",
-                        "count"
-                      ],
-                      "timeAvg": false,
-                      "type": "string"
-                    },
-                    "groupAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "heuristic": false,
-                    "hidden": false,
-                    "id": "instance",
-                    "identity": false,
-                    "lastSeen": 1588245234159,
-                    "metricType": "tag",
-                    "namespaces": [
-                      "host",
-                      "host.process",
-                      "host.container",
-                      "cloudProvider",
-                      "mesos",
-                      "ecs",
-                      "kubernetes.cluster",
-                      "kubernetes.namespace",
-                      "kubernetes.deployment",
-                      "kubernetes.job",
-                      "kubernetes.daemonSet",
-                      "kubernetes.service",
-                      "kubernetes.node",
-                      "kubernetes.replicaSet",
-                      "kubernetes.statefulSet",
-                      "kubernetes.resourcequota",
-                      "kubernetes.persistentvolume",
-                      "kubernetes.persistentvolumeclaim",
-                      "kubernetes.pod"
-                    ],
-                    "routingInfo": {
-                      "customerId": 995,
-                      "routing": "995"
-                    },
-                    "scale": 1.0,
-                    "scopes": [],
-                    "segment": false,
-                    "segmentations": [],
-                    "timeAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "type": "string"
-                  },
-                  "displayName": "",
-                  "isVariable": false,
-                  "operand": "instance",
-                  "operator": "in",
-                  "value": [],
-                  "variable": false
-                }
-              ],
+              "expressions": [],
               "extendsDashboardScope": true
             },
             "segmentation": {
               "direction": "desc",
               "labels": [
                 {
-                  "descriptor": {
-                    "aggregationForGroup": "none",
-                    "canFilter": true,
-                    "canGroupBy": false,
-                    "canMonitor": false,
-                    "category": "prometheus",
-                    "createdAt": 1588245270376,
-                    "customerId": 995,
-                    "deferred": false,
-                    "documentId": "995-2321968193766360325",
-                    "documentTimestamp": 1588245270376,
-                    "documentType": "metric",
-                    "experimental": false,
-                    "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
-                    "generator": {
-                      "aggregationForGroup": "none",
-                      "aggregations": [
-                        "distinct"
-                      ],
-                      "avg": false,
-                      "canCalculate": false,
-                      "canFilter": true,
-                      "canGroupBy": false,
-                      "canMonitor": false,
-                      "category": "prometheus",
-                      "concat": false,
-                      "context": [],
-                      "count": false,
-                      "countDistinct": false,
-                      "deferred": false,
-                      "experimental": false,
-                      "groupAggregations": [
-                        "concat",
-                        "distinct",
-                        "count"
-                      ],
-                      "groupBy": [],
-                      "heuristic": false,
-                      "hidden": false,
-                      "id": "volume",
-                      "identity": false,
-                      "label": true,
-                      "lastSeen": 1588243914199,
-                      "max": false,
-                      "metricType": "segmentBy",
-                      "min": false,
-                      "namespaces": [
-                        "host",
-                        "host.process",
-                        "host.container",
-                        "cloudProvider",
-                        "mesos",
-                        "ecs",
-                        "kubernetes.cluster",
-                        "kubernetes.namespace",
-                        "kubernetes.deployment",
-                        "kubernetes.job",
-                        "kubernetes.daemonSet",
-                        "kubernetes.service",
-                        "kubernetes.node",
-                        "kubernetes.replicaSet",
-                        "kubernetes.statefulSet",
-                        "kubernetes.resourcequota",
-                        "kubernetes.persistentvolume",
-                        "kubernetes.persistentvolumeclaim",
-                        "kubernetes.pod"
-                      ],
-                      "rateOfChange": false,
-                      "scale": 1.0,
-                      "scopes": [],
-                      "sum": false,
-                      "timeAggregations": [
-                        "concat",
-                        "distinct",
-                        "count"
-                      ],
-                      "timeAvg": false,
-                      "type": "string"
-                    },
-                    "groupAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "heuristic": false,
-                    "hidden": false,
-                    "id": "volume",
-                    "identity": false,
-                    "lastSeen": 1588243914199,
-                    "metricType": "tag",
-                    "namespaces": [
-                      "host",
-                      "host.process",
-                      "host.container",
-                      "cloudProvider",
-                      "mesos",
-                      "ecs",
-                      "kubernetes.cluster",
-                      "kubernetes.namespace",
-                      "kubernetes.deployment",
-                      "kubernetes.job",
-                      "kubernetes.daemonSet",
-                      "kubernetes.service",
-                      "kubernetes.node",
-                      "kubernetes.replicaSet",
-                      "kubernetes.statefulSet",
-                      "kubernetes.resourcequota",
-                      "kubernetes.persistentvolume",
-                      "kubernetes.persistentvolumeclaim",
-                      "kubernetes.pod"
-                    ],
-                    "routingInfo": {
-                      "customerId": 995,
-                      "routing": "995"
-                    },
-                    "scale": 1.0,
-                    "scopes": [],
-                    "segment": false,
-                    "segmentations": [],
-                    "timeAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "type": "string"
-                  },
+                  "descriptor": null,
                   "displayName": "",
                   "id": "volume",
                   "sorting": null
@@ -1950,102 +833,12 @@
                   "canGroupBy": false,
                   "canMonitor": false,
                   "category": "prometheus",
-                  "createdAt": 1588245270376,
-                  "customerId": 995,
                   "deferred": false,
-                  "documentId": "995-9220049982100341206",
-                  "documentTimestamp": 1588245270376,
+                  "documentId": "windows_logical_disk_size_bytes",
+                  "documentTimestamp": 1603184789700,
                   "documentType": "metric",
                   "experimental": false,
-                  "firstSeen": 1588109574313,
                   "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
-                  "generator": {
-                    "aggregationForGroup": "avg",
-                    "aggregations": [
-                      "sum",
-                      "avg",
-                      "max",
-                      "min"
-                    ],
-                    "avg": true,
-                    "canCalculate": false,
-                    "canFilter": false,
-                    "canGroupBy": false,
-                    "canMonitor": false,
-                    "category": "prometheus",
-                    "concat": false,
-                    "context": [],
-                    "count": false,
-                    "countDistinct": false,
-                    "deferred": false,
-                    "experimental": false,
-                    "firstSeen": 1588109574313,
-                    "groupAggregations": [
-                      "avg",
-                      "sum",
-                      "min",
-                      "max"
-                    ],
-                    "groupBy": [
-                      "instance",
-                      "proc.commandLine",
-                      "host.mac",
-                      "container.id",
-                      "volume",
-                      "container.name",
-                      "scraping_node",
-                      "proc.name",
-                      "cloudProvider.tag",
-                      "host.hostName",
-                      "agent.tag",
-                      "container.image",
-                      "job",
-                      "container.label"
-                    ],
-                    "heuristic": false,
-                    "hidden": false,
-                    "id": "windows_logical_disk_size_bytes",
-                    "identity": false,
-                    "label": false,
-                    "lastSeen": 1588243914199,
-                    "max": true,
-                    "metricType": "gauge",
-                    "min": true,
-                    "name": "windows_logical_disk_size_bytes",
-                    "namespaces": [
-                      "host",
-                      "host.process",
-                      "host.container",
-                      "cloudProvider",
-                      "mesos",
-                      "ecs",
-                      "kubernetes.cluster",
-                      "kubernetes.namespace",
-                      "kubernetes.deployment",
-                      "kubernetes.job",
-                      "kubernetes.daemonSet",
-                      "kubernetes.service",
-                      "kubernetes.node",
-                      "kubernetes.replicaSet",
-                      "kubernetes.statefulSet",
-                      "kubernetes.resourcequota",
-                      "kubernetes.persistentvolume",
-                      "kubernetes.persistentvolumeclaim",
-                      "kubernetes.pod"
-                    ],
-                    "rateOfChange": false,
-                    "scale": 1.0,
-                    "scopes": [],
-                    "sum": true,
-                    "timeAggregations": [
-                      "avg",
-                      "sum",
-                      "min",
-                      "max"
-                    ],
-                    "timeAvg": false,
-                    "type": "byte"
-                  },
                   "groupAggregations": [
                     "avg",
                     "sum",
@@ -2056,8 +849,7 @@
                   "hidden": false,
                   "id": "windows_logical_disk_size_bytes",
                   "identity": false,
-                  "lastSeen": 1588243914199,
-                  "metricType": "gauge",
+                  "metricType": "counter",
                   "name": "windows_logical_disk_size_bytes",
                   "namespaces": [
                     "host",
@@ -2080,34 +872,12 @@
                     "kubernetes.persistentvolumeclaim",
                     "kubernetes.pod"
                   ],
-                  "routingInfo": {
-                    "customerId": 995,
-                    "routing": "995"
-                  },
                   "scale": 1.0,
                   "scopes": [],
                   "segment": false,
-                  "segmentations": [
-                    "agent.tag",
-                    "cloudProvider.tag",
-                    "container.id",
-                    "container.image",
-                    "container.label",
-                    "container.name",
-                    "host.hostName",
-                    "host.mac",
-                    "instance",
-                    "job",
-                    "proc.commandLine",
-                    "proc.name",
-                    "scraping_node",
-                    "volume"
-                  ],
                   "timeAggregations": [
-                    "avg",
-                    "sum",
-                    "min",
-                    "max"
+                    "timeAvg",
+                    "sum"
                   ],
                   "type": "byte"
                 },
@@ -2118,274 +888,14 @@
               }
             ],
             "scope": {
-              "expressions": [
-                {
-                  "descriptor": {
-                    "aggregationForGroup": "none",
-                    "canFilter": true,
-                    "canGroupBy": false,
-                    "canMonitor": false,
-                    "category": "prometheus",
-                    "createdAt": 1588245270376,
-                    "customerId": 995,
-                    "deferred": false,
-                    "documentId": "995--5735739363998383830",
-                    "documentTimestamp": 1588245270376,
-                    "documentType": "metric",
-                    "experimental": false,
-                    "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
-                    "generator": {
-                      "aggregationForGroup": "none",
-                      "aggregations": [
-                        "distinct"
-                      ],
-                      "avg": false,
-                      "canCalculate": false,
-                      "canFilter": true,
-                      "canGroupBy": false,
-                      "canMonitor": false,
-                      "category": "prometheus",
-                      "concat": false,
-                      "context": [],
-                      "count": false,
-                      "countDistinct": false,
-                      "deferred": false,
-                      "experimental": false,
-                      "groupAggregations": [
-                        "concat",
-                        "distinct",
-                        "count"
-                      ],
-                      "groupBy": [],
-                      "heuristic": false,
-                      "hidden": false,
-                      "id": "instance",
-                      "identity": false,
-                      "label": true,
-                      "lastSeen": 1588245234159,
-                      "max": false,
-                      "metricType": "segmentBy",
-                      "min": false,
-                      "namespaces": [
-                        "host",
-                        "host.process",
-                        "host.container",
-                        "cloudProvider",
-                        "mesos",
-                        "ecs",
-                        "kubernetes.cluster",
-                        "kubernetes.namespace",
-                        "kubernetes.deployment",
-                        "kubernetes.job",
-                        "kubernetes.daemonSet",
-                        "kubernetes.service",
-                        "kubernetes.node",
-                        "kubernetes.replicaSet",
-                        "kubernetes.statefulSet",
-                        "kubernetes.resourcequota",
-                        "kubernetes.persistentvolume",
-                        "kubernetes.persistentvolumeclaim",
-                        "kubernetes.pod"
-                      ],
-                      "rateOfChange": false,
-                      "scale": 1.0,
-                      "scopes": [],
-                      "sum": false,
-                      "timeAggregations": [
-                        "concat",
-                        "distinct",
-                        "count"
-                      ],
-                      "timeAvg": false,
-                      "type": "string"
-                    },
-                    "groupAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "heuristic": false,
-                    "hidden": false,
-                    "id": "instance",
-                    "identity": false,
-                    "lastSeen": 1588245234159,
-                    "metricType": "tag",
-                    "namespaces": [
-                      "host",
-                      "host.process",
-                      "host.container",
-                      "cloudProvider",
-                      "mesos",
-                      "ecs",
-                      "kubernetes.cluster",
-                      "kubernetes.namespace",
-                      "kubernetes.deployment",
-                      "kubernetes.job",
-                      "kubernetes.daemonSet",
-                      "kubernetes.service",
-                      "kubernetes.node",
-                      "kubernetes.replicaSet",
-                      "kubernetes.statefulSet",
-                      "kubernetes.resourcequota",
-                      "kubernetes.persistentvolume",
-                      "kubernetes.persistentvolumeclaim",
-                      "kubernetes.pod"
-                    ],
-                    "routingInfo": {
-                      "customerId": 995,
-                      "routing": "995"
-                    },
-                    "scale": 1.0,
-                    "scopes": [],
-                    "segment": false,
-                    "segmentations": [],
-                    "timeAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "type": "string"
-                  },
-                  "displayName": "",
-                  "isVariable": false,
-                  "operand": "instance",
-                  "operator": "in",
-                  "value": [],
-                  "variable": false
-                }
-              ],
+              "expressions": [],
               "extendsDashboardScope": true
             },
             "segmentation": {
               "direction": "desc",
               "labels": [
                 {
-                  "descriptor": {
-                    "aggregationForGroup": "none",
-                    "canFilter": true,
-                    "canGroupBy": false,
-                    "canMonitor": false,
-                    "category": "prometheus",
-                    "createdAt": 1588245270376,
-                    "customerId": 995,
-                    "deferred": false,
-                    "documentId": "995-2321968193766360325",
-                    "documentTimestamp": 1588245270376,
-                    "documentType": "metric",
-                    "experimental": false,
-                    "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
-                    "generator": {
-                      "aggregationForGroup": "none",
-                      "aggregations": [
-                        "distinct"
-                      ],
-                      "avg": false,
-                      "canCalculate": false,
-                      "canFilter": true,
-                      "canGroupBy": false,
-                      "canMonitor": false,
-                      "category": "prometheus",
-                      "concat": false,
-                      "context": [],
-                      "count": false,
-                      "countDistinct": false,
-                      "deferred": false,
-                      "experimental": false,
-                      "groupAggregations": [
-                        "concat",
-                        "distinct",
-                        "count"
-                      ],
-                      "groupBy": [],
-                      "heuristic": false,
-                      "hidden": false,
-                      "id": "volume",
-                      "identity": false,
-                      "label": true,
-                      "lastSeen": 1588243914199,
-                      "max": false,
-                      "metricType": "segmentBy",
-                      "min": false,
-                      "namespaces": [
-                        "host",
-                        "host.process",
-                        "host.container",
-                        "cloudProvider",
-                        "mesos",
-                        "ecs",
-                        "kubernetes.cluster",
-                        "kubernetes.namespace",
-                        "kubernetes.deployment",
-                        "kubernetes.job",
-                        "kubernetes.daemonSet",
-                        "kubernetes.service",
-                        "kubernetes.node",
-                        "kubernetes.replicaSet",
-                        "kubernetes.statefulSet",
-                        "kubernetes.resourcequota",
-                        "kubernetes.persistentvolume",
-                        "kubernetes.persistentvolumeclaim",
-                        "kubernetes.pod"
-                      ],
-                      "rateOfChange": false,
-                      "scale": 1.0,
-                      "scopes": [],
-                      "sum": false,
-                      "timeAggregations": [
-                        "concat",
-                        "distinct",
-                        "count"
-                      ],
-                      "timeAvg": false,
-                      "type": "string"
-                    },
-                    "groupAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "heuristic": false,
-                    "hidden": false,
-                    "id": "volume",
-                    "identity": false,
-                    "lastSeen": 1588243914199,
-                    "metricType": "tag",
-                    "namespaces": [
-                      "host",
-                      "host.process",
-                      "host.container",
-                      "cloudProvider",
-                      "mesos",
-                      "ecs",
-                      "kubernetes.cluster",
-                      "kubernetes.namespace",
-                      "kubernetes.deployment",
-                      "kubernetes.job",
-                      "kubernetes.daemonSet",
-                      "kubernetes.service",
-                      "kubernetes.node",
-                      "kubernetes.replicaSet",
-                      "kubernetes.statefulSet",
-                      "kubernetes.resourcequota",
-                      "kubernetes.persistentvolume",
-                      "kubernetes.persistentvolumeclaim",
-                      "kubernetes.pod"
-                    ],
-                    "routingInfo": {
-                      "customerId": 995,
-                      "routing": "995"
-                    },
-                    "scale": 1.0,
-                    "scopes": [],
-                    "segment": false,
-                    "segmentations": [],
-                    "timeAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "type": "string"
-                  },
+                  "descriptor": null,
                   "displayName": "",
                   "id": "volume",
                   "sorting": null
@@ -2552,9 +1062,11 @@
         "id": 19,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "CPU Usage by Core",
         "type": "advancedTimechart"
@@ -2627,9 +1139,11 @@
         "id": 20,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Memory Usage",
         "type": "advancedTimechart"
@@ -2702,9 +1216,11 @@
         "id": 21,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Free Memory",
         "type": "advancedTimechart"
@@ -2761,9 +1277,11 @@
         "id": 22,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Disk Usage by Volume",
         "type": "advancedTimechart"
@@ -2820,9 +1338,11 @@
         "id": 23,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Free Disk by Volume",
         "type": "advancedTimechart"
@@ -2879,9 +1399,11 @@
         "id": 24,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Disk Write IOPS",
         "type": "advancedTimechart"
@@ -2938,9 +1460,11 @@
         "id": 25,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Disk Read IOPS",
         "type": "advancedTimechart"
@@ -2997,9 +1521,11 @@
         "id": 26,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Disk Read Throughput",
         "type": "advancedTimechart"
@@ -3056,9 +1582,11 @@
         "id": 27,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Disk Write Throughput",
         "type": "advancedTimechart"
@@ -3115,9 +1643,11 @@
         "id": 28,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Disk Reqs. Queued",
         "type": "advancedTimechart"
@@ -3174,9 +1704,11 @@
         "id": 29,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Disk ops Splitted",
         "type": "advancedTimechart"
@@ -3233,9 +1765,11 @@
         "id": 30,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Network Inbound Error Rate",
         "type": "advancedTimechart"
@@ -3292,9 +1826,11 @@
         "id": 31,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Network Outbound Error Rate",
         "type": "advancedTimechart"
@@ -3351,9 +1887,11 @@
         "id": 32,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Network Inbound Discard Rate",
         "type": "advancedTimechart"
@@ -3410,9 +1948,11 @@
         "id": 33,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Network Outbound Discard Rate",
         "type": "advancedTimechart"
@@ -3469,9 +2009,11 @@
         "id": 34,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Bandwidth Usage by Interface",
         "type": "advancedTimechart"
@@ -3528,9 +2070,11 @@
         "id": 35,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Bandwidth Free by Interface",
         "type": "advancedTimechart"
@@ -3587,9 +2131,11 @@
         "id": 36,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Network Received IOPS",
         "type": "advancedTimechart"
@@ -3646,9 +2192,11 @@
         "id": 37,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Network Sent IOPS",
         "type": "advancedTimechart"
@@ -3705,9 +2253,11 @@
         "id": 38,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Network Received Throughput",
         "type": "advancedTimechart"
@@ -3764,9 +2314,11 @@
         "id": 39,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Network Sent Throughput",
         "type": "advancedTimechart"
@@ -3839,9 +2391,11 @@
         "id": 40,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Processes and Threads",
         "type": "advancedTimechart"
@@ -3898,9 +2452,11 @@
         "id": 41,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Processor Queue",
         "type": "advancedTimechart"
@@ -3957,9 +2513,11 @@
         "id": 42,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Pagination Usage",
         "type": "advancedTimechart"
@@ -4016,9 +2574,11 @@
         "id": 43,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "User Sessions",
         "type": "advancedTimechart"
@@ -4075,9 +2635,11 @@
         "id": 44,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Context Switches",
         "type": "advancedTimechart"
@@ -4134,9 +2696,11 @@
         "id": 45,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Free Pagination",
         "type": "advancedTimechart"
@@ -4150,80 +2714,14 @@
           "canFilter": true,
           "canGroupBy": false,
           "canMonitor": false,
-          "category": "prometheus",
-          "createdAt": 1588245270376,
-          "customerId": 995,
           "deferred": false,
-          "documentId": "995--5735739363998383830",
-          "documentTimestamp": 1588245270376,
+          "description": "instance",
+          "documentId": "instance",
+          "documentTimestamp": 1603184789700,
           "documentType": "metric",
+          "documented": true,
           "experimental": false,
-          "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
-          "generator": {
-            "aggregationForGroup": "none",
-            "aggregations": [
-              "distinct"
-            ],
-            "avg": false,
-            "canCalculate": false,
-            "canFilter": true,
-            "canGroupBy": false,
-            "canMonitor": false,
-            "category": "prometheus",
-            "concat": false,
-            "context": [],
-            "count": false,
-            "countDistinct": false,
-            "deferred": false,
-            "experimental": false,
-            "groupAggregations": [
-              "concat",
-              "distinct",
-              "count"
-            ],
-            "groupBy": [],
-            "heuristic": false,
-            "hidden": false,
-            "id": "instance",
-            "identity": false,
-            "label": true,
-            "lastSeen": 1588245234159,
-            "max": false,
-            "metricType": "segmentBy",
-            "min": false,
-            "namespaces": [
-              "host",
-              "host.process",
-              "host.container",
-              "cloudProvider",
-              "mesos",
-              "ecs",
-              "kubernetes.cluster",
-              "kubernetes.namespace",
-              "kubernetes.deployment",
-              "kubernetes.job",
-              "kubernetes.daemonSet",
-              "kubernetes.service",
-              "kubernetes.node",
-              "kubernetes.replicaSet",
-              "kubernetes.statefulSet",
-              "kubernetes.resourcequota",
-              "kubernetes.persistentvolume",
-              "kubernetes.persistentvolumeclaim",
-              "kubernetes.pod"
-            ],
-            "rateOfChange": false,
-            "scale": 1.0,
-            "scopes": [],
-            "sum": false,
-            "timeAggregations": [
-              "concat",
-              "distinct",
-              "count"
-            ],
-            "timeAvg": false,
-            "type": "string"
-          },
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
           "groupAggregations": [
             "concat",
             "distinct",
@@ -4233,37 +2731,38 @@
           "hidden": false,
           "id": "instance",
           "identity": false,
-          "lastSeen": 1588245234159,
           "metricType": "tag",
+          "name": "instance",
           "namespaces": [
-            "host",
-            "host.process",
-            "host.container",
             "cloudProvider",
-            "mesos",
+            "host.container",
             "ecs",
+            "host.fs",
+            "host.file",
+            "host",
+            "kubernetes",
             "kubernetes.cluster",
-            "kubernetes.namespace",
+            "kubernetes.daemonSet",
             "kubernetes.deployment",
             "kubernetes.job",
-            "kubernetes.daemonSet",
-            "kubernetes.service",
+            "kubernetes.namespace",
             "kubernetes.node",
+            "kubernetes.pod",
             "kubernetes.replicaSet",
+            "kubernetes.service",
             "kubernetes.statefulSet",
             "kubernetes.resourcequota",
-            "kubernetes.persistentvolume",
-            "kubernetes.persistentvolumeclaim",
-            "kubernetes.pod"
+            "kubernetes.hpa",
+            "link",
+            "mesos",
+            "host.net",
+            "host.process",
+            "prometheus",
+            "swarm"
           ],
-          "routingInfo": {
-            "customerId": 995,
-            "routing": "995"
-          },
-          "scale": 1.0,
+          "scale": 0.0,
           "scopes": [],
           "segment": false,
-          "segmentations": [],
           "timeAggregations": [
             "concat",
             "distinct",

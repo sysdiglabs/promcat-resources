@@ -38,8 +38,20 @@ mongodb:
   uri: mongodb://exporter-user:exporter-pass@mongodb:27017
 ```
 
-Note that the _mongodb.uri_ parameter is a valid [MongoDB URI](https://docs.mongodb.com/manual/reference/connection-string/).
+Note that the _mongodb.uri_ parameter is a valid [MongoDB URI](https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus-mongodb-exporter/README.md).
 In this URI, include the user and password of the exporter. The Helm chart will create a Kubernetes Secret with the URI so it is not visible. 
+
+To install the exporter, add the helm repository and run the helm install command:
+```
+# Add repository
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+# Helm 3
+helm install  mongodb-exporter prometheus-community/prometheus-mongodb-exporter -f values.yaml
+
+# Helm 2
+helm install --name mongodb-exporter prometheus-community/prometheus-mongodb-exporter -f values.yaml
+```
 
 The metrics will be available in the port 9216 of the exporter pod.
 
