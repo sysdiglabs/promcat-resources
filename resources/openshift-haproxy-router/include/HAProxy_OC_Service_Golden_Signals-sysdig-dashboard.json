@@ -1,0 +1,1568 @@
+{
+  "dashboard": {
+    "description": "",
+    "eventDisplaySettings": {
+      "enabled": false,
+      "queryParams": {
+        "alertStatuses": [],
+        "categories": [],
+        "filter": "",
+        "severities": [],
+        "teamScope": false
+      }
+    },
+    "layout": [
+      {
+        "h": 5,
+        "panelId": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 6,
+        "panelId": 6,
+        "w": 8,
+        "x": 16,
+        "y": 11
+      },
+      {
+        "h": 6,
+        "panelId": 7,
+        "w": 8,
+        "x": 0,
+        "y": 11
+      },
+      {
+        "h": 6,
+        "panelId": 9,
+        "w": 12,
+        "x": 0,
+        "y": 5
+      },
+      {
+        "h": 6,
+        "panelId": 10,
+        "w": 12,
+        "x": 0,
+        "y": 23
+      },
+      {
+        "h": 6,
+        "panelId": 12,
+        "w": 12,
+        "x": 12,
+        "y": 23
+      },
+      {
+        "h": 6,
+        "panelId": 13,
+        "w": 12,
+        "x": 12,
+        "y": 5
+      },
+      {
+        "h": 6,
+        "panelId": 14,
+        "w": 8,
+        "x": 8,
+        "y": 11
+      },
+      {
+        "h": 6,
+        "panelId": 15,
+        "w": 8,
+        "x": 0,
+        "y": 17
+      },
+      {
+        "h": 6,
+        "panelId": 16,
+        "w": 8,
+        "x": 8,
+        "y": 17
+      },
+      {
+        "h": 6,
+        "panelId": 17,
+        "w": 8,
+        "x": 16,
+        "y": 17
+      }
+    ],
+    "name": " HAProxy OC Service Golden Signals",
+    "panels": [
+      {
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "status",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "haproxy_server_up",
+                  "documentTimestamp": 1602596911520,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "haproxy_server_up",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "haproxy_server_up",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "haproxy_server_up",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "deferred": false,
+                    "description": "server",
+                    "documentId": "server",
+                    "documentTimestamp": 1602596911520,
+                    "documentType": "metric",
+                    "documented": true,
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "server",
+                    "identity": false,
+                    "metricType": "tag",
+                    "name": "server",
+                    "namespaces": [
+                      "cloudProvider",
+                      "host.container",
+                      "ecs",
+                      "host.fs",
+                      "host.file",
+                      "host",
+                      "kubernetes",
+                      "kubernetes.cluster",
+                      "kubernetes.daemonSet",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.namespace",
+                      "kubernetes.node",
+                      "kubernetes.pod",
+                      "kubernetes.replicaSet",
+                      "kubernetes.service",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.hpa",
+                      "link",
+                      "mesos",
+                      "host.net",
+                      "host.process",
+                      "prometheus",
+                      "swarm"
+                    ],
+                    "scale": 0.0,
+                    "scopes": [],
+                    "segment": false,
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": "server",
+                  "id": "server",
+                  "sorting": null
+                },
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "deferred": false,
+                    "description": "pod",
+                    "documentId": "pod",
+                    "documentTimestamp": 1602596911520,
+                    "documentType": "metric",
+                    "documented": true,
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "pod",
+                    "identity": false,
+                    "metricType": "tag",
+                    "name": "pod",
+                    "namespaces": [
+                      "cloudProvider",
+                      "host.container",
+                      "ecs",
+                      "host.fs",
+                      "host.file",
+                      "host",
+                      "kubernetes",
+                      "kubernetes.cluster",
+                      "kubernetes.daemonSet",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.namespace",
+                      "kubernetes.node",
+                      "kubernetes.pod",
+                      "kubernetes.replicaSet",
+                      "kubernetes.service",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.hpa",
+                      "link",
+                      "mesos",
+                      "host.net",
+                      "host.process",
+                      "prometheus",
+                      "swarm"
+                    ],
+                    "scale": 0.0,
+                    "scopes": [],
+                    "segment": false,
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": "pod",
+                  "id": "pod",
+                  "sorting": null
+                },
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "deferred": false,
+                    "description": "service",
+                    "documentId": "service",
+                    "documentTimestamp": 1602596911520,
+                    "documentType": "metric",
+                    "documented": true,
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "service",
+                    "identity": false,
+                    "metricType": "tag",
+                    "name": "service",
+                    "namespaces": [
+                      "cloudProvider",
+                      "host.container",
+                      "ecs",
+                      "host.fs",
+                      "host.file",
+                      "host",
+                      "kubernetes",
+                      "kubernetes.cluster",
+                      "kubernetes.daemonSet",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.namespace",
+                      "kubernetes.node",
+                      "kubernetes.pod",
+                      "kubernetes.replicaSet",
+                      "kubernetes.service",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.hpa",
+                      "link",
+                      "mesos",
+                      "host.net",
+                      "host.process",
+                      "prometheus",
+                      "swarm"
+                    ],
+                    "scale": 0.0,
+                    "scopes": [],
+                    "segment": false,
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": "service",
+                  "id": "service",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 1,
+        "name": "Servers",
+        "type": "basicTable"
+      },
+      {
+        "applyScopeToAll": false,
+        "applySegmentationToAll": false,
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Service",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "ms",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "haproxy_server_http_average_response_latency_milliseconds",
+                  "documentTimestamp": 1602596911520,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "haproxy_server_http_average_response_latency_milliseconds",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "haproxy_server_http_average_response_latency_milliseconds",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "haproxy_server_http_average_response_latency_milliseconds",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "deferred": false,
+                    "description": "service",
+                    "documentId": "service",
+                    "documentTimestamp": 1602596911520,
+                    "documentType": "metric",
+                    "documented": true,
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "service",
+                    "identity": false,
+                    "metricType": "tag",
+                    "name": "service",
+                    "namespaces": [
+                      "cloudProvider",
+                      "host.container",
+                      "ecs",
+                      "host.fs",
+                      "host.file",
+                      "host",
+                      "kubernetes",
+                      "kubernetes.cluster",
+                      "kubernetes.daemonSet",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.namespace",
+                      "kubernetes.node",
+                      "kubernetes.pod",
+                      "kubernetes.replicaSet",
+                      "kubernetes.service",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.hpa",
+                      "link",
+                      "mesos",
+                      "host.net",
+                      "host.process",
+                      "prometheus",
+                      "swarm"
+                    ],
+                    "scale": 0.0,
+                    "scopes": [],
+                    "segment": false,
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": null,
+                  "id": "service",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 6,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Average response latency",
+        "type": "basicTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Service > Pod",
+              "timeSeriesDisplayNameTemplate": "{{service}} > {{pod}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "avg by (pod,service)(rate(haproxy_server_downtime_seconds_total{service=~$service}[$__interval])* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) "
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 7,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Downtime By Pod",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Pod",
+              "timeSeriesDisplayNameTemplate": "{{pod}}",
+              "type": "stackedArea"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "100 * (sum by (pod) (rate(haproxy_server_http_responses_total{service=~$service,code!=\"2xx\"}[$__interval])* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) / sum  by (pod) (rate(haproxy_server_http_responses_total{service=~$service}[$__interval])* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 9,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "HTTP Error rate",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Service > Pod",
+              "timeSeriesDisplayNameTemplate": "{{service}} > {{pod}}",
+              "type": "stackedArea"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B/s",
+              "unit": "byteRate",
+              "yAxis": "auto"
+            },
+            "query": "sum by (service,pod)(rate(haproxy_server_bytes_in_total{service=~$service}[$__interval])* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) "
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B/s",
+            "maxValue": null,
+            "minInputFormat": "B/s",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 10,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Bytes Inbound",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Service > Pod ",
+              "timeSeriesDisplayNameTemplate": "{{service}} > {{pod}}",
+              "type": "stackedArea"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B/s",
+              "unit": "byteRate",
+              "yAxis": "auto"
+            },
+            "query": "sum by (pod, service)(rate(haproxy_server_bytes_out_total{service=~$service}[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B/s",
+            "maxValue": null,
+            "minInputFormat": "B/s",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 12,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Bytes Outbound",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Service > Pod",
+              "timeSeriesDisplayNameTemplate": "{{service}} > {{pod}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "avg by (pod, service)(rate(haproxy_server_check_failures_total{service=~$service}[$__interval])* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) "
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 13,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Check Failures",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " Service > Pod",
+              "timeSeriesDisplayNameTemplate": "{{service}} > {{pod}}",
+              "type": "stackedArea"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "avg by (pod,service)(rate(haproxy_server_connection_errors_total{service=~$service}[$__interval] )* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) "
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 14,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Connection Errors by Pod",
+        "type": "advancedTimechart"
+      },
+      {
+        "applyScopeToAll": false,
+        "applySegmentationToAll": false,
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Pod",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "haproxy_server_current_queue",
+                  "documentTimestamp": 1602596911520,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "haproxy_server_current_queue",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "haproxy_server_current_queue",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "sum",
+                "id": "haproxy_server_current_queue",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "deferred": false,
+                    "description": "pod",
+                    "documentId": "pod",
+                    "documentTimestamp": 1602596911520,
+                    "documentType": "metric",
+                    "documented": true,
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "pod",
+                    "identity": false,
+                    "metricType": "tag",
+                    "name": "pod",
+                    "namespaces": [
+                      "cloudProvider",
+                      "host.container",
+                      "ecs",
+                      "host.fs",
+                      "host.file",
+                      "host",
+                      "kubernetes",
+                      "kubernetes.cluster",
+                      "kubernetes.daemonSet",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.namespace",
+                      "kubernetes.node",
+                      "kubernetes.pod",
+                      "kubernetes.replicaSet",
+                      "kubernetes.service",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.hpa",
+                      "link",
+                      "mesos",
+                      "host.net",
+                      "host.process",
+                      "prometheus",
+                      "swarm"
+                    ],
+                    "scale": 0.0,
+                    "scopes": [],
+                    "segment": false,
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": null,
+                  "id": "pod",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 15,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Queue",
+        "type": "basicTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " Pod",
+              "timeSeriesDisplayNameTemplate": "{{pod}}",
+              "type": "stackedArea"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "rate(haproxy_server_connections_total{service=~$service}[$__interval]) * on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 16,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Connections",
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": " Service > Pod",
+              "timeSeriesDisplayNameTemplate": "{{service}} > {{pod}}",
+              "type": "stackedArea"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by(service,pod)(rate(haproxy_server_http_responses_total{code=\"2xx\",service=~$service}[$__interval]) * on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace})"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 17,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Responses OK",
+        "type": "advancedTimechart"
+      }
+    ],
+    "schema": 3,
+    "scopeExpressionList": [
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "category": "kubernetes",
+          "createdAt": 1602596911498,
+          "customerId": 25008,
+          "deferred": false,
+          "documentId": "25008--6139949314852700299",
+          "documentTimestamp": 1602596911498,
+          "documentType": "metric",
+          "experimental": false,
+          "firstSeen": 1583235308502,
+          "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+          "generator": {
+            "aggregationForGroup": "none",
+            "aggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "avg": false,
+            "canCalculate": false,
+            "canFilter": true,
+            "canGroupBy": true,
+            "canMonitor": false,
+            "category": "kubernetes",
+            "concat": false,
+            "context": [
+              "container"
+            ],
+            "count": false,
+            "countDistinct": false,
+            "deferred": false,
+            "experimental": false,
+            "firstSeen": 1583235308502,
+            "groupAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "groupBy": [],
+            "heuristic": false,
+            "hidden": false,
+            "id": "kubernetes.cluster.name",
+            "identity": false,
+            "label": true,
+            "lastSeen": 1602594130928,
+            "max": false,
+            "metricType": "none",
+            "min": false,
+            "namespaces": [
+              "kubernetes.cluster"
+            ],
+            "rateOfChange": false,
+            "scale": 1.0,
+            "scopes": [],
+            "sum": false,
+            "timeAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "timeAvg": false,
+            "type": "string"
+          },
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.cluster.name",
+          "identity": false,
+          "lastSeen": 1602594130928,
+          "metricType": "tag",
+          "namespaces": [
+            "kubernetes.cluster"
+          ],
+          "scale": 1.0,
+          "scopes": [],
+          "segment": false,
+          "segmentations": [],
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "cluster",
+        "isVariable": true,
+        "operand": "kubernetes.cluster.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "category": "kubernetes",
+          "createdAt": 1602596911498,
+          "customerId": 25008,
+          "deferred": false,
+          "documentId": "25008--7083949535721519842",
+          "documentTimestamp": 1602596911498,
+          "documentType": "metric",
+          "experimental": false,
+          "firstSeen": 1583235308502,
+          "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+          "generator": {
+            "aggregationForGroup": "none",
+            "aggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "avg": false,
+            "canCalculate": false,
+            "canFilter": true,
+            "canGroupBy": true,
+            "canMonitor": false,
+            "category": "kubernetes",
+            "concat": false,
+            "context": [
+              "container"
+            ],
+            "count": false,
+            "countDistinct": false,
+            "deferred": false,
+            "experimental": false,
+            "firstSeen": 1583235308502,
+            "groupAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "groupBy": [],
+            "heuristic": false,
+            "hidden": false,
+            "id": "kubernetes.namespace.name",
+            "identity": false,
+            "label": true,
+            "lastSeen": 1602594130928,
+            "max": false,
+            "metricType": "none",
+            "min": false,
+            "namespaces": [
+              "kubernetes.namespace"
+            ],
+            "rateOfChange": false,
+            "scale": 1.0,
+            "scopes": [],
+            "sum": false,
+            "timeAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "timeAvg": false,
+            "type": "string"
+          },
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.namespace.name",
+          "identity": false,
+          "lastSeen": 1602594130928,
+          "metricType": "tag",
+          "namespaces": [
+            "kubernetes.namespace"
+          ],
+          "scale": 1.0,
+          "scopes": [],
+          "segment": false,
+          "segmentations": [],
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "namespace",
+        "isVariable": true,
+        "operand": "kubernetes.namespace.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": false,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "service",
+          "documentId": "service",
+          "documentTimestamp": 1602596911520,
+          "documentType": "metric",
+          "documented": true,
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "service",
+          "identity": false,
+          "metricType": "tag",
+          "name": "service",
+          "namespaces": [
+            "cloudProvider",
+            "host.container",
+            "ecs",
+            "host.fs",
+            "host.file",
+            "host",
+            "kubernetes",
+            "kubernetes.cluster",
+            "kubernetes.daemonSet",
+            "kubernetes.deployment",
+            "kubernetes.job",
+            "kubernetes.namespace",
+            "kubernetes.node",
+            "kubernetes.pod",
+            "kubernetes.replicaSet",
+            "kubernetes.service",
+            "kubernetes.statefulSet",
+            "kubernetes.resourcequota",
+            "kubernetes.hpa",
+            "link",
+            "mesos",
+            "host.net",
+            "host.process",
+            "prometheus",
+            "swarm"
+          ],
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "service",
+        "isVariable": true,
+        "operand": "service",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      }
+    ]
+  }
+}
