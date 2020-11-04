@@ -87,7 +87,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "(mongodb_mongod_db_collections_total  * on (container_id,host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "(mongodb_mongod_db_collections_total  * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
           }
         ],
         "axesConfiguration": {
@@ -146,7 +146,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "(mongodb_mongod_db_indexes_total * on (container_id,host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "(mongodb_mongod_db_indexes_total * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
           },
           {
             "displayInfo": {
@@ -162,7 +162,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "(mongodb_mongod_db_objects_total * on (container_id,host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "(mongodb_mongod_db_objects_total * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
           }
         ],
         "axesConfiguration": {
@@ -221,7 +221,7 @@
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "(mongodb_mongod_db_index_size_bytes{} * on (container_id,host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "(mongodb_mongod_db_index_size_bytes{} * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
           },
           {
             "displayInfo": {
@@ -237,7 +237,7 @@
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "(mongodb_mongod_db_data_size_bytes{}  * on (container_id,host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "(mongodb_mongod_db_data_size_bytes{}  * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
           }
         ],
         "axesConfiguration": {
@@ -296,7 +296,7 @@
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "sum(((mongodb_mongod_db_index_size_bytes{}) * on (container_id,host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet})"
+            "query": "sum(((mongodb_mongod_db_index_size_bytes{}) * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet})"
           }
         ],
         "description": "",
@@ -327,7 +327,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum((mongodb_mongod_db_objects_total  * on (container_id,host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet})"
+            "query": "sum((mongodb_mongod_db_objects_total  * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet})"
           }
         ],
         "description": "",
@@ -358,7 +358,7 @@
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "sum((mongodb_mongod_db_data_size_bytes{}  * on (container_id,host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet})"
+            "query": "sum((mongodb_mongod_db_data_size_bytes{}  * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet})"
           }
         ],
         "description": "",
@@ -389,7 +389,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum((mongodb_mongod_db_indexes_total * on (container_id,host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet})"
+            "query": "sum((mongodb_mongod_db_indexes_total * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet})"
           }
         ],
         "description": "",
@@ -420,7 +420,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum((mongodb_mongod_db_collections_total * on (container_id,host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet})"
+            "query": "sum((mongodb_mongod_db_collections_total * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet})"
           }
         ],
         "description": "",
