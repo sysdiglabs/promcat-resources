@@ -1,0 +1,98 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-exporter
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: mongodb-exporter
+      app.kubernetes.io/name: prometheus-mongodb-exporter
+  template:
+    metadata:
+      annotations:
+        prometheus.io/port: "9216"
+        prometheus.io/scrape: "true"
+    spec:
+      affinity: {}
+      containers:
+      - args:
+        - --web.listen-address=:9216
+        - --collect.collection
+        - --collect.database
+        - --collect.indexusage
+        - --collect.topmetrics
+        - --collect.connpoolstats
+        env:
+        - name: MONGODB_URI
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-exporter
+              key: mongodb-uri
+        volumeMounts:
+        - name: mongodb-exporter-key
+          mountPath: /etc/mongodb/mongodb-exporter-key.pem
+          subPath: mongodb-exporter-key.pem
+        - name: mongodb-exporter-ca
+          mountPath: /etc/mongodb/mongodb-exporter-ca.pem
+          subPath: mongodb-exporter-ca.pem
+        image: ssheehy/mongodb-exporter:0.10.0
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: metrics
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: mongodb-exporter
+        ports:
+        - containerPort: 9216
+          name: metrics
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: metrics
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - all
+          readOnlyRootFilesystem: true
+          runAsGroup: 10000
+          runAsNonRoot: true
+          runAsUser: 10000
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      volumes:
+      - secret:
+          defaultMode: 420
+          secretName: mongodb-exporter-auth
+          items: 
+            - key: mongodb-key
+              path: mongodb-exporter-key.pem 
+        name: mongodb-exporter-key
+      - secret:
+          defaultMode: 420
+          secretName: mongodb-exporter-auth
+          items: 
+            - key: mongodb-ca
+              path: mongodb-exporter-ca.pem 
+        name: mongodb-exporter-ca
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
