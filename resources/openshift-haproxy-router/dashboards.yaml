@@ -1,0 +1,90 @@
+apiVersion: v1
+kind: Dashboard
+app: 'OpenShift HAProxy Router'
+version: 1.0.0
+appVersion:
+  - "3.11"
+  - "4.3"
+configurations:
+- name: 'HAProxy OC Ingress Overview'
+  kind: Sysdig
+  image: 'openshift-haproxy-router/images/HAProxy_OC_Ingress_Overview-sysdig-dashboard.png'
+  description: |
+    This dashboard offers information on:
+    * Up Time
+    * Instances
+    * Backends OK
+    * Response Errors rate
+    * Down Time
+    * Connections error rate
+    * Failed health checks
+    * Current Queue
+    * Avg Response Latency
+    * Frontend sessions rate
+    * CPU
+    * Virtual Memory
+    * Virtual Memory
+    * Max open File Descriptors
+    * Frontend Bytes In
+    * Frontend Connections
+    * Frontend Bytes Out
+    * Frontend HTTP Requests
+  file: include/HAProxy_OC_Ingress_Overview-sysdig-dashboard.json
+- name: 'HAProxy OC Service Golden Signals'
+  kind: Sysdig
+  image: 'openshift-haproxy-router/images/HAProxy_OC_Service_Golden_Signals-sysdig-dashboard.png'
+  description: |
+    This dashboard offers information on:
+    * Servers
+    * HTTP Error rate
+    * Check Failures
+    * Downtime By Pod
+    * Connection Errors by Pod
+    * Average response latency
+    * Queue
+    * Connections
+    * Responses OK
+    * Bytes Inbound
+    * Bytes Outbound
+  file: include/HAProxy_OC_Service_Golden_Signals-sysdig-dashboard.json
+- name: 'HAProxy OC Ingress Overview'
+  kind: Grafana
+  image: 'openshift-haproxy-router/images/HAProxy_OC_Ingress_Overview-grafana-dashboard.png'
+  description: |
+    This dashboard offers information on:
+    * Up Time
+    * Instances
+    * Backends OK
+    * Response Errors rate
+    * Down Time
+    * Connections error rate
+    * Failed health checks
+    * Current Queue
+    * Avg Response Latency
+    * Frontend sessions rate
+    * CPU
+    * Virtual Memory
+    * Virtual Memory
+    * Max open File Descriptors
+    * Frontend Bytes In
+    * Frontend Connections
+    * Frontend Bytes Out
+    * Frontend HTTP Requests
+  file: include/HAProxy_OC_Ingress_Overview-grafana-dashboard.json
+- name: 'HAProxy OC Service Golden Signals'
+  kind: Grafana
+  image: 'openshift-haproxy-router/images/HAProxy_OC_Service_Golden_Signals-grafana-dashboard.png'
+  description: |
+    This dashboard offers information on:
+    * Servers
+    * HTTP Error rate
+    * Check Failures
+    * Downtime By Pod
+    * Connection Errors by Pod
+    * Average response latency
+    * Queue
+    * Connections
+    * Responses OK
+    * Bytes Inbound
+    * Bytes Outbound
+  file: include/HAProxy_OC_Service_Golden_Signals-grafana-dashboard.json
