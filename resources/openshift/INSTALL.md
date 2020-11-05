@@ -2,7 +2,7 @@
 
 You can follow all this steps or just download the script with all them inside and just exectute:
 ```sh
-sh instalation.sh
+sh installation.sh
 ```
 
 The Prometheus is behind an oauth proxy so we have to create the secret with the token:
