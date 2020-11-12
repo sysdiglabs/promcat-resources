@@ -53,7 +53,38 @@ helm install  mongodb-exporter prometheus-community/prometheus-mongodb-exporter 
 helm install --name mongodb-exporter prometheus-community/prometheus-mongodb-exporter -f values.yaml
 ```
 
-The metrics will be available in the port 9216 of the exporter pod.
+The metrics will be available in port 9216 of the exporter pod.
+
+## Using TLS or SSL Authentication
+To use TLS or SSL authentication, you will need to use the file `mongodb-exporter-auth-deploy.yaml` and use it to deploy the exporter as the helm chart does not support authentication.
+
+Follow these steps: 
+
+1. Create a text file with the connection string for your MongoDB using these examples: 
+```
+# TLS
+mongodb://mongodb-exporter-user:mongodb-exporter-pass@<YOUR-MONGODB-HOST>:<PORT>/admin?tls=true&tlsCertificateKeyFile=/etc/mongodb/mongodb-exporter-key.pem&tlsAllowInvalidCertificates=true&tlsCAFile=/etc/mongodb/mongodb-exporter-ca.pem
+
+# SSL
+mongodb://mongodb-exporter-user:mongodb-exporter-pass@<YOUR-MONGODB-HOST>:<PORT>/admin?ssl=true&sslclientcertificatekeyfile=/etc/mongodb/mongodb-exporter-key.pem&sslinsecure=true&sslcertificateauthorityfile=/etc/mongodb/mongodb-exporter-ca.pem
+```
+2. Create the secret for the connection string:
+```
+kubectl create secret generic mongodb-exporter \
+  --from-file=mongodb-uri=<route-to-file-with-connection-uri.txt>
+```
+
+3. Create the secret with the private key and the certificate authority (CA). If you do not have a CA file, you can use an empty file instead:
+```
+kubectl create secret generic mongodb-exporter-auth \
+  --from-file=mongodb-key=<route-to-your-private-key.pem> \
+  --from-file=mongodb-ca=<route-to-your-ca.pem> 
+```
+
+1. Download the file `mongodb-exporter-auth-deploy.yaml` and apply it with the following command:
+```
+kubectl apply -f mongodb-exporter-auth-deploy.yaml
+```
 
 # SYSDIG AGENT CONFIGURATION
 In the _values.yaml_ of the Helm chart we will include the Prometheus annotations configuring the port of the exporter as scraping port.    
