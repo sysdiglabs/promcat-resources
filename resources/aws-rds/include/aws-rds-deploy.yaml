@@ -1,0 +1,202 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: yace
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yace-rds
+  namespace: yace
+spec:
+  selector:
+    matchLabels:
+      app: yace-rds
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: yace-rds
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "5000"
+    spec:
+      containers:
+      - name: yace
+        image: quay.io/invisionag/yet-another-cloudwatch-exporter:v0.21.0-alpha
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+          - name: yace-rds-config
+            mountPath: /tmp/config.yml
+            subPath: config.yml
+          - name: yace-rds-credentials
+            mountPath: /exporter/.aws/credentials
+            subPath: credentials
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: yace-rds-config
+          name: yace-rds-config
+        - secret:
+            defaultMode: 420
+            secretName: yace-rds-credentials
+          name: yace-rds-credentials
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: yace-rds-config
+  namespace: yace
+data:
+  config.yml: |
+    discovery:
+      jobs:
+      - regions: 
+        - us-east-1
+        type: rds
+        enableMetricData: true
+        metrics: 
+          - name: BinLogDiskUsage
+            statistics:
+            - Average
+            period: 300
+            length: 3600
+          - name: BurstBalance
+            statistics:
+            - Average
+            period: 300
+            length: 3600
+          - name: CPUUtilization
+            statistics:
+            - Average
+            period: 300
+            length: 3600
+          - name: CPUCreditUsage
+            statistics:
+            - Average
+            period: 300
+            length: 3600
+          - name: CPUCreditBalance
+            statistics:
+            - Average
+            period: 300
+            length: 3600
+          - name: DatabaseConnections
+            statistics:
+            - Average
+            period: 300
+            length: 3600
+          - name: DiskQueueDepth
+            statistics:
+            - Average
+            - Maximum
+            period: 300
+            length: 3600
+          - name: FailedSQLServerAgentJobsCount
+            statistics:
+            - Average
+            period: 300
+            length: 3600
+          - name: FreeableMemory
+            statistics:
+            - Average
+            period: 300
+            length: 3600
+          - name: FreeStorageSpace
+            statistics:
+            - Average
+            period: 300
+            length: 3600
+          - name: MaximumUsedTransactionIDs
+            statistics:
+            - Average
+            period: 300
+            length: 3600
+          - name: NetworkReceiveThroughput
+            statistics:
+            - Average
+            period: 300
+            length: 3600
+          - name: NetworkTransmitThroughput
+            statistics:
+            - Average
+            period: 300
+            length: 3600
+          - name: OldestReplicationSlotLag
+            statistics:
+            - Average
+            period: 300
+            length: 3600
+          - name: ReadIOPS
+            statistics:
+            - Average
+            period: 300
+            length: 3600
+          - name: ReadLatency
+            statistics:
+            - Maximum
+            - Average
+            period: 300
+            length: 3600
+          - name: ReadThroughput
+            statistics:
+            - Average
+            period: 300
+            length: 3600
+          - name: ReplicaLag
+            statistics:
+            - Average
+            period: 300
+            length: 3600
+          - name: ReplicationSlotDiskUsage
+            statistics:
+            - Average
+            period: 300
+            length: 3600
+          - name: SwapUsage
+            statistics:
+            - Average
+            period: 300
+            length: 3600
+          - name: TransactionLogsDiskUsage
+            statistics:
+            - Average
+            period: 300
+            length: 3600
+          - name: TransactionLogsGeneration
+            statistics:
+            - Average
+            period: 300
+            length: 3600
+          - name: WriteIOPS
+            statistics:
+            - Average
+            period: 300
+            length: 3600
+          - name: WriteLatency
+            statistics:
+            - Maximum
+            - Average
+            period: 300
+            length: 3600
+          - name: WriteThroughput
+            statistics:
+            - Average
+            period: 300
+            length: 3600
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: yace-rds-credentials
+  namespace: yace
+data:
+  # Add in credentials the result of:
+  # cat ~/.aws/credentials | base64
+  credentials: |
+    XXX
