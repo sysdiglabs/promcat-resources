@@ -42,11 +42,18 @@ configurations:
   file: include/dashboard-Sysdig-Rancher---CoreDNS.json
 - name: Rancher / CoreDNS
   kind: Sysdig
-  image: rancher/images/coreDNS_sysdig.png
+  image: rancher/images/coredns_sysdig.png
   description: |
     This dashboard offers information on:
     * CoreDns
-  file: include/
+  file: include/dashboard-Sysdig-Rancher---CoreDNS.json
+- name: Rancher / etcd
+  kind: Sysdig
+  image: rancher/images/etcd_sysdig.png
+  description: |
+    This dashboard offers information on:
+    * Etcd
+  file: include/dashboard-Sysdig-Rancher---etcd.json
 - name: Rancher / Api
   kind: Grafana
   image: rancher/images/api_grafana.png
@@ -89,3 +96,10 @@ configurations:
     This dashboard offers information on:
     * CoreDns
   file: include/dashboard-Grafana-Rancher---CoreDNS.json
+- name: Rancher / etcd
+  kind: Grafana
+  image: rancher/images/etcd_grafana.png
+  description: |
+    This dashboard offers information on:
+    * Etcd
+  file: include/dashboard-Grafana-Rancher---etcd.json
