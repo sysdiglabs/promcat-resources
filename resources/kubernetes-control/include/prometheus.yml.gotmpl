@@ -9,9 +9,6 @@ nodeExporter:
 pushgateway:
   enabled: false
 server:
-  nodeSelector:
-    kubernetes.io/role: master
-  tolerations: [{"key": "node-role.kubernetes.io/master", "effect": "NoSchedule"}]
   persistentVolume:
     size: 20Gi
   statefulSet:
@@ -25,14 +22,6 @@ server:
     evaluation_interval: 1m
     scrape_interval: 1m
     scrape_timeout: 10s
-  extraVolumeMounts:
-    - mountPath: /opt/draios/kubernetes/prometheus/secrets
-      name: etcd-ca
-  extraVolumes:
-    - name: etcd-ca
-      secret:
-        defaultMode: 420
-        secretName: etcd-ca
 serverFiles:
   prometheus.yml:
 {{ readFile "prometheus.yaml" | indent 4 }}

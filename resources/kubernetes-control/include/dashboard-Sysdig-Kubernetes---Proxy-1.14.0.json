@@ -108,7 +108,7 @@
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "process_resident_memory_bytes:kube_proxy* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "process_resident_memory_bytes:kube_proxy* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -167,7 +167,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(process_cpu_seconds_total:kube_proxy[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "rate(process_cpu_seconds_total:kube_proxy[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -226,7 +226,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "go_goroutines:kube_proxy* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "go_goroutines:kube_proxy* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -285,7 +285,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "rest_client_request_latency_seconds_bucket:get:kube_proxy* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "rest_client_request_latency_seconds_bucket:get:kube_proxy* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -344,7 +344,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kube_proxy{code=~\"2..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+            "query": "sum(rate(rest_client_requests_total:kube_proxy{code=~\"2..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           },
           {
             "displayInfo": {
@@ -360,7 +360,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kube_proxy{code=~\"3..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+            "query": "sum(rate(rest_client_requests_total:kube_proxy{code=~\"3..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           },
           {
             "displayInfo": {
@@ -376,7 +376,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kube_proxy{code=~\"4..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+            "query": "sum(rate(rest_client_requests_total:kube_proxy{code=~\"4..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           },
           {
             "displayInfo": {
@@ -392,7 +392,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kube_proxy{code=~\"5..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+            "query": "sum(rate(rest_client_requests_total:kube_proxy{code=~\"5..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           }
         ],
         "axesConfiguration": {
@@ -451,7 +451,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "rest_client_request_latency_seconds_bucket:post:kube_proxy* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "rest_client_request_latency_seconds_bucket:post:kube_proxy* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -510,7 +510,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "kubeproxy_network_programming_duration_seconds_count:kube_proxy* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "kubeproxy_network_programming_duration_seconds_count:kube_proxy* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -569,7 +569,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(kubeproxy_sync_proxy_rules_duration_seconds_count:kube_proxy[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
+            "query": "sum(rate(kubeproxy_sync_proxy_rules_duration_seconds_count:kube_proxy[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster})"
           }
         ],
         "axesConfiguration": {
@@ -628,7 +628,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(up:kube_proxy* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
+            "query": "sum(up:kube_proxy* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster})"
           }
         ],
         "description": "",
@@ -659,7 +659,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "kubeproxy_sync_proxy_rules_duration_seconds_bucket:kube_proxy* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "kubeproxy_sync_proxy_rules_duration_seconds_bucket:kube_proxy* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -718,7 +718,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "kubeproxy_network_programming_duration_seconds_bucket:kube_proxy* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "kubeproxy_network_programming_duration_seconds_bucket:kube_proxy* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {

@@ -5,7 +5,7 @@ The metrics for the information of kubernetes control plane are gathered from th
 
 # Prometheus and exporters
 
-For the instalation of the entire infrastructure you can just install the helm chart of prometheus and some configurations.
+For the installation of the entire infrastructure you can just install the helm chart of prometheus and some configurations.
 
 In the exporter config tab there is more information about it.
 

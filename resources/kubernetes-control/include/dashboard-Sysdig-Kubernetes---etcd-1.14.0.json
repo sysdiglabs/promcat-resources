@@ -108,7 +108,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "avg(etcd_server_has_leader:sysdig * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
+            "query": "avg(etcd_server_has_leader * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster})"
           }
         ],
         "description": "",
@@ -158,7 +158,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "max(etcd_server_leader_changes_seen_total:sysdig * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
+            "query": "max(etcd_server_leader_changes_seen_total * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster})"
           }
         ],
         "description": "",
@@ -189,7 +189,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "max(etcd_server_proposals_failed_total:sysdig * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
+            "query": "max(etcd_server_proposals_failed_total * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster})"
           }
         ],
         "description": "",
@@ -220,7 +220,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(grpc_server_started_total:sysdig{grpc_type=\"unary\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+            "query": "sum(rate(grpc_server_started_total{grpc_type=\"unary\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           },
           {
             "displayInfo": {
@@ -236,7 +236,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(grpc_server_handled_total:sysdig{grpc_type=\"unary\",grpc_code!=\"OK\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+            "query": "sum(rate(grpc_server_handled_total{grpc_type=\"unary\",grpc_code!=\"OK\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           }
         ],
         "axesConfiguration": {
@@ -295,7 +295,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(grpc_server_started_total:sysdig{grpc_service=\"etcdserverpb.Watch\",grpc_type=\"bidi_stream\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster) - sum(grpc_server_handled_total:sysdig{grpc_service=\"etcdserverpb.Watch\",grpc_type=\"bidi_stream\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+            "query": "sum(grpc_server_started_total{grpc_service=\"etcdserverpb.Watch\",grpc_type=\"bidi_stream\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster) - sum(grpc_server_handled_total{grpc_service=\"etcdserverpb.Watch\",grpc_type=\"bidi_stream\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           },
           {
             "displayInfo": {
@@ -311,7 +311,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(grpc_server_started_total:sysdig{grpc_service=\"etcdserverpb.Lease\",grpc_type=\"bidi_stream\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster) - sum(grpc_server_handled_total:sysdig{grpc_service=\"etcdserverpb.Lease\",grpc_type=\"bidi_stream\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+            "query": "sum(grpc_server_started_total{grpc_service=\"etcdserverpb.Lease\",grpc_type=\"bidi_stream\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster) - sum(grpc_server_handled_total{grpc_service=\"etcdserverpb.Lease\",grpc_type=\"bidi_stream\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           }
         ],
         "axesConfiguration": {
@@ -370,7 +370,7 @@
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "etcd_debugging_mvcc_db_total_size_in_bytes:sysdig * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "etcd_debugging_mvcc_db_total_size_in_bytes * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -429,7 +429,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "histogram_quantile(0.99, sum(rate(etcd_disk_wal_fsync_duration_seconds_bucket:sysdig[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (instance, le, cluster))"
+            "query": "histogram_quantile(0.99, sum(rate(etcd_disk_wal_fsync_duration_seconds_bucket[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (instance, le, cluster))"
           },
           {
             "displayInfo": {
@@ -445,7 +445,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "histogram_quantile(0.99, sum(rate(etcd_disk_backend_commit_duration_seconds_bucket:sysdig[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (instance, le, cluster))"
+            "query": "histogram_quantile(0.99, sum(rate(etcd_disk_backend_commit_duration_seconds_bucket[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (instance, le, cluster))"
           }
         ],
         "axesConfiguration": {
@@ -504,7 +504,7 @@
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "process_resident_memory_bytes:kubernetes{job=\"etcd\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "process_resident_memory_bytes:kubernetes{job=\"etcd\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -563,7 +563,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(etcd_server_proposals_committed_total:sysdig[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+            "query": "sum(rate(etcd_server_proposals_committed_total[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           },
           {
             "displayInfo": {
@@ -579,7 +579,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(etcd_server_proposals_applied_total:sysdig[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+            "query": "sum(rate(etcd_server_proposals_applied_total[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           }
         ],
         "axesConfiguration": {
@@ -638,7 +638,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"etcd\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"etcd\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -697,7 +697,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "go_goroutines:kubernetes{job=\"etcd\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "go_goroutines:kubernetes{job=\"etcd\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {

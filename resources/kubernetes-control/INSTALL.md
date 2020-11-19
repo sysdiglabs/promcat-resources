@@ -5,18 +5,11 @@ To deploy a Prometheus server you will need:
 * [helm](https://helm.sh/docs/intro/install/)  
 * [helmfile](https://github.com/roboll/helmfile)
 
-# Configuring the etcd to get the metrics
-Etcd exposes all their metrics by default but Prometheus has to know where it is. 
-
-First, you need to get the SSL certificates.
-1. Getting the certificates: 
-The certificates are located in the master node in `/etc/kubernetes/pki/etcd-manager-main/etcd-clients-ca.key` and `/etc/kubernetes/pki/etcd-manager-main/etcd-clients-ca.crt`. Save them in you local computer.
-2. Creating the secrets for the certificates:
-Once we have the certificates let’s proceed to create the secrets in the namespace where the Prometheus server is located. In our case, it will be located in the namespace `monitoring`. 
-To create the secrets, run:
-
-```
-kubectl -n monitoring create secret generic etcd-ca --from-file=etcd-clients-ca.key --from-file etcd-clients-ca.crt
+##  Mount the etcd certificates in the sysdig agent
+```sh
+kubectl -n sysdig-agent patch ds sysdig-agent -p '{"spec":{"template":{"spec":{"volumes":[{"hostPath":{"path":"/etc/kubernetes/pki/etcd-manager-main","type":"DirectoryOrCreate"},"name":"etcd-certificates"}]}}}}'
+  
+kubectl -n sysdig-agent patch ds sysdig-agent -p '{"spec":{"template":{"spec":{"containers":[{"name":"sysdig-agent","volumeMounts": [{"mountPath": "/etc/kubernetes/pki/etcd-manager","name": "etcd-certificates"}]}]}}}}'
 ```
 
 # Installing and configuring Prometheus

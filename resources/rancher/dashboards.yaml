@@ -1,0 +1,105 @@
+apiVersion: v1
+kind: Dashboard
+app: Rancher
+version: 1.0.0
+appVersion:
+  - '2.5.0'
+configurations:
+- name: Rancher / Api
+  kind: Sysdig
+  image: rancher/images/api_sysdig.png
+  description: |
+    This dashboard offers information on:
+    * Api Server
+  file: include/dashboard-Sysdig-Rancher---Api.json
+- name: Rancher / Controller manager
+  kind: Sysdig
+  image: rancher/images/controller_manager_sysdig.png
+  description: |
+    This dashboard offers information on:
+    * Controller manager
+  file: include/dashboard-Sysdig-Rancher---Controller_Manager.json
+- name: Rancher / Kubelet
+  kind: Sysdig
+  image: rancher/images/kubelet_sysdig.png
+  description: |
+    This dashboard offers information on:
+    * Kubelet
+  file: include/dashboard-Sysdig-Rancher---Kubelet.json
+- name: Rancher / Scheduler
+  kind: Sysdig
+  image: rancher/images/scheduler_sysdig.png
+  description: |
+    This dashboard offers information on:
+    * Scheduler
+  file: include/dashboard-Sysdig-Rancher---Scheduler.json
+- name: Rancher / Proxy
+  kind: Sysdig
+  image: rancher/images/proxy_sysdig.png
+  description: |
+    This dashboard offers information on:
+    * Proxy server
+  file: include/dashboard-Sysdig-Rancher---CoreDNS.json
+- name: Rancher / CoreDNS
+  kind: Sysdig
+  image: rancher/images/coredns_sysdig.png
+  description: |
+    This dashboard offers information on:
+    * CoreDns
+  file: include/dashboard-Sysdig-Rancher---CoreDNS.json
+- name: Rancher / etcd
+  kind: Sysdig
+  image: rancher/images/etcd_sysdig.png
+  description: |
+    This dashboard offers information on:
+    * Etcd
+  file: include/dashboard-Sysdig-Rancher---etcd.json
+- name: Rancher / Api
+  kind: Grafana
+  image: rancher/images/api_grafana.png
+  description: |
+    This dashboard offers information on:
+    * Api Server
+  file: include/dashboard-Grafana-Rancher---Api.json
+- name: Rancher / Controller manager
+  kind: Grafana
+  image: rancher/images/controller_manager_grafana.png
+  description: |
+    This dashboard offers information on:
+    * Controller manager
+  file: include/dashboard-Grafana-Rancher---Controller-manager.json
+- name: Rancher / Kubelet
+  kind: Grafana
+  image: rancher/images/kubelet_grafana.png
+  description: |
+    This dashboard offers information on:
+    * Kubelet
+  file: include/dashboard-Grafana-Rancher---Kubelet.json
+- name: Rancher / Scheduler
+  kind: Grafana
+  image: rancher/images/scheduler_grafana.png
+  description: |
+    This dashboard offers information on:
+    * Scheduler
+  file: include/dashboard-Grafana-Rancher---Scheduler.json
+- name: Rancher / Proxy
+  kind: Grafana
+  image: rancher/images/proxy_grafana.png
+  description: |
+    This dashboard offers information on:
+    * Proxy Server
+  file: include/dashboard-Grafana-Rancher---Proxy.json
+- name: Rancher / CoreDNS
+  kind: Grafana
+  image: rancher/images/coreDNS_grafana.png
+  description: |
+    This dashboard offers information on:
+    * CoreDns
+  file: include/dashboard-Grafana-Rancher---CoreDNS.json
+- name: Rancher / etcd
+  kind: Grafana
+  image: rancher/images/etcd_grafana.png
+  description: |
+    This dashboard offers information on:
+    * Etcd
+  file: include/dashboard-Grafana-Rancher---etcd.json
