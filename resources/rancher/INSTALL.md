@@ -1,11 +1,29 @@
-# Prerequisites
+# Prerequisites 
+## Enable monitoring
+Rancher can deploy a Prometheus, in order to get a default monitoring you have to enable it in the monitoring tab
 ## Mount the etcd certificates in the sysdig agent
 ```sh
 kubectl -n sysdig-agent patch ds sysdig-agent -p '{"spec":{"template":{"spec":{"volumes":[{"hostPath":{"path":"/etc/kubernetes/pki/etcd-manager-main","type":"DirectoryOrCreate"},"name":"etcd-certificates"}]}}}}'
   
 kubectl -n sysdig-agent patch ds sysdig-agent -p '{"spec":{"template":{"spec":{"containers":[{"name":"sysdig-agent","volumeMounts": [{"mountPath": "/etc/kubernetes/pki/etcd-manager","name": "etcd-certificates"}]}]}}}}'
 ```
+# Gather the metrics from the prometheus deployed by Rancher
+For the control plane metrics, these servise are not created by default, to get them in the Prometheus you have to create new services and seviceMonitors, and to gather that metrics with the sysdig agent, you have to create the rules to filtering them and federate these metrics with the agent itself.
 
+You can follow all this steps or just download the script with all them inside and just exectute:
+```sh
+sh installation.sh
+```
+And then apply the configuration for the sysdig-agent
+
+1. Apply the services
+```bash
+kubectl apply -f services.yaml
+```
+2. Apply the serviceMonitor
+```bash
+kubectl apply -f service-monitor.yaml
+```
 ## Configuring the Sysdig agent
 In this section we will explain how to configure the sysdig-agent
 
@@ -66,4 +84,49 @@ With the promscrape v2 enable you have to scrape the etcd, so just make sure in 
     source_labels: [__meta_kubernetes_pod_container_name]
     target_label: sysdig_k8s_pod_container_name
 ```
+And you will need another job for the control plane
+```yaml
+- job_name: control-plane
+  honor_labels: true
+  metrics_path: '/federate'
+  params:
+    'match[]':
+      - '{sysdig="true"}'
+  kubernetes_sd_configs:
+  - role: pod
+  relabel_configs:
+  - action: keep
+    source_labels: [__meta_kubernetes_pod_host_ip]
+    regex: __HOSTIPS__
+  - action: keep
+    source_labels:
+    - __meta_kubernetes_namespace
+    - __meta_kubernetes_pod_name
+    separator: '/'
+    regex: 'cattle-prometheus/prometheus-cluster-monitoring-0'
+  - source_labels:
+    - __address__
+    action: replace
+    target_label: __address__
+    regex: (.+?)(\\:\\d)?
+    replacement: $1
+    # Holding on to pod-id and container name so we can associate the metrics
+    # with the container (and cluster hierarchy)
+  - action: replace
+    source_labels: [__meta_kubernetes_pod_uid]
+    target_label: sysdig_k8s_pod_uid
+  - action: replace
+    source_labels: [__meta_kubernetes_pod_container_name]
+    target_label: sysdig_k8s_pod_container_name
+```
+
 Like before you will see the example below
+
+3. Apply the rules
+```
+kubectl apply -f rules.yaml
+```
+4. Apply the sysdig configuration
+```
+kubectl apply -f sysdig-agent.yaml
+```

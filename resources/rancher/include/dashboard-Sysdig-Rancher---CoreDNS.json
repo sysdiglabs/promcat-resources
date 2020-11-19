@@ -13,157 +13,126 @@
     },
     "layout": [
       {
-        "h": 3,
+        "h": 6,
         "panelId": 1,
-        "w": 9,
+        "w": 3,
         "x": 0,
-        "y": 17
+        "y": 0
       },
       {
-        "h": 3,
+        "h": 6,
         "panelId": 2,
-        "w": 8,
-        "x": 9,
-        "y": 17
+        "w": 3,
+        "x": 3,
+        "y": 0
       },
       {
-        "h": 3,
+        "h": 6,
         "panelId": 3,
-        "w": 7,
-        "x": 17,
-        "y": 17
-      },
-      {
-        "h": 3,
-        "panelId": 4,
-        "w": 7,
-        "x": 17,
-        "y": 14
-      },
-      {
-        "h": 3,
-        "panelId": 5,
-        "w": 8,
-        "x": 9,
-        "y": 14
-      },
-      {
-        "h": 3,
-        "panelId": 6,
         "w": 9,
-        "x": 0,
-        "y": 14
+        "x": 6,
+        "y": 0
       },
       {
-        "h": 4,
-        "panelId": 7,
-        "w": 24,
+        "h": 6,
+        "panelId": 4,
+        "w": 8,
         "x": 0,
-        "y": 10
+        "y": 6
+      },
+      {
+        "h": 6,
+        "panelId": 5,
+        "w": 9,
+        "x": 15,
+        "y": 0
+      },
+      {
+        "h": 6,
+        "panelId": 6,
+        "w": 8,
+        "x": 8,
+        "y": 6
+      },
+      {
+        "h": 6,
+        "panelId": 7,
+        "w": 8,
+        "x": 16,
+        "y": 6
       },
       {
         "h": 6,
         "panelId": 8,
-        "w": 12,
-        "x": 12,
-        "y": 4
+        "w": 6,
+        "x": 0,
+        "y": 12
       },
       {
         "h": 6,
         "panelId": 9,
-        "w": 12,
-        "x": 0,
-        "y": 4
+        "w": 9,
+        "x": 6,
+        "y": 12
       },
       {
-        "h": 4,
+        "h": 6,
         "panelId": 10,
-        "w": 10,
-        "x": 14,
-        "y": 0
+        "w": 9,
+        "x": 15,
+        "y": 12
       },
       {
-        "h": 4,
+        "h": 6,
         "panelId": 11,
-        "w": 10,
-        "x": 4,
-        "y": 0
+        "w": 6,
+        "x": 0,
+        "y": 18
       },
       {
-        "h": 4,
+        "h": 6,
         "panelId": 12,
-        "w": 4,
+        "w": 9,
+        "x": 6,
+        "y": 18
+      },
+      {
+        "h": 6,
+        "panelId": 13,
+        "w": 9,
+        "x": 15,
+        "y": 18
+      },
+      {
+        "h": 6,
+        "panelId": 14,
+        "w": 8,
         "x": 0,
-        "y": 0
+        "y": 24
+      },
+      {
+        "h": 6,
+        "panelId": 15,
+        "w": 8,
+        "x": 8,
+        "y": 24
+      },
+      {
+        "h": 6,
+        "panelId": 16,
+        "w": 8,
+        "x": 16,
+        "y": 24
       }
     ],
-    "name": "Kubernetes / API server",
+    "name": "Rancher / CoreDNS",
     "panels": [
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Memory",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "B",
-              "unit": "byte",
-              "yAxis": "auto"
-            },
-            "query": "process_resident_memory_bytes:kubernetes{job=\"kubernetes-apiservers\"} * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
-          }
-        ],
-        "axesConfiguration": {
-          "bottom": {
-            "enabled": true
-          },
-          "left": {
-            "decimals": null,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "B",
-            "maxValue": null,
-            "minInputFormat": "B",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          },
-          "right": {
-            "decimals": null,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          }
-        },
-        "description": "",
-        "id": 1,
-        "legendConfiguration": {
-          "enabled": true,
-          "layout": "table",
-          "position": "right",
-          "showCurrent": true
-        },
-        "name": "Memory",
-        "type": "advancedTimechart"
-      },
-      {
-        "advancedQueries": [
-          {
-            "displayInfo": {
-              "displayName": "Cpu usage",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
               "type": "lines"
             },
             "enabled": true,
@@ -171,58 +140,32 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"kubernetes-apiservers\"}[$__interval]) * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
+            "query": "sum(up:kubernetes{job=\"coredns-monitoring\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster})"
           }
         ],
-        "axesConfiguration": {
-          "bottom": {
-            "enabled": true
-          },
-          "left": {
-            "decimals": 2,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          },
-          "right": {
-            "decimals": null,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          }
-        },
         "description": "",
-        "id": 2,
-        "legendConfiguration": {
-          "enabled": true,
-          "layout": "table",
-          "position": "right",
-          "showCurrent": true
+        "id": 1,
+        "name": "UP",
+        "nullValueDisplayText": null,
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
         },
-        "name": "CPU usage",
-        "type": "advancedTimechart"
+        "type": "advancedNumber"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
               "displayName": "",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
+              "timeSeriesDisplayNameTemplate": "",
               "type": "lines"
             },
             "enabled": true,
@@ -230,10 +173,61 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "go_goroutines:kubernetes{job=\"kubernetes-apiservers\"} * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
+            "query": "sum(coredns_panic_count_total:sysdig{job=\"coredns-monitoring\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster})"
+          }
+        ],
+        "description": "",
+        "id": 2,
+        "name": "Panics",
+        "nullValueDisplayText": null,
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "forward {{rcode}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(rate(coredns_forward_response_rcode_count_total:sysdig{job=\"coredns-monitoring\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (rcode)"
+          },
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{rcode}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(rate(coredns_dns_response_rcode_count_total:sysdig{job=\"coredns-monitoring\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (rcode)"
           }
         ],
         "axesConfiguration": {
@@ -241,14 +235,14 @@
             "enabled": true
           },
           "left": {
-            "decimals": 2,
+            "decimals": null,
             "displayFormat": "auto",
             "displayName": null,
             "enabled": true,
             "maxInputFormat": "1",
             "maxValue": null,
             "minInputFormat": "1",
-            "minValue": null,
+            "minValue": 0.0,
             "scale": "linear",
             "unit": "auto"
           },
@@ -260,7 +254,7 @@
             "maxInputFormat": "1",
             "maxValue": null,
             "minInputFormat": "1",
-            "minValue": null,
+            "minValue": 0.0,
             "scale": "linear",
             "unit": "auto"
           }
@@ -269,46 +263,34 @@
         "id": 3,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
-        "name": "Goroutines",
+        "name": "RPC rate",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "ETCD get",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} get",
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{type}}",
               "type": "lines"
             },
             "enabled": true,
             "format": {
               "decimals": null,
               "displayFormat": "auto",
-              "inputFormat": "s",
-              "unit": "relativeTime",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
               "yAxis": "auto"
             },
-            "query": "etcd_request_cache_get_duration_seconds_bucket:kubernetes_apiservers * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
-          },
-          {
-            "displayInfo": {
-              "displayName": "ETCD add",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} miss",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "s",
-              "unit": "relativeTime",
-              "yAxis": "auto"
-            },
-            "query": "etcd_request_cache_add_duration_seconds_bucket:kubernetes_apiservers * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
+            "query": "(sum(rate(coredns_dns_request_type_count_total:sysdig{job=\"coredns-monitoring\"}[$__interval]) * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (type))"
           }
         ],
         "axesConfiguration": {
@@ -320,10 +302,10 @@
             "displayFormat": "auto",
             "displayName": null,
             "enabled": true,
-            "maxInputFormat": "ns",
+            "maxInputFormat": "1",
             "maxValue": null,
-            "minInputFormat": "ns",
-            "minValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
             "scale": "linear",
             "unit": "auto"
           },
@@ -335,7 +317,7 @@
             "maxInputFormat": "1",
             "maxValue": null,
             "minInputFormat": "1",
-            "minValue": null,
+            "minValue": 0.0,
             "scale": "linear",
             "unit": "auto"
           }
@@ -344,19 +326,22 @@
         "id": 4,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
-        "name": "ETCD Cache Duration 99th Quantile ",
+        "name": "Requests (by qtype)",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "ETCD hit",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} hit",
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{server}} {{zone}}",
               "type": "lines"
             },
             "enabled": true,
@@ -364,15 +349,16 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(etcd_helper_cache_hit_total:kubernetes_apiservers{job=\"kubernetes-apiservers\"}[5m])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (instance,cluster)"
+            "query": "histogram_quantile(0.99, sum(rate(coredns_dns_request_duration_seconds_bucket:sysdig{job=\"coredns-monitoring\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (server, zone, le))"
           },
           {
             "displayInfo": {
-              "displayName": "ETCD miss",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} miss",
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "forward {{to}}",
               "type": "lines"
             },
             "enabled": true,
@@ -380,10 +366,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(etcd_helper_cache_miss_total:kubernetes_apiservers{job=\"kubernetes-apiservers\"}[5m])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (instance,cluster)"
+            "query": "histogram_quantile(0.99, sum(rate(coredns_forward_request_duration_seconds_bucket:sysdig{job=\"coredns-monitoring\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (to, le))"
           }
         ],
         "axesConfiguration": {
@@ -391,14 +378,14 @@
             "enabled": true
           },
           "left": {
-            "decimals": 2,
+            "decimals": null,
             "displayFormat": "auto",
             "displayName": null,
             "enabled": true,
             "maxInputFormat": "1",
             "maxValue": null,
             "minInputFormat": "1",
-            "minValue": null,
+            "minValue": 0.0,
             "scale": "linear",
             "unit": "auto"
           },
@@ -410,7 +397,7 @@
             "maxInputFormat": "1",
             "maxValue": null,
             "minInputFormat": "1",
-            "minValue": null,
+            "minValue": 0.0,
             "scale": "linear",
             "unit": "auto"
           }
@@ -419,19 +406,22 @@
         "id": 5,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
-        "name": "ETCD Cache Hit/Miss Rate ",
+        "name": "Request duration 99th quantile",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "ETCD cache entry",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{zone}}",
               "type": "lines"
             },
             "enabled": true,
@@ -439,10 +429,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(etcd_helper_cache_entry_total:kubernetes_apiservers{job=\"kubernetes-apiservers\"}[$__interval]) * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
+            "query": "(sum(rate(coredns_dns_request_type_count_total:sysdig{job=\"coredns-monitoring\"}[$__interval]) * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (zone))"
           }
         ],
         "axesConfiguration": {
@@ -450,14 +441,14 @@
             "enabled": true
           },
           "left": {
-            "decimals": 2,
+            "decimals": null,
             "displayFormat": "auto",
             "displayName": null,
             "enabled": true,
             "maxInputFormat": "1",
             "maxValue": null,
             "minInputFormat": "1",
-            "minValue": null,
+            "minValue": 0.0,
             "scale": "linear",
             "unit": "auto"
           },
@@ -469,7 +460,7 @@
             "maxInputFormat": "1",
             "maxValue": null,
             "minInputFormat": "1",
-            "minValue": null,
+            "minValue": 0.0,
             "scale": "linear",
             "unit": "auto"
           }
@@ -478,30 +469,34 @@
         "id": 6,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
-        "name": "ETCD Cache Entry Total ",
+        "name": "Requests (by zone)",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Work queue latency",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{to}}",
               "type": "lines"
             },
             "enabled": true,
             "format": {
               "decimals": null,
               "displayFormat": "auto",
-              "inputFormat": "s",
-              "unit": "relativeTime",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
               "yAxis": "auto"
             },
-            "query": "workqueue_queue_duration_seconds_bucket:kubernetes_apiservers * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
+            "query": "(sum(rate(coredns_forward_request_count_total:sysdig{job=\"coredns-monitoring\"}[$__interval]) * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (to))"
           }
         ],
         "axesConfiguration": {
@@ -513,10 +508,10 @@
             "displayFormat": "auto",
             "displayName": null,
             "enabled": true,
-            "maxInputFormat": "ns",
+            "maxInputFormat": "1",
             "maxValue": null,
-            "minInputFormat": "ns",
-            "minValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
             "scale": "linear",
             "unit": "auto"
           },
@@ -528,7 +523,7 @@
             "maxInputFormat": "1",
             "maxValue": null,
             "minInputFormat": "1",
-            "minValue": null,
+            "minValue": 0.0,
             "scale": "linear",
             "unit": "auto"
           }
@@ -537,78 +532,55 @@
         "id": 7,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
-        "name": "Work Queue Latency",
+        "name": "Forward Requests (by to)",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Work queue depth",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} {{name}}",
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
               "type": "lines"
             },
             "enabled": true,
             "format": {
               "decimals": null,
               "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
+              "inputFormat": "0-1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "%",
               "yAxis": "auto"
             },
-            "query": "sum(rate(workqueue_depth:kubernetes_apiservers{job=\"kubernetes-apiservers\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (instance, name,cluster)"
+            "query": "sum(coredns_cache_hits_total:sysdig{job=\"coredns-monitoring\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) / (sum(coredns_cache_misses_total:sysdig{job=\"coredns-monitoring\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) + sum(coredns_cache_hits_total:sysdig{job=\"coredns-monitoring\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}))"
           }
         ],
-        "axesConfiguration": {
-          "bottom": {
-            "enabled": true
-          },
-          "left": {
-            "decimals": 2,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          },
-          "right": {
-            "decimals": null,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          }
-        },
         "description": "",
         "id": 8,
-        "legendConfiguration": {
-          "enabled": true,
-          "layout": "table",
-          "position": "right",
-          "showCurrent": true
+        "name": "Cached",
+        "nullValueDisplayText": null,
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
         },
-        "name": "Work Queue Depth",
-        "type": "advancedTimechart"
+        "type": "advancedNumber"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Work queue rate",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} {{name}}",
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{type}}",
               "type": "lines"
             },
             "enabled": true,
@@ -616,10 +588,28 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(workqueue_adds_total:kubernetes_apiservers{job=\"kubernetes-apiservers\"}[5m]) * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (instance, name, cluster)"
+            "query": "sum(rate(coredns_cache_hits_total:sysdig{job=\"coredns-monitoring\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (type)"
+          },
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "misses",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(rate(coredns_cache_misses_total:sysdig{job=\"coredns-monitoring\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster})"
           }
         ],
         "axesConfiguration": {
@@ -627,14 +617,14 @@
             "enabled": true
           },
           "left": {
-            "decimals": 2,
+            "decimals": null,
             "displayFormat": "auto",
             "displayName": null,
             "enabled": true,
             "maxInputFormat": "1",
             "maxValue": null,
             "minInputFormat": "1",
-            "minValue": null,
+            "minValue": 0.0,
             "scale": "linear",
             "unit": "auto"
           },
@@ -646,7 +636,7 @@
             "maxInputFormat": "1",
             "maxValue": null,
             "minInputFormat": "1",
-            "minValue": null,
+            "minValue": 0.0,
             "scale": "linear",
             "unit": "auto"
           }
@@ -655,30 +645,34 @@
         "id": 9,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
-        "name": "Work Queue Add Rate ",
+        "name": "Cache hit Rate",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Request duration",
-              "timeSeriesDisplayNameTemplate": "{{verb}} - {{cluster}}",
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{type}}",
               "type": "lines"
             },
             "enabled": true,
             "format": {
               "decimals": null,
               "displayFormat": "auto",
-              "inputFormat": "s",
-              "unit": "relativeTime",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
               "yAxis": "auto"
             },
-            "query": "apiserver_request_duration_seconds_bucket:kubernetes_apiservers * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
+            "query": "sum(coredns_cache_size:sysdig{job=\"coredns-monitoring\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (type)"
           }
         ],
         "axesConfiguration": {
@@ -690,10 +684,10 @@
             "displayFormat": "auto",
             "displayName": null,
             "enabled": true,
-            "maxInputFormat": "ns",
+            "maxInputFormat": "1",
             "maxValue": null,
-            "minInputFormat": "ns",
-            "minValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
             "scale": "linear",
             "unit": "auto"
           },
@@ -705,7 +699,7 @@
             "maxInputFormat": "1",
             "maxValue": null,
             "minInputFormat": "1",
-            "minValue": null,
+            "minValue": 0.0,
             "scale": "linear",
             "unit": "auto"
           }
@@ -714,118 +708,14 @@
         "id": 10,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
-        "name": "Request duration 99th quantile",
-        "type": "advancedTimechart"
-      },
-      {
-        "advancedQueries": [
-          {
-            "displayInfo": {
-              "displayName": "-",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} - 2xx",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
-              "yAxis": "auto"
-            },
-            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"2..\"}[$__interval]) * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
-          },
-          {
-            "displayInfo": {
-              "displayName": "-",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} 3xx",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
-              "yAxis": "auto"
-            },
-            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"3..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
-          },
-          {
-            "displayInfo": {
-              "displayName": "-",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} 4xx",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
-              "yAxis": "auto"
-            },
-            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"4..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
-          },
-          {
-            "displayInfo": {
-              "displayName": "",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} 5xx",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "1",
-              "unit": "number",
-              "yAxis": "auto"
-            },
-            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"5..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
-          }
-        ],
-        "axesConfiguration": {
-          "bottom": {
-            "enabled": true
-          },
-          "left": {
-            "decimals": 2,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          },
-          "right": {
-            "decimals": null,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          }
-        },
-        "description": "",
-        "id": 11,
-        "legendConfiguration": {
-          "enabled": true,
-          "layout": "table",
-          "position": "right",
-          "showCurrent": true
-        },
-        "name": "RPC Rate",
+        "name": "Cache Size",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -841,30 +731,374 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "avg(up:kubernetes{job=\"kubernetes-apiservers\"} * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster})"
+            "query": "count(sum(coredns_plugin_enabled:sysdig{job=\"coredns-monitoring\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (name))"
           }
         ],
         "description": "",
-        "id": 12,
-        "name": "Up",
+        "id": 11,
+        "name": "Plugins Enabled",
+        "nullValueDisplayText": null,
         "numberThresholds": {
           "base": {
             "displayText": "",
-            "severity": "high"
+            "severity": "none"
           },
-          "values": [
-            {
-              "displayText": "",
-              "inputFormat": "1",
-              "severity": "ok",
-              "value": 1.0
-            }
-          ]
+          "values": []
         },
         "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "99th {{server}} {{zone}} {{proto}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.99, sum(rate(coredns_dns_request_size_bytes_bucket:sysdig{job=\"coredns-monitoring\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (server, zone, proto, le))"
+          },
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "50th {{server}} {{zone}} {{proto}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.50, sum(rate(coredns_dns_request_size_bytes_bucket:sysdig{job=\"coredns-monitoring\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (server, zone, proto, le))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 12,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Request size",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "99th {{server}} {{zone}} {{proto}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.99, sum(rate(coredns_dns_response_size_bytes_bucket:sysdig{job=\"coredns-monitoring\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (server, zone, proto, le))"
+          },
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "50th {{server}} {{zone}} {{proto}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.50, sum(rate(coredns_dns_response_size_bytes_bucket:sysdig{job=\"coredns-monitoring\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (server, zone, proto, le))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 13,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Response size",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "process_resident_memory_bytes:kubernetes{job=\"coredns-monitoring\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B",
+            "maxValue": null,
+            "minInputFormat": "B",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 14,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Memory",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"coredns-monitoring\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 15,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "CPU usage",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "go_goroutines:kubernetes{job=\"coredns-monitoring\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 16,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "right",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Goroutines",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
       }
     ],
     "schema": 3,
@@ -876,11 +1110,11 @@
           "canGroupBy": true,
           "canMonitor": false,
           "category": "kubernetes",
-          "createdAt": 1593440810600,
+          "createdAt": 1605600425058,
           "customerId": 25008,
           "deferred": false,
           "documentId": "25008--6139949314852700299",
-          "documentTimestamp": 1593440810600,
+          "documentTimestamp": 1605600425058,
           "documentType": "metric",
           "experimental": false,
           "firstSeen": 1583235308502,
@@ -918,7 +1152,7 @@
             "id": "kubernetes.cluster.name",
             "identity": false,
             "label": true,
-            "lastSeen": 1593439747779,
+            "lastSeen": 1605597489251,
             "max": false,
             "metricType": "none",
             "min": false,
@@ -946,15 +1180,11 @@
           "hidden": false,
           "id": "kubernetes.cluster.name",
           "identity": false,
-          "lastSeen": 1593439747779,
+          "lastSeen": 1605597489251,
           "metricType": "tag",
           "namespaces": [
             "kubernetes.cluster"
           ],
-          "routingInfo": {
-            "customerId": 25008,
-            "routing": "25008"
-          },
           "scale": 1.0,
           "scopes": [],
           "segment": false,

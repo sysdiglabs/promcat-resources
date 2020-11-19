@@ -90,7 +90,7 @@
         "y": 4
       }
     ],
-    "name": "Kubernetes / Proxy",
+    "name": "Rancher / Proxy",
     "panels": [
       {
         "advancedQueries": [
@@ -105,6 +105,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "B",
+              "nullValueDisplayMode": "nullGap",
               "unit": "byte",
               "yAxis": "auto"
             },
@@ -144,11 +145,14 @@
         "id": 1,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Memory",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -164,6 +168,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -203,11 +208,14 @@
         "id": 2,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "CPU usage",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -223,6 +231,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -262,11 +271,14 @@
         "id": 3,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Goroutines",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -282,6 +294,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
@@ -321,11 +334,14 @@
         "id": 4,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Get Request Latency 99th Quantile",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -341,6 +357,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -357,6 +374,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -373,6 +391,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -389,6 +408,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -428,11 +448,14 @@
         "id": 5,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Kube API Request Rate",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -448,6 +471,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
@@ -487,11 +511,14 @@
         "id": 6,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Post Request Latency 99th Quantile",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -507,6 +534,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -546,11 +574,14 @@
         "id": 8,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Network Programming Rate",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -566,6 +597,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -605,11 +637,14 @@
         "id": 9,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Rules Sync Rate",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -625,6 +660,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -634,6 +670,7 @@
         "description": "",
         "id": 10,
         "name": "UP",
+        "nullValueDisplayText": null,
         "numberThresholds": {
           "base": {
             "displayText": "",
@@ -656,6 +693,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -695,11 +733,14 @@
         "id": 11,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Rule Sync Latency 99th Quantile",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -715,6 +756,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -754,11 +796,14 @@
         "id": 12,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Network Programming Latency 99th Quantile",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       }
     ],
@@ -771,11 +816,11 @@
           "canGroupBy": true,
           "canMonitor": false,
           "category": "kubernetes",
-          "createdAt": 1593440814451,
+          "createdAt": 1605600424277,
           "customerId": 25008,
           "deferred": false,
           "documentId": "25008--6139949314852700299",
-          "documentTimestamp": 1593440814451,
+          "documentTimestamp": 1605600424277,
           "documentType": "metric",
           "experimental": false,
           "firstSeen": 1583235308502,
@@ -813,7 +858,7 @@
             "id": "kubernetes.cluster.name",
             "identity": false,
             "label": true,
-            "lastSeen": 1593439747779,
+            "lastSeen": 1605597489251,
             "max": false,
             "metricType": "none",
             "min": false,
@@ -841,15 +886,11 @@
           "hidden": false,
           "id": "kubernetes.cluster.name",
           "identity": false,
-          "lastSeen": 1593439747779,
+          "lastSeen": 1605597489251,
           "metricType": "tag",
           "namespaces": [
             "kubernetes.cluster"
           ],
-          "routingInfo": {
-            "customerId": 25008,
-            "routing": "25008"
-          },
           "scale": 1.0,
           "scopes": [],
           "segment": false,
@@ -865,7 +906,9 @@
         "isVariable": true,
         "operand": "kubernetes.cluster.name",
         "operator": "in",
-        "value": [],
+        "value": [
+          "rancher"
+        ],
         "variable": true
       }
     ]

@@ -2,7 +2,7 @@
   "dashboard": {
     "description": "",
     "eventDisplaySettings": {
-      "enabled": true,
+      "enabled": false,
       "queryParams": {
         "alertStatuses": [],
         "categories": [],
@@ -17,55 +17,41 @@
         "panelId": 1,
         "w": 8,
         "x": 0,
-        "y": 14
+        "y": 12
       },
       {
         "h": 3,
         "panelId": 2,
         "w": 8,
         "x": 8,
-        "y": 14
+        "y": 12
       },
       {
         "h": 3,
         "panelId": 3,
         "w": 8,
         "x": 16,
-        "y": 14
-      },
-      {
-        "h": 3,
-        "panelId": 4,
-        "w": 24,
-        "x": 0,
-        "y": 11
-      },
-      {
-        "h": 3,
-        "panelId": 5,
-        "w": 7,
-        "x": 0,
-        "y": 8
-      },
-      {
-        "h": 3,
-        "panelId": 6,
-        "w": 17,
-        "x": 7,
-        "y": 8
+        "y": 12
       },
       {
         "h": 4,
-        "panelId": 8,
-        "w": 12,
+        "panelId": 5,
+        "w": 8,
         "x": 0,
         "y": 4
       },
       {
         "h": 4,
+        "panelId": 7,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      {
+        "h": 4,
         "panelId": 9,
         "w": 10,
-        "x": 4,
+        "x": 14,
         "y": 0
       },
       {
@@ -79,18 +65,18 @@
         "h": 4,
         "panelId": 11,
         "w": 10,
-        "x": 14,
+        "x": 4,
         "y": 0
       },
       {
         "h": 4,
         "panelId": 12,
-        "w": 12,
-        "x": 12,
+        "w": 16,
+        "x": 8,
         "y": 4
       }
     ],
-    "name": "Kubernetes / Proxy",
+    "name": "Rancher / Scheduler",
     "panels": [
       {
         "advancedQueries": [
@@ -105,10 +91,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "B",
+              "nullValueDisplayMode": "nullGap",
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "process_resident_memory_bytes:kube_proxy* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
+            "query": "process_resident_memory_bytes:kubernetes{job=\"kube-scheduler\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -144,11 +131,14 @@
         "id": 1,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Memory",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -164,10 +154,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(process_cpu_seconds_total:kube_proxy[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
+            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"kube-scheduler\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -203,11 +194,14 @@
         "id": 2,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "CPU usage",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -223,10 +217,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "go_goroutines:kube_proxy* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
+            "query": "go_goroutines:kubernetes{job=\"kube-scheduler\"} * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -262,70 +257,14 @@
         "id": 3,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Goroutines",
-        "type": "advancedTimechart"
-      },
-      {
-        "advancedQueries": [
-          {
-            "displayInfo": {
-              "displayName": "Get request p99",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{verb}} {{url}}",
-              "type": "lines"
-            },
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "s",
-              "unit": "relativeTime",
-              "yAxis": "auto"
-            },
-            "query": "rest_client_request_latency_seconds_bucket:get:kube_proxy* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
-          }
-        ],
-        "axesConfiguration": {
-          "bottom": {
-            "enabled": true
-          },
-          "left": {
-            "decimals": null,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "ns",
-            "maxValue": null,
-            "minInputFormat": "ns",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          },
-          "right": {
-            "decimals": null,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          }
-        },
-        "description": "",
-        "id": 4,
-        "legendConfiguration": {
-          "enabled": true,
-          "layout": "table",
-          "position": "right",
-          "showCurrent": true
-        },
-        "name": "Get Request Latency 99th Quantile",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -341,10 +280,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kube_proxy{code=~\"2..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
+            "query": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"2..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           },
           {
             "displayInfo": {
@@ -357,10 +297,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kube_proxy{code=~\"3..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
+            "query": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"3..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           },
           {
             "displayInfo": {
@@ -373,10 +314,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kube_proxy{code=~\"4..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
+            "query": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"4..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           },
           {
             "displayInfo": {
@@ -389,10 +331,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kube_proxy{code=~\"5..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
+            "query": "sum(rate(rest_client_requests_total:kube_scheduler{code=~\"5..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           }
         ],
         "axesConfiguration": {
@@ -428,18 +371,21 @@
         "id": 5,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Kube API Request Rate",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Post request latency p99",
+              "displayName": "Get Request Latency p99",
               "timeSeriesDisplayNameTemplate": "{{cluster}} {{verb}} {{url}}",
               "type": "lines"
             },
@@ -448,10 +394,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "rest_client_request_latency_seconds_bucket:post:kube_proxy* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
+            "query": "rest_client_request_latency_seconds_bucket:kube_scheduler{verb=\"GET\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -484,22 +431,25 @@
           }
         },
         "description": "",
-        "id": 6,
+        "id": 7,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
-        "name": "Post Request Latency 99th Quantile",
+        "name": "Get Request Latency 99th Quantile",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Rate",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
+              "displayName": "-",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} e2e",
               "type": "lines"
             },
             "enabled": true,
@@ -507,58 +457,16 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "kubeproxy_network_programming_duration_seconds_count:kube_proxy* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
-          }
-        ],
-        "axesConfiguration": {
-          "bottom": {
-            "enabled": true
+            "query": "scheduler_volume_scheduling_duration_seconds_count:kube_scheduler* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           },
-          "left": {
-            "decimals": 2,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          },
-          "right": {
-            "decimals": null,
-            "displayFormat": "auto",
-            "displayName": null,
-            "enabled": true,
-            "maxInputFormat": "1",
-            "maxValue": null,
-            "minInputFormat": "1",
-            "minValue": null,
-            "scale": "linear",
-            "unit": "auto"
-          }
-        },
-        "description": "",
-        "id": 8,
-        "legendConfiguration": {
-          "enabled": true,
-          "layout": "table",
-          "position": "right",
-          "showCurrent": true
-        },
-        "name": "Network Programming Rate",
-        "type": "advancedTimechart"
-      },
-      {
-        "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "rate",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
+              "displayName": "-",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} scheduling algorithm",
               "type": "lines"
             },
             "enabled": true,
@@ -566,10 +474,45 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(kubeproxy_sync_proxy_rules_duration_seconds_count:kube_proxy[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster})"
+            "query": "scheduler_scheduling_algorithm_duration_seconds_bucket:kube_scheduler* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
+          },
+          {
+            "displayInfo": {
+              "displayName": "-",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} volume",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "scheduler_volume_scheduling_duration_seconds_bucket:kube_scheduler* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
+          },
+          {
+            "displayInfo": {
+              "displayName": "-",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} binding",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "scheduler_binding_duration_seconds_bucket:kube_scheduler* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -605,11 +548,14 @@
         "id": 9,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
-        "name": "Rules Sync Rate",
+        "name": "Scheduling latency 99th Quantile",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -625,15 +571,17 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(up:kube_proxy* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster})"
+            "query": "sum(up:kube_scheduler* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster})"
           }
         ],
         "description": "",
         "id": 10,
         "name": "UP",
+        "nullValueDisplayText": null,
         "numberThresholds": {
           "base": {
             "displayText": "",
@@ -647,8 +595,8 @@
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Latency",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
+              "displayName": "Scheduling Rate e2e",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} e2e",
               "type": "lines"
             },
             "enabled": true,
@@ -656,10 +604,62 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "kubeproxy_sync_proxy_rules_duration_seconds_bucket:kube_proxy* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
+            "query": "sum(rate(scheduler_e2e_scheduling_duration_seconds_count:kube_scheduler[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (instance, cluster)"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Scheduling Rate binding",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} binding",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(rate(scheduler_binding_duration_seconds_count:kube_scheduler[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (instance, cluster)"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Scheduling Rate algorithm",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} scheduling algorithm",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(rate(scheduler_scheduling_algorithm_duration_seconds_count:kube_scheduler[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (instance, cluster)"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Scheduling Rate volume",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} volume",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(rate(scheduler_volume_scheduling_duration_seconds_count:kube_scheduler[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (instance, cluster)"
           }
         ],
         "axesConfiguration": {
@@ -695,19 +695,22 @@
         "id": 11,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
-        "name": "Rule Sync Latency 99th Quantile",
+        "name": "Scheduling Rate",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Network Programming Latency 99th Quantile",
-              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
+              "displayName": "Post Request Latency p99",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{verb}} {{url}}",
               "type": "lines"
             },
             "enabled": true,
@@ -715,10 +718,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "kubeproxy_network_programming_duration_seconds_bucket:kube_proxy* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
+            "query": "rest_client_request_latency_seconds_bucket:kube_scheduler{verb=\"POST\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -754,11 +758,14 @@
         "id": 12,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
-        "name": "Network Programming Latency 99th Quantile",
+        "name": "Post Request Latency 99th Quantile ",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       }
     ],
@@ -771,11 +778,11 @@
           "canGroupBy": true,
           "canMonitor": false,
           "category": "kubernetes",
-          "createdAt": 1593440814451,
+          "createdAt": 1605600423676,
           "customerId": 25008,
           "deferred": false,
           "documentId": "25008--6139949314852700299",
-          "documentTimestamp": 1593440814451,
+          "documentTimestamp": 1605600423676,
           "documentType": "metric",
           "experimental": false,
           "firstSeen": 1583235308502,
@@ -813,7 +820,7 @@
             "id": "kubernetes.cluster.name",
             "identity": false,
             "label": true,
-            "lastSeen": 1593439747779,
+            "lastSeen": 1605597489251,
             "max": false,
             "metricType": "none",
             "min": false,
@@ -841,15 +848,11 @@
           "hidden": false,
           "id": "kubernetes.cluster.name",
           "identity": false,
-          "lastSeen": 1593439747779,
+          "lastSeen": 1605597489251,
           "metricType": "tag",
           "namespaces": [
             "kubernetes.cluster"
           ],
-          "routingInfo": {
-            "customerId": 25008,
-            "routing": "25008"
-          },
           "scale": 1.0,
           "scopes": [],
           "segment": false,
@@ -865,7 +868,9 @@
         "isVariable": true,
         "operand": "kubernetes.cluster.name",
         "operator": "in",
-        "value": [],
+        "value": [
+          "rancher"
+        ],
         "variable": true
       }
     ]

@@ -90,7 +90,7 @@
         "y": 14
       }
     ],
-    "name": "Kubernetes / etcd",
+    "name": "ETCD",
     "panels": [
       {
         "advancedQueries": [
@@ -105,15 +105,17 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "max(etcd_server_has_leader:sysdig) + 1"
+            "query": "avg(etcd_server_has_leader * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster})"
           }
         ],
         "description": "",
         "id": 1,
         "name": "Etcd has a leader?",
+        "nullValueDisplayText": null,
         "numberThresholds": {
           "base": {
             "displayText": "",
@@ -125,6 +127,12 @@
               "inputFormat": "1",
               "severity": "ok",
               "value": 1.0
+            },
+            {
+              "displayText": "Some",
+              "inputFormat": "1",
+              "severity": "low",
+              "value": 0.4
             },
             {
               "displayText": "No",
@@ -149,15 +157,17 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "max(etcd_server_leader_changes_seen_total:sysdig)"
+            "query": "max(etcd_server_leader_changes_seen_total * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster})"
           }
         ],
         "description": "",
         "id": 2,
         "name": "The number of leader changes seen",
+        "nullValueDisplayText": null,
         "numberThresholds": {
           "base": {
             "displayText": "",
@@ -180,15 +190,17 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "max(etcd_server_proposals_failed_total:sysdig)"
+            "query": "max(etcd_server_proposals_failed_total * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster})"
           }
         ],
         "description": "",
         "id": 3,
         "name": "The total number of failed proposals seen",
+        "nullValueDisplayText": null,
         "numberThresholds": {
           "base": {
             "displayText": "",
@@ -203,7 +215,7 @@
           {
             "displayInfo": {
               "displayName": "RPC Rate",
-              "timeSeriesDisplayNameTemplate": "",
+              "timeSeriesDisplayNameTemplate": "{{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -211,15 +223,16 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(grpc_server_started_total:sysdig{grpc_type=\"unary\"}[$__interval]))"
+            "query": "sum(rate(grpc_server_started_total{grpc_type=\"unary\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           },
           {
             "displayInfo": {
               "displayName": "RPC Failed Rate",
-              "timeSeriesDisplayNameTemplate": "",
+              "timeSeriesDisplayNameTemplate": "{{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -227,10 +240,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(grpc_server_handled_total:sysdig{grpc_type=\"unary\",grpc_code!=\"OK\"}[$__interval]))"
+            "query": "sum(rate(grpc_server_handled_total{grpc_type=\"unary\",grpc_code!=\"OK\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           }
         ],
         "axesConfiguration": {
@@ -266,11 +280,14 @@
         "id": 4,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "RPC Rate",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -278,7 +295,7 @@
           {
             "displayInfo": {
               "displayName": "Watch Streams",
-              "timeSeriesDisplayNameTemplate": "",
+              "timeSeriesDisplayNameTemplate": "{{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -286,15 +303,16 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(grpc_server_started_total:sysdig{grpc_service=\"etcdserverpb.Watch\",grpc_type=\"bidi_stream\"}) - sum(grpc_server_handled_total:sysdig{grpc_service=\"etcdserverpb.Watch\",grpc_type=\"bidi_stream\"})"
+            "query": "sum(grpc_server_started_total{grpc_service=\"etcdserverpb.Watch\",grpc_type=\"bidi_stream\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster) - sum(grpc_server_handled_total{grpc_service=\"etcdserverpb.Watch\",grpc_type=\"bidi_stream\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
           },
           {
             "displayInfo": {
               "displayName": "Lease Streams",
-              "timeSeriesDisplayNameTemplate": "",
+              "timeSeriesDisplayNameTemplate": "{{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -302,10 +320,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(grpc_server_started_total:sysdig{grpc_service=\"etcdserverpb.Lease\",grpc_type=\"bidi_stream\"}) - sum(grpc_server_handled_total:sysdig{grpc_service=\"etcdserverpb.Lease\",grpc_type=\"bidi_stream\"})"
+            "query": "sum(grpc_server_started_total{grpc_service=\"etcdserverpb.Lease\",grpc_type=\"bidi_stream\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster) - sum(grpc_server_handled_total{grpc_service=\"etcdserverpb.Lease\",grpc_type=\"bidi_stream\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           }
         ],
         "axesConfiguration": {
@@ -341,11 +360,14 @@
         "id": 5,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Active Streams",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -353,7 +375,7 @@
           {
             "displayInfo": {
               "displayName": "DB size",
-              "timeSeriesDisplayNameTemplate": "{{instance}} DB Size",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} DB Size",
               "type": "lines"
             },
             "enabled": true,
@@ -361,10 +383,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "B",
+              "nullValueDisplayMode": "nullGap",
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "etcd_debugging_mvcc_db_total_size_in_bytes:sysdig"
+            "query": "etcd_debugging_mvcc_db_total_size_in_bytes * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -400,11 +423,14 @@
         "id": 6,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "DB Size",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -412,7 +438,7 @@
           {
             "displayInfo": {
               "displayName": "Disk sync duration",
-              "timeSeriesDisplayNameTemplate": "{{instance}} WAL fsync",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} WAL fsync",
               "type": "lines"
             },
             "enabled": true,
@@ -420,15 +446,16 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "histogram_quantile(0.99, sum(rate(etcd_disk_wal_fsync_duration_seconds_bucket:sysdig[$__interval])) by (instance, le))"
+            "query": "histogram_quantile(0.99, sum(rate(etcd_disk_wal_fsync_duration_seconds_bucket[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (instance, le, cluster))"
           },
           {
             "displayInfo": {
               "displayName": "Disk sync duration",
-              "timeSeriesDisplayNameTemplate": "{{instance}} DB fsync",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}} DB fsync",
               "type": "lines"
             },
             "enabled": true,
@@ -436,10 +463,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "histogram_quantile(0.99, sum(rate(etcd_disk_backend_commit_duration_seconds_bucket:sysdig[$__interval])) by (instance, le))"
+            "query": "histogram_quantile(0.99, sum(rate(etcd_disk_backend_commit_duration_seconds_bucket[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (instance, le, cluster))"
           }
         ],
         "axesConfiguration": {
@@ -475,11 +503,14 @@
         "id": 7,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Disk sync duration",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -487,7 +518,7 @@
           {
             "displayInfo": {
               "displayName": "Memory",
-              "timeSeriesDisplayNameTemplate": "",
+              "timeSeriesDisplayNameTemplate": "{{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -495,10 +526,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "B",
+              "nullValueDisplayMode": "nullGap",
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "process_resident_memory_bytes:kubernetes{job=\"etcd\"}"
+            "query": "process_resident_memory_bytes{job=\"etcd\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -534,19 +566,22 @@
         "id": 8,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Memory",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Number of consensus proposals",
-              "timeSeriesDisplayNameTemplate": "Total number of consensus proposals committed",
+              "displayName": "Number of consensus proposals commited",
+              "timeSeriesDisplayNameTemplate": "{{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -554,15 +589,16 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(etcd_server_proposals_committed_total:sysdig[$__interval]))"
+            "query": "sum(rate(etcd_server_proposals_committed_total[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           },
           {
             "displayInfo": {
-              "displayName": "Number of consensus proposals",
-              "timeSeriesDisplayNameTemplate": "Total number of consensus proposals applied",
+              "displayName": "Number of consensus proposals applied",
+              "timeSeriesDisplayNameTemplate": "{{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -570,10 +606,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(etcd_server_proposals_applied_total:sysdig[$__interval]))"
+            "query": "sum(rate(etcd_server_proposals_applied_total[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           }
         ],
         "axesConfiguration": {
@@ -609,11 +646,14 @@
         "id": 9,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "The total number of consensus proposals committed ",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -621,7 +661,7 @@
           {
             "displayInfo": {
               "displayName": "Cpu usage",
-              "timeSeriesDisplayNameTemplate": "{{instance}}",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
               "type": "lines"
             },
             "enabled": true,
@@ -629,10 +669,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"etcd\"}[$__interval])"
+            "query": "rate(process_cpu_seconds_total{job=\"etcd\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -668,11 +709,14 @@
         "id": 10,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "CPU usage",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -680,7 +724,7 @@
           {
             "displayInfo": {
               "displayName": "",
-              "timeSeriesDisplayNameTemplate": "{{instance}}",
+              "timeSeriesDisplayNameTemplate": "{{cluster}} {{instance}}",
               "type": "lines"
             },
             "enabled": true,
@@ -688,10 +732,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "go_goroutines:kubernetes{job=\"etcd\"}"
+            "query": "go_goroutines{job=\"etcd\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -727,14 +772,119 @@
         "id": 11,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Goroutines",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       }
     ],
-    "schema": 3
+    "schema": 3,
+    "scopeExpressionList": [
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "category": "kubernetes",
+          "createdAt": 1605775450206,
+          "customerId": 25008,
+          "deferred": false,
+          "documentId": "25008--6139949314852700299",
+          "documentTimestamp": 1605775450206,
+          "documentType": "metric",
+          "experimental": false,
+          "firstSeen": 1583235308502,
+          "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+          "generator": {
+            "aggregationForGroup": "none",
+            "aggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "avg": false,
+            "canCalculate": false,
+            "canFilter": true,
+            "canGroupBy": true,
+            "canMonitor": false,
+            "category": "kubernetes",
+            "concat": false,
+            "context": [
+              "container"
+            ],
+            "count": false,
+            "countDistinct": false,
+            "deferred": false,
+            "experimental": false,
+            "firstSeen": 1583235308502,
+            "groupAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "groupBy": [],
+            "heuristic": false,
+            "hidden": false,
+            "id": "kubernetes.cluster.name",
+            "identity": false,
+            "label": true,
+            "lastSeen": 1605774849401,
+            "max": false,
+            "metricType": "none",
+            "min": false,
+            "namespaces": [
+              "kubernetes.cluster"
+            ],
+            "rateOfChange": false,
+            "scale": 1.0,
+            "scopes": [],
+            "sum": false,
+            "timeAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "timeAvg": false,
+            "type": "string"
+          },
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.cluster.name",
+          "identity": false,
+          "lastSeen": 1605774849401,
+          "metricType": "tag",
+          "namespaces": [
+            "kubernetes.cluster"
+          ],
+          "scale": 1.0,
+          "scopes": [],
+          "segment": false,
+          "segmentations": [],
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "cluster",
+        "isVariable": true,
+        "operand": "kubernetes.cluster.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      }
+    ]
   }
 }
