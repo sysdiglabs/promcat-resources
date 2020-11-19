@@ -1,0 +1,2337 @@
+{
+  "dashboard": {
+    "description": "",
+    "eventDisplaySettings": {
+      "enabled": true,
+      "queryParams": {
+        "alertStatuses": [],
+        "categories": [],
+        "filter": "",
+        "severities": [],
+        "teamScope": false
+      }
+    },
+    "layout": [
+      {
+        "h": 5,
+        "panelId": 1,
+        "w": 8,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 5,
+        "panelId": 2,
+        "w": 8,
+        "x": 8,
+        "y": 0
+      },
+      {
+        "h": 5,
+        "panelId": 3,
+        "w": 8,
+        "x": 16,
+        "y": 0
+      },
+      {
+        "h": 5,
+        "panelId": 4,
+        "w": 8,
+        "x": 0,
+        "y": 5
+      },
+      {
+        "h": 5,
+        "panelId": 5,
+        "w": 8,
+        "x": 8,
+        "y": 5
+      },
+      {
+        "h": 5,
+        "panelId": 6,
+        "w": 8,
+        "x": 16,
+        "y": 5
+      },
+      {
+        "h": 5,
+        "panelId": 7,
+        "w": 12,
+        "x": 0,
+        "y": 10
+      },
+      {
+        "h": 5,
+        "panelId": 8,
+        "w": 12,
+        "x": 12,
+        "y": 10
+      },
+      {
+        "h": 5,
+        "panelId": 9,
+        "w": 8,
+        "x": 0,
+        "y": 15
+      },
+      {
+        "h": 5,
+        "panelId": 10,
+        "w": 8,
+        "x": 8,
+        "y": 15
+      },
+      {
+        "h": 5,
+        "panelId": 11,
+        "w": 8,
+        "x": 16,
+        "y": 15
+      }
+    ],
+    "name": "AWS RDS - Instance Detail",
+    "panels": [
+      {
+        "applyScopeToAll": false,
+        "applySegmentationToAll": false,
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Average",
+              "timeSeriesDisplayNameTemplate": "Avg: {{dimension_DBInstanceIdentifier}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "ms",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "aws_rds_read_latency_average",
+                  "documentTimestamp": 1603882475294,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "aws_rds_read_latency_average",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "aws_rds_read_latency_average",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "aws_rds_read_latency_average",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": null,
+                  "displayName": null,
+                  "id": "dimension_DBInstanceIdentifier",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Max",
+              "timeSeriesDisplayNameTemplate": "Max: {{dimension_DBInstanceIdentifier}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "ms",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "aws_rds_read_latency_maximum",
+                  "documentTimestamp": 1603882475294,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "aws_rds_read_latency_maximum",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "aws_rds_read_latency_maximum",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "aws_rds_read_latency_maximum",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": null,
+                  "displayName": null,
+                  "id": "dimension_DBInstanceIdentifier",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 1,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Read Latency",
+        "nullValueDisplayText": null,
+        "type": "basicTimechart"
+      },
+      {
+        "applyScopeToAll": false,
+        "applySegmentationToAll": false,
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Average",
+              "timeSeriesDisplayNameTemplate": "Avg: {{dimension_DBInstanceIdentifier}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "ms",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "aws_rds_write_latency_average",
+                  "documentTimestamp": 1603882475294,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "aws_rds_write_latency_average",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "aws_rds_write_latency_average",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "aws_rds_write_latency_average",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": null,
+                  "displayName": null,
+                  "id": "dimension_DBInstanceIdentifier",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Max",
+              "timeSeriesDisplayNameTemplate": "Max: {{dimension_DBInstanceIdentifier}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "ms",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "aws_rds_read_latency_maximum",
+                  "documentTimestamp": 1603882475294,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "aws_rds_read_latency_maximum",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "aws_rds_read_latency_maximum",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "aws_rds_read_latency_maximum",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": null,
+                  "displayName": null,
+                  "id": "dimension_DBInstanceIdentifier",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 2,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Write Latency",
+        "nullValueDisplayText": null,
+        "type": "basicTimechart"
+      },
+      {
+        "applyScopeToAll": false,
+        "applySegmentationToAll": false,
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Average",
+              "timeSeriesDisplayNameTemplate": "Avg: {{dimension_DBInstanceIdentifier}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "aws_rds_disk_queue_depth_average",
+                  "documentTimestamp": 1603882475294,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "aws_rds_disk_queue_depth_average",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "aws_rds_disk_queue_depth_average",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "aws_rds_disk_queue_depth_average",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": null,
+                  "displayName": null,
+                  "id": "dimension_DBInstanceIdentifier",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Max",
+              "timeSeriesDisplayNameTemplate": "Max: {{dimension_DBInstanceIdentifier}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "aws_rds_disk_queue_depth_maximum",
+                  "documentTimestamp": 1603882475294,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "aws_rds_disk_queue_depth_maximum",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "aws_rds_disk_queue_depth_maximum",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "aws_rds_disk_queue_depth_maximum",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": null,
+                  "displayName": null,
+                  "id": "dimension_DBInstanceIdentifier",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 3,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Disk Queue Depth",
+        "nullValueDisplayText": null,
+        "type": "basicTimechart"
+      },
+      {
+        "applyScopeToAll": false,
+        "applySegmentationToAll": false,
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B",
+            "maxValue": null,
+            "minInputFormat": "B",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "aws_rds_freeable_memory_average",
+                  "documentTimestamp": 1603882475294,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "aws_rds_freeable_memory_average",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "aws_rds_freeable_memory_average",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "aws_rds_freeable_memory_average",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": null,
+                  "displayName": null,
+                  "id": "dimension_DBInstanceIdentifier",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 4,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Freeable Memory",
+        "nullValueDisplayText": null,
+        "type": "basicTimechart"
+      },
+      {
+        "applyScopeToAll": false,
+        "applySegmentationToAll": false,
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B",
+            "maxValue": null,
+            "minInputFormat": "B",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "aws_rds_free_storage_space_average",
+                  "documentTimestamp": 1603882475294,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "aws_rds_free_storage_space_average",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "aws_rds_free_storage_space_average",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "aws_rds_free_storage_space_average",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": null,
+                  "displayName": null,
+                  "id": "dimension_DBInstanceIdentifier",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 5,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Free Storage Space",
+        "nullValueDisplayText": null,
+        "type": "basicTimechart"
+      },
+      {
+        "applyScopeToAll": false,
+        "applySegmentationToAll": false,
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B",
+            "maxValue": null,
+            "minInputFormat": "B",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "aws_rds_swap_usage_average",
+                  "documentTimestamp": 1603882475294,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "aws_rds_swap_usage_average",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "aws_rds_swap_usage_average",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "aws_rds_swap_usage_average",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": null,
+                  "displayName": null,
+                  "id": "dimension_DBInstanceIdentifier",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 6,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Swap Usage",
+        "nullValueDisplayText": null,
+        "type": "basicTimechart"
+      },
+      {
+        "applyScopeToAll": false,
+        "applySegmentationToAll": false,
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "aws_rds_database_connections_average",
+                  "documentTimestamp": 1603882475294,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "aws_rds_database_connections_average",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "aws_rds_database_connections_average",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "aws_rds_database_connections_average",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": null,
+                  "displayName": null,
+                  "id": "dimension_DBInstanceIdentifier",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 7,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "DB Connections",
+        "nullValueDisplayText": null,
+        "type": "basicTimechart"
+      },
+      {
+        "applyScopeToAll": false,
+        "applySegmentationToAll": false,
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "aws_rds_cpuutilization_average",
+                  "documentTimestamp": 1603882475294,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "aws_rds_cpuutilization_average",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "aws_rds_cpuutilization_average",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "aws_rds_cpuutilization_average",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": null,
+                  "displayName": null,
+                  "id": "dimension_DBInstanceIdentifier",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 8,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "CPU Utilization",
+        "nullValueDisplayText": null,
+        "type": "basicTimechart"
+      },
+      {
+        "applyScopeToAll": false,
+        "applySegmentationToAll": false,
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B/s",
+            "maxValue": null,
+            "minInputFormat": "B/s",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Read: {{dimension_DBInstanceIdentifier}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B/s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "byteRate",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "aws_rds_read_throughput_average",
+                  "documentTimestamp": 1603882475294,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "aws_rds_read_throughput_average",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "aws_rds_read_throughput_average",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "aws_rds_read_throughput_average",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": null,
+                  "displayName": null,
+                  "id": "dimension_DBInstanceIdentifier",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Write: {{dimension_DBInstanceIdentifier}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B/s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "byteRate",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "aws_rds_write_throughput_average",
+                  "documentTimestamp": 1603882475294,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "aws_rds_write_throughput_average",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "aws_rds_write_throughput_average",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "aws_rds_write_throughput_average",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": null,
+                  "displayName": null,
+                  "id": "dimension_DBInstanceIdentifier",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 9,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Read / Write Throughput",
+        "nullValueDisplayText": null,
+        "type": "basicTimechart"
+      },
+      {
+        "applyScopeToAll": false,
+        "applySegmentationToAll": false,
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "/s",
+            "maxValue": null,
+            "minInputFormat": "/s",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Read: {{dimension_DBInstanceIdentifier}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "/s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "numberRate",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "aws_rds_read_iops_average",
+                  "documentTimestamp": 1603882475294,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "aws_rds_read_iops_average",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "aws_rds_read_iops_average",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "aws_rds_read_iops_average",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": null,
+                  "displayName": null,
+                  "id": "dimension_DBInstanceIdentifier",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Write: {{dimension_DBInstanceIdentifier}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "/s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "numberRate",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "aws_rds_write_iops_average",
+                  "documentTimestamp": 1603882475294,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "aws_rds_write_iops_average",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "aws_rds_write_iops_average",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "aws_rds_write_iops_average",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": null,
+                  "displayName": null,
+                  "id": "dimension_DBInstanceIdentifier",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 10,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Read / Write IOPS",
+        "nullValueDisplayText": null,
+        "type": "basicTimechart"
+      },
+      {
+        "applyScopeToAll": false,
+        "applySegmentationToAll": false,
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B/s",
+            "maxValue": null,
+            "minInputFormat": "B/s",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "In: {{dimension_DBInstanceIdentifier}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B/s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "byteRate",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "aws_rds_network_receive_throughput_average",
+                  "documentTimestamp": 1603882475294,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "aws_rds_network_receive_throughput_average",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "aws_rds_network_receive_throughput_average",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "aws_rds_network_receive_throughput_average",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": null,
+                  "displayName": null,
+                  "id": "dimension_DBInstanceIdentifier",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " ",
+              "timeSeriesDisplayNameTemplate": "Out: {{dimension_DBInstanceIdentifier}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B/s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "byteRate",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "aws_rds_network_transmit_throughput_average",
+                  "documentTimestamp": 1603882475294,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "aws_rds_network_transmit_throughput_average",
+                  "identity": false,
+                  "metricType": "gauge",
+                  "name": "aws_rds_network_transmit_throughput_average",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "aws_rds_network_transmit_throughput_average",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": null,
+                  "displayName": null,
+                  "id": "dimension_DBInstanceIdentifier",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 11,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "inline",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Network I/O",
+        "nullValueDisplayText": null,
+        "type": "basicTimechart"
+      }
+    ],
+    "schema": 3,
+    "scopeExpressionList": [
+      {
+        "descriptor": null,
+        "displayName": "dbInstance",
+        "isVariable": true,
+        "operand": "dimension_DBInstanceIdentifier",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      }
+    ]
+  }
+}
