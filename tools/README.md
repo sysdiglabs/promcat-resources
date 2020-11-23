@@ -59,6 +59,11 @@ Extract HELP lines of exporter
 curl -s http://localhost:9121/metrics | grep "HELP redis" | sed 's/# HELP //' | code -
 ```
 
+Extract all lines of metrics from a exporter:
+```
+curl -s http://host:1234/metrics | grep -v "# HELP\|# TYPE" | grep 'prexix_of_the_metric_'
+```
+
 Execute a python script in all the alert files: 
 ```
 find . -name \*alerts*.yaml -type f -exec python3 tools/script.py -f '{}' -o '{}'_sysdig.yaml \;

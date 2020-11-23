@@ -5,66 +5,86 @@ metadata:
   namespace: agent
 data:
   prometheus.yaml: |-
-    global:
-      scrape_interval: 15s
-      evaluation_interval: 15s
-    scrape_configs:
-    - job_name: 'controlPlane' # config for federation
+    - job_name: etcd
+      scheme: https
+      tls_config:
+        insecure_skip_verify: true
+        cert_file: /etc/kubernetes/pki/etcd-manager/etcd-clients-ca.crt
+        key_file: /etc/kubernetes/pki/etcd-manager/etcd-clients-ca.key
+      kubernetes_sd_configs:
+      - role: pod
+      relabel_configs:
+      - action: keep
+        source_labels: [__meta_kubernetes_pod_host_ip]
+        regex: __HOSTIPS__
+      - action: keep
+        source_labels:
+        - __meta_kubernetes_namespace
+        - __meta_kubernetes_pod_name
+        separator: '/'
+        regex: 'kube-system/etcd-manager-main.+'
+      - source_labels:
+        - __address__
+        action: replace
+        target_label: __address__
+        regex: (.+?)(\\:\\d)?
+        replacement: $1:4001
+        # Holding on to pod-id and container name so we can associate the metrics
+        # with the container (and cluster hierarchy)
+      - action: replace
+        source_labels: [__meta_kubernetes_pod_uid]
+        target_label: sysdig_k8s_pod_uid
+      - action: replace
+        source_labels: [__meta_kubernetes_pod_container_name]
+        target_label: sysdig_k8s_pod_container_name
+
+    - job_name: control-plane
       honor_labels: true
       metrics_path: '/federate'
-      metric_relabel_configs:
-      - regex: 'kubernetes_pod_name'
-        action: labeldrop
       params:
         'match[]':
           - '{sysdig="true"}'
-      sysdig_sd_configs:
-      - tags:
-          namespace: monitoring
-          statefulset: prometheus-controlplane-server
+      kubernetes_sd_configs:
+      - role: pod
+      relabel_configs:
+      - action: keep
+        source_labels: [__meta_kubernetes_pod_host_ip]
+        regex: __HOSTIPS__
+      - action: keep
+        source_labels:
+        - __meta_kubernetes_namespace
+        - __meta_kubernetes_pod_name
+        separator: '/'
+        regex: 'monitoring/prometheus-controlplane-server-0'
+      - source_labels:
+        - __address__
+        action: replace
+        target_label: __address__
+        regex: (.+?)(\\:\\d)?
+        replacement: $1
+        # Holding on to pod-id and container name so we can associate the metrics
+        # with the container (and cluster hierarchy)
+      - action: replace
+        source_labels: [__meta_kubernetes_pod_uid]
+        target_label: sysdig_k8s_pod_uid
+      - action: replace
+        source_labels: [__meta_kubernetes_pod_container_name]
+        target_label: sysdig_k8s_pod_container_name
+
   dragent.yaml: |-
     metrics_excess_log: true
+    k8s_cluster_name: yourClusterName
+    10s_flush_enable: true
+    app_checks_enabled: false
     use_promscrape: true
+    new_k8s: true
+    promscrape_fastproto: true
     prometheus:
       enabled: true
-      max_metrics: 3000
-      process_filter:
-        - exclude:
-            process.name: docker-proxy
-        - exclude:
-            container.image: sysdig/agent
-        # special rule to exclude processes matching configured prometheus appcheck
-        - exclude:
-            appcheck.match: prometheus
-        - include:
-            container.label.io.prometheus.scrape: "true"
-            conf:
-                # Custom path definition
-                # If the label doesn't exist we'll still use "/metrics"
-                path: "{container.label.io.prometheus.path}"
-      
-                # Port definition
-                # - If the label exists, only scan the given port.
-                # - If it doesn't, use port_filter instead.
-                # - If there is no port_filter defined, skip this process
-                port: "{container.label.io.prometheus.port}"
-                port_filter:
-                    - exclude: [9092,9200,9300]
-                    - include: 9090-9500
-                    - include: [9913,9984,24231,42004]
-        - exclude:
-            container.label.io.prometheus.scrape: "false"
-        - include:
-            kubernetes.pod.annotation.prometheus.io/scrape: true
-            kubernetes.pod.annotation.prometheus.io/scheme: "https"
-            conf:
-                use_https: true
-                path: "{kubernetes.pod.annotation.prometheus.io/path}"
-                port: "{kubernetes.pod.annotation.prometheus.io/port}"
-        - include:
-            kubernetes.pod.annotation.prometheus.io/scrape: true
-            conf:
-                path: "{kubernetes.pod.annotation.prometheus.io/path}"
-                port: "{kubernetes.pod.annotation.prometheus.io/port}"
-        - exclude:
-            kubernetes.pod.annotation.prometheus.io/scrape: false
+      prom_service_discovery: true
+      log_errors: true
+      max_metrics: 200000
+      max_metrics_per_process: 200000
+      max_tags_per_metric: 100
+      ingest_raw: true
+      ingest_calculated: false

@@ -140,15 +140,17 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum((pg_stat_database_numbackends{} \n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet})"
+            "query": "sum((pg_stat_database_numbackends{server=~$server,datname=~$db} \n* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}))"
           }
         ],
         "description": "",
         "id": 2,
         "name": "Backends connected",
+        "nullValueDisplayText": null,
         "numberThresholds": {
           "base": {
             "displayText": "",
@@ -169,8 +171,8 @@
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "{{datname}} - {{owner_name}} - {{cluster}}",
+              "displayName": " DB < Server < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{datname}} - {{server}} - {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -178,10 +180,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "0-100",
+              "nullValueDisplayMode": "nullGap",
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "(100 * avg by (datname,container_id,host_mac)(rate(pg_stat_database_blks_hit{datname!=''}[$__interval]) / (rate(pg_stat_database_blks_hit{datname!=''}[$__interval]) + rate(pg_stat_database_blks_read{datname!=''}[$__interval])))\n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "(100 * avg by (datname,container_id,server)(rate(pg_stat_database_blks_hit{datname!='',server=~$server,datname=~$db}[$__interval]) / (rate(pg_stat_database_blks_hit{datname!='',server=~$server,datname=~$db}[$__interval]) + rate(pg_stat_database_blks_read{datname!='',server=~$server,datname=~$db}[$__interval])))\n* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace})"
           }
         ],
         "axesConfiguration": {
@@ -217,19 +220,22 @@
         "id": 3,
         "legendConfiguration": {
           "enabled": true,
-          "layout": "inline",
+          "height": null,
+          "layout": "table",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
-        "name": "Hit Rate",
+        "name": "Cache Hit Rate",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "rate",
-              "timeSeriesDisplayNameTemplate": "{{datname}} - {{owner_name}} - {{cluster}}",
+              "displayName": "DB < Server < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{datname}} - {{server}} - {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -237,10 +243,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "0-100",
+              "nullValueDisplayMode": "nullGap",
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100 * (rate(pg_stat_database_tup_fetched{datname!=''}[$__interval]) / rate(pg_stat_database_tup_returned{datname!=''}[$__interval]) \n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "100 * (rate(pg_stat_database_tup_fetched{datname!='',server=~$server,datname=~$db}[$__interval]) / rate(pg_stat_database_tup_returned{datname!='',server=~$server,datname=~$db}[$__interval]) \n* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace})"
           }
         ],
         "axesConfiguration": {
@@ -276,30 +283,34 @@
         "id": 4,
         "legendConfiguration": {
           "enabled": true,
-          "layout": "inline",
+          "height": null,
+          "layout": "table",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Fetched / Returned Tuples",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " DB: Mode",
-              "timeSeriesDisplayNameTemplate": "{{datname}}: {{mode}} - {{owner_name}} - {{cluster}}",
-              "type": "lines"
+              "displayName": " DB: Mode < Server < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{datname}}: {{mode}} < {{server}} < {{cluster}}",
+              "type": "stackedArea"
             },
             "enabled": true,
             "format": {
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "(rate(pg_locks_count{}[$__interval])\n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "(rate(pg_locks_count{server=~$server,datname=~$db}[$__interval])\n* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) "
           }
         ],
         "axesConfiguration": {
@@ -335,19 +346,22 @@
         "id": 5,
         "legendConfiguration": {
           "enabled": true,
-          "layout": "inline",
+          "height": null,
+          "layout": "table",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Locks by Mode ",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " lock timeouts",
-              "timeSeriesDisplayNameTemplate": "{{datname}} - {{owner_name}} - {{cluster}}",
+              "displayName": " \u2690 Lock timeouts: DB < Server < Cluster",
+              "timeSeriesDisplayNameTemplate": "\u2690: {{datname}} < {{server}} < {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -355,15 +369,16 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "(rate(pg_stat_database_conflicts_confl_lock{}[$__interval])\n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "(rate(pg_stat_database_conflicts_confl_lock{server=~$server,datname=~$db}[$__interval])\n* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace})"
           },
           {
             "displayInfo": {
-              "displayName": " deadlocks",
-              "timeSeriesDisplayNameTemplate": "{{datname}} - {{owner_name}} - {{cluster}}",
+              "displayName": "\u2620 Deadlocks: DB < Server < Cluster",
+              "timeSeriesDisplayNameTemplate": "\u2620: {{datname}} < {{server}} < {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -371,10 +386,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "(rate(pg_stat_database_conflicts_confl_deadlock{}[$__interval])\n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "(rate(pg_stat_database_conflicts_confl_deadlock{server=~$server,datname=~$db}[$__interval])\n* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace})"
           }
         ],
         "axesConfiguration": {
@@ -410,19 +426,22 @@
         "id": 6,
         "legendConfiguration": {
           "enabled": true,
-          "layout": "inline",
+          "height": null,
+          "layout": "table",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
-        "name": "Query Locks Errors ",
+        "name": "\u26a0 Query Locks Errors ",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " deadlocks",
-              "timeSeriesDisplayNameTemplate": "{{datname}} - {{owner_name}} - {{cluster}}ks",
+              "displayName": " \u2620 Deadlocks",
+              "timeSeriesDisplayNameTemplate": "\u2620: {{datname}} - {{server}} - {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -430,10 +449,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "(rate(pg_stat_database_deadlocks{datname!=''}[$__interval])\n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}\n"
+            "query": "(rate(pg_stat_database_deadlocks{datname!='',server=~$server,datname=~$db}[$__interval])\n* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace})"
           }
         ],
         "axesConfiguration": {
@@ -469,30 +489,34 @@
         "id": 7,
         "legendConfiguration": {
           "enabled": true,
-          "layout": "inline",
+          "height": null,
+          "layout": "table",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
-        "name": "Deadlocks",
+        "name": "\u2620 Deadlocks",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " DB: State",
-              "timeSeriesDisplayNameTemplate": "{{datname}}: {{state}} - {{owner_name}} - {{cluster}}",
-              "type": "lines"
+              "displayName": "DB:State < Server < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{datname}}: {{state}} < {{server}} < {{cluster}}",
+              "type": "stackedArea"
             },
             "enabled": true,
             "format": {
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "(rate(pg_stat_activity_count{}[$__interval])\n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "(rate(pg_stat_activity_count{server=~$server,datname=~$db}[$__interval])\n* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) "
           }
         ],
         "axesConfiguration": {
@@ -528,19 +552,22 @@
         "id": 8,
         "legendConfiguration": {
           "enabled": true,
-          "layout": "inline",
+          "height": null,
+          "layout": "table",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Connections by state",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " DB: State",
-              "timeSeriesDisplayNameTemplate": "{{datname}}: {{state}} - {{owner_name}} - {{cluster}}",
+              "displayName": "DB:State < Server < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{datname}}: {{state}} < {{server}} < {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -548,10 +575,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "(rate(pg_stat_activity_max_tx_duration{}[$__interval])\n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}\n"
+            "query": "(rate(pg_stat_activity_max_tx_duration{server=~$server,datname=~$db}[$__interval])\n* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) "
           }
         ],
         "axesConfiguration": {
@@ -587,19 +615,22 @@
         "id": 9,
         "legendConfiguration": {
           "enabled": true,
-          "layout": "inline",
+          "height": null,
+          "layout": "table",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Max Duration by State",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " Duration",
-              "timeSeriesDisplayNameTemplate": "{{datname}} - {{owner_name}} - {{cluster}}",
+              "displayName": "DB < Server < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{datname}} < {{server}} < {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -607,10 +638,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "ms",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "((rate(pg_stat_database_blk_read_time{datname!=''}[$__interval]) / rate(pg_stat_database_blks_read{datname!=''}[$__interval]))\n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "((rate(pg_stat_database_blk_read_time{datname!='',server=~$server,datname=~$db}[$__interval]) / rate(pg_stat_database_blks_read{datname!='',server=~$server,datname=~$db}[$__interval]))\n* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace})"
           }
         ],
         "axesConfiguration": {
@@ -646,19 +678,22 @@
         "id": 10,
         "legendConfiguration": {
           "enabled": true,
-          "layout": "inline",
+          "height": null,
+          "layout": "table",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "File Read Duration",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Commit: DB",
-              "timeSeriesDisplayNameTemplate": "Commit: {{datname}} - {{owner_name}} - {{cluster}}",
+              "displayName": "\u270e Commit: DB < Server < Cluster",
+              "timeSeriesDisplayNameTemplate": "\u270e {{datname}} < {{server}} < {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -666,15 +701,16 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "/s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "numberRate",
               "yAxis": "auto"
             },
-            "query": "(rate(pg_stat_database_xact_commit{}[$__interval]) \n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "(rate(pg_stat_database_xact_commit{server=~$server,datname=~$db}[$__interval]) \n* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) "
           },
           {
             "displayInfo": {
-              "displayName": " rollback: DB",
-              "timeSeriesDisplayNameTemplate": "Rollback: {{datname}} - {{owner_name}} - {{cluster}}",
+              "displayName": " \u267bRollback: DB < Server < Cluster",
+              "timeSeriesDisplayNameTemplate": "\u267b {{datname}} < {{server}} < {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -682,10 +718,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "/s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "numberRate",
               "yAxis": "auto"
             },
-            "query": "(rate(pg_stat_database_xact_rollback{}[$__interval]) \n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "(rate(pg_stat_database_xact_rollback{server=~$server,datname=~$db}[$__interval]) \n* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace})"
           }
         ],
         "axesConfiguration": {
@@ -721,19 +758,22 @@
         "id": 11,
         "legendConfiguration": {
           "enabled": true,
-          "layout": "inline",
+          "height": null,
+          "layout": "table",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "IOPS",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "fetched: {{datname}} - {{owner_name}} - {{cluster}}",
+              "displayName": " Fetched: DB < Server < Cluster",
+              "timeSeriesDisplayNameTemplate": "F: {{datname}} - {{server}} - {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -741,15 +781,16 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "/s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "numberRate",
               "yAxis": "auto"
             },
-            "query": "(rate(pg_stat_database_tup_fetched{}[$__interval]) \n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "(rate(pg_stat_database_tup_fetched{server=~$server,datname=~$db}[$__interval]) \n* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) "
           },
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "returned: {{datname}} - {{owner_name}} - {{cluster}}",
+              "displayName": " Returned: DB < Server < Cluster",
+              "timeSeriesDisplayNameTemplate": "R: {{datname}} - {{server}} - {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -757,10 +798,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "/s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "numberRate",
               "yAxis": "auto"
             },
-            "query": "(rate(pg_stat_database_tup_returned{}[$__interval]) \n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "(rate(pg_stat_database_tup_returned{server=~$server,datname=~$db}[$__interval]) \n* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace})"
           }
         ],
         "axesConfiguration": {
@@ -796,19 +838,22 @@
         "id": 12,
         "legendConfiguration": {
           "enabled": true,
-          "layout": "inline",
+          "height": null,
+          "layout": "table",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Fetched / Returned Tuples",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "Insert: DB",
-              "timeSeriesDisplayNameTemplate": "Insert: {{datname}} - {{owner_name}} - {{cluster}}",
+              "displayName": "Insert: DB < Server < Cluster",
+              "timeSeriesDisplayNameTemplate": "INS: {{datname}} - {{server}} - {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -816,15 +861,16 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "/s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "numberRate",
               "yAxis": "auto"
             },
-            "query": "(rate(pg_stat_database_tup_inserted{datname!=''}[$__interval]) \n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "(rate(pg_stat_database_tup_inserted{datname!='',server=~$server,datname=~$db}[$__interval]) \n* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) "
           },
           {
             "displayInfo": {
-              "displayName": " Update: DB",
-              "timeSeriesDisplayNameTemplate": "Update: {{datname}} - {{owner_name}} - {{cluster}}",
+              "displayName": "Updated: DB < Server < Cluster",
+              "timeSeriesDisplayNameTemplate": "UPD: {{datname}} - {{server}} - {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -832,15 +878,16 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "/s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "numberRate",
               "yAxis": "auto"
             },
-            "query": "(rate(pg_stat_database_tup_updated{datname!=''}[$__interval]) \n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "(rate(pg_stat_database_tup_updated{datname!='',server=~$server,datname=~$db}[$__interval]) \n* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) "
           },
           {
             "displayInfo": {
-              "displayName": "Delete: DB",
-              "timeSeriesDisplayNameTemplate": "Delete: {{datname}} - {{owner_name}} - {{cluster}}",
+              "displayName": "Deleted: DB < Server < Cluster",
+              "timeSeriesDisplayNameTemplate": "DEL: {{datname}} - {{server}} - {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -848,10 +895,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "/s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "numberRate",
               "yAxis": "auto"
             },
-            "query": "(rate(pg_stat_database_tup_deleted{datname!=''}[$__interval]) \n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "(rate(pg_stat_database_tup_deleted{datname!='',server=~$server,datname=~$db}[$__interval]) \n* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) "
           }
         ],
         "axesConfiguration": {
@@ -887,30 +935,34 @@
         "id": 13,
         "legendConfiguration": {
           "enabled": true,
-          "layout": "inline",
+          "height": null,
+          "layout": "table",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "IOPS by Function",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " Data written",
-              "timeSeriesDisplayNameTemplate": "{{datname}} - {{owner_name}} - {{cluster}}",
-              "type": "lines"
+              "displayName": "DB < Server < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{datname}} < {{server}} < {{cluster}}",
+              "type": "stackedArea"
             },
             "enabled": true,
             "format": {
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "B/s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "byteRate",
               "yAxis": "auto"
             },
-            "query": "(rate(pg_stat_database_temp_bytes{datname!=''}[$__interval]) \n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "(rate(pg_stat_database_temp_bytes{datname!='',server=~$server,datname=~$db}[$__interval]) \n* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace})"
           }
         ],
         "axesConfiguration": {
@@ -946,30 +998,34 @@
         "id": 14,
         "legendConfiguration": {
           "enabled": true,
-          "layout": "inline",
+          "height": null,
+          "layout": "table",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Data Written to Temporary Files",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": "",
-              "timeSeriesDisplayNameTemplate": "{{datname}} - {{owner_name}} - {{cluster}}",
-              "type": "lines"
+              "displayName": "DB < Server < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{datname}} - {{server}} - {{cluster}}",
+              "type": "stackedArea"
             },
             "enabled": true,
             "format": {
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "B",
+              "nullValueDisplayMode": "nullGap",
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "(pg_database_size_bytes{}\n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "(pg_database_size_bytes{server=~$server,datname=~$db}\n* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace})"
           }
         ],
         "axesConfiguration": {
@@ -1005,19 +1061,22 @@
         "id": 15,
         "legendConfiguration": {
           "enabled": true,
-          "layout": "inline",
+          "height": null,
+          "layout": "table",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "DB Size",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "{{datname}} - {{owner_name}} - {{cluster}}",
+              "displayName": " DB < Server < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{datname}} < {{server}} < {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -1025,10 +1084,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "0-100",
+              "nullValueDisplayMode": "nullGap",
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100 * (sum by (datname, container_id,host_mac)(rate(pg_stat_user_tables_n_tup_hot_upd{}[$__interval])) / (sum by (datname,container_id,host_mac)(rate(pg_stat_user_tables_n_tup_hot_upd{}[$__interval])) + sum by (datname,container_id,host_mac)(rate(pg_stat_database_tup_updated{}[$__interval]))) * on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "100 * (sum by (datname, container_id,server)(rate(pg_stat_user_tables_n_tup_hot_upd{server=~$server,datname=~$db}[$__interval])) / (sum by (datname,container_id,server)(rate(pg_stat_user_tables_n_tup_hot_upd{server=~$server,datname=~$db}[$__interval])) + sum by (datname,container_id,server)(rate(pg_stat_database_tup_updated{server=~$server,datname=~$db}[$__interval]))) * on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}) "
           }
         ],
         "axesConfiguration": {
@@ -1064,19 +1124,22 @@
         "id": 16,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Heap Only Tuple Updates Rate",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " index scan: DB",
-              "timeSeriesDisplayNameTemplate": "index scan: {{datname}} - {{owner_name}} - {{cluster}}",
+              "displayName": "Index scan: DB < Server < Cluster",
+              "timeSeriesDisplayNameTemplate": "IDX: {{datname}} < {{server}} < {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -1084,15 +1147,16 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "(sum by (datname,container_id,host_mac)(pg_stat_user_tables_idx_scan{})\n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "sum by (datname,container_id,server)(pg_stat_user_tables_idx_scan{server=~$server,datname=~$db})\n* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}"
           },
           {
             "displayInfo": {
-              "displayName": " seq scan: DB",
-              "timeSeriesDisplayNameTemplate": "seq scan: {{datname}} - {{owner_name}} - {{cluster}}",
+              "displayName": "Sequential scan: DB < Server < Cluster",
+              "timeSeriesDisplayNameTemplate": "SEQ: {{datname}} < {{server}} < {{cluster}}",
               "type": "lines"
             },
             "enabled": true,
@@ -1100,10 +1164,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "(sum by (datname,container_id,host_mac)(pg_stat_user_tables_seq_scan{})\n* on (container_id, host_mac) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster,namespace=~$namespace}) * on (pod) group_left(owner_name,owner_kind) kube_pod_owner{owner_kind=\"ReplicaSet\",cluster=~$cluster,namespace=~$namespace,owner_name=~$replicaSet}"
+            "query": "sum by (datname,container_id,server)(pg_stat_user_tables_seq_scan{server=~$server,datname=~$db})\n* on (container_id) group_left(cluster,namespace) kube_pod_container_info{cluster=~$cluster,namespace=~$namespace}"
           }
         ],
         "axesConfiguration": {
@@ -1139,11 +1204,14 @@
         "id": 17,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Index vs Sequential Scans",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       }
     ],
@@ -1156,11 +1224,11 @@
           "canGroupBy": true,
           "canMonitor": false,
           "category": "kubernetes",
-          "createdAt": 1593615678498,
+          "createdAt": 1605179842153,
           "customerId": 25008,
           "deferred": false,
           "documentId": "25008--6139949314852700299",
-          "documentTimestamp": 1593615678498,
+          "documentTimestamp": 1605179842153,
           "documentType": "metric",
           "experimental": false,
           "firstSeen": 1583235308502,
@@ -1198,7 +1266,7 @@
             "id": "kubernetes.cluster.name",
             "identity": false,
             "label": true,
-            "lastSeen": 1593614229731,
+            "lastSeen": 1605179652651,
             "max": false,
             "metricType": "none",
             "min": false,
@@ -1226,15 +1294,11 @@
           "hidden": false,
           "id": "kubernetes.cluster.name",
           "identity": false,
-          "lastSeen": 1593614229731,
+          "lastSeen": 1605179652651,
           "metricType": "tag",
           "namespaces": [
             "kubernetes.cluster"
           ],
-          "routingInfo": {
-            "customerId": 25008,
-            "routing": "25008"
-          },
           "scale": 1.0,
           "scopes": [],
           "segment": false,
@@ -1250,7 +1314,9 @@
         "isVariable": true,
         "operand": "kubernetes.cluster.name",
         "operator": "in",
-        "value": [],
+        "value": [
+          "david-detorres-dev"
+        ],
         "variable": true
       },
       {
@@ -1260,11 +1326,11 @@
           "canGroupBy": true,
           "canMonitor": false,
           "category": "kubernetes",
-          "createdAt": 1593615678498,
+          "createdAt": 1605179842153,
           "customerId": 25008,
           "deferred": false,
           "documentId": "25008--7083949535721519842",
-          "documentTimestamp": 1593615678498,
+          "documentTimestamp": 1605179842153,
           "documentType": "metric",
           "experimental": false,
           "firstSeen": 1583235308502,
@@ -1302,7 +1368,7 @@
             "id": "kubernetes.namespace.name",
             "identity": false,
             "label": true,
-            "lastSeen": 1593614709967,
+            "lastSeen": 1605179652651,
             "max": false,
             "metricType": "none",
             "min": false,
@@ -1330,15 +1396,11 @@
           "hidden": false,
           "id": "kubernetes.namespace.name",
           "identity": false,
-          "lastSeen": 1593614709967,
+          "lastSeen": 1605179652651,
           "metricType": "tag",
           "namespaces": [
             "kubernetes.namespace"
           ],
-          "routingInfo": {
-            "customerId": 25008,
-            "routing": "25008"
-          },
           "scale": 1.0,
           "scopes": [],
           "segment": false,
@@ -1358,105 +1420,19 @@
         "variable": true
       },
       {
-        "descriptor": {
-          "aggregationForGroup": "none",
-          "canFilter": true,
-          "canGroupBy": true,
-          "canMonitor": false,
-          "category": "kubernetes",
-          "createdAt": 1593615678498,
-          "customerId": 25008,
-          "deferred": false,
-          "documentId": "25008-9123524798813735958",
-          "documentTimestamp": 1593615678498,
-          "documentType": "metric",
-          "experimental": false,
-          "firstSeen": 1583235308502,
-          "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
-          "generator": {
-            "aggregationForGroup": "none",
-            "aggregations": [
-              "concat",
-              "distinct",
-              "count"
-            ],
-            "avg": false,
-            "canCalculate": false,
-            "canFilter": true,
-            "canGroupBy": true,
-            "canMonitor": false,
-            "category": "kubernetes",
-            "concat": false,
-            "context": [
-              "container"
-            ],
-            "count": false,
-            "countDistinct": false,
-            "deferred": false,
-            "experimental": false,
-            "firstSeen": 1583235308502,
-            "groupAggregations": [
-              "concat",
-              "distinct",
-              "count"
-            ],
-            "groupBy": [],
-            "heuristic": false,
-            "hidden": false,
-            "id": "kubernetes.replicaSet.name",
-            "identity": false,
-            "label": true,
-            "lastSeen": 1593613392685,
-            "max": false,
-            "metricType": "none",
-            "min": false,
-            "namespaces": [
-              "kubernetes.replicaSet"
-            ],
-            "rateOfChange": false,
-            "scale": 1.0,
-            "scopes": [],
-            "sum": false,
-            "timeAggregations": [
-              "concat",
-              "distinct",
-              "count"
-            ],
-            "timeAvg": false,
-            "type": "string"
-          },
-          "groupAggregations": [
-            "concat",
-            "distinct",
-            "count"
-          ],
-          "heuristic": false,
-          "hidden": false,
-          "id": "kubernetes.replicaSet.name",
-          "identity": false,
-          "lastSeen": 1593613392685,
-          "metricType": "tag",
-          "namespaces": [
-            "kubernetes.replicaSet"
-          ],
-          "routingInfo": {
-            "customerId": 25008,
-            "routing": "25008"
-          },
-          "scale": 1.0,
-          "scopes": [],
-          "segment": false,
-          "segmentations": [],
-          "timeAggregations": [
-            "concat",
-            "distinct",
-            "count"
-          ],
-          "type": "string"
-        },
-        "displayName": "replicaSet",
+        "descriptor": null,
+        "displayName": "server",
         "isVariable": true,
-        "operand": "kubernetes.replicaSet.name",
+        "operand": "server",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": null,
+        "displayName": "db",
+        "isVariable": true,
+        "operand": "datname",
         "operator": "in",
         "value": [],
         "variable": true

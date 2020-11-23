@@ -101,7 +101,7 @@
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "process_resident_memory_bytes:kubernetes_control_manager* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "process_resident_memory_bytes:kubernetes_control_manager* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -160,7 +160,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(process_cpu_seconds_total:kubernetes_control_manager[$__interval]) * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "rate(process_cpu_seconds_total:kubernetes_control_manager[$__interval]) * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -219,7 +219,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "go_goroutines:kubernetes_control_manager* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "go_goroutines:kubernetes_control_manager* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -278,7 +278,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:get * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:get * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -337,7 +337,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"2..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"2..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           },
           {
             "displayInfo": {
@@ -353,7 +353,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"3..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"3..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           },
           {
             "displayInfo": {
@@ -369,7 +369,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"4..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"4..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           },
           {
             "displayInfo": {
@@ -385,7 +385,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"5..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+            "query": "sum(rate(rest_client_requests_total:kubernetes_control_manager{code=~\"5..\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (cluster)"
           }
         ],
         "axesConfiguration": {
@@ -444,7 +444,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:post * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "rest_client_request_latency_seconds_bucket:kubernetes_control_manager:post * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -503,7 +503,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "workqueue_queue_duration_seconds_bucket:kubernetes_apiservers * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "workqueue_queue_duration_seconds_bucket:kubernetes_apiservers * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -562,7 +562,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(workqueue_depth:kubernetes_control_manager[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (instance, name, cluster)"
+            "query": "sum(rate(workqueue_depth:kubernetes_control_manager[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (instance, name, cluster)"
           }
         ],
         "axesConfiguration": {
@@ -621,7 +621,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(workqueue_adds_total:kubernetes_control_manager[$__interval]) * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (instance, name, cluster)"
+            "query": "sum(rate(workqueue_adds_total:kubernetes_control_manager[$__interval]) * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (instance, name, cluster)"
           }
         ],
         "axesConfiguration": {
@@ -680,7 +680,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "avg(up:controllermanager * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
+            "query": "avg(up:controllermanager * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster})"
           }
         ],
         "description": "",
