@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-controller-manager-monitoring
+  namespace: kube-system
+  labels:
+    k8s-app: kube-controller-manager
+    monitoring.coreos.com: "true"
+spec:
+  selector:
+    k8s-app: kube-controller-manager
+  clusterIP: None
+  ports:
+  - name: https-metrics
+    port: 10252
+    protocol: TCP
+    targetPort: 10252
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-proxy-monitoring
+  namespace: kube-system
+  labels:
+    k8s-app: kube-proxy
+    monitoring.coreos.com: "true"
+spec:
+  selector:
+    k8s-app: kube-proxy
+  clusterIP: None
+  ports:
+  - name: https-metrics
+    port: 10249
+    protocol: TCP
+    targetPort: 10249
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-scheduler-monitoring
+  namespace: kube-system
+  labels:
+    k8s-app: kube-scheduler
+    monitoring.coreos.com: "true"
+spec:
+  selector:
+    k8s-app: kube-scheduler
+  clusterIP: None
+  ports:
+  - name: https-metrics
+    port: 10251
+    protocol: TCP
+    targetPort: 10251
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: coredns-monitoring
+  namespace: kube-system
+  labels:
+    k8s-app: kube-dns
+    monitoring.coreos.com: "true"
+spec:
+  selector:
+    k8s-app: kube-dns
+  clusterIP: None
+  ports:
+  - name: https-metrics
+    port: 9153
+    protocol: TCP
+    targetPort: 9153
