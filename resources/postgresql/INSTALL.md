@@ -89,6 +89,15 @@ The Postgres Exporter allows to create user defined metrics based on SQL queries
 The queries added in the ConfigMap _postgres-queries_ are based in the ones available in the [Postgres exporter repository](https://github.com/wrouesnel/postgres_exporter). 
 The metrics from _pg_stat_statements_ has beed removed to avoid high cardinality scenarios caused by the _queryid_ label. 
 
+## Using TLS or SSL Authentication
+To use SSL authentication, you will have to create a secret with the certificate: 
+```
+kubectl create secret generic postgres-exporter-auth \
+  --from-file=postgres-ssl-root-cert=<route-to-your-ssl-root-cert.pem> 
+```
+
+You can use the example file `postgresql-auth-deploy.yaml` as an example of a deploy with ssl authentication. 
+
 # SYSDIG AGENT CONFIGURATION
 In the Postgres Deployment we will include the Prometheus annotations configuring the port of the exporter as scraping port.    
 
