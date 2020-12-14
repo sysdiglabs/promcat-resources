@@ -33,7 +33,7 @@ configurations:
         summary: Free disk under 512MB {{$labels.dimension_DBInstanceIdentifier}}
     - alert: DiskFullIn48H
       expr: |
-        predict_linear(aws_rds_free_storage_space_average, 48 * 3600) < 0
+        predict_linear(aws_rds_free_storage_space_average[48h], 48 * 3600) < 0
       for: 10m
       labels:
         severity: warning
@@ -41,7 +41,7 @@ configurations:
         summary: Disk will be full within 48 hours in instance {{$labels.dimension_DBInstanceIdentifier}}
     - alert: DiskFullIn12H
       expr: |
-        predict_linear(aws_rds_free_storage_space_average, 12 * 3600) < 0
+        predict_linear(aws_rds_free_storage_space_average[12h], 12 * 3600) < 0
       for: 10m
       labels:
         severity: page
