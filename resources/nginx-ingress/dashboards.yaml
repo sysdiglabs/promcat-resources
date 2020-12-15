@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Dashboard
+app: "Nginx-Ingress"
+version: 1.0.0
+appVersion:
+- '2.7.0'
+configurations:
+- name: Nginx App Overview
+  kind: Sysdig
+  image: nginx-ingress/images/nginx-sysdig-ingress-overview.png
+  description: |
+    This dashboard offers information on:
+    - requests
+    - nginx_process_connections
+    - request_size_sum
+    - response_size_sum
+    - nginx_process_resident_memory_bytes
+    - nginx_process_cpu_seconds_total
+    - ssl_expire_time_seconds
+  file: include/dashboard-Sysdig-Nginx-Ingress-Controller.json
+- name: Nginx App Overview
+  kind: Grafana
+  image: nginx-ingress/images/nginx-grafana-ingress-overview.png
+  description: |
+    This dashboard offers information on:
+    - requests
+    - nginx_process_connections
+    - request_size_sum
+    - response_size_sum
+    - nginx_process_resident_memory_bytes
+    - nginx_process_cpu_seconds_total
+    - ssl_expire_time_seconds
+  file: include/dashboard-Grafana-Nginx-Ingress-Controller.json
