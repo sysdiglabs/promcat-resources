@@ -1,0 +1,101 @@
+apiVersion: v1
+kind: Alert
+app: "Nginx-Ingress"
+version: 1.0.0
+appVersion:
+- '2.7.0'
+configurations:
+- kind: Prometheus
+  data: |
+    - alert: NginxHighHttp4xxErrorRate
+      expr: sum(rate(nginx_ingress_controller_requests{status=~"4.."}[1m])) / sum(rate(nginx_ingress_controller_requests[1m])) * 100 > 5
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: Nginx high HTTP 4xx error rate (instance {{ $labels.instance }})
+        description: Too many HTTP requests with status 4xx (> 5%)
+    - alert: NginxHighHttp5xxErrorRate
+      expr: sum(rate(nginx_ingress_controller_requests{status=~"^5.."}[1m])) / sum(rate(nginx_ingress_controller_requests[1m])) * 100 > 5
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: Nginx high HTTP 5xx error rate (instance {{ $labels.instance }})
+        description: Too many HTTP requests with status 5xx (> 5%)
+    - alert: NginxLatencyHigh
+      expr: histogram_quantile(0.99, sum(rate(nginx_ingress_controller_request_duration_seconds_bucket[30m])) by (host, node)) > 10
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: Nginx latency high (instance {{ $labels.instance }})
+        description: Nginx p99 latency is higher than 10 seconds
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum(rate(nginx_ingress_controller_requests{status=~\"4..\"}[1m])) / sum(rate(nginx_ingress_controller_requests[1m])) * 100 > 5",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "NginxHighHttp4xxErrorRate",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum(rate(nginx_ingress_controller_requests{status=~\"^5..\"}[1m])) / sum(rate(nginx_ingress_controller_requests[1m])) * 100 > 5",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "NginxHighHttp5xxErrorRate",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "histogram_quantile(0.99, sum(rate(nginx_ingress_controller_request_duration_seconds_bucket[30m])) by (host, node)) > 10",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "NginxLatencyHigh",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+descriptionFile: ALERTS.md
+description: |
+  # Alerts
+  ## NoIntancesUp
+  This alert detects when there is no instances with a certain label 'app' for more than 10 minutes.
