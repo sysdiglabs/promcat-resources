@@ -62,7 +62,7 @@ configurations:
       labels:
         severity: warning
       annotations:
-        summary: Average read latency over 250ms in instance {{$labels.dimension_DBInstanceIdentifier}}
+        summary: Average write latency over 250ms in instance {{$labels.dimension_DBInstanceIdentifier}}
     - alert: HighDiskQueue
       expr: |
         aws_rds_disk_queue_depth_average > 25
