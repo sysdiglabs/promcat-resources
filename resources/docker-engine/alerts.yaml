@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Alert
+app: Docker
+version: 1.0.0
+appVersion:
+- 18.09.9
+configurations:
+- kind: Prometheus
+  data: |
+    - alert: BuilderBuildsFailRateTooHigh
+      expr: sum(rate(builder_builds_failed_total[5m])) >
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: The build faild rate is too high(instance {{ $labels.instance }})
+    - alert: DaemonContainerActionLatencyTooHigh
+      expr: histogram_quantile(0.90, rate(engine_daemon_container_actions_seconds_bucket)) > 5
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: The the container action {{ $labels.action }} latency is too high for the instance {{ $labels.instance }}
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "sum(rate(builder_builds_failed_total[5m])) >",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "BuilderBuildsFailRateTooHigh",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+- kind: Sysdig
+  data: |-
+    {
+      "alert": {
+        "condition": "histogram_quantile(0.90, rate(engine_daemon_container_actions_seconds_bucket)) > 5",
+        "customNotification": {
+          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
+          "useNewTemplate": false
+        },
+        "enabled": true,
+        "name": "DaemonContainerActionLatencyTooHigh",
+        "rateOfChange": false,
+        "reNotify": false,
+        "reNotifyMinutes": 5,
+        "severity": 4,
+        "severityLabel": "LOW",
+        "severityLevel": null,
+        "timespan": 600000000,
+        "type": "PROMETHEUS"
+      }
+    }
+descriptionFile: ALERTS.md
