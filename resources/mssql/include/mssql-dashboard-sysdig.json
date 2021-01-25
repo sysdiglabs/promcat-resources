@@ -1,0 +1,1297 @@
+{
+  "dashboard": {
+    "description": "",
+    "eventDisplaySettings": {
+      "enabled": true,
+      "queryParams": {
+        "alertStatuses": [],
+        "categories": [],
+        "filter": "",
+        "severities": [],
+        "teamScope": false
+      }
+    },
+    "layout": [
+      {
+        "h": 3,
+        "panelId": 1,
+        "w": 3,
+        "x": 0,
+        "y": 1
+      },
+      {
+        "h": 3,
+        "panelId": 2,
+        "w": 3,
+        "x": 3,
+        "y": 1
+      },
+      {
+        "h": 3,
+        "panelId": 3,
+        "w": 3,
+        "x": 6,
+        "y": 1
+      },
+      {
+        "h": 8,
+        "panelId": 4,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      },
+      {
+        "h": 8,
+        "panelId": 5,
+        "w": 12,
+        "x": 12,
+        "y": 24
+      },
+      {
+        "h": 3,
+        "panelId": 6,
+        "w": 4,
+        "x": 4,
+        "y": 41
+      },
+      {
+        "h": 3,
+        "panelId": 7,
+        "w": 4,
+        "x": 0,
+        "y": 41
+      },
+      {
+        "h": 3,
+        "panelId": 8,
+        "w": 3,
+        "x": 9,
+        "y": 1
+      },
+      {
+        "h": 8,
+        "panelId": 9,
+        "w": 12,
+        "x": 12,
+        "y": 44
+      },
+      {
+        "h": 8,
+        "panelId": 10,
+        "w": 12,
+        "x": 0,
+        "y": 32
+      },
+      {
+        "h": 8,
+        "panelId": 11,
+        "w": 12,
+        "x": 12,
+        "y": 32
+      },
+      {
+        "h": 6,
+        "panelId": 13,
+        "w": 12,
+        "x": 12,
+        "y": 14
+      },
+      {
+        "h": 3,
+        "panelId": 15,
+        "w": 4,
+        "x": 4,
+        "y": 11
+      },
+      {
+        "h": 3,
+        "panelId": 16,
+        "w": 4,
+        "x": 0,
+        "y": 11
+      },
+      {
+        "h": 6,
+        "panelId": 17,
+        "w": 12,
+        "x": 0,
+        "y": 14
+      },
+      {
+        "h": 8,
+        "panelId": 18,
+        "w": 12,
+        "x": 0,
+        "y": 44
+      },
+      {
+        "h": 1,
+        "panelId": 19,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 6,
+        "panelId": 20,
+        "w": 24,
+        "x": 0,
+        "y": 4
+      },
+      {
+        "h": 3,
+        "panelId": 21,
+        "w": 12,
+        "x": 12,
+        "y": 1
+      },
+      {
+        "h": 1,
+        "panelId": 22,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      {
+        "h": 3,
+        "panelId": 23,
+        "w": 16,
+        "x": 8,
+        "y": 11
+      },
+      {
+        "h": 1,
+        "panelId": 24,
+        "w": 24,
+        "x": 0,
+        "y": 20
+      },
+      {
+        "h": 1,
+        "panelId": 25,
+        "w": 24,
+        "x": 0,
+        "y": 40
+      },
+      {
+        "h": 3,
+        "panelId": 26,
+        "w": 16,
+        "x": 8,
+        "y": 41
+      },
+      {
+        "h": 3,
+        "panelId": 27,
+        "w": 24,
+        "x": 0,
+        "y": 21
+      }
+    ],
+    "name": "MsSQL",
+    "panels": [
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "up{job=~$job}"
+          }
+        ],
+        "description": "",
+        "id": 1,
+        "name": "Status",
+        "nullValueDisplayText": null,
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": [
+            {
+              "displayText": "Healthy",
+              "inputFormat": "1",
+              "severity": "ok",
+              "value": 0.0
+            }
+          ]
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "mssql_deadlocks{job=~$job}"
+          }
+        ],
+        "description": "",
+        "id": 2,
+        "name": "Deadlocks",
+        "nullValueDisplayText": null,
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "mssql_kill_connection_errors{job=~$job}"
+          }
+        ],
+        "description": "",
+        "id": 3,
+        "name": "Kill connection error",
+        "nullValueDisplayText": null,
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{db}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "rate(mssql_io_stall_seconds{operation=\"read\",type=\"LOG\",job=~$job,db=~$db}[$__interval])"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 4,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Database latency Read (LOG)",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{db}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "rate(mssql_io_stall_seconds{operation=\"write\",type=\"LOG\",job=~$job,db=~$db}[$__interval])"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 5,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Database latency Write (LOG)",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "mssql_memory_utilization_percentage{job=~$job}"
+          }
+        ],
+        "description": "",
+        "id": 6,
+        "name": "Memory used",
+        "nullValueDisplayText": null,
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "ok"
+          },
+          "values": [
+            {
+              "displayText": "",
+              "inputFormat": "0-100",
+              "severity": "high",
+              "value": 85.0
+            },
+            {
+              "displayText": "",
+              "inputFormat": "0-100",
+              "severity": "low",
+              "value": 50.0
+            }
+          ]
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "mssql_buffer_cache_hit_ratio{job=~$job}"
+          }
+        ],
+        "description": "",
+        "id": 7,
+        "name": "Cache hit ratio",
+        "nullValueDisplayText": null,
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "high"
+          },
+          "values": [
+            {
+              "displayText": "",
+              "inputFormat": "0-100",
+              "severity": "ok",
+              "value": 85.0
+            },
+            {
+              "displayText": "",
+              "inputFormat": "0-100",
+              "severity": "medium",
+              "value": 50.0
+            }
+          ]
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(mssql_connections{job=~$job})"
+          }
+        ],
+        "description": "",
+        "id": 8,
+        "name": "Connections",
+        "nullValueDisplayText": null,
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{db}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "rate(mssql_transactions_total{job=~$job,db=~$db}[$__interval])"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 9,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Transactions",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{db}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "rate(mssql_io_stall_seconds{operation=\"read\",type=\"ROWS\",job=~$job,db=~$db}[$__interval])"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 10,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Database latency Read (ROWS)",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{db}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "rate(mssql_io_stall_seconds{operation=\"write\", type=\"ROWS\",job=~$job,db=~$db}[$__interval])"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 11,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Database latency Write (ROWS)",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{db}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "sum by (db)(mssql_disk_space_used_database_bytes_total{job=~$job,db=~$db})"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B",
+            "maxValue": null,
+            "minInputFormat": "B",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 13,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Space used by DB",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(mssql_disk_space_avaiable_bytes_total{job=~$job})"
+          }
+        ],
+        "description": "",
+        "id": 15,
+        "name": "Disk available",
+        "nullValueDisplayText": null,
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "sum(mssql_disk_space_avaiable_bytes_total{job=~$job})/sum(mssql_disk_space_total_bytes_total{job=~$job}) "
+          }
+        ],
+        "description": "",
+        "id": 16,
+        "name": "% of Disk available",
+        "nullValueDisplayText": null,
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "high"
+          },
+          "values": [
+            {
+              "displayText": "",
+              "inputFormat": "0-100",
+              "severity": "ok",
+              "value": 25.0
+            }
+          ]
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{db}} > {{obj_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "mssql_table_used_size_bytes_total{job=~$job,db=~$db}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B",
+            "maxValue": null,
+            "minInputFormat": "B",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 17,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Space used by table",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{job}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "mssql_buffer_cache_hit_ratio{job=~$job}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 18,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Cache hit ratio",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "description": "",
+        "id": 19,
+        "markdownSource": "# Availability",
+        "name": "New Panel",
+        "nullValueDisplayText": null,
+        "panelTitleVisible": false,
+        "textAutosized": false,
+        "transparentBackground": false,
+        "type": "text"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{db}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "mssql_connections"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 20,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Connections by db",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "description": "",
+        "id": 21,
+        "markdownSource": "### General availability of your MsSQL servers. \n\n\u2714 Check that you have **Healthy** your server.  \n\n\u2714 Check that **deadlocks** are low, and close to 0. If the deadlocks increase dramatically your application will receive a lot of errors from the database.\n\n\u2714 Also, check the connections and kill connections if you get a lot of kill connections you may have a problem.\n\n\u2605 **Tip**: Filter by job and database to narrow down the result and identify the server with problems. ",
+        "name": "New Panel (2)",
+        "nullValueDisplayText": null,
+        "panelTitleVisible": false,
+        "textAutosized": false,
+        "transparentBackground": false,
+        "type": "text"
+      },
+      {
+        "description": "",
+        "id": 22,
+        "markdownSource": "# Disk",
+        "name": "New Panel (3)",
+        "nullValueDisplayText": null,
+        "panelTitleVisible": false,
+        "textAutosized": false,
+        "transparentBackground": false,
+        "type": "text"
+      },
+      {
+        "description": "",
+        "id": 23,
+        "markdownSource": "### Free space and usage by server\n\u2691 Running **out of disk** is a general problem in databases.\n\n* \u2714 Check that instance has **enough free disk**.\n * \u261b If your instance is running out of disk, you should adjust it and add more disk via PVC or manually.\n * \u261b You can select the job to study which database is using more disks than others.\n* \u261b You also can see which table is using more disk",
+        "name": "New Panel (4)",
+        "nullValueDisplayText": null,
+        "panelTitleVisible": false,
+        "textAutosized": false,
+        "transparentBackground": false,
+        "type": "text"
+      },
+      {
+        "description": "",
+        "id": 24,
+        "markdownSource": "# Latency",
+        "name": "New Panel (5)",
+        "nullValueDisplayText": null,
+        "panelTitleVisible": false,
+        "textAutosized": false,
+        "transparentBackground": false,
+        "type": "text"
+      },
+      {
+        "description": "#\u00a0Stall",
+        "id": 25,
+        "markdownSource": "# Other",
+        "name": "New Panel (6)",
+        "nullValueDisplayText": null,
+        "panelTitleVisible": false,
+        "textAutosized": false,
+        "transparentBackground": false,
+        "type": "text"
+      },
+      {
+        "description": "",
+        "id": 26,
+        "markdownSource": "### Other metrics you have to take a look\n\u2691 The **cache ratio**  should be close to 100%.\n\n\u2691 The memory used could be 100% if the instance is running in Docker or Kubernetes.\n\n* \u2714 Check the transaction time.\n * \u261b If the transaction time has increased or it is too high maybe you have a problem in yoursdatabase. \n",
+        "name": "New Panel (7)",
+        "nullValueDisplayText": null,
+        "panelTitleVisible": false,
+        "textAutosized": false,
+        "transparentBackground": false,
+        "type": "text"
+      },
+      {
+        "description": "Stall",
+        "id": 27,
+        "markdownSource": "### Latency or Stall of your MsSQL servers. \nSeeing high latency or stall in your operations may or may not be a problem but sometimes can be a problem\n\n\u2714  Maybe your IO system is not handling the load right\n\n\u2714 Maybe you are doing too much in TempDB",
+        "name": "New Panel (8)",
+        "nullValueDisplayText": null,
+        "panelTitleVisible": false,
+        "textAutosized": false,
+        "transparentBackground": false,
+        "type": "text"
+      }
+    ],
+    "schema": 3,
+    "scopeExpressionList": [
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": false,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "job",
+          "documentId": "job",
+          "documentTimestamp": 1611574306514,
+          "documentType": "metric",
+          "documented": true,
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "job",
+          "identity": false,
+          "metricType": "tag",
+          "name": "job",
+          "namespaces": [
+            "cloudProvider",
+            "host.container",
+            "ecs",
+            "host.fs",
+            "host.file",
+            "host",
+            "kubernetes",
+            "kubernetes.cluster",
+            "kubernetes.daemonSet",
+            "kubernetes.deployment",
+            "kubernetes.job",
+            "kubernetes.namespace",
+            "kubernetes.node",
+            "kubernetes.pod",
+            "kubernetes.replicaSet",
+            "kubernetes.service",
+            "kubernetes.statefulSet",
+            "kubernetes.resourcequota",
+            "kubernetes.hpa",
+            "link",
+            "mesos",
+            "host.net",
+            "host.process",
+            "prometheus",
+            "swarm"
+          ],
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "job",
+        "isVariable": true,
+        "operand": "job",
+        "operator": "in",
+        "value": [
+          "mssql"
+        ],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": false,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "db",
+          "documentId": "db",
+          "documentTimestamp": 1611574306514,
+          "documentType": "metric",
+          "documented": true,
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "db",
+          "identity": false,
+          "metricType": "tag",
+          "name": "db",
+          "namespaces": [
+            "cloudProvider",
+            "host.container",
+            "ecs",
+            "host.fs",
+            "host.file",
+            "host",
+            "kubernetes",
+            "kubernetes.cluster",
+            "kubernetes.daemonSet",
+            "kubernetes.deployment",
+            "kubernetes.job",
+            "kubernetes.namespace",
+            "kubernetes.node",
+            "kubernetes.pod",
+            "kubernetes.replicaSet",
+            "kubernetes.service",
+            "kubernetes.statefulSet",
+            "kubernetes.resourcequota",
+            "kubernetes.hpa",
+            "link",
+            "mesos",
+            "host.net",
+            "host.process",
+            "prometheus",
+            "swarm"
+          ],
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "db",
+        "isVariable": true,
+        "operand": "db",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      }
+    ]
+  }
+}
