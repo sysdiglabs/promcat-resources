@@ -112,10 +112,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "B",
+              "nullValueDisplayMode": "nullGap",
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "process_resident_memory_bytes:kubernetes{job=\"apiserver\"}"
+            "query": "process_resident_memory_bytes:kubernetes{job=\"apiserver\",cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -151,11 +152,14 @@
         "id": 1,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Memory",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -171,10 +175,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"apiserver\"}[$__interval])"
+            "query": "rate(process_cpu_seconds_total:kubernetes{job=\"apiserver\",cluster=~$cluster}[$__interval])"
           }
         ],
         "axesConfiguration": {
@@ -210,11 +215,14 @@
         "id": 2,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "CPU usage",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -230,10 +238,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "go_goroutines:kubernetes{job=\"apiserver\"}"
+            "query": "go_goroutines:kubernetes{job=\"apiserver\",cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -269,11 +278,14 @@
         "id": 3,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Goroutines",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -289,10 +301,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "etcd_request_cache_get_duration_seconds_bucket:kubernetes_apiservers"
+            "query": "etcd_request_cache_get_duration_seconds_bucket:kubernetes_apiservers{cluster=~$cluster}"
           },
           {
             "displayInfo": {
@@ -305,10 +318,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "etcd_request_cache_add_duration_seconds_bucket:kubernetes_apiservers"
+            "query": "etcd_request_cache_add_duration_seconds_bucket:kubernetes_apiservers{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -344,11 +358,14 @@
         "id": 4,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "ETCD Cache Duration 99th Quantile ",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -364,10 +381,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(etcd_helper_cache_hit_total:kubernetes_apiservers[$__interval])) by (instance)"
+            "query": "sum(rate(etcd_helper_cache_hit_total:kubernetes_apiservers{cluster=~$cluster}[$__interval])) by (instance)"
           },
           {
             "displayInfo": {
@@ -380,10 +398,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(etcd_helper_cache_miss_total:kubernetes_apiservers[$__interval])) by (instance)"
+            "query": "sum(rate(etcd_helper_cache_miss_total:kubernetes_apiservers{cluster=~$cluster}[$__interval])) by (instance)"
           }
         ],
         "axesConfiguration": {
@@ -419,11 +438,14 @@
         "id": 5,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "ETCD Cache Hit/Miss Rate ",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -439,10 +461,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "rate(etcd_helper_cache_entry_total:kubernetes_apiservers[$__interval])"
+            "query": "rate(etcd_helper_cache_entry_total:kubernetes_apiservers{cluster=~$cluster}[$__interval])"
           }
         ],
         "axesConfiguration": {
@@ -478,11 +501,14 @@
         "id": 6,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "ETCD Cache Entry Total ",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -498,10 +524,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "workqueue_queue_duration_seconds_bucket:kubernetes_control_manager"
+            "query": "workqueue_queue_duration_seconds_bucket:kubernetes_control_manager{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -537,11 +564,14 @@
         "id": 7,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Work Queue Latency",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -557,10 +587,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(workqueue_depth:kubernetes_control_manager[$__interval])) by (instance, name)"
+            "query": "sum(rate(workqueue_depth:kubernetes_control_manager{cluster=~$cluster}[$__interval])) by (instance, name)"
           }
         ],
         "axesConfiguration": {
@@ -596,11 +627,14 @@
         "id": 8,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Work Queue Depth",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -616,10 +650,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(workqueue_adds_total:kubernetes_control_manager[$__interval])) by (instance, name)"
+            "query": "sum(rate(workqueue_adds_total:kubernetes_control_manager{cluster=~$cluster}[$__interval])) by (instance, name)"
           }
         ],
         "axesConfiguration": {
@@ -655,11 +690,14 @@
         "id": 9,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Work Queue Add Rate ",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -675,10 +713,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "apiserver_request_duration_seconds_bucket:kubernetes_apiservers{verb!=\"WATCH\"}"
+            "query": "apiserver_request_duration_seconds_bucket:kubernetes_apiservers{verb!=\"WATCH\",cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -714,11 +753,14 @@
         "id": 10,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Request duration 99th quantile",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -734,10 +776,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"2..\"}[$__interval]))"
+            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"2..\",cluster=~$cluster}[$__interval]))"
           },
           {
             "displayInfo": {
@@ -750,10 +793,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"3..\"}[$__interval]))"
+            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"3..\",cluster=~$cluster}[$__interval]))"
           },
           {
             "displayInfo": {
@@ -766,10 +810,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"4..\"}[$__interval]))"
+            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"4..\",cluster=~$cluster}[$__interval]))"
           },
           {
             "displayInfo": {
@@ -782,10 +827,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"5..\"}[$__interval]))"
+            "query": "sum(rate(apiserver_request_total:kubernetes_apiservers{code=~\"5..\",cluster=~$cluster}[$__interval]))"
           }
         ],
         "axesConfiguration": {
@@ -821,11 +867,14 @@
         "id": 11,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "RPC Rate",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -841,15 +890,17 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(up:kubernetes{job=\"apiserver\"})"
+            "query": "sum(up:kubernetes{job=\"apiserver\",cluster=~$cluster})"
           }
         ],
         "description": "",
         "id": 12,
         "name": "Up",
+        "nullValueDisplayText": null,
         "numberThresholds": {
           "base": {
             "displayText": "",
@@ -869,11 +920,11 @@
           "canGroupBy": true,
           "canMonitor": false,
           "category": "kubernetes",
-          "createdAt": 1590746884676,
+          "createdAt": 1611766749722,
           "customerId": 25008,
           "deferred": false,
           "documentId": "25008--6139949314852700299",
-          "documentTimestamp": 1590746884676,
+          "documentTimestamp": 1611766749722,
           "documentType": "metric",
           "experimental": false,
           "firstSeen": 1583235308502,
@@ -911,7 +962,7 @@
             "id": "kubernetes.cluster.name",
             "identity": false,
             "label": true,
-            "lastSeen": 1590744850657,
+            "lastSeen": 1611765427392,
             "max": false,
             "metricType": "none",
             "min": false,
@@ -939,15 +990,11 @@
           "hidden": false,
           "id": "kubernetes.cluster.name",
           "identity": false,
-          "lastSeen": 1590744850657,
+          "lastSeen": 1611765427392,
           "metricType": "tag",
           "namespaces": [
             "kubernetes.cluster"
           ],
-          "routingInfo": {
-            "customerId": 25008,
-            "routing": "25008"
-          },
           "scale": 1.0,
           "scopes": [],
           "segment": false,
@@ -959,14 +1006,14 @@
           ],
           "type": "string"
         },
-        "displayName": "",
-        "isVariable": false,
+        "displayName": "cluster",
+        "isVariable": true,
         "operand": "kubernetes.cluster.name",
         "operator": "in",
         "value": [
           "default"
         ],
-        "variable": false
+        "variable": true
       }
     ]
   }
