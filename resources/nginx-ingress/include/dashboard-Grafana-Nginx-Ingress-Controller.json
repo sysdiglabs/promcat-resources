@@ -1,8 +1,8 @@
 {
   "__inputs": [
     {
-      "name": "DS_SYSDIG_+CARILLAN",
-      "label": "Sysdig +carillan",
+      "name": "DS_SYSDIG_+",
+      "label": "Sysdig +",
       "description": "",
       "type": "datasource",
       "pluginId": "prometheus",
@@ -53,7 +53,7 @@
         "type": "dashboard"
       },
       {
-        "datasource": "${DS_SYSDIG_+CARILLAN}",
+        "datasource": "${DS_SYSDIG_+}",
         "enable": true,
         "expr": "sum(changes(nginx_ingress_controller_config_last_reload_successful_timestamp_seconds{instance!=\"unknown\",controller_class=~\"$controller_class\",namespace=~\"$namespace\"}[30s])) by (controller_class)",
         "hide": false,
@@ -86,7 +86,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "${DS_SYSDIG_+CARILLAN}",
+      "datasource": "${DS_SYSDIG_+}",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -167,7 +167,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "${DS_SYSDIG_+CARILLAN}",
+      "datasource": "${DS_SYSDIG_+}",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -255,7 +255,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "${DS_SYSDIG_+CARILLAN}",
+      "datasource": "${DS_SYSDIG_+}",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -342,7 +342,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "${DS_SYSDIG_+CARILLAN}",
+      "datasource": "${DS_SYSDIG_+}",
       "decimals": 0,
       "fieldConfig": {
         "defaults": {
@@ -431,7 +431,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "${DS_SYSDIG_+CARILLAN}",
+      "datasource": "${DS_SYSDIG_+}",
       "decimals": 0,
       "fieldConfig": {
         "defaults": {
@@ -516,7 +516,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_SYSDIG_+CARILLAN}",
+      "datasource": "${DS_SYSDIG_+}",
       "decimals": 2,
       "editable": true,
       "error": false,
@@ -635,7 +635,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_SYSDIG_+CARILLAN}",
+      "datasource": "${DS_SYSDIG_+}",
       "decimals": 2,
       "editable": false,
       "error": false,
@@ -746,7 +746,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_SYSDIG_+CARILLAN}",
+      "datasource": "${DS_SYSDIG_+}",
       "decimals": 2,
       "editable": true,
       "error": false,
@@ -871,7 +871,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_SYSDIG_+CARILLAN}",
+      "datasource": "${DS_SYSDIG_+}",
       "decimals": 2,
       "editable": false,
       "error": false,
@@ -983,7 +983,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_SYSDIG_+CARILLAN}",
+      "datasource": "${DS_SYSDIG_+}",
       "decimals": 3,
       "editable": false,
       "error": false,
@@ -1095,7 +1095,7 @@
     },
     {
       "columns": [],
-      "datasource": "${DS_SYSDIG_+CARILLAN}",
+      "datasource": "${DS_SYSDIG_+}",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -1334,7 +1334,7 @@
           "value": "current"
         }
       ],
-      "datasource": "${DS_SYSDIG_+CARILLAN}",
+      "datasource": "${DS_SYSDIG_+}",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -1428,7 +1428,7 @@
       {
         "allValue": ".*",
         "current": {},
-        "datasource": "${DS_SYSDIG_+CARILLAN}",
+        "datasource": "${DS_SYSDIG_+}",
         "definition": "",
         "hide": 0,
         "includeAll": true,
@@ -1450,7 +1450,7 @@
       {
         "allValue": ".*",
         "current": {},
-        "datasource": "${DS_SYSDIG_+CARILLAN}",
+        "datasource": "${DS_SYSDIG_+}",
         "definition": "",
         "hide": 0,
         "includeAll": true,
@@ -1472,7 +1472,7 @@
       {
         "allValue": ".*",
         "current": {},
-        "datasource": "${DS_SYSDIG_+CARILLAN}",
+        "datasource": "${DS_SYSDIG_+}",
         "definition": "",
         "hide": 0,
         "includeAll": true,
@@ -1494,7 +1494,7 @@
       {
         "allValue": ".*",
         "current": {},
-        "datasource": "${DS_SYSDIG_+CARILLAN}",
+        "datasource": "${DS_SYSDIG_+}",
         "definition": "",
         "hide": 0,
         "includeAll": true,

@@ -18,7 +18,7 @@ Disk will be full within 12 hours in instance.
 Average read latency over 250ms in instance.
 
 ## HighWriteLatency
-Average read latency over 250ms in instance.
+Average write latency over 250ms in instance.
 
 ## HighDiskQueue
 High disk queue depth in instance.

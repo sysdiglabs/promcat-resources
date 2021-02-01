@@ -175,15 +175,17 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(up:kubernetes{job=\"kubelet\"})"
+            "query": "sum(up:kubernetes{job=\"kubelet\",cluster=~$cluster})"
           }
         ],
         "description": "",
         "id": 1,
         "name": "Up",
+        "nullValueDisplayText": null,
         "numberThresholds": {
           "base": {
             "displayText": "",
@@ -206,15 +208,17 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(kubelet_running_pod_count:kubelet)"
+            "query": "sum(kubelet_running_pod_count:kubelet{cluster=~$cluster})"
           }
         ],
         "description": "",
         "id": 2,
         "name": "Running Pods",
+        "nullValueDisplayText": null,
         "numberThresholds": {
           "base": {
             "displayText": "",
@@ -237,15 +241,17 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(kubelet_running_container_count:kubelet)"
+            "query": "sum(kubelet_running_container_count:kubelet{cluster=~$cluster})"
           }
         ],
         "description": "",
         "id": 3,
         "name": "Running Container",
+        "nullValueDisplayText": null,
         "numberThresholds": {
           "base": {
             "displayText": "",
@@ -268,15 +274,17 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(volume_manager_total_volumes:kubelet{state=\"actual_state_of_world\"})"
+            "query": "sum(volume_manager_total_volumes:kubelet{state=\"actual_state_of_world\",cluster=~$cluster})"
           }
         ],
         "description": "",
         "id": 4,
         "name": "Actual Volume Count",
+        "nullValueDisplayText": null,
         "numberThresholds": {
           "base": {
             "displayText": "",
@@ -299,15 +307,17 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(volume_manager_total_volumes:desired:kubelet{job=\"kubelet\",state=\"desired_state_of_world\"})"
+            "query": "sum(volume_manager_total_volumes:desired:kubelet{job=\"kubelet\",state=\"desired_state_of_world\",cluster=~$cluster})"
           }
         ],
         "description": "",
         "id": 5,
         "name": "Desired Volume Count",
+        "nullValueDisplayText": null,
         "numberThresholds": {
           "base": {
             "displayText": "",
@@ -330,15 +340,17 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(kubelet_node_config_error:kubelet[$__interval]))"
+            "query": "sum(rate(kubelet_node_config_error:kubelet{cluster=~$cluster}[$__interval]))"
           }
         ],
         "description": "",
         "id": 6,
         "name": "Config Error Count",
+        "nullValueDisplayText": null,
         "numberThresholds": {
           "base": {
             "displayText": "",
@@ -361,6 +373,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -400,11 +413,14 @@
         "id": 7,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Operation rate",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -420,6 +436,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -459,11 +476,14 @@
         "id": 8,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Operation Error Rate",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -479,6 +499,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
@@ -518,11 +539,14 @@
         "id": 9,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Operation duration 99th quantile",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -538,6 +562,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -554,6 +579,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -593,11 +619,14 @@
         "id": 10,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Pod Start Rate",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -613,6 +642,7 @@
               "decimals": null,
               "displayFormat": "ms",
               "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
@@ -629,6 +659,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
@@ -668,11 +699,14 @@
         "id": 11,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Pod Start Duration",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -688,6 +722,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -727,11 +762,14 @@
         "id": 12,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Storage Operation Rate",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -747,6 +785,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -786,11 +825,14 @@
         "id": 13,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Storage Operation Error Rate",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -806,6 +848,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
@@ -845,11 +888,14 @@
         "id": 14,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Storage Operation Duration 99th quantile",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -865,6 +911,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -904,11 +951,14 @@
         "id": 15,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Cgroup manager operation rate",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -924,6 +974,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
@@ -963,11 +1014,14 @@
         "id": 17,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Cgroup manager 99th quantile",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -983,6 +1037,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -999,6 +1054,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -1015,6 +1071,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -1031,6 +1088,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -1070,11 +1128,14 @@
         "id": 20,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "RPC Rate",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -1090,6 +1151,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
@@ -1129,11 +1191,14 @@
         "id": 21,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Request duration 99th quantile",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -1149,6 +1214,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "B",
+              "nullValueDisplayMode": "nullGap",
               "unit": "byte",
               "yAxis": "auto"
             },
@@ -1188,11 +1254,14 @@
         "id": 22,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Memory",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -1208,6 +1277,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -1247,11 +1317,14 @@
         "id": 23,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "CPU usage",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -1267,6 +1340,7 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
@@ -1306,11 +1380,14 @@
         "id": 24,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "table",
           "position": "right",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Goroutines",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       }
     ],
@@ -1323,11 +1400,11 @@
           "canGroupBy": true,
           "canMonitor": false,
           "category": "kubernetes",
-          "createdAt": 1590746883930,
+          "createdAt": 1611766488706,
           "customerId": 25008,
           "deferred": false,
           "documentId": "25008--6139949314852700299",
-          "documentTimestamp": 1590746883930,
+          "documentTimestamp": 1611766488706,
           "documentType": "metric",
           "experimental": false,
           "firstSeen": 1583235308502,
@@ -1365,7 +1442,7 @@
             "id": "kubernetes.cluster.name",
             "identity": false,
             "label": true,
-            "lastSeen": 1590744850657,
+            "lastSeen": 1611765427392,
             "max": false,
             "metricType": "none",
             "min": false,
@@ -1393,15 +1470,11 @@
           "hidden": false,
           "id": "kubernetes.cluster.name",
           "identity": false,
-          "lastSeen": 1590744850657,
+          "lastSeen": 1611765427392,
           "metricType": "tag",
           "namespaces": [
             "kubernetes.cluster"
           ],
-          "routingInfo": {
-            "customerId": 25008,
-            "routing": "25008"
-          },
           "scale": 1.0,
           "scopes": [],
           "segment": false,
@@ -1413,14 +1486,14 @@
           ],
           "type": "string"
         },
-        "displayName": "",
-        "isVariable": false,
+        "displayName": "cluster",
+        "isVariable": true,
         "operand": "kubernetes.cluster.name",
         "operator": "in",
         "value": [
           "default"
         ],
-        "variable": false
+        "variable": true
       }
     ]
   }
