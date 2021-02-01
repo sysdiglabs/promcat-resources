@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   namespace: mssql
-  name: mssql-exporter-config
+  name: mssql-metrics-config
   labels:
     app: mssql-exporter
 data:
@@ -324,6 +324,14 @@ data:
             memory_utilization_percentage,
             page_fault_count
           FROM sys.dm_os_process_memory
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mssql-exporter-config
+  namespace: mssql
+type: Opaque
+stringData:
   sql_exporter.yml: | 
     # Global defaults.
     global:
@@ -343,13 +351,13 @@ data:
       # Data source name always has a URI schema that matches the driver name. In some cases (e.g. MySQL)
       # the schema gets dropped or replaced to match the driver expected DSN format.
       data_source_name: 'sqlserver://USER:PASSWORD@mssql:1433'
-
+      
       # Collectors (referenced by name) to execute on the target.
       collectors: [mssql_standard]
 
     # Collector files specifies a list of globs. One collector definition is read from each matching file.
     collector_files: 
-      - "/mssql-exporter-config/*.collector.yml"
+      - "/mssql-metrics-config/*.collector.yml"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -373,9 +381,15 @@ spec:
         args: ["-config.file","/mssql-exporter-config/sql_exporter.yml"]
         volumeMounts:
           - name: mssql-exporter-config
-            mountPath: /mssql-exporter-config
+            mountPath: /mssql-exporter-config/sql_exporter.yml
+            subPath: sql_exporter.yml
+          - name: mssql-metrics-config
+            mountPath: /mssql-metrics-config
       volumes:
         - configMap:
             defaultMode: 420
-            name: mssql-exporter-config
-          name: mssql-exporter-config
+            name: mssql-metrics-config
+          name: mssql-metrics-config
+        - name: mssql-exporter-config
+          secret:
+            secretName: mssql-exporter-config
