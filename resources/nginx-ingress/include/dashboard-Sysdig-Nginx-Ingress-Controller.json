@@ -1,0 +1,1088 @@
+{
+  "dashboard": {
+    "description": "",
+    "eventDisplaySettings": {
+      "enabled": true,
+      "queryParams": {
+        "alertStatuses": [],
+        "categories": [],
+        "filter": "",
+        "severities": [],
+        "teamScope": false
+      }
+    },
+    "layout": [
+      {
+        "h": 5,
+        "panelId": 1,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 5,
+        "panelId": 2,
+        "w": 6,
+        "x": 6,
+        "y": 0
+      },
+      {
+        "h": 5,
+        "panelId": 3,
+        "w": 6,
+        "x": 12,
+        "y": 0
+      },
+      {
+        "h": 5,
+        "panelId": 4,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      },
+      {
+        "h": 5,
+        "panelId": 5,
+        "w": 12,
+        "x": 0,
+        "y": 5
+      },
+      {
+        "h": 5,
+        "panelId": 6,
+        "w": 12,
+        "x": 12,
+        "y": 5
+      },
+      {
+        "h": 5,
+        "panelId": 7,
+        "w": 8,
+        "x": 0,
+        "y": 10
+      },
+      {
+        "h": 5,
+        "panelId": 8,
+        "w": 8,
+        "x": 8,
+        "y": 10
+      },
+      {
+        "h": 5,
+        "panelId": 9,
+        "w": 8,
+        "x": 16,
+        "y": 10
+      },
+      {
+        "h": 7,
+        "panelId": 10,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      }
+    ],
+    "name": "Nginx Kubernetes ingress controller",
+    "panels": [
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Request per second",
+              "timeSeriesDisplayNameTemplate": "{{controller_class}}<{{controller_namespace}}<{{cluster}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "/s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "numberRate",
+              "yAxis": "auto"
+            },
+            "query": "round(sum by (cluster,controller_namespace,controller_pod,controller_class)(irate(nginx_ingress_controller_requests{controller_pod=~$controller_pod,controller_class=~$controller_class,controller_namespace=~$namespace}[$__interval])* on (container_id,host_mac) group_left(cluster) sysdig_container_info{cluster=~$cluster}), 0.001)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "/s",
+            "maxValue": null,
+            "minInputFormat": "/s",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 1,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Controller Request Volume",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Number of connections",
+              "timeSeriesDisplayNameTemplate": "{{controller_class}}<{{controller_namespace}}<{{cluster}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by(cluster,controller_namespace,controller_pod,controller_class)(avg_over_time(nginx_ingress_controller_nginx_process_connections{controller_pod=~$controller_pod,controller_class=~$controller_class,controller_namespace=~$namespace}[$__interval])* on (container_id,host_mac) group_left(cluster) sysdig_container_info{cluster=~$cluster})"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 2,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Controller Connections",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Non 4xx/5xx requests",
+              "timeSeriesDisplayNameTemplate": "{{controller_namespace}}<{{cluster}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "sum by (cluster,controller_namespace,controller_controller,controller_pod)(rate(nginx_ingress_controller_requests{status!~\"[4-5].*\",controller_pod=~$controller_pod,controller_class=~$controller_class,controller_namespace=~$namespace}[$__interval])* on (container_id,host_mac) group_left(cluster) sysdig_container_info{cluster=~$cluster}) / sum by (cluster,controller_namespace,controller_controller,controller_pod)(rate(nginx_ingress_controller_requests{controller_pod=~$controller_pod,controller_class=~$controller_class,controller_namespace=~$namespace}[$__interval])* on (container_id,host_mac) group_left(cluster) sysdig_container_info{cluster=~$cluster})"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 3,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Controller Success Rate (non-4|5xx responses)",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "documentId": "nginx_ingress_controller_success",
+                  "documentTimestamp": 1608060571765,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "nginx_ingress_controller_success",
+                  "identity": false,
+                  "metricType": "counter",
+                  "name": "nginx_ingress_controller_success",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "timeAvg",
+                    "sum"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "nginx_ingress_controller_success",
+                "sorting": null,
+                "timeAggregation": "sum"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            }
+          }
+        ],
+        "description": "",
+        "id": 4,
+        "name": "Config Reloads",
+        "nullValueDisplayText": null,
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "useDefaults": null,
+          "values": []
+        },
+        "type": "basicNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Request volumen by Ingress",
+              "timeSeriesDisplayNameTemplate": "{{ingress}}<{{cluster}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "/s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "numberRate",
+              "yAxis": "auto"
+            },
+            "query": "round(sum(irate(nginx_ingress_controller_requests{ingress!=\"\",controller_pod=~$controller_pod,controller_class=~$controller_class,controller_namespace=~$namespace}[$__interval])* on (container_id,host_mac) group_left(cluster) sysdig_container_info{cluster=~$cluster}) by (ingress,cluster), 0.001)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "/s",
+            "maxValue": null,
+            "minInputFormat": "/s",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 5,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Ingress Request Volume",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Controller request by Ingress",
+              "timeSeriesDisplayNameTemplate": "{{ingress}}<{{cluster}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "/s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "numberRate",
+              "yAxis": "auto"
+            },
+            "query": "sum(rate(nginx_ingress_controller_requests{status!~\"[4-5].*\",controller_pod=~$controller_pod,controller_class=~$controller_class,controller_namespace=~$namespace}[$__interval])* on (container_id,host_mac) group_left(cluster) sysdig_container_info{cluster=~$cluster}) by (ingress,cluster)/ sum(rate(nginx_ingress_controller_requests{controller_pod=~$controller_pod,controller_class=~$controller_class,controller_namespace=~$namespace}[$__interval])* on (container_id,host_mac) group_left(cluster) sysdig_container_info{cluster=~$cluster}) by (ingress,cluster)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "/s",
+            "maxValue": null,
+            "minInputFormat": "/s",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 6,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Ingress Success Rate (non-4|5xx responses)",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Received",
+              "timeSeriesDisplayNameTemplate": "{{controller_class}}<{{controller_namespace}}<{{cluster}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B/s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "byteRate",
+              "yAxis": "auto"
+            },
+            "query": "sum by(cluster,controller_namespace,controller_class,controller_pod) (irate (nginx_ingress_controller_request_size_sum{controller_pod=~$controller_pod,controller_class=~$controller_class,controller_namespace=~$namespace}[$__interval])* on (container_id,host_mac) group_left(cluster) sysdig_container_info{cluster=~$cluster})"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Sent",
+              "timeSeriesDisplayNameTemplate": "{{controller_class}}<{{controller_namespace}}<{{cluster}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B/s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "byteRate",
+              "yAxis": "auto"
+            },
+            "query": "sum by(cluster,controller_namespace,controller_class,controller_pod) (irate (nginx_ingress_controller_response_size_sum{controller_pod=~$controller_pod,controller_class=~$controller_class,controller_namespace=~$namespace}[$__interval])* on (container_id,host_mac) group_left(cluster) sysdig_container_info{cluster=~$cluster})"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B/s",
+            "maxValue": null,
+            "minInputFormat": "B/s",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 7,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Network I/O pressure",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "nginx memory",
+              "timeSeriesDisplayNameTemplate": "{{controller_class}}<{{controller_namespace}}<{{cluster}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "avg by (controller_class,controller_namespace,cluster)(nginx_ingress_controller_nginx_process_resident_memory_bytes{controller_pod=~$controller_pod,controller_class=~$controller_class,controller_namespace=~$namespace}* on (container_id,host_mac) group_left(cluster) sysdig_container_info{cluster=~$cluster}) "
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B",
+            "maxValue": null,
+            "minInputFormat": "B",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 8,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Average Memory Usage",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Nginx cpu cores usage",
+              "timeSeriesDisplayNameTemplate": "{{controller_class}}<{{controller_namespace}}<{{cluster}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by (controller_class,controller_namespace,cluster) (rate (nginx_ingress_controller_nginx_process_cpu_seconds_total{controller_pod=~$controller_pod,controller_class=~$controller_class,controller_namespace=~$namespace}[$__interval])* on (container_id,host_mac) group_left(cluster) sysdig_container_info{cluster=~$cluster})"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 9,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Average CPU Usage",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "{{host}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "d",
+              "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "avg(nginx_ingress_controller_ssl_expire_time_seconds* on (container_id,host_mac) group_left(cluster) sysdig_container_info{cluster=~$cluster}) by (host) - time()"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 10,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Ingress Certificate Expiry",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      }
+    ],
+    "schema": 3,
+    "scopeExpressionList": [
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "category": "kubernetes",
+          "createdAt": 1608060571749,
+          "customerId": 25008,
+          "deferred": false,
+          "documentId": "25008--6139949314852700299",
+          "documentTimestamp": 1608060571749,
+          "documentType": "metric",
+          "experimental": false,
+          "firstSeen": 1583235308502,
+          "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+          "generator": {
+            "aggregationForGroup": "none",
+            "aggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "avg": false,
+            "canCalculate": false,
+            "canFilter": true,
+            "canGroupBy": true,
+            "canMonitor": false,
+            "category": "kubernetes",
+            "concat": false,
+            "context": [
+              "container"
+            ],
+            "count": false,
+            "countDistinct": false,
+            "deferred": false,
+            "experimental": false,
+            "firstSeen": 1583235308502,
+            "groupAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "groupBy": [],
+            "heuristic": false,
+            "hidden": false,
+            "id": "kubernetes.cluster.name",
+            "identity": false,
+            "label": true,
+            "lastSeen": 1608058089485,
+            "max": false,
+            "metricType": "none",
+            "min": false,
+            "namespaces": [
+              "kubernetes.cluster"
+            ],
+            "rateOfChange": false,
+            "scale": 1.0,
+            "scopes": [],
+            "sum": false,
+            "timeAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "timeAvg": false,
+            "type": "string"
+          },
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.cluster.name",
+          "identity": false,
+          "lastSeen": 1608058089485,
+          "metricType": "tag",
+          "namespaces": [
+            "kubernetes.cluster"
+          ],
+          "scale": 1.0,
+          "scopes": [],
+          "segment": false,
+          "segmentations": [],
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "cluster",
+        "isVariable": true,
+        "operand": "kubernetes.cluster.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": false,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "controller_namespace",
+          "documentId": "controller_namespace",
+          "documentTimestamp": 1608060571765,
+          "documentType": "metric",
+          "documented": true,
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "controller_namespace",
+          "identity": false,
+          "metricType": "tag",
+          "name": "controller_namespace",
+          "namespaces": [
+            "cloudProvider",
+            "host.container",
+            "ecs",
+            "host.fs",
+            "host.file",
+            "host",
+            "kubernetes",
+            "kubernetes.cluster",
+            "kubernetes.daemonSet",
+            "kubernetes.deployment",
+            "kubernetes.job",
+            "kubernetes.namespace",
+            "kubernetes.node",
+            "kubernetes.pod",
+            "kubernetes.replicaSet",
+            "kubernetes.service",
+            "kubernetes.statefulSet",
+            "kubernetes.resourcequota",
+            "kubernetes.hpa",
+            "link",
+            "mesos",
+            "host.net",
+            "host.process",
+            "prometheus",
+            "swarm"
+          ],
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "namespace",
+        "isVariable": true,
+        "operand": "controller_namespace",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": false,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "controller_class",
+          "documentId": "controller_class",
+          "documentTimestamp": 1608060571765,
+          "documentType": "metric",
+          "documented": true,
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "controller_class",
+          "identity": false,
+          "metricType": "tag",
+          "name": "controller_class",
+          "namespaces": [
+            "cloudProvider",
+            "host.container",
+            "ecs",
+            "host.fs",
+            "host.file",
+            "host",
+            "kubernetes",
+            "kubernetes.cluster",
+            "kubernetes.daemonSet",
+            "kubernetes.deployment",
+            "kubernetes.job",
+            "kubernetes.namespace",
+            "kubernetes.node",
+            "kubernetes.pod",
+            "kubernetes.replicaSet",
+            "kubernetes.service",
+            "kubernetes.statefulSet",
+            "kubernetes.resourcequota",
+            "kubernetes.hpa",
+            "link",
+            "mesos",
+            "host.net",
+            "host.process",
+            "prometheus",
+            "swarm"
+          ],
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "controller_class",
+        "isVariable": true,
+        "operand": "controller_class",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": false,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "controller_pod",
+          "documentId": "controller_pod",
+          "documentTimestamp": 1608060571765,
+          "documentType": "metric",
+          "documented": true,
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "controller_pod",
+          "identity": false,
+          "metricType": "tag",
+          "name": "controller_pod",
+          "namespaces": [
+            "cloudProvider",
+            "host.container",
+            "ecs",
+            "host.fs",
+            "host.file",
+            "host",
+            "kubernetes",
+            "kubernetes.cluster",
+            "kubernetes.daemonSet",
+            "kubernetes.deployment",
+            "kubernetes.job",
+            "kubernetes.namespace",
+            "kubernetes.node",
+            "kubernetes.pod",
+            "kubernetes.replicaSet",
+            "kubernetes.service",
+            "kubernetes.statefulSet",
+            "kubernetes.resourcequota",
+            "kubernetes.hpa",
+            "link",
+            "mesos",
+            "host.net",
+            "host.process",
+            "prometheus",
+            "swarm"
+          ],
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "controller_pod",
+        "isVariable": true,
+        "operand": "controller_pod",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      }
+    ]
+  }
+}
