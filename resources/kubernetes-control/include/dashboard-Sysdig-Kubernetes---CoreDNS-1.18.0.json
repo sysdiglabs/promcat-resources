@@ -542,7 +542,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "sum(coredns_cache_hits_total:sysdig{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) / (sum(coredns_cache_misses_total:sysdig{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) + sum(coredns_cache_hits_total:sysdigƒ{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}))"
+            "query": "sum(coredns_cache_hits_total:sysdig{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) / (sum(coredns_cache_misses_total:sysdig{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) + sum(coredns_cache_hits_total:sysdig{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}))"
           }
         ],
         "description": "",

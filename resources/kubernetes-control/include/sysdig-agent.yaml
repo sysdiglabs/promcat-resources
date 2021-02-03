@@ -5,6 +5,10 @@ metadata:
   namespace: agent
 data:
   prometheus.yaml: |-
+    global:
+      scrape_interval: 15s
+      evaluation_interval: 15s
+    scrape_configs:
     - job_name: etcd
       scheme: https
       tls_config:
