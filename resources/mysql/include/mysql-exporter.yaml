@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-exporter-exporter
+spec:
+  selector:
+    matchLabels:
+      app: mysql-exporter
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql-exporter
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9104"
+    spec:
+      containers:
+        - name: mysql-exporter
+          image: prom/mysqld-exporter:latest
+          args:
+            - --config.my-cnf=/tmp/.my.cnf
+          ports:
+            - containerPort: 9104
+          volumeMounts:
+            - name: my-cnf
+              mountPath: /tmp/.my.cnf
+              subPath: .my.cnf
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "256m"
+      volumes:
+        - name: my-cnf
+          secret:
+            defaultMode: 420
+            secretName: mysql-exporter
+            items:
+              - key: .my.cnf
+                path: .my.cnf
