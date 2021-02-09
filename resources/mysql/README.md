@@ -16,6 +16,8 @@ For further information, consult [the documentations of the exporter and its dif
 # Attributions
 Configuration files and Sysdig dashboard maintained by [Sysdig team](https://sysdig.com/) under GPL3 license.
 
+Grafana dashboards based on [Mysql exporter mixins](https://github.com/prometheus/mysqld_exporter) with Apache License 2.0.
+
 Alerts based on [Awesome Prometheus Alerts](https://github.com/samber/awesome-prometheus-alerts) under CC BY 4.0 License.
 
 Using the [MySQL exporter](https://github.com/prometheus/mysqld_exporter) with Apache License 2.0.

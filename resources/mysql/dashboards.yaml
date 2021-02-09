@@ -31,4 +31,59 @@ configurations:
     * MySQL Internal Memory Overview
     * Top Command Counters
   file: include/dashboard-sysdig-mysql.json
+- name: 'MySQL Mixins'
+  kind: Grafana
+  image: 'mysql/images/dashboard-grafana-mysql.png'
+  description: |
+    This dashboard offers information on:
+    * Uptime
+    * MySQL Server Status Variables
+    * Current QPS
+    * Tuning the InnoDB Buffer Pool Size
+    * InnoDB Buffer Pool
+    * Connections
+    * MySQL Server System Variables
+    * MySQL Connections
+    * MySQL Client Thread Activity
+    * Table Locks
+    * MySQL Queries and Questions
+    * MySQL Questions
+    * Tuning information
+    * MySQL Thread Cache
+    * Temporary Objects
+    * MySQL Temporary Objects
+    * MySQL Select Types
+    * Sorts
+    * MySQL Sorts
+    * MySQL Slow Queries
+    * Aborted
+    * MySQL Aborted Connections
+    * MySQL Table Locks
+    * Network
+    * MySQL Network Traffic
+    * Memory
+    * Detailed descriptions about metrics
+    * MySQL Internal Memory Overview
+    * Command, Handlers, Processes
+    * Server Status Variables (Com_xxx)
+    * Top Command Counters
+    * MySQL Handlers
+    * MySQL Transaction Handlers
+    * Process States
+    * Top Process States Hourly
+    * Query Cache
+    * MySQL Query Cache Memory
+    * MySQL Query Cache Activity
+    * Files and Tables
+    * MySQL File Openings
+    * MySQL Open Files
+    * Table Openings
+    * Server Status Variables (table_open_cache)
+    * MySQL Table Open Cache Status
+    * Server Status Variables (table_open_cache)
+    * MySQL Open Tables
+    * MySQL Table Definition Cache
+    * Server Status Variables (table_open_cache)
+    * MySQL Table Definition Cache
+  file: include/dashboard-grafana-mysql.json
 
