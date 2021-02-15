@@ -3,32 +3,32 @@ kind: Alert
 app: redis
 version: 1.0.0
 appVersion:
-- <=6
+- 2-6
 configurations:
 - kind: Prometheus
   data: |
-    - alert: LowUptime
+    - alert: RedisLowUptime
       expr: redis_uptime_in_seconds < 3600
       for: 15m
       labels:
         severity: page
       annotations:
         summary: Uptime of less than 1 hour in a redis instance {{$labels.instance}}
-    - alert: HighMemoryUsage
+    - alert: RedisHighMemoryUsage
       expr: (redis_memory_used_bytes / redis_memory_max_bytes) > 0.85
       for: 15m
       labels:
         severity: page
       annotations:
         summary: High memory usage in instance {{$labels.instance}}
-    - alert: HighClientsUsage
+    - alert: RedisHighClientsUsage
       expr: (redis_connected_clients / redis_config_maxclients) > 0.85
       for: 15m
       labels:
         severity: page
       annotations:
         summary: High client connections usage in instance {{$labels.instance}}
-    - alert: HighResponseTime
+    - alert: RedisHighResponseTime
       expr: |
         sum(rate(redis_commands_duration_seconds_total[5m])) /
           sum(rate(redis_commands_processed_total[5m]))
@@ -38,28 +38,28 @@ configurations:
         severity: page
       annotations:
         summary: Response time over 250ms in instance {{$labels.instance}}
-    - alert: HighFragmentationRatio
+    - alert: RedisHighFragmentationRatio
       expr: fragmentation_ratio > 1.5
       for: 30m
       labels:
         severity: page
       annotations:
         summary: High fragmentation in instance {{$labels.instance}}
-    - alert: HighKeysEvictionRatio
+    - alert: RedisHighKeysEvictionRatio
       expr: (sum(rate(redis_evicted_keys_total[5m])) / sum(redis_db_keys)) > 0.1
       for: 30m
       labels:
         severity: page
       annotations:
         summary: High keys eviction ratio in instance {{$labels.instance}}
-    - alert: RecurrentRejectedConnections
+    - alert: RedisRecurrentRejectedConnections
       expr: (rate(redis_rejected_connections_total[5m])) > 0
       for: 15m
       labels:
         severity: page
       annotations:
         summary: High keys eviction ratio in instance {{$labels.instance}}
-    - alert: LowHitRatio
+    - alert: RedisLowHitRatio
       expr: |
         (rate(redis_keyspace_hits_total[5m]) /
           (rate(redis_keyspace_misses_total[5m]) + rate(redis_keyspace_hits_total[5m])))
