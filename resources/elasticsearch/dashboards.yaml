@@ -31,7 +31,7 @@ configurations:
     * GC information
     * Network usage
     * Indices information
-  file: include/ElasticSearch_cluster.json
+  file: include/ElasticSearch_Infra.json
 - name: ElasticSearch infra overview
   kind: Grafana
   image: elasticsearch/images/elastic_infra_grafana.png
@@ -42,4 +42,4 @@ configurations:
     * GC information
     * Network usage
     * Indices information
-  file: include/ElasticSearch_cluster_grafana.json
+  file: include/ElasticSearch_infra_grafana.json
