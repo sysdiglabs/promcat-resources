@@ -140,15 +140,17 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "up:kubernetes{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
+            "query": "up{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "description": "",
         "id": 1,
         "name": "UP",
+        "nullValueDisplayText": null,
         "numberThresholds": {
           "base": {
             "displayText": "",
@@ -171,15 +173,17 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "coredns_panic_count_total:sysdig{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
+            "query": "coredns_panic_count_total{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "description": "",
         "id": 2,
         "name": "Panics",
+        "nullValueDisplayText": null,
         "numberThresholds": {
           "base": {
             "displayText": "",
@@ -202,10 +206,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(coredns_forward_response_rcode_count_total:sysdig{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (rcode)"
+            "query": "sum(rate(coredns_forward_response_rcode_count_total{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (rcode)"
           },
           {
             "displayInfo": {
@@ -218,10 +223,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(coredns_dns_response_rcode_count_total:sysdig{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (rcode)"
+            "query": "sum(rate(coredns_dns_response_rcode_count_total{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (rcode)"
           }
         ],
         "axesConfiguration": {
@@ -264,6 +270,7 @@
           "width": null
         },
         "name": "RPC rate",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -279,10 +286,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "(sum(rate(coredns_dns_request_type_count_total:sysdig{job=\"kube-dns\"}[$__interval]) * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (type))"
+            "query": "(sum(rate(coredns_dns_request_type_count_total{job=\"kube-dns\"}[$__interval]) * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (type))"
           }
         ],
         "axesConfiguration": {
@@ -325,6 +333,7 @@
           "width": null
         },
         "name": "Requests (by qtype)",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -340,10 +349,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "histogram_quantile(0.99, sum(rate(coredns_dns_request_duration_seconds_bucket:sysdig{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (server, zone, le))"
+            "query": "histogram_quantile(0.99, sum(rate(coredns_dns_request_duration_seconds_bucket{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (server, zone, le))"
           },
           {
             "displayInfo": {
@@ -356,10 +366,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "histogram_quantile(0.99, sum(rate(coredns_forward_request_duration_seconds_bucket:sysdig{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (to, le))"
+            "query": "histogram_quantile(0.99, sum(rate(coredns_forward_request_duration_seconds_bucket{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (to, le))"
           }
         ],
         "axesConfiguration": {
@@ -402,6 +413,7 @@
           "width": null
         },
         "name": "Request duration 99th quantile",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -417,10 +429,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "(sum(rate(coredns_dns_request_type_count_total:sysdig{job=\"kube-dns\"}[$__interval]) * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (zone))"
+            "query": "(sum(rate(coredns_dns_request_type_count_total{job=\"kube-dns\"}[$__interval]) * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (zone))"
           }
         ],
         "axesConfiguration": {
@@ -463,6 +476,7 @@
           "width": null
         },
         "name": "Requests (by zone)",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -478,10 +492,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "(sum(rate(coredns_forward_request_count_total:sysdig{job=\"kube-dns\"}[$__interval]) * on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (to))"
+            "query": "(sum(rate(coredns_forward_request_count_total{job=\"kube-dns\"}[$__interval]) * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (to))"
           }
         ],
         "axesConfiguration": {
@@ -524,6 +539,7 @@
           "width": null
         },
         "name": "Forward Requests (by to)",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -539,15 +555,17 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "0-1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "sum(coredns_cache_hits_total:sysdig{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) / (sum(coredns_cache_misses_total:sysdig{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) + sum(coredns_cache_hits_total:sysdigƒ{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}))"
+            "query": "sum(coredns_cache_hits_total{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) / (sum(coredns_cache_misses_total{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) + sum(coredns_cache_hits_total{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}))"
           }
         ],
         "description": "",
         "id": 8,
         "name": "Cached",
+        "nullValueDisplayText": null,
         "numberThresholds": {
           "base": {
             "displayText": "",
@@ -570,10 +588,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(coredns_cache_hits_total:sysdig{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (type)"
+            "query": "sum(rate(coredns_cache_hits_total{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (type)"
           },
           {
             "displayInfo": {
@@ -586,10 +605,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(coredns_cache_misses_total:sysdig{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster})"
+            "query": "sum(rate(coredns_cache_misses_total{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster})"
           }
         ],
         "axesConfiguration": {
@@ -632,6 +652,7 @@
           "width": null
         },
         "name": "Cache hit Rate",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -647,10 +668,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(coredns_cache_size:sysdig{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (type)"
+            "query": "sum(coredns_cache_size{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (type)"
           }
         ],
         "axesConfiguration": {
@@ -693,6 +715,7 @@
           "width": null
         },
         "name": "Cache Size",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -708,15 +731,17 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "count(sum(coredns_plugin_enabled:sysdig{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (name))"
+            "query": "count(sum(coredns_plugin_enabled{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (name))"
           }
         ],
         "description": "",
         "id": 11,
         "name": "Plugins Enabled",
+        "nullValueDisplayText": null,
         "numberThresholds": {
           "base": {
             "displayText": "",
@@ -739,10 +764,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "histogram_quantile(0.99, sum(rate(coredns_dns_request_size_bytes_bucket:sysdig{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (server, zone, proto, le))"
+            "query": "histogram_quantile(0.99, sum(rate(coredns_dns_request_size_bytes_bucket{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (server, zone, proto, le))"
           },
           {
             "displayInfo": {
@@ -755,10 +781,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "histogram_quantile(0.50, sum(rate(coredns_dns_request_size_bytes_bucket:sysdig{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (server, zone, proto, le))"
+            "query": "histogram_quantile(0.50, sum(rate(coredns_dns_request_size_bytes_bucket{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (server, zone, proto, le))"
           }
         ],
         "axesConfiguration": {
@@ -801,6 +828,7 @@
           "width": null
         },
         "name": "Request size",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -816,10 +844,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "histogram_quantile(0.99, sum(rate(coredns_dns_response_size_bytes_bucket:sysdig{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (server, zone, proto, le))"
+            "query": "histogram_quantile(0.99, sum(rate(coredns_dns_response_size_bytes_bucket{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (server, zone, proto, le))"
           },
           {
             "displayInfo": {
@@ -832,10 +861,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "histogram_quantile(0.50, sum(rate(coredns_dns_response_size_bytes_bucket:sysdig{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}) by (server, zone, proto, le))"
+            "query": "histogram_quantile(0.50, sum(rate(coredns_dns_response_size_bytes_bucket{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (server, zone, proto, le))"
           }
         ],
         "axesConfiguration": {
@@ -878,6 +908,7 @@
           "width": null
         },
         "name": "Response size",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -893,10 +924,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "B",
+              "nullValueDisplayMode": "nullGap",
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "process_resident_memory_bytes{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
+            "query": "process_resident_memory_bytes{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -939,6 +971,7 @@
           "width": null
         },
         "name": "Memory",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -954,10 +987,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "rate(process_cpu_seconds_total{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
+            "query": "rate(process_cpu_seconds_total{job=\"kube-dns\"}[$__interval])* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -1000,6 +1034,7 @@
           "width": null
         },
         "name": "CPU usage",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
@@ -1015,10 +1050,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "go_goroutines{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) kube_pod_container_info{cluster=~$cluster}"
+            "query": "go_goroutines{job=\"kube-dns\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -1061,6 +1097,7 @@
           "width": null
         },
         "name": "Goroutines",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       }
     ],
@@ -1073,11 +1110,11 @@
           "canGroupBy": true,
           "canMonitor": false,
           "category": "kubernetes",
-          "createdAt": 1599816339843,
+          "createdAt": 1614684885010,
           "customerId": 25008,
           "deferred": false,
           "documentId": "25008--6139949314852700299",
-          "documentTimestamp": 1599816339843,
+          "documentTimestamp": 1614684885010,
           "documentType": "metric",
           "experimental": false,
           "firstSeen": 1583235308502,
@@ -1115,7 +1152,7 @@
             "id": "kubernetes.cluster.name",
             "identity": false,
             "label": true,
-            "lastSeen": 1599816262778,
+            "lastSeen": 1614684667137,
             "max": false,
             "metricType": "none",
             "min": false,
@@ -1143,15 +1180,11 @@
           "hidden": false,
           "id": "kubernetes.cluster.name",
           "identity": false,
-          "lastSeen": 1599816262778,
+          "lastSeen": 1614684667137,
           "metricType": "tag",
           "namespaces": [
             "kubernetes.cluster"
           ],
-          "routingInfo": {
-            "customerId": 25008,
-            "routing": "25008"
-          },
           "scale": 1.0,
           "scopes": [],
           "segment": false,
@@ -1167,9 +1200,7 @@
         "isVariable": true,
         "operand": "kubernetes.cluster.name",
         "operator": "in",
-        "value": [
-          "david-lorite-minikube"
-        ],
+        "value": [],
         "variable": true
       }
     ]

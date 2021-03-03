@@ -1,0 +1,71 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-exporter-ssl
+spec:
+  selector:
+    matchLabels:
+      app: mysql-exporter-ssl
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql-exporter-ssl
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9104"
+    spec:
+      containers:
+        - name: mysql-exporter
+          image: prom/mysqld-exporter:latest
+          args:
+            - --config.my-cnf=/tmp/.my.cnf
+          ports:
+            - containerPort: 9104
+          volumeMounts:
+            - name: my-cnf
+              mountPath: /tmp/.my.cnf
+              subPath: .my.cnf
+            - name: ssl-ca
+              mountPath: /lib/cert/ca.pem
+              subPath: ca.pem
+            - name: ssl-key
+              mountPath: /lib/cert/client-key.pem
+              subPath: client-key.pem
+            - name: ssl-cert
+              mountPath: /lib/cert/client-cert.pem
+              subPath: client-cert.pem
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "256m"
+      volumes:
+        - name: my-cnf
+          secret:
+            defaultMode: 420
+            secretName: mysql-exporter-cnf-ssl
+            items:
+              - key: .my.cnf
+                path: .my.cnf
+        - name: ssl-ca
+          secret:
+            defaultMode: 420
+            secretName: mysql-exporter-ssl
+            items:
+              - key: ca.pem
+                path: ca.pem
+        - name: ssl-key
+          secret:
+            defaultMode: 420
+            secretName: mysql-exporter-ssl
+            items:
+              - key: client-key.pem
+                path: client-key.pem
+        - name: ssl-cert
+          secret:
+            defaultMode: 420
+            secretName: mysql-exporter-ssl
+            items:
+              - key: client-cert.pem
+                path: client-cert.pem

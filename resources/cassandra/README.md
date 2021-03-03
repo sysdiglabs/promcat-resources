@@ -18,7 +18,7 @@
 * Memory_total
 
 # Number of time series generated
-The metrics filtered are around 600
+The metrics for each instance are around 7k
 
 # Attributions
 Using the [Cassandra exporter](https://github.com/instaclustr/cassandra-exporter) with license Apache 2.0
