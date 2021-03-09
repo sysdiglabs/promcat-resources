@@ -45,6 +45,8 @@ with exporter we can gather the metrics from the elasticsearch api.
 # Attributions
 Configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
 
+Exporter [justwatchcom exporter](https://github.com/justwatchcom/elasticsearch_exporter) with Apache v2 license.
+
 The dashboars provided are created by Sysdig team with [this](https://grafana.com/grafana/dashboards/6483) as reference
 
 The alerts are from [Awesome Prometheus alerts] (https://github.com/samber/awesome-prometheus-alerts)

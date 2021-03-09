@@ -22,4 +22,5 @@ The metrics for each instance are around 7k
 
 # Attributions
 Using the [Cassandra exporter](https://github.com/instaclustr/cassandra-exporter) with license Apache 2.0
+
 Configuration files, dashboards and alerts maintained by [Sysdig team](https://sysdig.com/).

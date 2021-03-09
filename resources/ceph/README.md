@@ -14,4 +14,5 @@ Ceph has already a Prometheus endpoint with all metrics in are exposed in the po
 Configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
 
 Dashboards based on [Grafana repository](https://grafana.com/grafana/dashboards/2842) as reference.
+
 Alerts based on [ceph mixing](https://monitoring.mixins.dev/ceph/#ceph-mgr-status) as reference
