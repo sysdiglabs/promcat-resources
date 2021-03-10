@@ -129,7 +129,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(up:cassandra * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+            "query": "sum(up * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
           }
         ],
         "description": "",
@@ -160,7 +160,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "avg(cassandra_client_request_latency_seconds:cassandra{operation=\"write\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+            "query": "avg(cassandra_client_request_latency_seconds{operation=\"write\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
           }
         ],
         "description": "",
@@ -191,7 +191,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "avg(cassandra_client_request_latency_seconds:cassandra{operation=\"read\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
+            "query": "avg(cassandra_client_request_latency_seconds{operation=\"read\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)"
           }
         ],
         "description": "",
@@ -222,7 +222,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "(sum(cassandra_jvm_memory_pool_used_bytes:cassandra{type=\"HEAP\"} * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster) / sum(cassandra_jvm_memory_pool_maximum_bytes:cassandra{type=\"HEAP\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)) * 100\n"
+            "query": "(sum(cassandra_jvm_memory_pool_used_bytes{type=\"HEAP\"} * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster) / sum(cassandra_jvm_memory_pool_maximum_bytes{type=\"HEAP\"}* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)) * 100\n"
           }
         ],
         "description": "",
@@ -253,7 +253,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(cassandra_table_estimated_pending_compactions:cassandra * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)\n"
+            "query": "sum(cassandra_table_estimated_pending_compactions * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)\n"
           }
         ],
         "description": "",
@@ -284,7 +284,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(cassandra_commit_log_pending_tasks:cassandra * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)\n"
+            "query": "sum(cassandra_commit_log_pending_tasks * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)\n"
           }
         ],
         "description": "",
@@ -315,7 +315,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(rate(cassandra_client_request_unavailable_exceptions_total:cassandra[5m]) * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)\n"
+            "query": "sum(rate(cassandra_client_request_unavailable_exceptions_total[5m]) * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)\n"
           }
         ],
         "description": "",
@@ -346,7 +346,7 @@
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "(sum(cassandra_storage_filesystem_usable_bytes:cassandra* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)/sum(cassandra_storage_filesystem_bytes_total:cassandra* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)) * 100"
+            "query": "(sum(cassandra_storage_filesystem_usable_bytes* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)/sum(cassandra_storage_filesystem_bytes_total* on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}) by (cluster)) * 100"
           }
         ],
         "description": "",
@@ -377,7 +377,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "cassandra_client_request_latency_seconds:cassandra{quantile=\"0.95\", operation=\"read\"} * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "cassandra_client_request_latency_seconds{quantile=\"0.95\", operation=\"read\"} * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -436,7 +436,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "cassandra_client_request_latency_seconds:cassandra{quantile=\"0.95\", operation=\"write\"} * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "cassandra_client_request_latency_seconds{quantile=\"0.95\", operation=\"write\"} * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -495,7 +495,7 @@
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "cassandra_storage_filesystem_usable_bytes:cassandra * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "cassandra_storage_filesystem_usable_bytes * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -554,7 +554,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "cassandra_client_native_connections:cassandra * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "cassandra_client_native_connections * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -613,7 +613,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "cassandra_os_1m_load_average:cassandra * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "cassandra_os_1m_load_average * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {
@@ -672,7 +672,7 @@
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "cassandra_os_free_memory_bytes:cassandra * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "cassandra_os_free_memory_bytes * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           },
           {
             "displayInfo": {
@@ -688,7 +688,7 @@
               "unit": "byte",
               "yAxis": "auto"
             },
-            "query": "cassandra_os_memory_bytes_total:cassandra * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
+            "query": "cassandra_os_memory_bytes_total * on (container_id) group_left(cluster,namespace,pod) sysdig_container_info{cluster=~$cluster}"
           }
         ],
         "axesConfiguration": {

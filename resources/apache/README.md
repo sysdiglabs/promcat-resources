@@ -34,3 +34,5 @@ For further information, consult [Apache documentation](https://httpd.apache.org
 
 # Attributions
 Configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
+
+Exporter [Apache_exporter](https://github.com/Lusitaniae/apache_exporter) MIT License.
