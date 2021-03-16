@@ -1,5 +1,37 @@
+kind: ConfigMap
+metadata:
+  labels:
+    app: sysdig-agent
+  name: sysdig-agent
+  namespace: sysdig-agent
 apiVersion: v1
 data:
+  prometheus.yaml: |-
+    global:
+      scrape_interval: 15s
+      evaluation_interval: 15s
+    scrape_configs:
+    - job_name: 'yace-sqs'
+      tls_config:
+        insecure_skip_verify: true
+      kubernetes_sd_configs:
+      - role: pod
+      relabel_configs:
+      - action: keep
+        source_labels: [__meta_kubernetes_pod_host_ip]
+        regex: __HOSTIPS__
+      - action: keep
+        source_labels:
+        - __meta_kubernetes_namespace
+        - __meta_kubernetes_pod_name
+        separator: '/'
+        regex: 'yace/yace-sqs.+'
+      - action: replace
+        source_labels: [__meta_kubernetes_pod_uid]
+        target_label: sysdig_k8s_pod_uid
+      - action: replace
+        source_labels: [__meta_kubernetes_pod_container_name]
+        target_label: sysdig_k8s_pod_container_name
   dragent.yaml: |
     new_k8s: true
     k8s_cluster_name: your-cluster-name
@@ -11,24 +43,12 @@ data:
     use_promscrape: true
     prometheus:
       enabled: true
-      histograms: true
-      ingest_raw: true
       ingest_calculated: false
-      interval: 10
-      log_errors: true
-      max_metrics: 3000
+      ingest_raw: true
+      max_metrics: 10000
       max_metrics_per_process: 20000
-      process_filter:
-      - include:
-          kubernetes.pod.annotation.prometheus.io/scrape: true
-          conf:
-              path: "{kubernetes.pod.annotation.prometheus.io/path}"
-              port: "{kubernetes.pod.annotation.prometheus.io/port}"
+      tags: role:cluster
+      use_promscrape: true
+      prom_service_discovery: true
     snaplen: 512
     tags: role:cluster
-kind: ConfigMap
-metadata:
-    labels:
-      app: sysdig-agent
-    name: sysdig-agent
-    namespace: sysdig-agent
