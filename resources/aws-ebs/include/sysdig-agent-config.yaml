@@ -11,27 +11,42 @@ data:
       scrape_interval: 15s
       evaluation_interval: 15s
     scrape_configs:
-    - job_name: 'yace-ebs'
+    - job_name: 'k8s-pods'
       tls_config:
         insecure_skip_verify: true
       kubernetes_sd_configs:
       - role: pod
       relabel_configs:
+        # Trying to ensure we only scrape local targets
+        # __HOSTIPS__ is replaced by promscrape with a regex list of the IP addresses
+        # of all the active network interfaces on the host
       - action: keep
         source_labels: [__meta_kubernetes_pod_host_ip]
         regex: __HOSTIPS__
-      - action: keep
-        source_labels:
-        - __meta_kubernetes_namespace
-        - __meta_kubernetes_pod_name
-        separator: '/'
-        regex: 'yace/yace-ebs.+'
+      - action: kee(and cluster hierarchy)
       - action: replace
         source_labels: [__meta_kubernetes_pod_uid]
         target_label: sysdig_k8s_pod_uid
       - action: replace
         source_labels: [__meta_kubernetes_pod_container_name]
-        target_label: sysdig_k8s_pod_container_name
+        target_label: sysdig_k8s_pod_container_namep
+        source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+        regex: true
+      - action: replace
+        source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scheme]
+        target_label: __scheme__
+        regex: (https?)
+      - action: replace
+        source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+        target_label: __metrics_path__
+        regex: (.+)
+      - action: replace
+        source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+        regex: ([^:]+)(?::\d+)?;(\d+)
+        replacement: $1:$2
+        target_label: __address__
+        # Holding on to pod-id and container name so we can associate the metrics
+        # with the container
   dragent.yaml: |
     new_k8s: true
     k8s_cluster_name: your-cluster-name
