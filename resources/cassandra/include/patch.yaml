@@ -1,0 +1,28 @@
+spec:
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9500"
+    spec:
+      containers:
+      - name: cassandra-exporter
+        image: gcr.io/mateo-burillo-ns/promcat-cassandra-exporter:latest
+        imagePullPolicy: Always
+        volumeMounts:
+          - mountPath: /var/lib/cassandra
+            name: data
+        ports:
+          - name: metrics
+            containerPort: 9500
+            protocol: TCP
+        livenessProbe:
+          tcpSocket:
+            port: 9500
+          initialDelaySeconds: 180
+        readinessProbe:
+          httpGet:
+            path: /metrics
+            port: 9500
+          initialDelaySeconds: 180
+          timeoutSeconds: 45

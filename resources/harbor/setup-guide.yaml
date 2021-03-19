@@ -5,6 +5,8 @@ version: 1.0.0
 appVersion:
 - '1.1'
 configurations:
+- name: sysdig-agent.yaml
+  file: include/sysdig-agent.yaml
 - name: harbor.yaml
   file: include/harbor.yaml
 descriptionFile: INSTALL.md
