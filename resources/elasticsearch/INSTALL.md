@@ -57,8 +57,11 @@ spec:
 # Sysdig Agent configuration
 In the side of Sysdig agent the only thing we have to make sure is the 'promscrape' option is enabled in the dragent.yaml
 ```yaml
-use_promscrape: true
-  prometheus:
-    enabled: true
-    ...
+dragent.yaml: |-
+  ...
+  use_promscrape: true
+    prometheus:
+      enabled: true
+      prom_service_discovery: true
+      ...
 ```
