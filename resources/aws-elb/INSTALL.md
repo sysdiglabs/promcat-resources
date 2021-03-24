@@ -1,9 +1,9 @@
 # Setting up permissions in the AWS account
-## Creating an AWS IAM Policy
+## Creating an AWS IAM policy
 The exporter needs permissions to access the resources from the AWS account.
 
-First, create an AWS IAM policy on your AWS infrastructure allowing read CloudWatch metrics and get resources by tags.
-Here is a AWS IAM configuration example:
+First, create an AWS IAM policy on your AWS infrastructure allowing to read CloudWatch metrics and get resources by tags.
+An example AWS IAM configuration is given below:
 
 ```json
 {
@@ -26,7 +26,7 @@ Here is a AWS IAM configuration example:
 ```
 
 ## Creating the credentials for the exporter
-Create a file $HOME/.aws/credentials as the following, substituting the values with your key and password:
+Create a `$HOME/.aws/credentials` file as follows. Substitute the values with your key and password:
 
 ```ini
 # CREDENTIALS FOR AWS ACCOUNT
@@ -35,14 +35,14 @@ aws_access_key_id = AYYYYYZZZZZZ3BLXXXXX
 aws_secret_access_key = bXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
-# Configuring the resources to monitor
-The YACE exporter uses an API call that filters the resources by tags. 
-This implies that if you want to monitor a resource, **it has to have at least one tag**. Else, it will not be scraped.
+# Monitor the resources
+The YACE exporter uses an API call that filters the resources by tags.
+Therefore, if you want to monitor a resource, ensure that **it has at least one tag** associated with it. A resource without a tag will not be scraped.
 
 # Installing the exporter
-To install the exporter follow this steps:
+To install the exporter do the following:
 
-1. Download the yaml to a local file named 'elb-deploy.yaml'
+1. Download the `elb-deploy.yaml` file.
 2. Change the following lines in the configmap with the AWS region where the resources to monitor are located:
 ```
 region: us-east-1
