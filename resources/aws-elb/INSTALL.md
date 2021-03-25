@@ -43,27 +43,32 @@ Therefore, if you want to monitor a resource, ensure that **it has at least one 
 To install the exporter do the following:
 
 1. Download the `elb-deploy.yaml` file.
-2. Change the following lines in the configmap with the AWS region where the resources to monitor are located:
+2. Change the following lines in the ConfigMap with the AWS region where the resources to be monitored are located:
 ```
 region: us-east-1
 ```
-3. Change the field 'credentials' of the secret 'yace-elb-credentials' and paste the content of the following command:
+3. Run following command and copy the content:
 ```
 cat ~/.aws/credentials | base64
 ```
-4. Apply the deployment:
+4. Replace the content of the `credentials` field of the secret `yace-alb-credentials` with the one that you have copied.
+
+5. Apply the deployment:
 ```
 kubectl apply -f elb-deploy.yaml
 ```
-5. You can check that the exporter is working checking that the pods are running:
+6. Ensure that the exporter is working checking that the pods are running:
 ```
 kubectl -n yace get pods
 ```
 
 # Sysdig Agent configuration
-In the yace Deployment we will include the Prometheus annotations configuring the port of the exporter as scraping port.    
 
-Also, in the Sysdig Agent configuration, be sure to have these lines of configuration to scrape the containers with Prometheus annotations.
+Do the following:
+
+1. In the yace deployment, include the Prometheus annotations. Add the port of the exporter as the scraping port in the annotation.    
+
+2. In the Sysdig Agent configuration, add the following lines of configuration to scrape the containers with Prometheus annotations.
 ```yaml
 process_filter:
   - include:
@@ -73,7 +78,7 @@ process_filter:
         port: "{kubernetes.pod.annotation.prometheus.io/port}"
 ```
 
-You can download the sample configuration file below and apply it by:
+3. Download the sample [Sysdig Agent configuration file](include/sysdig-agent-config.yaml) and apply it by:
 ```bash
 kubectl apply -f sysdig-agent-config.yaml
 ```
