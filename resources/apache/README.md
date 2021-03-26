@@ -24,7 +24,7 @@ The Apache metrics are extracted in two different ways:
 - apache_http_response_bytes_total
 - apache_http_last_request_seconds
 
-> More metrics can be customized through the Grok exporter.
+> Additional metrics can be customized through the Grok exporter.
 The metrics configured here are based on the [blog post of Robust Percepction](https://www.robustperception.io/getting-metrics-from-apache-logs-using-the-grok-exporter).
 
 # Number of time series generated
