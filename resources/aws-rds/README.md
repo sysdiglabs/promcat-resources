@@ -1,7 +1,7 @@
 # AWS RDS
-Amazon Relational Database Service ([Amazon RDS](https://aws.amazon.com/rds/)) makes it easy to set up, operate, and scale a relational database in the cloud. It provides cost-efficient and resizable capacity while automating time-consuming administration tasks such as hardware provisioning, database setup, patching and backups. It frees you to focus on your applications so you can give them the fast performance, high availability, security and compatibility they need. 
+Amazon Relational Database Service ([Amazon RDS](https://aws.amazon.com/rds/)) makes it easy to set up, operate, and scale a relational database in the cloud. It provides cost-efficient and resizable capacity while automating time-consuming administration tasks, such as hardware provisioning, database setup, patching, and backups. It frees you up to focus on your applications and provide them with performance improvements, high availability, security, and compatibility they need.
 
-The metrics for AWS RDS are obtained through AWS Cloudwatch. Using the [YACE exporter](https://github.com/ivx/yet-another-cloudwatch-exporter).
+The metrics for AWS RDS are obtained through AWS Cloudwatch by using the [YACE exporter](https://github.com/ivx/yet-another-cloudwatch-exporter).
 
 # Metrics
 - BinLogDiskUsage
@@ -30,13 +30,13 @@ The metrics for AWS RDS are obtained through AWS Cloudwatch. Using the [YACE exp
 - WriteLatency
 - WriteThroughput
 
-For further information, consult the [Cloudwatch documentation on RDS metrics](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MonitoringOverview.html#monitoring-cloudwatch).
+For further information, see the [Cloudwatch documentation on RDS metrics](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MonitoringOverview.html#monitoring-cloudwatch).
 
 # Number of time series generated
 Cloudwatch generates ~20 metrics per instance.
 
 
 # Attributions
-Configuration files, dashboards and alerts maintained by [Sysdig team](https://sysdig.com/).
+The configuration files, dashboards, and alerts are maintained by [Sysdig team](https://sysdig.com/).
 
 Using [Yace - yet another cloudwatch exporter](https://github.com/ivx/yet-another-cloudwatch-exporter) with Apache 2.0 license.
