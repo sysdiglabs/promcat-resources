@@ -3,7 +3,7 @@
 The exporter needs permissions to access the resources from the AWS account.
 
 First, create an AWS IAM policy on your AWS infrastructure. The policy should allow the account to read CloudWatch metrics and get resources by tags.
-An examlle AWS IAM configuration is given below:
+An example AWS IAM configuration is given below:
 
 ```json
 {
