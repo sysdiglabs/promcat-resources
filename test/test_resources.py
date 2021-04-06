@@ -49,20 +49,21 @@ def loadYaml(input):
 @pytest.fixture(scope="session", autouse=True)
 def loadResources():
   for root, dirs, files in os.walk('apps'):
-     for file in files:
-       if file.endswith(".yaml"):
-          with open(os.path.join(root, file), "r") as appFile:
-            try:
-              appYaml = loadYaml(appFile)
-              if appYaml["available"] == True:
-                apps_names.append(appYaml["name"])
-                apps_versions[appYaml["name"]] = []
-                for availableVersion in appYaml["availableVersions"]:
-                  apps_versions[appYaml["name"]].append(str(availableVersion))
-            except:
-              print("*** Error loading file: " + os.path.join(root, file))
-              exit(1)
-              
+    for file in files:
+      if file.endswith(".yaml"):
+        with open(os.path.join(root, file), "r") as appFile:
+          try:
+            appYaml = loadYaml(appFile)
+            if appYaml["available"] == True:
+              apps_names.append(appYaml["name"])
+              apps_versions[appYaml["name"]] = [
+                  str(availableVersion)
+                  for availableVersion in appYaml["availableVersions"]
+              ]
+          except:
+            print("*** Error loading file: " + os.path.join(root, file))
+            exit(1)
+
   for root, dirs, files in os.walk('resources'):
     for file in files:
       if file.endswith(".yaml") and "/include/" not in os.path.join(root, file):
@@ -256,12 +257,12 @@ def testDashboards():
 
 # Test in alerts
 # - in configurations:
-#   - kind = Prometheus|Sysdig
+#   - kind = Prometheus
 #   - data is string, not empty
 #   - data if Prometheus
 #       - is valid yaml
 #   - data if Sysdig
-#       - is valid json
+#       - error
 def testAlerts():
   for res in alerts:
     for config in res['configurations']:
@@ -270,8 +271,8 @@ def testAlerts():
               and config['kind'] in ['Prometheus', 'Sysdig'])
       checkStringNotEmpty(res,config['data'])
       if (config['kind'] == 'Sysdig'):
-        assert ((res['app'] != "") and (config['kind'] != "") \
-          and (checkValidJSON(config['data']) == True))
+        print("*** Error alert type not supported: Sysdig alert found in " + res.app)
+        exit(1)
       if (config['kind'] == 'Prometheus'):
         assert ((res['app'] != "") and (config['kind'] != "") \
           and (checkValidYAML(config['data']) == True))
