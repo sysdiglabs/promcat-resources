@@ -6,4 +6,7 @@ For the Sysdig Agent to discover and scrape it automatically, enable the promscr
 ```yaml
   dragent.yaml: |-
     use_promscrape: true
+    prometheus:
+      enabled: true
+      prom_service_discovery: true
 ```

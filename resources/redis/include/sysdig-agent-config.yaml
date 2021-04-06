@@ -1,9 +1,12 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sysdig-agent
+  namespace: sysdig-agent
 data:
-  dragent.yaml: |
-    new_k8s: true
-    k8s_cluster_name: your-cluster-name
+  dragent.yaml: |-
     metrics_excess_log: true
+    k8s_cluster_name: YourClusterName
     10s_flush_enable: true
     app_checks_enabled: false
     use_promscrape: true
@@ -18,53 +21,3 @@ data:
       max_tags_per_metric: 100
       ingest_raw: true
       ingest_calculated: false
-    snaplen: 512
-    tags: role:cluster
-  prometheus.yaml: |
-    global:
-      scrape_interval: 10s
-    scrape_configs:
-    - job_name: 'k8s-pods'
-      tls_config:
-        insecure_skip_verify: true
-      kubernetes_sd_configs:
-      - role: pod
-      relabel_configs:
-        # Trying to ensure we only scrape local targets
-        # We need the wildcard at the end because in AWS the node name is the FQDN,
-        # whereas in Azure the node name is the base host name
-      - action: keep
-        source_labels: [__meta_kubernetes_pod_host_ip]
-        regex: __HOSTIPS__
-      - action: keep
-        source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
-        regex: true
-      - action: replace
-        source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scheme]
-        target_label: __scheme__
-        regex: (https?)
-      - action: replace
-        source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
-        target_label: __metrics_path__
-        regex: (.+)
-      - action: replace
-        source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
-        regex: ([^:]+)(?::\d+)?;(\d+)
-        replacement: $1:$2
-        target_label: __address__
-
-        # Holding on to pod-id and container name so we can associate the metrics
-        # with the container (and cluster hierarchy)
-      - action: replace
-        source_labels: [__meta_kubernetes_pod_uid]
-        target_label: sysdig_k8s_pod_uid
-      - action: replace
-        source_labels: [__meta_kubernetes_pod_container_name]
-        target_label: sysdig_k8s_pod_container_name
-
-kind: ConfigMap
-metadata:
-    labels:
-      app: sysdig-agent
-    name: sysdig-agent
-    namespace: sysdig-agent
