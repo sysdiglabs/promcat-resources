@@ -4,231 +4,66 @@ app: HAProxy Ingress
 version: 1.0.0
 appVersion:
 - '2.1'
+descriptionFile: ALERTS.md
 configurations:
 - kind: Prometheus
   data: |
-    - alert: UpTimeLessThan1Hour
-      expr: max(time() - haproxy_process_start_time_seconds) < 3600
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: Up Time of less than 1 hour
-    - alert: FrontendDown
-      expr: count by (proxy) (haproxy_frontend_status == 1) == 0
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: Frontend down {{$labels.proxy}}
-    - alert: BackendDown
-      expr: sum by (proxy) (haproxy_backend_status==1) == 0
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: No backend instances found for the proxy {{$labels.proxy}}
-    - alert: HighSessionsUsage
-      expr: max by (proxy)(rate(haproxy_backend_sessions_total[5m]) / haproxy_backend_limit_sessions) >0.85
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: Low number of sessions available in proxy {{$labels.proxy}}
-    - alert: HigErrorRate
-      expr: sum by (proxy)(rate(haproxy_backend_http_responses_total{code!="2xx"}[5m])) / sum by (proxy)(rate(haproxy_backend_http_responses_total[5m])) > 0.15
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: High HTTP error rate in proxy {{$labels.proxy}}
-    - alert: HighRequestDeniedRate
-      expr: sum by (proxy) (rate(haproxy_backend_requests_denied_total[5m])) / sum by (proxy)(rate(haproxy_backend_http_requests_total[5m])) > 0.15
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: High request denied error rate in proxy {{$labels.proxy}}
-    - alert: HighResponseDeniedRate
-      expr: sum by (proxy) (rate(haproxy_backend_responses_denied_total[5m])) / sum by (proxy)(rate(haproxy_backend_http_responses_total[5m])) > 0.15
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: High responses denied rate in proxy {{$labels.proxy}}
-    - alert: HighResponseTime
-      expr: max by (proxy) (haproxy_backend_response_time_average_seconds)> 0.25
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: High response time in proxy {{$labels.proxy}}
-- data: |-
-    {
-      "alert": {
-        "condition": "max(time() - haproxy_process_start_time_seconds) < 3600",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "UpTimeLessThan1Hour",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-  kind: Sysdig
-- data: |-
-    {
-      "alert": {
-        "condition": "count by (proxy) (haproxy_frontend_status == 1) == 0",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "FrontendDown",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-  kind: Sysdig
-- data: |-
-    {
-      "alert": {
-        "condition": "sum by (proxy) (haproxy_backend_status==1) == 0",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "BackendDown",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-  kind: Sysdig
-- data: |-
-    {
-      "alert": {
-        "condition": "max by (proxy)(rate(haproxy_backend_sessions_total[5m]) / haproxy_backend_limit_sessions) >0.85",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "HighSessionsUsage",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-  kind: Sysdig
-- data: |-
-    {
-      "alert": {
-        "condition": "sum by (proxy)(rate(haproxy_backend_http_responses_total{code!=\"2xx\"}[5m])) / sum by (proxy)(rate(haproxy_backend_http_responses_total[5m])) > 0.15",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "HigErrorRate",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-  kind: Sysdig
-- data: |-
-    {
-      "alert": {
-        "condition": "sum by (proxy) (rate(haproxy_backend_requests_denied_total[5m])) / sum by (proxy)(rate(haproxy_backend_http_requests_total[5m])) > 0.15",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "HighRequestDeniedRate",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-  kind: Sysdig
-- data: |-
-    {
-      "alert": {
-        "condition": "sum by (proxy) (rate(haproxy_backend_responses_denied_total[5m])) / sum by (proxy)(rate(haproxy_backend_http_responses_total[5m])) > 0.15",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "HighResponseDeniedRate",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-  kind: Sysdig
-- data: |-
-    {
-      "alert": {
-        "condition": "max by (proxy) (haproxy_backend_response_time_average_seconds)> 0.25",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "HighResponseTime",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-  kind: Sysdig
-descriptionFile: ALERTS.md
+    groups:
+    - name: HAProxy-Ingress
+      rules:
+      - alert: UpTimeLessThan1Hour
+        expr: max(time() - haproxy_process_start_time_seconds) < 3600
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: Up Time of less than 1 hour
+      - alert: FrontendDown
+        expr: count by (proxy) (haproxy_frontend_status == 1) == 0
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: Frontend down {{$labels.proxy}}
+      - alert: BackendDown
+        expr: sum by (proxy) (haproxy_backend_status==1) == 0
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: No backend instances found for the proxy {{$labels.proxy}}
+      - alert: HighSessionsUsage
+        expr: max by (proxy)(rate(haproxy_backend_sessions_total[5m]) / haproxy_backend_limit_sessions) >0.85
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: Low number of sessions available in proxy {{$labels.proxy}}
+      - alert: HigErrorRate
+        expr: sum by (proxy)(rate(haproxy_backend_http_responses_total{code!="2xx"}[5m])) / sum by (proxy)(rate(haproxy_backend_http_responses_total[5m])) > 0.15
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: High HTTP error rate in proxy {{$labels.proxy}}
+      - alert: HighRequestDeniedRate
+        expr: sum by (proxy) (rate(haproxy_backend_requests_denied_total[5m])) / sum by (proxy)(rate(haproxy_backend_http_requests_total[5m])) > 0.15
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: High request denied error rate in proxy {{$labels.proxy}}
+      - alert: HighResponseDeniedRate
+        expr: sum by (proxy) (rate(haproxy_backend_responses_denied_total[5m])) / sum by (proxy)(rate(haproxy_backend_http_responses_total[5m])) > 0.15
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: High responses denied rate in proxy {{$labels.proxy}}
+      - alert: HighResponseTime
+        expr: max by (proxy) (haproxy_backend_response_time_average_seconds)> 0.25
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: High response time in proxy {{$labels.proxy}}
