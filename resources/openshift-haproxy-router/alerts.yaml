@@ -5,240 +5,75 @@ version: 1.0.0
 appVersion:
 - '3.11'
 - '4.3'
+descriptionFile: ALERTS.md
 configurations:
 - kind: Prometheus
   data: |
-    - alert: RouterDown
-      expr: |
-        absent((count(haproxy_process_start_time_seconds) < 1))
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: Router HAProxy down. No instances running.
-    - alert: DownTimeInService
-      expr: |
-        haproxy_backend_downtime_seconds_total > 0
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: DownTime detected in service. Route {{$labels.route}}, pod {{labels.pod}}
-    - alert: RouteDown
-      expr: |
-        sum by (route) (haproxy_server_up==1) == 0
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: All servers are down in route {{$labels.route}}
-    - alert: HighLatency
-      expr: |
-        max by (route)(haproxy_server_http_average_response_latency_milliseconds{route!=""}) > 250
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: High latency in at least one server for the route {{$labels.route}}
-    - alert: PodHealthCheckFailure
-      expr: |
-        rate(haproxy_server_check_failures_total[5m]) > 0
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: Recurrent health check failure in pod {{$labels.pod}} and route {{$labels.route}}
-    - alert: QueueNotEmptyInRoute
-      expr: |
-        sum by (route)(haproxy_server_current_queue{route!=""}) > 0
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: Queue not empty in route {{$labels.route}}
-    - alert: HighErrorRateInRoute
-      expr: |
-        sum by (route) (rate(haproxy_server_http_responses_total{code!="2xx"}[5m])) /
-          sum  by (route) (rate(haproxy_server_http_responses_total{}[5m]))
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: High error rate in route {{$labels.route}}
-    - alert: ConnectionErrorsInRoute
-      expr: |
-        sum by (route)(rate(haproxy_server_connection_errors_total{route!=""}[5m])) > 0
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: Recurring connection errors in route {{$labels.route}}
-- kind: Sysdig
-  data: |-
-    {
-      "alert": {
-        "condition": "absent((count(haproxy_process_start_time_seconds) < 1))\n",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "RouterDown",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-- kind: Sysdig
-  data: |-
-    {
-      "alert": {
-        "condition": "haproxy_backend_downtime_seconds_total > 0\n",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "DownTimeInService",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-- kind: Sysdig
-  data: |-
-    {
-      "alert": {
-        "condition": "sum by (route) (haproxy_server_up==1) == 0\n",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "RouteDown",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-- kind: Sysdig
-  data: |-
-    {
-      "alert": {
-        "condition": "max by (route)(haproxy_server_http_average_response_latency_milliseconds{route!=\"\"}) > 250\n",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "HighLatency",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-- kind: Sysdig
-  data: |-
-    {
-      "alert": {
-        "condition": "rate(haproxy_server_check_failures_total[5m]) > 0\n",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "PodHealthCheckFailure",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-- kind: Sysdig
-  data: |-
-    {
-      "alert": {
-        "condition": "sum by (route)(haproxy_server_current_queue{route!=\"\"}) > 0\n",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "QueueNotEmptyInRoute",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-- kind: Sysdig
-  data: |-
-    {
-      "alert": {
-        "condition": "sum by (route) (rate(haproxy_server_http_responses_total{code!=\"2xx\"}[5m])) / \n  sum  by (route) (rate(haproxy_server_http_responses_total{}[5m]))\n",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "HighErrorRateInRoute",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-- kind: Sysdig
-  data: |-
-    {
-      "alert": {
-        "condition": "sum by (route)(rate(haproxy_server_connection_errors_total{route!=\"\"}[5m])) > 0\n",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "ConnectionErrorsInRoute",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-descriptionFile: ALERTS.md
+    groups:
+    - name: OpenShift-HAProxy-Router
+      rules:
+      - alert: RouterDown
+        expr: |
+          absent((count(haproxy_process_start_time_seconds) < 1))
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: Router HAProxy down. No instances running.
+      - alert: DownTimeInService
+        expr: |
+          haproxy_backend_downtime_seconds_total > 0
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: DownTime detected in service. Route {{$labels.route}}, pod {{labels.pod}}
+      - alert: RouteDown
+        expr: |
+          sum by (route) (haproxy_server_up==1) == 0
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: All servers are down in route {{$labels.route}}
+      - alert: HighLatency
+        expr: |
+          max by (route)(haproxy_server_http_average_response_latency_milliseconds{route!=""}) > 250
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: High latency in at least one server for the route {{$labels.route}}
+      - alert: PodHealthCheckFailure
+        expr: |
+          rate(haproxy_server_check_failures_total[5m]) > 0
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: Recurrent health check failure in pod {{$labels.pod}} and route {{$labels.route}}
+      - alert: QueueNotEmptyInRoute
+        expr: |
+          sum by (route)(haproxy_server_current_queue{route!=""}) > 0
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: Queue not empty in route {{$labels.route}}
+      - alert: HighErrorRateInRoute
+        expr: |
+          sum by (route) (rate(haproxy_server_http_responses_total{code!="2xx"}[5m])) /
+            sum  by (route) (rate(haproxy_server_http_responses_total{}[5m]))
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: High error rate in route {{$labels.route}}
+      - alert: ConnectionErrorsInRoute
+        expr: |
+          sum by (route)(rate(haproxy_server_connection_errors_total{route!=""}[5m])) > 0
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: Recurring connection errors in route {{$labels.route}}

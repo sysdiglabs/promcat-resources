@@ -4,239 +4,74 @@ app: AWS RDS
 version: 1.0.0
 appVersion:
 - 1.0.0
+descriptionFile: ALERTS.md
 configurations:
 - kind: Prometheus
   data: |
-    - alert: LongCPUThrottling
-      expr: |
-        aws_rds_cpuutilization_average > 0.95
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: CPU over 95% for 10 minutes in instance {{$labels.dimension_DBInstanceIdentifier}}
-    - alert: LowFreeMemory
-      expr: |
-        aws_rds_freeable_memory_average < 128*1024*1024
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: Free memory under 128MB in instance {{$labels.dimension_DBInstanceIdentifier}}
-    - alert: LowFreeDisk
-      expr: |
-        aws_rds_free_storage_space_average < 512*1024*1024
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: Free disk under 512MB {{$labels.dimension_DBInstanceIdentifier}}
-    - alert: DiskFullIn48H
-      expr: |
-        predict_linear(aws_rds_free_storage_space_average[48h], 48 * 3600) < 0
-      for: 10m
-      labels:
-        severity: warning
-      annotations:
-        summary: Disk will be full within 48 hours in instance {{$labels.dimension_DBInstanceIdentifier}}
-    - alert: DiskFullIn12H
-      expr: |
-        predict_linear(aws_rds_free_storage_space_average[12h], 12 * 3600) < 0
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: Disk will be full within 12 hours in instance {{$labels.dimension_DBInstanceIdentifier}}
-    - alert: HighReadLatency
-      expr: |
-        aws_rds_read_latency_average > 0.250
-      for: 10m
-      labels:
-        severity: warning
-      annotations:
-        summary: Average read latency over 250ms in instance {{$labels.dimension_DBInstanceIdentifier}}
-    - alert: HighWriteLatency
-      expr: |
-        aws_rds_write_latency_average > 0.250
-      for: 10m
-      labels:
-        severity: warning
-      annotations:
-        summary: Average write latency over 250ms in instance {{$labels.dimension_DBInstanceIdentifier}}
-    - alert: HighDiskQueue
-      expr: |
-        aws_rds_disk_queue_depth_average > 25
-      for: 10m
-      labels:
-        severity: warning
-      annotations:
-        summary: High disk queue depth in instance {{$labels.dimension_DBInstanceIdentifier}}
-- kind: Sysdig
-  data: |-
-    {
-      "alert": {
-        "condition": "aws_rds_cpuutilization_average > 0.95\n",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "LongCPUThrottling",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-- kind: Sysdig
-  data: |-
-    {
-      "alert": {
-        "condition": "aws_rds_freeable_memory_average < 128*1024*1024\n",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "LowFreeMemory",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-- kind: Sysdig
-  data: |-
-    {
-      "alert": {
-        "condition": "aws_rds_free_storage_space_average < 512*1024*1024\n",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "LowFreeDisk",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-- kind: Sysdig
-  data: |-
-    {
-      "alert": {
-        "condition": "predict_linear(aws_rds_free_storage_space_average, 48 * 3600) < 0\n",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "DiskFullIn48H",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-- kind: Sysdig
-  data: |-
-    {
-      "alert": {
-        "condition": "predict_linear(aws_rds_free_storage_space_average, 12 * 3600) < 0\n",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "DiskFullIn12H",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-- kind: Sysdig
-  data: |-
-    {
-      "alert": {
-        "condition": "aws_rds_read_latency_average > 0.250\n",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "HighReadLatency",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-- kind: Sysdig
-  data: |-
-    {
-      "alert": {
-        "condition": "aws_rds_write_latency_average > 0.250\n",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "HighWriteLatency",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-- kind: Sysdig
-  data: |-
-    {
-      "alert": {
-        "condition": "aws_rds_disk_queue_depth_average > 25\n",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "HighDiskQueue",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-descriptionFile: ALERTS.md
+    groups:
+    - name: AWS-RDS
+      rules:
+      - alert: LongCPUThrottling
+        expr: |
+          aws_rds_cpuutilization_average > 0.95
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: CPU over 95% for 10 minutes in instance {{$labels.dimension_DBInstanceIdentifier}}
+      - alert: LowFreeMemory
+        expr: |
+          aws_rds_freeable_memory_average < 128*1024*1024
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: Free memory under 128MB in instance {{$labels.dimension_DBInstanceIdentifier}}
+      - alert: LowFreeDisk
+        expr: |
+          aws_rds_free_storage_space_average < 512*1024*1024
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: Free disk under 512MB {{$labels.dimension_DBInstanceIdentifier}}
+      - alert: DiskFullIn48H
+        expr: |
+          predict_linear(aws_rds_free_storage_space_average[48h], 48 * 3600) < 0
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: Disk will be full within 48 hours in instance {{$labels.dimension_DBInstanceIdentifier}}
+      - alert: DiskFullIn12H
+        expr: |
+          predict_linear(aws_rds_free_storage_space_average[12h], 12 * 3600) < 0
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: Disk will be full within 12 hours in instance {{$labels.dimension_DBInstanceIdentifier}}
+      - alert: HighReadLatency
+        expr: |
+          aws_rds_read_latency_average > 0.250
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: Average read latency over 250ms in instance {{$labels.dimension_DBInstanceIdentifier}}
+      - alert: HighWriteLatency
+        expr: |
+          aws_rds_write_latency_average > 0.250
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: Average write latency over 250ms in instance {{$labels.dimension_DBInstanceIdentifier}}
+      - alert: HighDiskQueue
+        expr: |
+          aws_rds_disk_queue_depth_average > 25
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: High disk queue depth in instance {{$labels.dimension_DBInstanceIdentifier}}
