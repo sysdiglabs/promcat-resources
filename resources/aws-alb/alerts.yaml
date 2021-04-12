@@ -6,6 +6,6 @@ appVersion:
 - 1.0.0
 descriptionFile: ALERTS.md
 configurations:
-configurations:
-- name: alerts.yaml
-  file: include/alerts.yaml
+- kind: Prometheus
+  name: alerts.yaml
+  file: include/alerts-rules.yaml
