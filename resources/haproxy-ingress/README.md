@@ -1,5 +1,7 @@
 # HAProxy ingress controller for Kubernetes
-HAProxy ingress controller is a Kubernetes resource that routes traffic from outside your cluster to services within the cluster. this ingress controller uses the HAProxy load balancer.
+HAProxy ingress controller is a Kubernetes resource that routes traffic from outside your cluster to services within the cluster. 
+
+As this ingress controller uses the HAProxy load balancer, all resources (configuration files, dashboards, alerts...) are also valid for a standalone HAProxy.
 
 # Metrics
 The HAProxy ingress instruments Prometheus metrics on the following scopes:
