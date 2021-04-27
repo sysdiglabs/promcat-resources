@@ -55,13 +55,26 @@ spec:
       ...
 ```
 # Sysdig Agent configuration
-In the side of Sysdig agent the only thing we have to make sure is the 'promscrape' option is enabled in the dragent.yaml
+In the ElasticSearch exporter Deployment use the Sysdig annotations to configure the port of the exporter as scraping port. You can see an example in `exporter_no_credentials.yaml`.
+
+Also, you can use these labels to add the namespace, workload type and name of the database the exporter will take data from. 
+This way, in Sysdig Monitor you will see the metrics associated directly to the database pods and to the exporter.
+
 ```yaml
-dragent.yaml: |-
-  ...
-  use_promscrape: true
-    prometheus:
-      enabled: true
-      prom_service_discovery: true
-      ...
+spec:
+  template:
+    metadata:
+      annotations:
+        promcat.sysdig.com/port: "9108"
+
+        # Add here the namespace, workload type (deployment, statefulset, replicaset, daemonset) 
+        # and workload name of the instance that the exporter will take data from
+        promcat.sysdig.com/target_ns: elastic-namespace
+        promcat.sysdig.com/target_workload_type: statefulset
+        promcat.sysdig.com/target_workload_name: elasticsearch
+```
+
+Once configured the Sysdig annotations, you can download the sample configuration file below and apply it by:
+```bash
+kubectl apply -f sysdig-agent-config.yaml
 ```
