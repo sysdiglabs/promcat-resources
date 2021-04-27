@@ -39,7 +39,7 @@ data:
         - __meta_kubernetes_pod_name
         separator: '/'
 
-        # Add here the namespace/pod-name of your postgresql database
+        # Add here the namespace/pod-name of your redis exporter
         regex: 'default/redis-exporter-.+'
 
       - action: replace

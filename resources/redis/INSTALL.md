@@ -25,7 +25,7 @@ kubectl apply -f redis-exporter-deploy.yaml
 If your Redis instance does not requires authentication, you can remove the `REDIS_USER` and `REDIS_PASSWORD` environment variables. 
 
 # Sysdig Agent configuration
-In the Postgres Deployment use the Sysdig annotations to configure the port of the exporter as scraping port. You can see an example in `redis-exporter-deploy.yaml`.
+In the Redis exporter Deployment use the Sysdig annotations to configure the port of the exporter as scraping port. You can see an example in `redis-exporter-deploy.yaml`.
 
 Also, you can use these labels to add the namespace, workload type and name of the database the exporter will take data from. 
 This way, in Sysdig Monitor you will see the metrics associated directly to the database pods and to the exporter. 

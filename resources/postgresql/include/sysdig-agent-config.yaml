@@ -39,7 +39,7 @@ data:
         - __meta_kubernetes_pod_name
         separator: '/'
 
-        # Add here the namespace/pod-name of your postgresql database
+        # Add here the namespace/pod-name of your postgresql exporter
         regex: 'default/postgres-exporter-.+'
 
       - action: replace
