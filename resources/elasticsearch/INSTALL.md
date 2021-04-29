@@ -59,6 +59,7 @@ spec:
 In the ElasticSearch exporter deployment, use the Sysdig annotations to configure the port of the exporter as scraping port. You can see an example in the `exporter_no_credentials.yaml` file.
 
 Additionally, you can use these labels to add the namespace, workload type, and name of the database the exporter will retrieve the data from.
+
 ```yaml
 spec:
   template:
@@ -66,7 +67,8 @@ spec:
       annotations:
         promcat.sysdig.com/port: "9108"
 
-        # Add here the namespace, workload type (deployment, statefulset, replicaset, daemonset)
+        # Add here the namespace, workload type (deployment, statefulset, replicaset, daemonset) 
+
         # and workload name of the instance that the exporter will take data from
         promcat.sysdig.com/target_ns: elastic-namespace
         promcat.sysdig.com/target_workload_type: statefulset
