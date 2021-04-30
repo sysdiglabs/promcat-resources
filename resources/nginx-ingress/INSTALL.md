@@ -1,6 +1,7 @@
 # Installing the exporter
-Nginx ingress controller is already instrumented so you don't have to add any extra exporter, the only thing you have to take care is make sure your nginx ingress controller is already exposing these metrics.
-For exmaple if you are deploying your nginx ingress controller with helm you have to make sure you have these values.
+Nginx ingress controller is already instrumented so you don't have to add any extra exporter. However, ensure that your nginx ingress controller is already exposing these metrics.
+
+For exmaple if you are deploying your nginx ingress controller with helm, make sure you have these values.
 
 ```yaml
 controller:
@@ -14,7 +15,7 @@ controller:
 ```
 
 # Sysdig Agent configuration
-For the Sysdig Agent to discover and scrape it automatically, enable the promscrape option in the agent configuration. You will get an example of the sysdig agent in the section below
+For the Sysdig Agent to discover and scrape the ngnix ingress controller automatically, enable the `use_promscrape` option in the agent configuration.
 
 ```yaml
   dragent.yaml: |-
@@ -23,3 +24,4 @@ For the Sysdig Agent to discover and scrape it automatically, enable the promscr
       enabled: true
       prom_service_discovery: true
 ```
+An example of the Sysdig Agent configuration file is given below.
