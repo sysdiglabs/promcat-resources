@@ -1,14 +1,10 @@
 # Installing the exporter
-The exporter can be installed as a sidecar of the pod with the Nginx server.
-Below you can find a deployment with the exporter as a sidecar and the ConfigMap with
-the configuration needed to scrape metrics from the server.
+The exporter can be installed as a sidecar of the pod with the Nginx server. You can find a deployment below with the exporter as a sidecar and the configmap with the configuration required to scrape metrics from the server.
 
-Also note that the Deployment has a label 'app'. This label will be included in the metrics
-to be able to use it as a variable in the dashboards and alerts.
+Note that the deployment has a label, `app`. This label will be included in the metrics to be able to use it as a variable in the dashboards and alerts.
 
 # Sysdig Agent configuration
-In the Sysdig Agent configuration, you have to add the following code to include the label 'app'
-as a metric label.
+In the Sysdig Agent configuration, add the following snippet to include the label `app` as a metric label.
 ```yaml
 process_filter:
   - include:

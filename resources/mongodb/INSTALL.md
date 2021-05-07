@@ -4,7 +4,7 @@ To install MongoDB, you can download the _mongo-deploy.yaml_ file and run:
 kubectl apply -f mongo-deploy.yaml
 ```
 
-If you want to use a no-admin user for the exporter, you will have to create the user and grant the roles to be able to scrape statistics. 
+If you want to use a non-admin user for the exporter, you will have to create a user and grant the roles to be able to scrape statistics.
 
 In the mongo shell:
 ```sql
@@ -14,19 +14,19 @@ db.createUser(
    {
       user: "exporter-user",
       pwd: "exporter-pass",
-      roles: [ 
+      roles: [
         { role: "clusterMonitor", db: "admin" },
         { role: "read", db: "admin" },
-        { role: "read", db: "local" } 
+        { role: "read", db: "local" }
       ]
    }
 )
 ```
 
 # Installing the exporter
-To install the MongoDB exporter, we will use the [Helm chart](https://github.com/helm/charts/tree/master/stable/prometheus-mongodb-exporter) available. 
+To install the MongoDB exporter, use the [Helm chart](https://github.com/helm/charts/tree/master/stable/prometheus-mongodb-exporter) available.
 
-First, create a _values.yaml_ file with the following parameters:
+1. Create a _values.yaml_ file with the following parameters:
 ```yaml
 fullnameOverride: "mongodb-exporter"
 podAnnotations:
@@ -39,9 +39,11 @@ mongodb:
 ```
 
 Note that the _mongodb.uri_ parameter is a valid [MongoDB URI](https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus-mongodb-exporter/README.md).
-In this URI, include the user and password of the exporter. The Helm chart will create a Kubernetes Secret with the URI so it is not visible. 
 
-To install the exporter, add the helm repository and run the helm install command:
+2. In the [MongoDB URI](https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus-mongodb-exporter/README.md), include the user and password of the exporter.
+The Helm chart will create a Kubernetes secret with the URI so it will not be visible.
+
+3. To install the exporter, add the helm repository and run the helm install command:
 ```
 # Add repository
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -56,11 +58,11 @@ helm install --name mongodb-exporter prometheus-community/prometheus-mongodb-exp
 The metrics will be available in port 9216 of the exporter pod.
 
 ## Using TLS or SSL Authentication
-To use TLS or SSL authentication, you will need to use the file `mongodb-exporter-auth-deploy.yaml` and use it to deploy the exporter as the helm chart does not support authentication.
+To use TLS or SSL authentication, you can use the `mongodb-exporter-auth-deploy.yaml` file to deploy the exporter because the helm chart does not support authentication.
 
-Follow these steps: 
+To configure authentication, do the following:
 
-1. Create a text file with the connection string for your MongoDB using these examples: 
+1. Create a text file with the connection string for your MongoDB by using these examples:
 ```
 # TLS
 mongodb://mongodb-exporter-user:mongodb-exporter-pass@<YOUR-MONGODB-HOST>:<PORT>/admin?tls=true&tlsCertificateKeyFile=/etc/mongodb/mongodb-exporter-key.pem&tlsAllowInvalidCertificates=true&tlsCAFile=/etc/mongodb/mongodb-exporter-ca.pem
@@ -78,18 +80,18 @@ kubectl create secret generic mongodb-exporter \
 ```
 kubectl create secret generic mongodb-exporter-auth \
   --from-file=mongodb-key=<route-to-your-private-key.pem> \
-  --from-file=mongodb-ca=<route-to-your-ca.pem> 
+  --from-file=mongodb-ca=<route-to-your-ca.pem>
 ```
 
-1. Download the file `mongodb-exporter-auth-deploy.yaml` and apply it with the following command:
+1. Download the `mongodb-exporter-auth-deploy.yaml` file and apply the configuration:
 ```
 kubectl apply -f mongodb-exporter-auth-deploy.yaml
 ```
 
 # SYSDIG AGENT CONFIGURATION
-In the _values.yaml_ of the Helm chart we will include the Prometheus annotations configuring the port of the exporter as scraping port.    
+In the _values.yaml_ of the Helm chart, include the Prometheus annotations to configure the port of the exporter as the scraping port.    
 
-Also, in the Sysdig Agent configuration, be sure to have these lines of configuration to scrape the containers with Prometheus annotations.
+Also, ensure that the Sysdig Agent configuration has the following lines of configuration to scrape the containers with Prometheus annotations.
 ```yaml
 process_filter:
   - include:
@@ -99,7 +101,7 @@ process_filter:
         port: "{kubernetes.pod.annotation.prometheus.io/port}"
 ```
 
-You can download the sample configuration file below and apply it by:
+You can download the sample configuration file and apply it by:
 ```bash
 kubectl apply -f sysdig-agent-config.yaml
 ```

@@ -11,7 +11,7 @@ Nginx offers the following metrics:
 - nginx_ingress_controller_nginx_process_cpu_seconds_total
 - nginx_ingress_controller_ssl_expire_time_seconds
 
-For further information, consult the [official Nginx web](https://www.nginx.com/products/nginx-ingress-controller/).
+For further information, see the [official Nginx website](https://www.nginx.com/products/nginx-ingress-controller/).
 
 # Attributions
-Configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
+The configuration files and dashboards are maintained by [Sysdig team](https://sysdig.com/).

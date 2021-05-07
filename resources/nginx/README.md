@@ -16,7 +16,7 @@ Nginx offers the following metrics:
 # Number of time series generated
 Nginx generates 8 time series for each Nginx container.
 
-For further information, consult the [official Nginx web](https://nginx.org/).
+For further information, see the [official Nginx webpage](https://nginx.org/).
 
 # Attributions
-Configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
+The configuration files and dashboards are maintained by [Sysdig team](https://sysdig.com/).

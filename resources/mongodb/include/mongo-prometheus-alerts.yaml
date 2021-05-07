@@ -1,62 +1,65 @@
-- alert: MongoServerDown
-  expr: mongodb_up != 1
-  for: 10m
-  labels:
-    severity: page
-  annotations:
-    summary: Mongo server detected down by instance {{$labels.instance}}
+groups:
+- name: MongoDB
+  rules:
+  - alert: MongoServerDown
+    expr: mongodb_up != 1
+    for: 10m
+    labels:
+      severity: page
+    annotations:
+      summary: Mongo server detected down by instance {{$labels.instance}}
 
-- alert: UpTimeLessThanOneHour
-  expr: mongodb_instance_uptime_seconds < 3600
-  for: 10m
-  labels:
-    severity: page
-  annotations:
-    summary: Uptime of less than one hour in instance {{$labels.instance}}
+  - alert: UpTimeLessThanOneHour
+    expr: mongodb_instance_uptime_seconds < 3600
+    for: 10m
+    labels:
+      severity: page
+    annotations:
+      summary: Uptime of less than one hour in instance {{$labels.instance}}
 
-- alert: AssertsDetected
-  expr: rate(mongodb_asserts_total{type=~"regular|user|message"}[5m])
-  for: 10m
-  labels:
-    severity: page
-  annotations:
-    summary: Asserts detected in instance {{$labels.instance}}
+  - alert: AssertsDetected
+    expr: rate(mongodb_asserts_total{type=~"regular|user|message"}[5m])
+    for: 10m
+    labels:
+      severity: page
+    annotations:
+      summary: Asserts detected in instance {{$labels.instance}}
 
-- alert: HighLatency
-  expr: |
-    rate(mongodb_mongod_op_latencies_latency_total[5m]) / 
-    rate(mongodb_mongod_op_latencies_ops_total[5m]) > 250000
-  for: 10m
-  labels:
-    severity: page
-  annotations:
-    summary: High latency in instance {{$labels.instance}}
+  - alert: HighLatency
+    expr: |
+      rate(mongodb_mongod_op_latencies_latency_total[5m]) / 
+      rate(mongodb_mongod_op_latencies_ops_total[5m]) > 250000
+    for: 10m
+    labels:
+      severity: page
+    annotations:
+      summary: High latency in instance {{$labels.instance}}
 
-- alert: HighTicketUtilization
-  expr: |
-    (mongodb_mongod_wiredtiger_concurrent_transactions_out_tickets / 
-    mongodb_mongod_wiredtiger_concurrent_transactions_total_tickets)
-    > 0.75
-  for: 10m
-  labels:
-    severity: page
-  annotations:
-    summary: Ticket usage over 75% in instance {{$labels.instance}}
+  - alert: HighTicketUtilization
+    expr: |
+      (mongodb_mongod_wiredtiger_concurrent_transactions_out_tickets / 
+      mongodb_mongod_wiredtiger_concurrent_transactions_total_tickets)
+      > 0.75
+    for: 10m
+    labels:
+      severity: page
+    annotations:
+      summary: Ticket usage over 75% in instance {{$labels.instance}}
 
-- alert: RecurrentCursorTimeout
-  expr: |
-    rate(mongodb_mongod_metrics_cursor_timed_out_total[5m]) > 0
-  for: 30m
-  labels:
-    severity: page
-  annotations:
-    summary: Recurrent cursors timeout in instance {{$labels.instance}}
+  - alert: RecurrentCursorTimeout
+    expr: |
+      rate(mongodb_mongod_metrics_cursor_timed_out_total[5m]) > 0
+    for: 30m
+    labels:
+      severity: page
+    annotations:
+      summary: Recurrent cursors timeout in instance {{$labels.instance}}
 
-- alert: RecurrentMemoryPageFaults
-  expr: |
-    rate(mongodb_extra_info_page_faults_total[5m]) > 0
-  for: 30m
-  labels:
-    severity: page
-  annotations:
-    summary: Recurrent memory page faults in instance {{$labels.instance}}
+  - alert: RecurrentMemoryPageFaults
+    expr: |
+      rate(mongodb_extra_info_page_faults_total[5m]) > 0
+    for: 30m
+    labels:
+      severity: page
+    annotations:
+      summary: Recurrent memory page faults in instance {{$labels.instance}}

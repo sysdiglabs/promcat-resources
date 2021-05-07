@@ -2,9 +2,9 @@
 In order to get access to the tables you should create a user with the right permissions or use one with the right permissions.
 
 # Installing the exporter
-To deploy the [SQL Exporter](https://github.com/free/sql_exporter) you have to deploy the deployment that is located below in your or the image in your cluster or machine.
+To deploy the [SQL Exporter](https://github.com/free/sql_exporter) you have to deploy the deployment that is specified below or the image in your cluster or machine.
 
-To configure the exporter in your own Kubernetes deployment, you will install the deployment along a configmap and write the user and password in the next line:
+To configure the exporter in your Kubernetes deployment, you can install the deployment with a configmap and write the username and password as given below:
 
 ```yaml
 target:
@@ -13,10 +13,10 @@ target:
   data_source_name: 'sqlserver://USER:PASSWORD@mssql:1433'
 ```
 
-The config map has inside a `custom-metrics` with a serie of SLQ queries if you need anything else you can create new ones adding more queries.
+The configmap has a `custom-metrics` inside with a series of SLQ queries. You can add more queries to the configmap if required.
 
 # Sysdig Agent configuration
-In the Sysdig Agent configuration, be sure you have a job for the specific instance of MsSQL like this example deployed the exporter in the mssql namespace.
+Ensure that the Sysdig Agent configuration includes a job for the specific instance of MsSQL, such as the example given below. In this example, the exporter is deployed in the mssql namespace.
 
 ```yaml
 scrape_configs:
@@ -51,7 +51,7 @@ scrape_configs:
     target_label: sysdig_k8s_pod_container_name
 ```
 
-You can download the sample configuration file below and apply it by:
+You can download the sample configuration file and apply it by:
 ```bash
 kubectl apply -f sysdig-agent.yaml
 ```

@@ -33,6 +33,6 @@ You can contribute by:
 As the main objective of PromCat is to offer high quality resources for professional users, all contributions will be review and tested before merging to mainstream by the maintainers.
 
 # Attributions
-Most of the resources that you can find in PromCat are made and maintained by [Sysdig](http://sysdig.com). You can check [MAINTAINERS.md](MAINTAINERS.md) for more information.
+Most of the resources that you can find in PromCat are made and maintained by [Sysdig](http://sysdig.com) under GPL3 license. You can check [MAINTAINERS.md](MAINTAINERS.md) for more information.
 
 However, each of the Prometheus exporters and other open source resources that are used, are attributed and referenced in each application folder. If you find any attribution or reference that can be improved or edited, you can open an issue in the repository, make a pull request to this repository or contact us via the #promcat channel of the [Sysdig public slack](sysdig.slack.com).

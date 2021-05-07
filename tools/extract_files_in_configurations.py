@@ -14,7 +14,7 @@ def generateFileName(resource,configuration):
     dashboardName = re.sub(r'\/+', '-', dashboardName)
     fileName = fileName + "-" + re.sub(r'\s+', '-', dashboardName)
     fileName = fileName + "-" + resource["appVersion"][0]
-    fileName = fileName + ".json"
+    fileName += ".json"
     return fileName
   else:
     print("Kind not supported to create filename")
@@ -50,27 +50,24 @@ changed = False
 filesDirectory = os.path.dirname(args.file) + "/include"
 
 for configuration in yamlFile["configurations"]:
-  if "data" in configuration:
-    if configuration["data"] != "":
-      if "file" not in configuration:
-        if not os.path.isdir(filesDirectory):
-          os.makedirs(filesDirectory)
-        fileName = generateFileName(yamlFile,configuration)
-        f = open(filesDirectory + "/" + fileName, "w")
+  if "data" in configuration and configuration["data"] != "":
+    if "file" not in configuration:
+      if not os.path.isdir(filesDirectory):
+        os.makedirs(filesDirectory)
+      fileName = generateFileName(yamlFile,configuration)
+      with open(filesDirectory + "/" + fileName, "w") as f:
         f.write(configuration["data"])
-        f.close()
-        configuration["file"] = "include/" + fileName
-        del configuration["data"]
-        changed = True
-      else:
-        print("Warning: Found file and data fields in: " + args.file)  
+      configuration["file"] = "include/" + fileName
+      del configuration["data"]
+      changed = True
+    else:
+      print("Warning: Found file and data fields in: " + args.file)  
 
-  
-if changed == True:
+
+if changed:
   outputformatted = pypromcat.dict2BeautyYaml(yamlFile)
-  if (args.outputFile == None):
+  if args.outputFile is None:
     print(outputformatted)
   else:
-    f = open(args.outputFile, "w")
-    f.write(outputformatted)
-    f.close()
+    with open(args.outputFile, "w") as f:
+      f.write(outputformatted)

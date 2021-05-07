@@ -1,30 +1,30 @@
 # Installing the exporter
-In the case of Istio, the components are exporters and have the endpoint, when we install the istio
-with the tool istioctl we are installing a prometheus with the configuration to get all targets
+The Istio components that are installed are the exporters with endpoints. When you install Istio with the `istioctl` tool a prometheus server is installed by default with the configuration to get all the targets.
 
-If we want the targets in our prometheus the simplest way to do it is federate the prometheus, another
-way to do this is anotate all pods and sidecars which is a lot of work and you can probably miss
-something
+If you want the targets in your prometheus server, do one of the following:
 
-# Gather the metrics from the prometheus deployed by Istio
+* Federate the prometheus (simplest method)
+* Annotate all the pods and sidecars (complex method)
 
-The Prometheus provided by Istio has all targets with all metrics within.
+# Gather the metrics from the prometheus server deployed by Istio
 
-1. Create the rules with only the metrics we need from the tab `recording rules` downloaded as rules.yaml
+The Prometheus server provided by Istio includes all the targets with all the associated metrics.
+
+1. Create the rules with the only metrics you need from the `recording rules`  tab downloaded as `rules.yaml`.
   ```
   kubectl  apply -f rules.yaml
   ```
 
-2. Mount the new rules in the Prometheus server
+2. Mount the new rules in the Prometheus server:
   ```sh
   kubectl -n istio-system patch deploy prometheus -p '{"spec":{"template":{"spec":{"volumes":[{"name":"config-rules","configMap":{"defaultMode":420,"name":"rules"}}]}}}}'
-  
+
   kubectl -n istio-system patch deploy prometheus -p '{"spec":{"template":{"spec":{"containers":[{"name":"prometheus","volumeMounts": [{"mountPath": "/opt/rules","name": "config-rules"}]}]}}}}'
-  
+
   kubectl -n istio-system patch deploy prometheus -p '{"spec":{"template":{"metadata":{"annotations":{"prometheus.io/scrape": "true", "prometheus.io/path": "/federate", "prometheus.io/port": "9090"}}}}}'
   ```
 
-3. Update the prometheus to get the new rules
+3. Update the prometheus to get the new rules:
   ```
   kubectl -n istio-system edit cm prometheus
   ```
@@ -35,15 +35,15 @@ The Prometheus provided by Istio has all targets with all metrics within.
   rule_files:
   - /opt/rules/rules.yaml
   ```
-  As the prometheus doesn't have any pod to reload the configuration and the api is not active we have to delete it in order to get the new configuration
+  As the prometheus server doesn't have any pod to reload the configuration and the API is not active, delete it in order to get the new configuration.
 
-4. Delete the pod being xxx the id given to the pods
+4. Delete the pod being xxx the id given to the pods:
   ```sh
   kubectl -n istio-system delete pods $(kubectl get pods --namespace istio-system -l "app=prometheus,release=istio" -o jsonpath="{.items[0].metadata.name}")
   ```
 
-5. Gather the metrics with our agent adding the federation job for Istio, below there is an example of the configmap, is inside the configmap of the sysdig agent,
-   inside of the prometheus.yaml
+5. Gather the metrics with the agent adding the federation job for Istio. Given below is an example of the configmap:
+
   ```yaml
   - job_name: 'prometheus' # config for federation
         honor_labels: true
@@ -59,11 +59,11 @@ The Prometheus provided by Istio has all targets with all metrics within.
             namespace: istio-system
             deployment: prometheus
   ```
-  There is a file named patch.yaml that you can use to patch it
+  Use the file named `patch.yaml`  to patch it:
   ```
   kubectl -n sysdig-agent patch cm sysdig-agent -p "$(cat patch.yaml)"
   ```
-  Or just apply the sysdig-agent confimap provided
+  Alternatively, apply the `sysdig-agent` confimap provided:
   ```
   kubectl -n sysdig-agent apply -f sysdig-agent.yaml
   ```

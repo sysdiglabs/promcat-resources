@@ -367,10 +367,13 @@ metadata:
 spec:
   replicas: 1
   selector:
-     matchLabels:
-       app: mssql-exporter
+    matchLabels:
+      app: mssql-exporter
   template:
     metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9399"
       labels:
         app: mssql-exporter
     spec:

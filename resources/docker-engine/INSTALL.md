@@ -1,7 +1,7 @@
 # Installing the exporter
-In order to expose the metrics you have to configure the docker engine with the next file like the [documentation](https://docs.docker.com/config/daemon/prometheus/) says:
+In order to expose metrics from Docker engine, configure the Docker daemon as a Prometheus target.
 
-To configure the Docker daemon as a Prometheus target, you need to specify the metrics-address. The best way to do this is via the daemon.json, which is located at one of the following locations by default. If the file does not exist, create it.
+To do so, you need to specify the `metrics-address`. The best way to do this is via the `daemon.json`, which is located at one of the following locations by default. If the file does not exist, create it.
 
 - **Linux**: `/etc/docker/daemon.json`
 - **Windows Server**: `C:\ProgramData\docker\config\daemon.json`
@@ -13,9 +13,10 @@ To configure the Docker daemon as a Prometheus target, you need to specify the m
   "experimental" : true
 }
 ```
+For more information, see [documentation](https://docs.docker.com/config/daemon/prometheus/).
 
 # Sysdig Agent configuration
-For the Sysdig Agent to discover and scrape it automatically, enable the promscrape option in the agent configuration. You will get an example of the sysdig agent in the section below
+For the Sysdig agent to discover and scrape the Docker engine automatically, enable the `use_promscrape` option in the agent configuration. For example:
 
 ```yaml
   prometheus.yaml: |

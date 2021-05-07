@@ -97,14 +97,14 @@
         "y": 10
       }
     ],
-    "name": "AWS Lambda - Function Details",
+    "name": "AWS Lambda Function Details",
     "panels": [
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "Error rate",
+              "displayName": " Region > Function",
+              "timeSeriesDisplayNameTemplate": "{{region}} > {{dimension_FunctionName}}",
               "type": "lines"
             },
             "enabled": true,
@@ -112,10 +112,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "0-100",
+              "nullValueDisplayMode": "nullGap",
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100 * (aws_lambda_errors_sum{dimension_FunctionName=$function} / aws_lambda_invocations_sum{dimension_FunctionName=$function})"
+            "query": "100 * (aws_lambda_errors_sum{region=~$region,dimension_FunctionName=~$function} / aws_lambda_invocations_sum{region=~$region,dimension_FunctionName=~$function})"
           }
         ],
         "axesConfiguration": {
@@ -151,19 +152,22 @@
         "id": 2,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Error rate",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "Errors",
+              "displayName": " Region > Function",
+              "timeSeriesDisplayNameTemplate": "{{region}} > {{dimension_FunctionName}}",
               "type": "lines"
             },
             "enabled": true,
@@ -171,10 +175,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(aws_lambda_dead_letter_errors_sum{dimension_FunctionName=$function} or vector(0))"
+            "query": "sum(aws_lambda_dead_letter_errors_sum{region=~$region,dimension_FunctionName=~$function} or vector(0))"
           }
         ],
         "axesConfiguration": {
@@ -210,19 +215,22 @@
         "id": 3,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Dead-letter Errors",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "Errors",
+              "displayName": " Region > Function",
+              "timeSeriesDisplayNameTemplate": "{{region}} > {{dimension_FunctionName}}",
               "type": "lines"
             },
             "enabled": true,
@@ -230,10 +238,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(aws_lambda_destination_delivery_failures_sum{dimension_FunctionName=$function} or vector(0))"
+            "query": "sum(aws_lambda_destination_delivery_failures_sum{region=~$region,dimension_FunctionName=~$function} or vector(0))"
           }
         ],
         "axesConfiguration": {
@@ -269,19 +278,22 @@
         "id": 4,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Destination Delivery Failures",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "Throttles",
+              "displayName": " Region > Function",
+              "timeSeriesDisplayNameTemplate": "{{region}} > {{dimension_FunctionName}}",
               "type": "lines"
             },
             "enabled": true,
@@ -289,10 +301,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "aws_lambda_throttles_sum{dimension_FunctionName=$function}\n"
+            "query": "aws_lambda_throttles_sum{region=~$region,dimension_FunctionName=~$function}\n"
           }
         ],
         "axesConfiguration": {
@@ -328,19 +341,22 @@
         "id": 5,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Throttles",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "Invocations",
+              "displayName": " Region > Function",
+              "timeSeriesDisplayNameTemplate": "{{region}} > {{dimension_FunctionName}}",
               "type": "lines"
             },
             "enabled": true,
@@ -348,10 +364,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "aws_lambda_invocations_sum{dimension_FunctionName=$function}\n"
+            "query": "aws_lambda_invocations_sum{region=~$region,dimension_FunctionName=~$function}\n"
           }
         ],
         "axesConfiguration": {
@@ -387,19 +404,22 @@
         "id": 6,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Invocations",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "Max",
+              "displayName": " [Max] Region > Function",
+              "timeSeriesDisplayNameTemplate": "[Max] {{region}} > {{dimension_FunctionName}}",
               "type": "lines"
             },
             "enabled": true,
@@ -407,15 +427,16 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "ms",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "aws_lambda_duration_maximum{dimension_FunctionName=$function}\n"
+            "query": "aws_lambda_duration_maximum{region=~$region,dimension_FunctionName=~$function}\n"
           },
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "Avg",
+              "displayName": " [Avg] Region > Function",
+              "timeSeriesDisplayNameTemplate": "[Avg] {{region}} > {{dimension_FunctionName}}",
               "type": "lines"
             },
             "enabled": true,
@@ -423,15 +444,16 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "ms",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "aws_lambda_duration_average{dimension_FunctionName=$function}\n"
+            "query": "aws_lambda_duration_average{region=~$region,dimension_FunctionName=~$function}\n"
           },
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "Minimum",
+              "displayName": " [Min] Region > Function",
+              "timeSeriesDisplayNameTemplate": "[Min] {{region}} > {{dimension_FunctionName}}",
               "type": "lines"
             },
             "enabled": true,
@@ -439,10 +461,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "ms",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "aws_lambda_duration_minimum{dimension_FunctionName=$function}\n"
+            "query": "aws_lambda_duration_minimum{region=~$region,dimension_FunctionName=~$function}\n"
           }
         ],
         "axesConfiguration": {
@@ -478,19 +501,22 @@
         "id": 7,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Duration",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "Invocations",
+              "displayName": " Invocations",
+              "timeSeriesDisplayNameTemplate": "{{region}} > {{dimension_FunctionName}}",
               "type": "lines"
             },
             "enabled": true,
@@ -498,15 +524,16 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(aws_lambda_provisioned_concurrency_invocations_sum{dimension_FunctionName=$function} or vector(0))\n"
+            "query": "sum(aws_lambda_provisioned_concurrency_invocations_sum{region=~$region,dimension_FunctionName=~$function} or vector(0))\n"
           },
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "Executions",
+              "displayName": "Executions",
+              "timeSeriesDisplayNameTemplate": "{{region}} > {{dimension_FunctionName}}",
               "type": "lines"
             },
             "enabled": true,
@@ -514,10 +541,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(aws_lambda_provisioned_concurrency_executions_sum{dimension_FunctionName=$function} or vector(0))\n"
+            "query": "sum(aws_lambda_provisioned_concurrency_executions_sum{region=~$region,dimension_FunctionName=~$function} or vector(0))\n"
           }
         ],
         "axesConfiguration": {
@@ -553,19 +581,22 @@
         "id": 8,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Provisioned Concurrency",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "Invocations",
+              "displayName": " Region > Function",
+              "timeSeriesDisplayNameTemplate": "{{region}} > {{dimension_FunctionName}}",
               "type": "lines"
             },
             "enabled": true,
@@ -573,10 +604,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "aws_lambda_invocations_sum{dimension_FunctionName=$function}\n"
+            "query": "aws_lambda_invocations_sum{region=~$region,dimension_FunctionName=~$function}\n"
           }
         ],
         "axesConfiguration": {
@@ -612,19 +644,22 @@
         "id": 9,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Concurrent Executions",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "Invocations",
+              "displayName": " Invocations",
+              "timeSeriesDisplayNameTemplate": "{{region}} > {{dimension_FunctionName}}",
               "type": "lines"
             },
             "enabled": true,
@@ -632,10 +667,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(aws_lambda_provisioned_concurrency_spillover_invocations_sum{dimension_FunctionName=$function} or vector(0))\n"
+            "query": "sum(aws_lambda_provisioned_concurrency_spillover_invocations_sum{region=~$region,dimension_FunctionName=~$function} or vector(0))\n"
           }
         ],
         "axesConfiguration": {
@@ -671,19 +707,22 @@
         "id": 10,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Provisioned Concurrency Spillover",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "Executions",
+              "displayName": "Region > Function ",
+              "timeSeriesDisplayNameTemplate": "{{region}} > {{dimension_FunctionName}}",
               "type": "lines"
             },
             "enabled": true,
@@ -691,10 +730,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "sum(aws_lambda_unreserved_concurrent_executions_sum{dimension_FunctionName=$function} or vector(0))\n\n"
+            "query": "sum(aws_lambda_unreserved_concurrent_executions_sum{region=~$region,dimension_FunctionName=~$function} or vector(0))\n\n"
           }
         ],
         "axesConfiguration": {
@@ -730,19 +770,22 @@
         "id": 11,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Unreserved Concurrent Executions",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "Utilization",
+              "displayName": " Utilization",
+              "timeSeriesDisplayNameTemplate": "{{region}} > {{dimension_FunctionName}}",
               "type": "lines"
             },
             "enabled": true,
@@ -750,10 +793,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "0-100",
+              "nullValueDisplayMode": "nullGap",
               "unit": "%",
               "yAxis": "auto"
             },
-            "query": "100 * sum(aws_lambda_provisioned_concurrency_utilization_average{dimension_FunctionName=$function} or vector(0))\n\n"
+            "query": "100 * sum(aws_lambda_provisioned_concurrency_utilization_average{region=~$region,dimension_FunctionName=~$function} or vector(0))\n\n"
           }
         ],
         "axesConfiguration": {
@@ -789,19 +833,22 @@
         "id": 12,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Provisioned Concurrency Utilization",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "Max",
+              "displayName": " [Max] Region > Function",
+              "timeSeriesDisplayNameTemplate": "[Max] {{region}} > {{dimension_FunctionName}}",
               "type": "lines"
             },
             "enabled": true,
@@ -809,15 +856,16 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "ms",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "sum(aws_lambda_iterator_age_maximum{dimension_FunctionName=$function} or vector(0))"
+            "query": "sum(aws_lambda_iterator_age_maximum{region=~$region,dimension_FunctionName=~$function} or vector(0))"
           },
           {
             "displayInfo": {
-              "displayName": " ",
-              "timeSeriesDisplayNameTemplate": "Average",
+              "displayName": " [Avg] Region > Function",
+              "timeSeriesDisplayNameTemplate": "[Avg] {{region}} > {{dimension_FunctionName}}",
               "type": "lines"
             },
             "enabled": true,
@@ -825,10 +873,11 @@
               "decimals": null,
               "displayFormat": "auto",
               "inputFormat": "ms",
+              "nullValueDisplayMode": "nullGap",
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "sum(aws_lambda_iterator_age_average{dimension_FunctionName=$function} or vector(0))"
+            "query": "sum(aws_lambda_iterator_age_average{region=~$region,dimension_FunctionName=~$function} or vector(0))"
           }
         ],
         "axesConfiguration": {
@@ -864,11 +913,14 @@
         "id": 13,
         "legendConfiguration": {
           "enabled": true,
+          "height": null,
           "layout": "inline",
           "position": "bottom",
-          "showCurrent": true
+          "showCurrent": true,
+          "width": null
         },
         "name": "Iterator Age",
+        "nullValueDisplayText": null,
         "type": "advancedTimechart"
       }
     ],
@@ -880,80 +932,84 @@
           "canFilter": true,
           "canGroupBy": false,
           "canMonitor": false,
-          "category": "prometheus",
-          "createdAt": 1591083020747,
-          "customerId": 25008,
           "deferred": false,
-          "documentId": "25008-4379264638350895274",
-          "documentTimestamp": 1591083020747,
+          "description": "region",
+          "documentId": "region",
+          "documentTimestamp": 1615998639627,
           "documentType": "metric",
+          "documented": true,
           "experimental": false,
-          "generatedFrom": "com.draios.model.metrics.custom.PrometheusAbstractMetric$Tag",
-          "generator": {
-            "aggregationForGroup": "none",
-            "aggregations": [
-              "distinct"
-            ],
-            "avg": false,
-            "canCalculate": false,
-            "canFilter": true,
-            "canGroupBy": false,
-            "canMonitor": false,
-            "category": "prometheus",
-            "concat": false,
-            "context": [],
-            "count": false,
-            "countDistinct": false,
-            "deferred": false,
-            "experimental": false,
-            "groupAggregations": [
-              "concat",
-              "distinct",
-              "count"
-            ],
-            "groupBy": [],
-            "heuristic": false,
-            "hidden": false,
-            "id": "dimension_FunctionName",
-            "identity": false,
-            "label": true,
-            "lastSeen": 1591082707827,
-            "max": false,
-            "metricType": "segmentBy",
-            "min": false,
-            "namespaces": [
-              "host",
-              "host.process",
-              "host.container",
-              "cloudProvider",
-              "mesos",
-              "ecs",
-              "kubernetes.cluster",
-              "kubernetes.namespace",
-              "kubernetes.deployment",
-              "kubernetes.job",
-              "kubernetes.daemonSet",
-              "kubernetes.service",
-              "kubernetes.node",
-              "kubernetes.replicaSet",
-              "kubernetes.statefulSet",
-              "kubernetes.resourcequota",
-              "kubernetes.persistentvolume",
-              "kubernetes.persistentvolumeclaim",
-              "kubernetes.pod"
-            ],
-            "rateOfChange": false,
-            "scale": 1.0,
-            "scopes": [],
-            "sum": false,
-            "timeAggregations": [
-              "concat",
-              "distinct",
-              "count"
-            ],
-            "timeAvg": false,
-            "type": "string"
-          },
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "region",
+          "identity": false,
+          "metricType": "tag",
+          "name": "region",
+          "namespaces": [
+            "cloudProvider",
+            "host.container",
+            "ecs",
+            "host.fs",
+            "host.file",
+            "host",
+            "kubernetes",
+            "kubernetes.cluster",
+            "kubernetes.daemonSet",
+            "kubernetes.deployment",
+            "kubernetes.job",
+            "kubernetes.namespace",
+            "kubernetes.node",
+            "kubernetes.pod",
+            "kubernetes.replicaSet",
+            "kubernetes.service",
+            "kubernetes.statefulSet",
+            "kubernetes.resourcequota",
+            "kubernetes.hpa",
+            "link",
+            "mesos",
+            "host.net",
+            "host.process",
+            "prometheus",
+            "swarm",
+            "prombeacon"
+          ],
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "region",
+        "isVariable": true,
+        "operand": "region",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": false,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "dimension_FunctionName",
+          "documentId": "dimension_FunctionName",
+          "documentTimestamp": 1615998639627,
+          "documentType": "metric",
+          "documented": true,
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
           "groupAggregations": [
             "concat",
             "distinct",
@@ -963,37 +1019,39 @@
           "hidden": false,
           "id": "dimension_FunctionName",
           "identity": false,
-          "lastSeen": 1591082707827,
           "metricType": "tag",
+          "name": "dimension_FunctionName",
           "namespaces": [
-            "host",
-            "host.process",
-            "host.container",
             "cloudProvider",
-            "mesos",
+            "host.container",
             "ecs",
+            "host.fs",
+            "host.file",
+            "host",
+            "kubernetes",
             "kubernetes.cluster",
-            "kubernetes.namespace",
+            "kubernetes.daemonSet",
             "kubernetes.deployment",
             "kubernetes.job",
-            "kubernetes.daemonSet",
-            "kubernetes.service",
+            "kubernetes.namespace",
             "kubernetes.node",
+            "kubernetes.pod",
             "kubernetes.replicaSet",
+            "kubernetes.service",
             "kubernetes.statefulSet",
             "kubernetes.resourcequota",
-            "kubernetes.persistentvolume",
-            "kubernetes.persistentvolumeclaim",
-            "kubernetes.pod"
+            "kubernetes.hpa",
+            "link",
+            "mesos",
+            "host.net",
+            "host.process",
+            "prometheus",
+            "swarm",
+            "prombeacon"
           ],
-          "routingInfo": {
-            "customerId": 25008,
-            "routing": "25008"
-          },
-          "scale": 1.0,
+          "scale": 0.0,
           "scopes": [],
           "segment": false,
-          "segmentations": [],
           "timeAggregations": [
             "concat",
             "distinct",
@@ -1004,7 +1062,7 @@
         "displayName": "function",
         "isVariable": true,
         "operand": "dimension_FunctionName",
-        "operator": "equals",
+        "operator": "in",
         "value": [],
         "variable": true
       }

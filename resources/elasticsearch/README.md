@@ -2,8 +2,7 @@
 Elasticsearch is a distributed, open source search and analytics engine for all types of data, including textual, numerical, geospatial, structured,
 and unstructured.
 
-To get the metrics from elasticsearch and alert with prometheus server, you can use the [justwatchcom exporter](https://github.com/justwatchcom/elasticsearch_exporter),
-with exporter we can gather the metrics from the elasticsearch api.
+To get the metrics from elasticsearch and alert with Prometheus server, you can use the [justwatchcom exporter](https://github.com/justwatchcom/elasticsearch_exporter). With the exporter you can gather the metrics from the elasticsearch API.
 
 # Metrics
 ## Metrics of cluster
@@ -43,8 +42,10 @@ with exporter we can gather the metrics from the elasticsearch api.
 * Throttle time for index store
 
 # Attributions
-Configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
+The configuration files and dashboards are maintained by [Sysdig team](https://sysdig.com/).
 
-The dashboars provided are created by Sysdig team with [this](https://grafana.com/grafana/dashboards/6483) as reference
+Exporter [justwatchcom exporter](https://github.com/justwatchcom/elasticsearch_exporter) with Apache v2 license.
 
-The alerts are from [Awesome Prometheus alerts] (https://github.com/samber/awesome-prometheus-alerts)
+The dashboards provided are created by the Sysdig team using the [Grafana Dashboards](https://grafana.com/grafana/dashboards/6483) as reference.
+
+The alerts are from [Awesome Prometheus alerts] (https://github.com/samber/awesome-prometheus-alerts).

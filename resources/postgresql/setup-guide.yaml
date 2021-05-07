@@ -6,8 +6,10 @@ appVersion:
 - "12"
 descriptionFile: INSTALL.md
 configurations:
-- name: postgresql-deploy.yaml
-  file: include/postgresql-deploy.yaml
+- name: postgresql-standalone-db.yaml
+  file: include/postgresql-standalone-db.yaml
+- name: postgresql-standalone-exporter.yaml
+  file: include/postgresql-standalone-exporter.yaml
 - name: sysdig-agent-config.yaml
   file: include/sysdig-agent-config.yaml
 - name: postgresql-auth-deploy.yaml

@@ -1,11 +1,11 @@
 # Installing the exporter
-To install the exporter follow this steps:
-1. You have to know if your elastic is secured or not
-2. If it is not secured, just download the file named 'exporter_no_credentials.yaml' and execute:
+To install the exporter, do the following:
+1. Verify whether your elastic is secured or not
+2. If it is not secured, download the `exporter_no_credentials.yaml` file and execute:
 ```
 kubectl apply -f exporter_no_credentials.yaml
 ```
-The exporter will try to connect to the service named `elasticsearch` in the port `9200`, so if this is no the port or the service just change these lines
+The exporter will try to connect to the service named `elasticsearch` on the port `9200`. If this is not the port or the service, change these lines:
 ```yaml
 - name: ES_URI
   value: https://elasticsearch:9200
@@ -24,15 +24,16 @@ spec:
             value: https://elasticsearch:9200
       ...
 ```
-3. If the elasticsearch is secured as the same way as the elasticseach deployed in the onprem environments for sysdig then download the file name 'exporter_with_credentials.yaml',
-this configuration will works only executing the next command:
+3. If the elasticsearch is secured similar to the elasticseach deployed in the Sysdig on-prem environments, download the `exporter_with_credentials.yaml` file.
+
+4. Apply by configuration changes by executing the following:
 ```
 kubectl apply -f exporter_with_credentials.yaml
 ```
-This configuration will use the user and the password saved as secrets, also will mount a volume with the ca.
+This configuration will use the user and the password saved as secrets, and will mount a volume with the ca.
 
-4. If you are using the exporter with credentials but you are not using sysdig, then just edit the secrets name, and the service and the port.
-Located here
+5. If you are using the exporter with credentials but you are not using sysdig, then edit the secrets name, the service, and the port.
+
 ```yaml
 ...
 spec:
@@ -55,10 +56,26 @@ spec:
       ...
 ```
 # Sysdig Agent configuration
-In the side of Sysdig agent the only thing we have to make sure is the 'promscrape' option is enabled in the dragent.yaml
+In the ElasticSearch exporter deployment, use the Sysdig annotations to configure the port of the exporter as scraping port. You can see an example in the `exporter_no_credentials.yaml` file.
+
+Additionally, you can use these labels to add the namespace, workload type, and name of the database the exporter will retrieve the data from.
+
 ```yaml
-use_promscrape: true
-  prometheus:
-    enabled: true
-    ...
+spec:
+  template:
+    metadata:
+      annotations:
+        promcat.sysdig.com/port: "9108"
+
+        # Add here the namespace, workload type (deployment, statefulset, replicaset, daemonset) 
+
+        # and workload name of the instance that the exporter will take data from
+        promcat.sysdig.com/target_ns: elastic-namespace
+        promcat.sysdig.com/target_workload_type: statefulset
+        promcat.sysdig.com/target_workload_name: elasticsearch
+```
+This way, on the Sysdig Monitor, you can view the associated metrics corresponding to the database pods and the exporter.
+After you configure the Sysdig annotations, download the sample configuration file and apply it by:
+```bash
+kubectl apply -f sysdig-agent-config.yaml
 ```

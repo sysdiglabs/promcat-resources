@@ -5,91 +5,30 @@ version: 1.0.0
 appVersion:
 - 1.3.0
 descriptionFile: ALERTS.md
-
 configurations:
 - kind: Prometheus
   data: |
-    - alert: HighCpuUtilizationRate
-      expr: avg by (dimension_ServiceName)(aws_ecs_containerinsights_cpu_utilized_average / aws_ecs_containerinsights_cpu_reserved_average) > 0.75
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: High CPU utilization rate on {{$labels.dimension_ServiceName}}
-    - alert: HighMemoryUtilizationRate
-      expr: avg by (dimension_ServiceName)(aws_ecs_containerinsights_memory_utilized_average / aws_ecs_containerinsights_memory_reserved_average) > 0.75
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: High memory utilization rate on {{$labels.dimension_ServiceName}}
-    - alert: RecurringPendingTasks
-      expr: aws_ecs_containerinsights_pending_task_count_average > 0
-      for: 10m
-      labels:
-        severity: page
-      annotations:
-        summary: Recurrent pending task on {{$labels.dimension_ServiceName}}
-- data: |-
-    {
-      "alert": {
-        "condition": "avg by (dimension_ServiceName)(aws_ecs_containerinsights_cpu_utilized_average / aws_ecs_containerinsights_cpu_reserved_average) > 0.75",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "HighCpuUtilizationRate",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-  kind: Sysdig
-- data: |-
-    {
-      "alert": {
-        "condition": "avg by (dimension_ServiceName)(aws_ecs_containerinsights_memory_utilized_average / aws_ecs_containerinsights_memory_reserved_average) > 0.75",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "HighMemoryUtilizationRate",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-  kind: Sysdig
-- data: |-
-    {
-      "alert": {
-        "condition": "aws_ecs_containerinsights_pending_task_count_average > 0",
-        "customNotification": {
-          "titleTemplate": "{{__alert_name__}} is {{__alert_status__}}",
-          "useNewTemplate": false
-        },
-        "enabled": true,
-        "name": "RecurringPendingTasks",
-        "rateOfChange": false,
-        "reNotify": false,
-        "reNotifyMinutes": 10,
-        "severity": 4,
-        "severityLabel": "LOW",
-        "severityLevel": null,
-        "timespan": 600000000,
-        "type": "PROMETHEUS"
-      }
-    }
-  kind: Sysdig
+    groups:
+    - name: AWS-Fargate
+      rules:
+      - alert: HighCpuUtilizationRate
+        expr: avg by (dimension_ServiceName)(aws_ecs_containerinsights_cpu_utilized_average / aws_ecs_containerinsights_cpu_reserved_average) > 0.75
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: High CPU utilization rate on {{$labels.dimension_ServiceName}}
+      - alert: HighMemoryUtilizationRate
+        expr: avg by (dimension_ServiceName)(aws_ecs_containerinsights_memory_utilized_average / aws_ecs_containerinsights_memory_reserved_average) > 0.75
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: High memory utilization rate on {{$labels.dimension_ServiceName}}
+      - alert: RecurringPendingTasks
+        expr: aws_ecs_containerinsights_pending_task_count_average > 0
+        for: 10m
+        labels:
+          severity: page
+        annotations:
+          summary: Recurrent pending task on {{$labels.dimension_ServiceName}}

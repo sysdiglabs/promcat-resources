@@ -2,11 +2,11 @@
 Elastic Load Balancing automatically distributes incoming application traffic across multiple targets, such as Amazon EC2 instances, containers, IP addresses, and Lambda functions.
 It can handle the varying load of your application traffic in a single Availability Zone or across multiple Availability Zones.
 
-The metrics for AWS ELB are obtained through AWS Cloudwatch. Using the [YACE exporter](https://github.com/ivx/yet-another-cloudwatch-exporter).
+The metrics for AWS ELB are obtained through AWS Cloudwatch by using the [YACE exporter](https://github.com/ivx/yet-another-cloudwatch-exporter).
 
 ## Cloudwatch billing considerations
-Using AWS Cloudwatch for monitoring can incur in additional costs in your AWS billing.
-Check the [AWS Cloudwatch documentation](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_limits.html) for further details.
+Using AWS Cloudwatch for monitoring can incur additional costs in your AWS billing.
+See the [AWS Cloudwatch documentation](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_limits.html) for further details.
 
 # Metrics
 - BackendConnectionErrors
@@ -23,9 +23,9 @@ Check the [AWS Cloudwatch documentation](https://docs.aws.amazon.com/AmazonCloud
 - SurgeQueueLength
 - UnHealthyHostCount
 
-For further information, consult the [Cloudwatch documentation on ELB metrics](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-cloudwatch-metrics.html).
+For further information, see the [Cloudwatch documentation on ELB metrics](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-cloudwatch-metrics.html).
 
 # Attributions
-Configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
+The configuration files and dashboards are maintained by [Sysdig team](https://sysdig.com/).
 
 Using [Yace - yet another cloudwatch exporter](https://github.com/ivx/yet-another-cloudwatch-exporter) with Apache 2.0 license.

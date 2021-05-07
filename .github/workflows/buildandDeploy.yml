@@ -6,7 +6,9 @@ name: buildandDeploy
 # events but only for the master branch
 on:
   push:
-    branches: [ staging ]
+    branches: 
+      - staging
+      - alerts
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -35,6 +37,18 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
+
+    - name: Login to Artifactory
+      uses: docker/login-action@v1 
+      with:
+        registry: artifactory.internal.sysdig.com
+        username: david.lorite@sysdig.com
+        password: ${{ secrets.ARTI_TOKEN }}
+
+    - name: Check rules
+      run: | 
+        ./tools/checkrules.sh
+
     - name: build and push docker image
       uses: docker/build-push-action@v1
       with:
@@ -43,11 +57,13 @@ jobs:
         registry: gcr.io
         repository: mateo-burillo-ns/promcat-resources
         tags: staging
+
     - name: Install dependencies for kubectl
       run: |
         curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
         chmod +x ./kubectl
         sudo mv ./kubectl /usr/local/bin/kubectl
+
     - name: Deploy in staging
       env:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}

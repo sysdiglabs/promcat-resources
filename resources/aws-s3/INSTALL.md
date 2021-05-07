@@ -3,11 +3,11 @@ If you want to get the CloudWatch request metrics for the objects in a bucket, y
 When enabled, request metrics are reported for all object operations.
 
 # Setting up permissions in the AWS account
-## Creating an AWS IAM Policy
+## Creating an AWS IAM policy
 The exporter needs permissions to access the resources from the AWS account.
 
-First, create an AWS IAM policy on your AWS infrastructure allowing read CloudWatch metrics and get resources by tags.
-Here is a AWS IAM configuration example:
+First, create an AWS IAM policy on your AWS infrastructure. The policy should allow the account to read CloudWatch metrics and get resources by tags.
+An example AWS IAM configuration:
 
 ```json
 {
@@ -30,7 +30,7 @@ Here is a AWS IAM configuration example:
 ```
 
 ## Creating the credentials for the exporter
-Create a file $HOME/.aws/credentials as the following, substituting the values with your key and password:
+Create a `$HOME/.aws/credentials` file as follows. Substitute the values with your key and password:
 
 ```ini
 # CREDENTIALS FOR AWS ACCOUNT
@@ -40,8 +40,8 @@ aws_secret_access_key = bXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
 # Configuring the resources to monitor
-The YACE exporter uses an API call that filters the resources by tags. 
-This implies that if you want to monitor a resource, **it has to have at least one tag**. Else, it will not be scraped.
+The YACE exporter uses an API call that filters the resources by tags.
+Therefore, if you want to monitor a resource, ensure that **it has at least one tag** associated with it. A resource without a tag will not be scraped.
 
 # Installing the exporter
 This setup creates two instances of the yace exporter:
@@ -50,16 +50,17 @@ This setup creates two instances of the yace exporter:
 
 To install the exporter follow this steps:
 
-1. Download the yaml to a local file named 's3-deploy.yaml'
-2. Change the following lines in the configmap with the AWS region where the resources to monitor are located:
+1. Download the `s3-deploy.yaml` file.
+2. Change the following lines in the ConfigMap with the AWS region where the resources to monitor are located:
 ```
 region: us-east-1
 ```
-3. Change the field 'credentials' of the secret 'yace-s3-credentials' and paste the content of the following command:
+3. Run following command and copy the content:
 ```
 cat ~/.aws/credentials | base64
 ```
-4. You can uncomment the metrics not used in the configmap to make them available
+3. Replace the content of the `credentials` field of the secret `yace-s3-credentials` with the one that you have copied.
+4. Uncomment the metrics not used in the ConfigMap to make them available.
 5. The daily metrics are refreshed by the exporter every 2 hours. To change it, modify the following line in the deployment:
 ```
 - "--scraping-interval=7200"
@@ -68,15 +69,17 @@ cat ~/.aws/credentials | base64
 ```
 kubectl apply -f s3-deploy.yaml
 ```
-7. You can check that the exporter is working checking that the pods are running:
+7. Ensure that the exporter is working checking that the pods are running:
 ```
 kubectl -n yace get pods
 ```
 
 # Sysdig Agent configuration
-In the yace Deployment we will include the Prometheus annotations configuring the port of the exporter as scraping port.    
+Do the following:
 
-Also, in the Sysdig Agent configuration, be sure to have these lines of configuration to scrape the containers with Prometheus annotations.
+1. In the yace deployment, include the Prometheus annotations. Add the port of the exporter as the scraping port in the annotation.    
+
+2. In the Sysdig Agent configuration, add the following lines of configuration to scrape the containers with Prometheus annotations.
 ```yaml
 process_filter:
   - include:
@@ -86,7 +89,7 @@ process_filter:
         port: "{kubernetes.pod.annotation.prometheus.io/port}"
 ```
 
-You can download the sample configuration file below and apply it by:
+3. Download the sample [Sysdig Agent configuration file](include/sysdig-agent-config.yaml) and apply it by:
 ```bash
 kubectl apply -f sysdig-agent-config.yaml
 ```

@@ -2,8 +2,8 @@
 ## Creating an AWS IAM Policy
 The exporter needs permissions to access the resources from the AWS account.
 
-First, create an AWS IAM policy on your AWS infrastructure allowing read CloudWatch metrics and get resources by tags.
-Here is a AWS IAM configuration example:
+First, create an AWS IAM policy on your AWS infrastructure. Allow the account to read CloudWatch metrics and get resources by tags.
+An example AWS IAM configuration:
 
 ```json
 {
@@ -26,7 +26,7 @@ Here is a AWS IAM configuration example:
 ```
 
 ## Creating the credentials for the exporter
-Create a file $HOME/.aws/credentials as the following, substituting the values with your key and password:
+Create a `$HOME/.aws/credentials` file as follows. Substitute the values with your key and password:
 
 ```ini
 # CREDENTIALS FOR AWS ACCOUNT
@@ -36,8 +36,8 @@ aws_secret_access_key = bXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
 # Configuring the resources to monitor
-The YACE exporter uses an API call that filters the resources by tags. 
-This implies that if you want to monitor a resource, **it has to have at least one tag**. Else, it will not be scraped.
+The YACE exporter uses an API call that filters the resources by tags.
+Therefore, if you want to monitor a resource, ensure that **it has at least one tag** associated with it. A resource without a tag will not be scraped.
 
 # Installing the exporter
 To install the exporter follow this steps:
@@ -47,23 +47,27 @@ To install the exporter follow this steps:
 ```
 region: us-east-1
 ```
-1. Change the field 'credentials' of the secret 'yace-sqs-credentials' and paste the content of the following command:
+3. Run following command and copy the content:
 ```
 cat ~/.aws/credentials | base64
 ```
-4. Apply the deployment:
+4. Replace the content of the `credentials` field of the secret `yace-sqs-credentials` with the one that you have copied.
+
+5. Apply the deployment:
 ```
 kubectl apply -f sqs-deploy.yaml
 ```
-5. You can check that the exporter is working checking that the pods are running:
+6. Ensure that the exporter is working checking that the pods are running:
 ```
 kubectl -n yace get pods
 ```
 
 # Sysdig Agent configuration
-In the yace Deployment we will include the Prometheus annotations configuring the port of the exporter as scraping port.    
+Do the following:
 
-Also, in the Sysdig Agent configuration, be sure to have these lines of configuration to scrape the containers with Prometheus annotations.
+1. In the yace deployment, include the Prometheus annotations. Add the port of the exporter as the scraping port in the annotation.    
+
+2. In the Sysdig Agent configuration, add the following lines of configuration to scrape the containers with Prometheus annotations.
 ```yaml
 process_filter:
   - include:
@@ -73,7 +77,7 @@ process_filter:
         port: "{kubernetes.pod.annotation.prometheus.io/port}"
 ```
 
-You can download the sample configuration file below and apply it by:
+3. Download the sample [Sysdig Agent configuration file](include/sysdig-agent-config.yaml) and apply it by:
 ```bash
 kubectl apply -f sysdig-agent-config.yaml
 ```

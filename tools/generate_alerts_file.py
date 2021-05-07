@@ -2,17 +2,12 @@ import pypromcat
 import argparse
 import os
 
-parser = argparse.ArgumentParser(description='Generate from an alerts.yaml with Prometheus alerts a new one with sysdig alerts and description.')
+parser = argparse.ArgumentParser(description='Generate from an alerts.yaml with Prometheus alerts a new ALERTS.md with description.')
 parser.add_argument('-f',
                     '--file',
                     required=True,
                     dest='file',
                     help='Original file with Prometheus alerts')
-parser.add_argument('-o',
-                    '--output',
-                    required=False,
-                    dest='outputFile',
-                    help='File to write the output')
 
 try:
     args = parser.parse_args()
@@ -32,10 +27,7 @@ for prometheusAlert in prometheusAlerts:
     del configToAppend['data']
   newConfigurations.append(configToAppend)
 
-sysdigAlertsArray = pypromcat.sysdigAlerts2PromcatConfigurations(pypromcat.createArrayOfSysdigAlerts(yamlFile))
-for sysdigAlert in sysdigAlertsArray:
-  newConfigurations.append(sysdigAlert)
-  
+
 yamlFile["descriptionFile"] = 'ALERTS.md'
 yamlFile["configurations"] = newConfigurations
 
@@ -53,19 +45,10 @@ for prometheusAlertElement in prometheusAlerts:
         newDescription = newDescription + alert["annotations"]["message"] + "\n\n"
       if "runbook_url" in alert["annotations"]:
         newDescription = newDescription \
-                         + "[Runbook](" \
-                         + alert["annotations"]["runbook_url"] \
+                        + "[Runbook](" \
+                        + alert["annotations"]["runbook_url"] \
                         + ")\n\n"
 
-f = open(filesDirectory + "/ALERTS.md", "w")
-f.write(newDescription)
-f.close()
-
-
-outputformatted = pypromcat.dict2BeautyYaml(yamlFile)
-if args.outputFile is None:
-    print(outputformatted)
-else:
-    f = open(args.outputFile, "w")
-    f.write(outputformatted)
-    f.close()
+with open(filesDirectory + "/ALERTS.md", "w") as f:
+    f.write(newDescription)
+    

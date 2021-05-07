@@ -1,5 +1,5 @@
 # Installing the exporter
-Gatekeeper exposes a Prometheus metrics endpoint to provide metrics for monitoring service health and performance. Open Policy Agent also exposes a metrics endpoint when running as a server, but since Gatekeeper embeds OPA and we don’t run it as a server, we won’t be using it.
+Gatekeeper exposes a Prometheus metrics endpoint to provide metrics for monitoring services, health, and performance. The Open Policy Agent (OPA) also exposes a metrics endpoint when running as a server. However, since Gatekeeper embeds OPA and you don’t run OPA as a server, you won’t be using that endpoint.
 
 When installing Gatekeeper, you must either edit the Gatekeeper controller manager deployment or the service with the appropriate annotations for Prometheus scraping
 
@@ -11,4 +11,4 @@ kubectl -n gatekeeper-system patch deploy gatekeeper-audit -p '{"spec":{"templat
 
 # Sysdig Agent configuration
 
-Then, if you have configured your Prometheus server or your [Sysdig agent for Prometheus metric collection](https://docs.sysdig.com/en/integrate-prometheus-metrics.html), you should be already ingesting your Gatekeeper metrics.
+If you have configured your Prometheus server or your [Sysdig agent for Prometheus metric collection](https://docs.sysdig.com/en/integrate-prometheus-metrics.html), you should be already ingesting your Gatekeeper metrics.
