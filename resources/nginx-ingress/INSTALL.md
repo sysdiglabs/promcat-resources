@@ -10,8 +10,10 @@ controller:
     # if this port is changed, change healthz-port: in extraArgs: accordingly
     enabled: true
   podAnnotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "10254"
+    promcat.sysdig.com/port: "10254"
+    promcat.sysdig.com/target_ns: nginx-ingress-namespace
+    promcat.sysdig.com/target_workload_type: deployment
+    promcat.sysdig.com/target_workload_name: nginx-ingress
 ```
 
 # Sysdig Agent configuration
@@ -19,9 +21,21 @@ For the Sysdig Agent to discover and scrape the ngnix ingress controller automat
 
 ```yaml
   dragent.yaml: |-
+    metrics_excess_log: true
+    k8s_cluster_name: YourClusterName
+    10s_flush_enable: true
+    app_checks_enabled: false
     use_promscrape: true
+    new_k8s: true
+    promscrape_fastproto: true
     prometheus:
       enabled: true
       prom_service_discovery: true
+      log_errors: true
+      max_metrics: 200000
+      max_metrics_per_process: 200000
+      max_tags_per_metric: 100
+      ingest_raw: true
+      ingest_calculated: false
 ```
 An example of the Sysdig Agent configuration file is given below.

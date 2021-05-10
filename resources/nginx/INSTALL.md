@@ -6,14 +6,23 @@ Note that the deployment has a label, `app`. This label will be included in the 
 # Sysdig Agent configuration
 In the Sysdig Agent configuration, add the following snippet to include the label `app` as a metric label.
 ```yaml
-process_filter:
-  - include:
-      kubernetes.pod.annotation.prometheus.io/scrape: true
-      conf:
-        path: "{kubernetes.pod.annotation.prometheus.io/path}"
-        port: "{kubernetes.pod.annotation.prometheus.io/port}"
-        tags:
-          app: "{kubernetes.pod.label.app}"
+  dragent.yaml: |-
+    metrics_excess_log: true
+    k8s_cluster_name: YourClusterName
+    10s_flush_enable: true
+    app_checks_enabled: false
+    use_promscrape: true
+    new_k8s: true
+    promscrape_fastproto: true
+    prometheus:
+      enabled: true
+      prom_service_discovery: true
+      log_errors: true
+      max_metrics: 200000
+      max_metrics_per_process: 200000
+      max_tags_per_metric: 100
+      ingest_raw: true
+      ingest_calculated: false
 ```
 
 You can download the sample configuration file below and apply it by:

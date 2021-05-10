@@ -12,8 +12,10 @@ spec:
       labels:
         app: nginx-A
       annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "9113"
+        promcat.sysdig.com/port: "9113"
+        promcat.sysdig.com/target_ns: nginx-namespace
+        promcat.sysdig.com/target_workload_type: deeployment
+        promcat.sysdig.com/target_workload_name: nginx
     spec:
       containers:
       - name: nginx
