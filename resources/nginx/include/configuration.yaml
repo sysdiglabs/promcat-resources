@@ -13,9 +13,6 @@ spec:
         app: nginx-A
       annotations:
         promcat.sysdig.com/port: "9113"
-        promcat.sysdig.com/target_ns: nginx-namespace
-        promcat.sysdig.com/target_workload_type: deeployment
-        promcat.sysdig.com/target_workload_name: nginx
     spec:
       containers:
       - name: nginx

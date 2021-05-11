@@ -11,9 +11,6 @@ controller:
     enabled: true
   podAnnotations:
     promcat.sysdig.com/port: "10254"
-    promcat.sysdig.com/target_ns: nginx-ingress-namespace
-    promcat.sysdig.com/target_workload_type: deployment
-    promcat.sysdig.com/target_workload_name: nginx-ingress
 ```
 
 # Sysdig Agent configuration
