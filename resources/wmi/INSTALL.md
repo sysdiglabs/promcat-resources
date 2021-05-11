@@ -23,7 +23,7 @@ kubectl annotate nodes NODEID sysdig.com/scraper=true
 Following is the configuration of the Sysdig agent. Be sure to change this line with the IP and PORT of your windows instance:
 > url: "http://IP:PORT/metrics"
 
-To apply, save the file as dragent.yaml and apply executing:
+To apply, save the file as `dragent.yaml` and apply:
 ```
 kubectl apply -f dragent.yaml
 ```
