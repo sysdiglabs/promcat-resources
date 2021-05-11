@@ -32,4 +32,4 @@ scrape_configs:
         separator: '/'
         regex: 'default/router-1-.+'
 ```
-See an example configuration given below.
+See the example configuration given below.
