@@ -1,13 +1,11 @@
 # Alerts generator
-The tool generate_alerts_file.py takes as input an alerts file with Prometheus alerts and generates another one with Sysdig alerts and description filled. 
+The tool generate_alerts_file.py takes as input an alerts file with Prometheus alerts and generates another one with description filled. 
 
 The usage is the following:
 ```
-# Output in console
+# Usage
 python3 generate_alerts_file.py -f inputfile.yaml 
 
-# Output to a file
-python3 generate_alerts_file.py -f inputfile.yaml -o outputfile.yaml
 ```
 # Files extractor
 The tool extract_files_in_configurations.py takes as input a dashboards or exporter-config file and extracts

@@ -2,7 +2,7 @@ apiVersion: v1
 data:
   dragent.yaml: |
     new_k8s: true
-    k8s_cluster_name: your-cluster-name
+    k8s_cluster_name: YourClusterName
     metrics_excess_log: true
     10s_flush_enable: true
     app_checks_enabled: false
@@ -24,43 +24,51 @@ data:
     global:
       scrape_interval: 10s
     scrape_configs:
-    - job_name: 'k8s-pods'
+    - job_name: redis-default
       tls_config:
         insecure_skip_verify: true
       kubernetes_sd_configs:
       - role: pod
       relabel_configs:
-        # Trying to ensure we only scrape local targets
-        # We need the wildcard at the end because in AWS the node name is the FQDN,
-        # whereas in Azure the node name is the base host name
       - action: keep
         source_labels: [__meta_kubernetes_pod_host_ip]
         regex: __HOSTIPS__
       - action: keep
-        source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
-        regex: true
+        source_labels:
+        - __meta_kubernetes_namespace
+        - __meta_kubernetes_pod_name
+        separator: '/'
+
+        # Add here the namespace/pod-name of your redis exporter
+        regex: 'default/redis-exporter-.+'
+
       - action: replace
-        source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scheme]
-        target_label: __scheme__
-        regex: (https?)
-      - action: replace
-        source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
-        target_label: __metrics_path__
-        regex: (.+)
-      - action: replace
-        source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+        source_labels: [__address__, __meta_kubernetes_pod_annotation_promcat_sysdig_com_port]
         regex: ([^:]+)(?::\d+)?;(\d+)
         replacement: $1:$2
         target_label: __address__
-
-        # Holding on to pod-id and container name so we can associate the metrics
-        # with the container (and cluster hierarchy)
+      - action: replace
+        source_labels: [__meta_kubernetes_pod_annotation_promcat_sysdig_com_target_ns]
+        target_label: kube_namespace_name
+      - action: replace
+        source_labels: [__meta_kubernetes_pod_annotation_promcat_sysdig_com_target_workload_type]
+        target_label: kube_workload_type
+      - action: replace
+        source_labels: [__meta_kubernetes_pod_annotation_promcat_sysdig_com_target_workload_name]
+        target_label: kube_workload_name
+      - action: replace
+        source_labels: [__meta_kubernetes_pod_annotation_promcat_sysdig_com_target_cluster_name]
+        target_label: kube_cluster_name
+      - action: replace
+        replacement: true
+        target_label: sysdig_omit_source
       - action: replace
         source_labels: [__meta_kubernetes_pod_uid]
         target_label: sysdig_k8s_pod_uid
       - action: replace
         source_labels: [__meta_kubernetes_pod_container_name]
         target_label: sysdig_k8s_pod_container_name
+
 
 kind: ConfigMap
 metadata:

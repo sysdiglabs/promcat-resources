@@ -5,6 +5,8 @@ version: 1.0.0
 appVersion:
 - '6.8'
 configurations:
+- name: sysdig-agent.yaml
+  file: include/sysdig-agent.yaml
 - name: exporter_no_credentials.yaml
   file: include/exporter_no_credentials.yaml
 - name: exporter_with_credentials.yaml

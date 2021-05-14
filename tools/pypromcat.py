@@ -106,23 +106,3 @@ def dict2BeautyYaml(yaml2print):
     return dumper.represent_scalar('tag:yaml.org,2002:str', data)
   yaml.add_representer(str, str_presenter)
   return(yaml.dump(removeTrailingSpacesFromAllElements(yaml2print), sort_keys=False))
-
-def createArrayOfSysdigAlerts(alertsYaml):
-  configurationsAlerts = getConfigurations(alertsYaml)
-  sysdigAlerts = []
-  for configurationAlert in configurationsAlerts:
-      if configurationAlert['kind'] == "Prometheus":
-        prometheusAlerts = loadYaml(configurationAlert['data'])
-        for prometheusAlert in prometheusAlerts:
-          sysdigAlert = prometheusAlert2SysdigAlert(prometheusAlert)
-          sysdigAlerts.append(sysdigAlert)
-  return sysdigAlerts
-
-def sysdigAlerts2PromcatConfigurations(sysdigAlerts):
-  promcatAlerts = []
-  for sysdigAlert in sysdigAlerts:
-    promcatAlert = {}
-    promcatAlert["kind"] = "Sysdig"
-    promcatAlert["data"] = dict2BeautyString(sysdigAlert)
-    promcatAlerts.append(promcatAlert)
-  return(promcatAlerts)
