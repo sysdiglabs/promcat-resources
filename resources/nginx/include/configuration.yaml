@@ -24,7 +24,7 @@ spec:
             mountPath: /etc/nginx/conf.d/default.conf
             subPath: nginx.conf
       - name: nginx-exporter
-        image: nginx/nginx-prometheus-exporter:0.5.0
+        image: quay.io/sysdig/nginx-exporter:latest
         args:
           - "-nginx.scrape-uri=http://localhost:80/nginx_status"
         resources:

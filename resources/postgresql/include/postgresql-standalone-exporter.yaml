@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: postgres-exporter
-          image: wrouesnel/postgres_exporter:v0.8.0
+          image: quay.io/sysdig/postgresql-exporter:latest
           resources:
             limits:
               memory: "256Mi"
