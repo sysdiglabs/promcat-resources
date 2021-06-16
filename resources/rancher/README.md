@@ -14,6 +14,6 @@ Rancher give the option to install a Prometheus operator but it doesn't have all
 - etcd
 
 # Attributions
-Configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
+Configuration files and dashboards are maintained by [Sysdig team](https://sysdig.com/).
 
-All dashboards and alerts are modified from the [kubernetes mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin) as reference.
+All dashboards and alerts are modified from the [kubernetes mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin) for reference.

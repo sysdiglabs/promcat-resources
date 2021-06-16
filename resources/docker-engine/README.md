@@ -8,10 +8,10 @@ Docker offers the following metrics:
 - Subscribers metrics
 - Network, cpu and memory metrics
 
-For further information, consult the [official Docker web](https://docs.docker.com/config/daemon/prometheus/).
+For further information, see the [official Docker web](https://docs.docker.com/config/daemon/prometheus/).
 
 # Number of time series generated
 The number of metrics generated for database is ~500.
 
 # Attributions
-Configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
+Configuration files and dashboards are maintained by [Sysdig team](https://sysdig.com/).
