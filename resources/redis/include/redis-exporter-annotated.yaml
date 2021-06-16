@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: redis-exporter
-        image: oliver006/redis_exporter:latest
+        image: quay.io/sysdig/redis-exporter:latest
         ports:
           - containerPort: 9121
         env:

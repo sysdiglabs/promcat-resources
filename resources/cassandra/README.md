@@ -1,5 +1,5 @@
 # App
-  Apache Cassandra is a free and open-source, distributed, wide column store, NoSQL database management system designed to handle large amounts of data across many commodity servers, providing high availability with no single point of failure. 
+  Apache Cassandra is a free and open-source, distributed, wide column store, NoSQL database management system designed to handle large amounts of data across many commodity servers, providing high availability with no single point of failure.
 
 # Metrics
 * Request_latency
@@ -18,9 +18,9 @@
 * Memory_total
 
 # Number of time series generated
-The metrics for each instance are around 7k
+The metrics for each instance are around 7k.
 
 # Attributions
 Using the [Cassandra exporter](https://github.com/instaclustr/cassandra-exporter) with license Apache 2.0
 
-Configuration files, dashboards and alerts maintained by [Sysdig team](https://sysdig.com/).
+The configuration files, dashboards, and alerts are maintained by [Sysdig team](https://sysdig.com/).

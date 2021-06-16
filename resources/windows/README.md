@@ -14,9 +14,9 @@ The Windows exporter provides metrics on the following collectors:
 * OS: Metrics about the operating system
 * System: Metrics about the system
 
-For further information, consult the [documentation of the Windows exporter](https://github.com/prometheus-community/windows_exporter/blob/master/docs/README.md).
+For more information, see the [documentation of the Windows exporter](https://github.com/prometheus-community/windows_exporter/blob/master/docs/README.md).
 
 # Attributions
-Configuration files, dashboards and alerts maintained by [Sysdig team](https://sysdig.com/).
+Configuration files, dashboards, and alerts are maintained by [Sysdig team](https://sysdig.com/).
 
 Using [Windows Exporter](https://github.com/prometheus-community/windows_exporter) with MIT license.
