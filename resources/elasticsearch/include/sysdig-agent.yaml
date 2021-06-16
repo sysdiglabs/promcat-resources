@@ -57,9 +57,6 @@ data:
         source_labels: [__meta_kubernetes_pod_annotation_promcat_sysdig_com_target_workload_name]
         target_label: kube_workload_name
       - action: replace
-        source_labels: [__meta_kubernetes_pod_annotation_promcat_sysdig_com_target_cluster_name]
-        target_label: kube_cluster_name
-      - action: replace
         replacement: true
         target_label: sysdig_omit_source
       - action: replace
