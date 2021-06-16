@@ -56,6 +56,8 @@ spec:
       ...
 ```
 # Sysdig Agent configuration
+> Requires Sysdig Agent >= v11.3 
+
 In the ElasticSearch exporter deployment, use the Sysdig annotations to configure the port of the exporter as scraping port. You can see an example in the `exporter_no_credentials.yaml` file.
 
 Additionally, you can use these labels to add the namespace, workload type, and name of the database the exporter will retrieve the data from.
@@ -74,6 +76,9 @@ spec:
         promcat.sysdig.com/target_workload_name: elasticsearch
 ```
 This way, on the Sysdig Monitor, you can view the associated metrics corresponding to the database pods and the exporter.
+
+
+
 After you configure the Sysdig annotations, download the sample configuration file and apply it by:
 ```bash
 kubectl apply -f sysdig-agent-config.yaml
