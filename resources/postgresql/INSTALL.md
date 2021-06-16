@@ -1,8 +1,9 @@
 # Configuring Postgres for the exporter
 ## For existing databases
-If you want to use a no-admin user for the exporter, you will have to create the user and the views and permissions to
-be able to gather the data from the tables. In the [Postgres exporter documentation](https://github.com/wrouesnel/postgres_exporter) there is the following script 
-that you can use in your database to create the exporter user:
+If you want to use a no-admin user for the exporter, you will have to create the user, and associated views and permissions to
+be able to gather the data from the tables.
+
+The [Postgres exporter documentation](https://github.com/wrouesnel/postgres_exporter) contains the following script that you can use in your database to create the exporter user:
 ```sql
 -- To use IF statements, hence to be able to check if the user exists before
 -- attempting creation, we need to switch to procedural SQL (PL/pgSQL)
@@ -59,59 +60,71 @@ AS
 GRANT SELECT ON postgres_exporter.pg_stat_replication TO postgres_exporter;
 ```
 > Note: Before running the script, be sure to set the correct password for the user in the line:
-> 
+>
 > _ALTER USER postgres_exporter WITH PASSWORD 'password';_
 
 ## For new databases
-This script is included in the _postgresql-deploy.yaml_ file for newly created databases. 
+The `postgresql-standalone-db.yaml` file contains the relevant script for the newly created databases.
 
-The script is split and mounted in the database container as two volumes in the _/docker-entrypoint-initdb.d/_ directory. 
-* The first file is located in the ConfigMap _postgres-init_ and creates the user, views and permissions. 
-* The second file is located in the Secret _postgres-secret_ and sets the password of the exporter user. 
+The script is split and mounted on the database container as two volumes in the _/docker-entrypoint-initdb.d/_ directory.
+* The first file is located in the _postgres-init_ ConfigMap. It creates the user, views, and permissions.
+* The second file is located in the _postgres-secret_ Secret. It configures the password of the exporter user.
 
 # Installing the exporter
-We will explain how to install the exporter as a sidecar of a postgres database. First, download the _postgresql-deploy.yaml_ file. 
+## Prerequisites
+Before deploying the exporter, you will have to create:
+* ConfigMap _postgres-config_: with POSTGRES_DB, POSTGRES_USER
+* Secret _postgres-secret_: with POSTGRES_PASSWORD
 
-In the Deployment, you can find 2 containers, one for the postgres database and another one for the exporter. In the container for the postgres server you can configure: 
-* Environment variables from ConfigMap _postgres-config_: POSTGRES_DB, POSTGRES_USER
-* Environment variables from Secret _postgres-secret_: POSTGRES_PASSWORD
+You can find both the ConfigMap and the Secret in the `postgresql-standalone-db.yaml` file.
 
-In the container of the exporter you can configure: 
-* Environment variable for the database to export: DATA_SOURCE_URI
-* Environment variable for database autodiscovery: PG_EXPORTER_AUTO_DISCOVER_DATABASES
-* Environment variable for DATA_SOURCE_USER in the ConfigMap _postgres-config_
-* Environment variable for POSTGRES_EXPORTER_PASSWORD in the Secret _postgres-secret_
-* Environment variable to the path of the user queries file. This is mounted as a volume in _/tmp/queries.yaml_ from the ConfigMap _postgres-queries_
+# Configuring the exporter
+The `postgresql-standalone-exporter.yaml` file provides you an example of a fully-configured exporter.
+
+The exporter deployment contains a container corresponding to the exporter. In the container, you can configure an environment variable for the following:
+
+* The database to export: `DATA_SOURCE_URI`
+* database autodiscovery: `PG_EXPORTER_AUTO_DISCOVER_DATABASES`
+* `DATA_SOURCE_USER` in the _postgres-config_ ConfigMap
+* `POSTGRES_EXPORTER_PASSWORD` in the Secret _postgres-secret_
+* The path of the user queries file. This is mounted as a volume in _/tmp/queries.yaml_ from the _postgres-queries_ConfigMap.
 
 ## User queries
-The Postgres Exporter allows to create user defined metrics based on SQL queries. 
+The Postgres exporter allows you to create user-defined metrics based on SQL queries.
 
-The queries added in the ConfigMap _postgres-queries_ are based in the ones available in the [Postgres exporter repository](https://github.com/wrouesnel/postgres_exporter). 
-The metrics from _pg_stat_statements_ has beed removed to avoid high cardinality scenarios caused by the _queryid_ label. 
+The queries added in the _postgres-queries_ ConfigMap are based on the ones available in the [Postgres exporter repository](https://github.com/wrouesnel/postgres_exporter).
+The metrics from _pg_stat_statements_ has beed removed to avoid high cardinality scenarios caused by the _queryid_ label.
 
 ## Using TLS or SSL Authentication
-To use SSL authentication, you will have to create a secret with the certificate: 
+To use SSL authentication, you will have to create a secret with the certificate:
 ```
 kubectl create secret generic postgres-exporter-auth \
-  --from-file=postgres-ssl-root-cert=<route-to-your-ssl-root-cert.pem> 
+  --from-file=postgres-ssl-root-cert=<route-to-your-ssl-root-cert.pem>
 ```
 
-You can use the example file `postgresql-auth-deploy.yaml` as an example of a deploy with ssl authentication. 
+You can use the `postgresql-auth-deploy.yaml` file as an example of a deployment with SSL authentication.
 
 # SYSDIG AGENT CONFIGURATION
-In the Postgres Deployment we will include the Prometheus annotations configuring the port of the exporter as scraping port.    
+In the Postgres exporter deployment, use the Sysdig annotations to configure the port of the exporter as the scraping port. See the example in the `postgresql-standalone-exporter.yaml` file.
 
-Also, in the Sysdig Agent configuration, be sure to have these lines of configuration to scrape the containers with Prometheus annotations.
+Additionally, you can use the labels to add the namespace, workload type, and name of the database the exporter will take data from.
+This way, you can view the metrics associated directly with the database pods and the exporter in Sysdig Monitor.
+
 ```yaml
-process_filter:
-  - include:
-      kubernetes.pod.annotation.prometheus.io/scrape: true
-      conf:
-        path: "{kubernetes.pod.annotation.prometheus.io/path}"
-        port: "{kubernetes.pod.annotation.prometheus.io/port}"
+spec:
+  template:
+    metadata:
+      annotations:
+        promcat.sysdig.com/port: "9187"
+
+        # Add here the namespace, workload type (deployment, statefulset, replicaset, daemonset)
+        # and workload name of the Postgres database that the exporter will take data from
+        promcat.sysdig.com/target_ns: default
+        promcat.sysdig.com/target_workload_type: deployment
+        promcat.sysdig.com/target_workload_name: postgres
 ```
 
-You can download the sample configuration file below and apply it by:
+After configuring the Sysdig annotations, download the sample configuration file and apply the changes by:
 ```bash
 kubectl apply -f sysdig-agent-config.yaml
 ```

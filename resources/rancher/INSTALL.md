@@ -1,33 +1,32 @@
-# Prerequisites 
+# Prerequisites
 ## Enable monitoring
-Rancher can deploy a Prometheus, in order to get a default monitoring you have to enable it in the monitoring tab
+Rancher can deploy a Prometheus server. To get a default monitoring you have to enable it in the monitoring tab.
 ## Mount the etcd certificates in the sysdig agent
 ```sh
 kubectl -n sysdig-agent patch ds sysdig-agent -p '{"spec":{"template":{"spec":{"volumes":[{"hostPath":{"path":"/etc/kubernetes/pki/etcd-manager-main","type":"DirectoryOrCreate"},"name":"etcd-certificates"}]}}}}'
-  
+
 kubectl -n sysdig-agent patch ds sysdig-agent -p '{"spec":{"template":{"spec":{"containers":[{"name":"sysdig-agent","volumeMounts": [{"mountPath": "/etc/kubernetes/pki/etcd-manager","name": "etcd-certificates"}]}]}}}}'
 ```
 # Gather the metrics from the prometheus deployed by Rancher
-For the control plane metrics, these servise are not created by default, to get them in the Prometheus you have to create new services and seviceMonitors, and to gather that metrics with the sysdig agent, you have to create the rules to filtering them and federate these metrics with the agent itself.
+For the control plane metrics, the services are not created by default. To get them in the Prometheus server you have to create new services and seviceMonitors. To gather that metrics with the Sysdig agent, you have to create the rules to filter them, and then federate the metrics with the agent itself.
 
-You can follow all this steps or just download the script with all them inside and just exectute:
+You can either follow the steps given below or download the script and execute:
 ```sh
 sh installation.sh
 ```
-And then apply the configuration for the sysdig-agent
+And then apply the configuration changes for the `sysdig-agent`.
 
-1. Apply the services
+1. Apply the services:
 ```bash
 kubectl apply -f services.yaml
 ```
-2. Apply the serviceMonitor
+2. Apply the serviceMonitor:
 ```bash
 kubectl apply -f service-monitor.yaml
 ```
-## Configuring the Sysdig agent
-In this section we will explain how to configure the sysdig-agent
+## Configuring the Sysdig Agent
 
-In order to get these metrics you have to enable promscrape v2 to do so make sure your dragent.yaml has these values
+In order to collect the metrics you have to enable `promscrape_fastproto` to do. Therefore, ensure that your `dragent.yaml` includes the following values:
 ```yaml
 metrics_excess_log: true
 k8s_cluster_name: yourClusterName
@@ -47,9 +46,9 @@ prometheus:
   ingest_calculated: false
 ```
 
-You will get an example of the `sysdig-agent.yaml` below
+See the example `sysdig-agent.yaml` file given below:
 
-With the promscrape v2 enable you have to scrape the etcd, so just make sure in your `sysdig-agent.yaml` has the prometheus job like for example this
+With the promscrape v2 enabled you can scrape the etcd. To do so, ensure that your `sysdig-agent.yaml` includes the prometheus job as given below:
 ```yaml
 - job_name: etcd
   scheme: https
@@ -84,7 +83,7 @@ With the promscrape v2 enable you have to scrape the etcd, so just make sure in 
     source_labels: [__meta_kubernetes_pod_container_name]
     target_label: sysdig_k8s_pod_container_name
 ```
-And you will need another job for the control plane
+Additionally, you will need a job corresponding to the control plane:
 ```yaml
 - job_name: control-plane
   honor_labels: true
@@ -120,13 +119,13 @@ And you will need another job for the control plane
     target_label: sysdig_k8s_pod_container_name
 ```
 
-Like before you will see the example below
+See the examples below.
 
-3. Apply the rules
+3. Apply the rules:
 ```
 kubectl apply -f rules.yaml
 ```
-4. Apply the sysdig configuration
+4. Apply the sysdig configuration:
 ```
 kubectl apply -f sysdig-agent.yaml
 ```

@@ -20,6 +20,6 @@ The metrics available are the ones related to the modules:
 * Each database generates ~25 + (30 * number of tables)
 
 # Attributions
-Configuration files, dashboards and alerts maintained by [Sysdig team](https://sysdig.com/).
+Configuration files, dashboards, and alerts are maintained by [Sysdig team](https://sysdig.com/).
 
-Exporter, script for no-admin user creation and user queries: [Postgres Exporter](https://github.com/wrouesnel/postgres_exporter) with Apache v2 license. 
+The [Postgres Exporter](https://github.com/wrouesnel/postgres_exporter) script for no-admin user creation and user queries is with Apache v2 license.

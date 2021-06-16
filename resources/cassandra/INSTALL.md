@@ -1,5 +1,5 @@
 # Installing the exporter
-Cassandra expose the metrics with jmx and the exporter gather this metrics and expose them in Prometheus format. Usually jmx is unsecured and it has not user or password. In this case, the best way to deploy it is to add a sidecar with the exporter.
+Cassandra exposes the metrics with JMX (Java Management Extensions). The exporter gather this metrics and expose them in Prometheus format. Usually JMX is unsecured and it has no authentication methods. In this case, the best way to deploy JMX metrics is to add a sidecar with the exporter.
 
 ```yaml
 spec:
@@ -32,23 +32,27 @@ spec:
           timeoutSeconds: 45
 ```
 
-You can also execute this command to do it easily
+To do so, run the following command:
 
 ```
 kubectl patch deployment NameOfYourDeployment --patch https://raw.githubusercontent.com/sysdiglabs/promcat-resources/master/resources/cassandra/include/patch.yaml
 ```
 
-Or if you have already downloaded the file then you can execute
+Alternatively, you can download the file and run:
 
 ```
 kubectl patch deployment NameOfYourDeployment --patch "$(cat patch.yaml)"
 ```
 
 # Sysdig Agent configuration
-To use the Sysdig agent, first create the recording rules to scrape only the metrics that will be use in the dashboards.
+To use the Sysdig agent, do the following:
 
-1. Copy the agent configuration provided and save it as `sysdig-agent.yaml`. Then apply it:
+1. Create the recording rules to scrape only the metrics that will be used in the dashboards.
 
-```
-kubectl apply -f sysdig-agent.yaml
-```
+2. Copy the agent configuration provided and save it as `sysdig-agent.yaml`.
+
+3. Apply the configuration:
+
+  ```
+  kubectl apply -f sysdig-agent.yaml
+  ```
