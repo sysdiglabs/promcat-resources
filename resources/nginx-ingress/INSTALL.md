@@ -1,16 +1,15 @@
 # Installing the exporter
 Nginx ingress controller is already instrumented so you don't have to add any extra exporter. However, ensure that your nginx ingress controller is already exposing these metrics.
 
-For exmaple if you are deploying your nginx ingress controller with helm, make sure you have these values.
+For example if you are deploying your nginx ingress controller with helm, make sure you have these values.
 
 ```yaml
 controller:
   metrics:
     port: 10254
-    # if this port is changed, change healthz-port: in extraArgs: accordingly
     enabled: true
   podAnnotations:
-    promcat.sysdig.com/port: "10254"
+    prometheus.io/port: "10254"
 ```
 
 # Sysdig Agent configuration

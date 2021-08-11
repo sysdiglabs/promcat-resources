@@ -39,8 +39,8 @@ spec:
   template:
     metadata:
       annotations:
+        promcat.sysdig.com/integration_type: redis
         promcat.sysdig.com/port: "9121"
-
         # Add here the namespace, workload type (deployment, statefulset, replicaset, daemonset)
         # and workload name of the Redis instance that the exporter will take data from
         promcat.sysdig.com/target_ns: default
