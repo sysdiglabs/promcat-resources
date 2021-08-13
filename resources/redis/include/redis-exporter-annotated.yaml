@@ -13,6 +13,7 @@ spec:
       labels:
         app: redis-exporter
       annotations:
+        promcat.sysdig.com/integration_type: redis
         promcat.sysdig.com/port: "9121"
         promcat.sysdig.com/target_ns: default
         promcat.sysdig.com/target_workload_type: deployment
