@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Dashboard
+app: Keda
+version: 1.0.0
+appVersion:
+- '2.4'
+configurations:
+- name: Keda
+  kind: Sysdig
+  image: keda/images/keda_sysdig.png
+  description: |
+    This dashboard offers information on:
+    * Errors
+    * Metrics values
+    * Evolution in scaled objets
+  file: include/dashboard-Sysdig-Keda.json
