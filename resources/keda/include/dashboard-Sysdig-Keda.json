@@ -1,0 +1,2795 @@
+{
+    "description": "",
+    "eventDisplaySettings": {
+        "enabled": true,
+        "queryParams": {
+            "alertStatuses": [],
+            "categories": [],
+            "filter": "",
+            "severities": [],
+            "teamScope": false
+        }
+    },
+    "id": 3362604,
+    "layout": [
+        {
+            "h": 6,
+            "panelId": 1,
+            "w": 24,
+            "x": 0,
+            "y": 8
+        },
+        {
+            "h": 8,
+            "panelId": 2,
+            "w": 12,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "h": 8,
+            "panelId": 3,
+            "w": 12,
+            "x": 12,
+            "y": 0
+        }
+    ],
+    "name": "Keda",
+    "panels": [
+        {
+            "basicQueries": [
+                {
+                    "compareTo": {
+                        "delta": 1,
+                        "enabled": false,
+                        "timeFormat": "day"
+                    },
+                    "displayInfo": {
+                        "displayName": "value",
+                        "timeSeriesDisplayNameTemplate": "",
+                        "type": "lines"
+                    },
+                    "enabled": true,
+                    "format": {
+                        "decimals": null,
+                        "displayFormat": "auto",
+                        "inputFormat": "1",
+                        "nullValueDisplayMode": "nullGap",
+                        "unit": "number",
+                        "yAxis": "auto"
+                    },
+                    "metrics": [
+                        {
+                            "descriptor": {
+                                "aggregationForGroup": "avg",
+                                "canFilter": false,
+                                "canGroupBy": false,
+                                "canMonitor": false,
+                                "category": "prometheus",
+                                "deferred": false,
+                                "description": "",
+                                "documentId": "keda_metrics_adapter_scaler_metrics_value",
+                                "documentType": "metric",
+                                "experimental": false,
+                                "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                                "groupAggregations": [
+                                    "avg",
+                                    "sum",
+                                    "min",
+                                    "max"
+                                ],
+                                "heuristic": false,
+                                "hidden": false,
+                                "id": "keda_metrics_adapter_scaler_metrics_value",
+                                "identity": false,
+                                "legacyId": "keda_metrics_adapter_scaler_metrics_value",
+                                "metricType": "gauge",
+                                "name": "keda_metrics_adapter_scaler_metrics_value",
+                                "namespaces": [
+                                    "host",
+                                    "host.process",
+                                    "host.container",
+                                    "cloudProvider",
+                                    "mesos",
+                                    "ecs",
+                                    "kubernetes.cluster",
+                                    "kubernetes.namespace",
+                                    "kubernetes.deployment",
+                                    "kubernetes.job",
+                                    "kubernetes.daemonSet",
+                                    "kubernetes.service",
+                                    "kubernetes.node",
+                                    "kubernetes.replicaSet",
+                                    "kubernetes.statefulSet",
+                                    "kubernetes.resourcequota",
+                                    "kubernetes.persistentvolume",
+                                    "kubernetes.persistentvolumeclaim",
+                                    "kubernetes.pod"
+                                ],
+                                "publicId": "keda_metrics_adapter_scaler_metrics_value",
+                                "scale": 1,
+                                "scopes": [],
+                                "segment": false,
+                                "timeAggregations": [
+                                    "avg",
+                                    "min",
+                                    "max"
+                                ],
+                                "type": "number"
+                            },
+                            "groupAggregation": "avg",
+                            "id": "keda_metrics_adapter_scaler_metrics_value",
+                            "sorting": null,
+                            "timeAggregation": "avg"
+                        }
+                    ],
+                    "scope": {
+                        "expressions": [],
+                        "extendsDashboardScope": true
+                    },
+                    "segmentation": {
+                        "direction": "desc",
+                        "labels": [
+                            {
+                                "descriptor": {
+                                    "aggregationForGroup": "none",
+                                    "canFilter": true,
+                                    "canGroupBy": true,
+                                    "canMonitor": false,
+                                    "category": "kubernetes",
+                                    "customerId": 1,
+                                    "deferred": false,
+                                    "documentId": "1--6139949314852700299",
+                                    "documentType": "metric",
+                                    "experimental": false,
+                                    "firstSeen": 1612202275360,
+                                    "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+                                    "generator": {
+                                        "aggregationForGroup": "none",
+                                        "aggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "avg": false,
+                                        "canCalculate": false,
+                                        "canFilter": true,
+                                        "canGroupBy": true,
+                                        "canMonitor": false,
+                                        "category": "kubernetes",
+                                        "concat": false,
+                                        "context": [
+                                            "container"
+                                        ],
+                                        "count": false,
+                                        "countDistinct": false,
+                                        "deferred": false,
+                                        "experimental": false,
+                                        "firstSeen": 1612202275360,
+                                        "groupAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "groupBy": [],
+                                        "heuristic": false,
+                                        "hidden": false,
+                                        "id": "kubernetes.cluster.name",
+                                        "identity": false,
+                                        "label": true,
+                                        "max": false,
+                                        "metricType": "none",
+                                        "min": false,
+                                        "namespaces": [
+                                            "kubernetes.cluster"
+                                        ],
+                                        "rateOfChange": false,
+                                        "scale": 1,
+                                        "scopes": [],
+                                        "sum": false,
+                                        "timeAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "timeAvg": false,
+                                        "type": "string"
+                                    },
+                                    "groupAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "heuristic": false,
+                                    "hidden": false,
+                                    "id": "kubernetes.cluster.name",
+                                    "identity": false,
+                                    "metricType": "tag",
+                                    "namespaces": [
+                                        "kubernetes.cluster"
+                                    ],
+                                    "publicId": "kube_cluster_name",
+                                    "scale": 1,
+                                    "scopes": [],
+                                    "segment": false,
+                                    "segmentations": [],
+                                    "timeAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "type": "string"
+                                },
+                                "displayName": "Cluster",
+                                "id": "kubernetes.cluster.name",
+                                "sorting": null
+                            },
+                            {
+                                "descriptor": {
+                                    "aggregationForGroup": "none",
+                                    "canFilter": true,
+                                    "canGroupBy": true,
+                                    "canMonitor": false,
+                                    "category": "kubernetes",
+                                    "customerId": 1,
+                                    "deferred": false,
+                                    "documentId": "1--7083949535721519842",
+                                    "documentType": "metric",
+                                    "experimental": false,
+                                    "firstSeen": 1612202275360,
+                                    "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+                                    "generator": {
+                                        "aggregationForGroup": "none",
+                                        "aggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "avg": false,
+                                        "canCalculate": false,
+                                        "canFilter": true,
+                                        "canGroupBy": true,
+                                        "canMonitor": false,
+                                        "category": "kubernetes",
+                                        "concat": false,
+                                        "context": [
+                                            "container"
+                                        ],
+                                        "count": false,
+                                        "countDistinct": false,
+                                        "deferred": false,
+                                        "experimental": false,
+                                        "firstSeen": 1612202275360,
+                                        "groupAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "groupBy": [],
+                                        "heuristic": false,
+                                        "hidden": false,
+                                        "id": "kubernetes.namespace.name",
+                                        "identity": false,
+                                        "label": true,
+                                        "max": false,
+                                        "metricType": "none",
+                                        "min": false,
+                                        "namespaces": [
+                                            "kubernetes.namespace"
+                                        ],
+                                        "rateOfChange": false,
+                                        "scale": 1,
+                                        "scopes": [],
+                                        "sum": false,
+                                        "timeAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "timeAvg": false,
+                                        "type": "string"
+                                    },
+                                    "groupAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "heuristic": false,
+                                    "hidden": false,
+                                    "id": "kubernetes.namespace.name",
+                                    "identity": false,
+                                    "metricType": "tag",
+                                    "namespaces": [
+                                        "kubernetes.namespace"
+                                    ],
+                                    "publicId": "kube_namespace_name",
+                                    "scale": 1,
+                                    "scopes": [],
+                                    "segment": false,
+                                    "segmentations": [],
+                                    "timeAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "type": "string"
+                                },
+                                "displayName": "Keda Namespace",
+                                "id": "kubernetes.namespace.name",
+                                "sorting": null
+                            },
+                            {
+                                "descriptor": {
+                                    "aggregationForGroup": "none",
+                                    "canFilter": true,
+                                    "canGroupBy": true,
+                                    "canMonitor": false,
+                                    "category": "kubernetes",
+                                    "customerId": 1,
+                                    "deferred": false,
+                                    "documentId": "1--3678655470823086545",
+                                    "documentType": "metric",
+                                    "experimental": false,
+                                    "firstSeen": 1619467970842,
+                                    "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesWorkload",
+                                    "generator": {
+                                        "aggregationForGroup": "none",
+                                        "aggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "avg": false,
+                                        "canCalculate": false,
+                                        "canFilter": true,
+                                        "canGroupBy": true,
+                                        "canMonitor": false,
+                                        "category": "kubernetes",
+                                        "concat": false,
+                                        "context": [
+                                            "container"
+                                        ],
+                                        "count": false,
+                                        "countDistinct": false,
+                                        "deferred": false,
+                                        "experimental": false,
+                                        "firstSeen": 1619467970842,
+                                        "groupAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "groupBy": [],
+                                        "heuristic": false,
+                                        "hidden": false,
+                                        "id": "kubernetes.workload.name",
+                                        "identity": false,
+                                        "label": true,
+                                        "max": false,
+                                        "metricType": "none",
+                                        "min": false,
+                                        "namespaces": [
+                                            "kubernetes.workload.name"
+                                        ],
+                                        "rateOfChange": false,
+                                        "scale": 1,
+                                        "scopes": [],
+                                        "sum": false,
+                                        "timeAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "timeAvg": false,
+                                        "type": "string"
+                                    },
+                                    "groupAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "heuristic": false,
+                                    "hidden": false,
+                                    "id": "kubernetes.workload.name",
+                                    "identity": false,
+                                    "metricType": "tag",
+                                    "namespaces": [
+                                        "kubernetes.workload.name"
+                                    ],
+                                    "publicId": "kube_workload_name",
+                                    "scale": 1,
+                                    "scopes": [],
+                                    "segment": false,
+                                    "segmentations": [],
+                                    "timeAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "type": "string"
+                                },
+                                "displayName": "Keda Workload",
+                                "id": "kubernetes.workload.name",
+                                "sorting": null
+                            },
+                            {
+                                "descriptor": {
+                                    "aggregationForGroup": "none",
+                                    "canFilter": true,
+                                    "canGroupBy": false,
+                                    "canMonitor": false,
+                                    "deferred": false,
+                                    "description": "scaledObject",
+                                    "documentId": "scaledObject",
+                                    "documentType": "metric",
+                                    "documented": true,
+                                    "experimental": false,
+                                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                                    "groupAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "heuristic": false,
+                                    "hidden": false,
+                                    "id": "scaledObject",
+                                    "identity": false,
+                                    "metricType": "tag",
+                                    "name": "scaledObject",
+                                    "namespaces": [
+                                        "cloudProvider",
+                                        "host.container",
+                                        "ecs",
+                                        "host.fs",
+                                        "host.file",
+                                        "host",
+                                        "kubernetes",
+                                        "kubernetes.cluster",
+                                        "kubernetes.daemonSet",
+                                        "kubernetes.deployment",
+                                        "kubernetes.job",
+                                        "kubernetes.namespace",
+                                        "kubernetes.node",
+                                        "kubernetes.pod",
+                                        "kubernetes.replicaSet",
+                                        "kubernetes.service",
+                                        "kubernetes.statefulSet",
+                                        "kubernetes.resourcequota",
+                                        "kubernetes.hpa",
+                                        "link",
+                                        "mesos",
+                                        "host.net",
+                                        "host.process",
+                                        "prometheus",
+                                        "swarm",
+                                        "prombeacon"
+                                    ],
+                                    "publicId": "scaledObject",
+                                    "scale": 0,
+                                    "scopes": [],
+                                    "segment": false,
+                                    "timeAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "type": "string"
+                                },
+                                "displayName": "Scaled Object",
+                                "id": "scaledObject",
+                                "sorting": null
+                            },
+                            {
+                                "descriptor": {
+                                    "aggregationForGroup": "none",
+                                    "canFilter": true,
+                                    "canGroupBy": false,
+                                    "canMonitor": false,
+                                    "deferred": false,
+                                    "description": "namespace",
+                                    "documentId": "namespace",
+                                    "documentType": "metric",
+                                    "documented": true,
+                                    "experimental": false,
+                                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                                    "groupAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "heuristic": false,
+                                    "hidden": false,
+                                    "id": "namespace",
+                                    "identity": false,
+                                    "metricType": "tag",
+                                    "name": "namespace",
+                                    "namespaces": [
+                                        "cloudProvider",
+                                        "host.container",
+                                        "ecs",
+                                        "host.fs",
+                                        "host.file",
+                                        "host",
+                                        "kubernetes",
+                                        "kubernetes.cluster",
+                                        "kubernetes.daemonSet",
+                                        "kubernetes.deployment",
+                                        "kubernetes.job",
+                                        "kubernetes.namespace",
+                                        "kubernetes.node",
+                                        "kubernetes.pod",
+                                        "kubernetes.replicaSet",
+                                        "kubernetes.service",
+                                        "kubernetes.statefulSet",
+                                        "kubernetes.resourcequota",
+                                        "kubernetes.hpa",
+                                        "link",
+                                        "mesos",
+                                        "host.net",
+                                        "host.process",
+                                        "prometheus",
+                                        "swarm",
+                                        "prombeacon"
+                                    ],
+                                    "publicId": "namespace",
+                                    "scale": 0,
+                                    "scopes": [],
+                                    "segment": false,
+                                    "timeAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "type": "string"
+                                },
+                                "displayName": "Scaled Object Namespace",
+                                "id": "namespace",
+                                "sorting": null
+                            },
+                            {
+                                "descriptor": {
+                                    "aggregationForGroup": "none",
+                                    "canFilter": true,
+                                    "canGroupBy": false,
+                                    "canMonitor": false,
+                                    "deferred": false,
+                                    "description": "metric",
+                                    "documentId": "metric",
+                                    "documentType": "metric",
+                                    "documented": true,
+                                    "experimental": false,
+                                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                                    "groupAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "heuristic": false,
+                                    "hidden": false,
+                                    "id": "metric",
+                                    "identity": false,
+                                    "metricType": "tag",
+                                    "name": "metric",
+                                    "namespaces": [
+                                        "cloudProvider",
+                                        "host.container",
+                                        "ecs",
+                                        "host.fs",
+                                        "host.file",
+                                        "host",
+                                        "kubernetes",
+                                        "kubernetes.cluster",
+                                        "kubernetes.daemonSet",
+                                        "kubernetes.deployment",
+                                        "kubernetes.job",
+                                        "kubernetes.namespace",
+                                        "kubernetes.node",
+                                        "kubernetes.pod",
+                                        "kubernetes.replicaSet",
+                                        "kubernetes.service",
+                                        "kubernetes.statefulSet",
+                                        "kubernetes.resourcequota",
+                                        "kubernetes.hpa",
+                                        "link",
+                                        "mesos",
+                                        "host.net",
+                                        "host.process",
+                                        "prometheus",
+                                        "swarm",
+                                        "prombeacon"
+                                    ],
+                                    "publicId": "metric",
+                                    "scale": 0,
+                                    "scopes": [],
+                                    "segment": false,
+                                    "timeAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "type": "string"
+                                },
+                                "displayName": "Metric",
+                                "id": "metric",
+                                "sorting": null
+                            }
+                        ],
+                        "limit": 10
+                    }
+                }
+            ],
+            "description": "",
+            "id": 1,
+            "name": "Metric Values",
+            "nullValueDisplayText": null,
+            "type": "basicTable"
+        },
+        {
+            "advancedQueries": [
+                {
+                    "displayInfo": {
+                        "displayName": "ScaledObject \u003c Scaled Object Namespace \u003c Cluster",
+                        "timeSeriesDisplayNameTemplate": "{{scaledObject}} \u003c {{namespace}} \u003c {{kube_cluster_name}}",
+                        "type": "lines"
+                    },
+                    "enabled": true,
+                    "format": {
+                        "decimals": null,
+                        "displayFormat": "auto",
+                        "inputFormat": "1",
+                        "nullValueDisplayMode": "nullGap",
+                        "unit": "number",
+                        "yAxis": "auto"
+                    },
+                    "query": "rate(keda_metrics_adapter_scaled_object_errors{kube_cluster_name=~$cluster, kube_namespace_name=~$namespace, kube_workload_name=~$workload}[$__interval])"
+                }
+            ],
+            "axesConfiguration": {
+                "bottom": {
+                    "enabled": true
+                },
+                "left": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "displayName": null,
+                    "enabled": true,
+                    "maxInputFormat": "1",
+                    "maxValue": null,
+                    "minInputFormat": "1",
+                    "minValue": 0,
+                    "scale": "linear",
+                    "unit": "auto"
+                },
+                "right": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "displayName": null,
+                    "enabled": true,
+                    "maxInputFormat": "1",
+                    "maxValue": null,
+                    "minInputFormat": "1",
+                    "minValue": 0,
+                    "scale": "linear",
+                    "unit": "auto"
+                }
+            },
+            "description": "",
+            "id": 2,
+            "legendConfiguration": {
+                "enabled": true,
+                "height": null,
+                "layout": "table",
+                "position": "bottom",
+                "showCurrent": true,
+                "width": null
+            },
+            "name": "Errors per Scaled Object",
+            "nullValueDisplayText": null,
+            "type": "advancedTimechart"
+        },
+        {
+            "applyScopeToAll": true,
+            "applySegmentationToAll": false,
+            "axesConfiguration": {
+                "bottom": {
+                    "enabled": true
+                },
+                "left": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "displayName": null,
+                    "enabled": true,
+                    "maxInputFormat": "1",
+                    "maxValue": null,
+                    "minInputFormat": "1",
+                    "minValue": 0,
+                    "scale": "linear",
+                    "unit": "auto"
+                },
+                "right": {
+                    "decimals": null,
+                    "displayFormat": "auto",
+                    "displayName": null,
+                    "enabled": true,
+                    "maxInputFormat": "1",
+                    "maxValue": null,
+                    "minInputFormat": "1",
+                    "minValue": 0,
+                    "scale": "linear",
+                    "unit": "auto"
+                }
+            },
+            "basicQueries": [
+                {
+                    "compareTo": {
+                        "delta": 1,
+                        "enabled": false,
+                        "timeFormat": "day"
+                    },
+                    "displayInfo": {
+                        "displayName": "[CURRENT] HPA \u003c Namespace \u003c Cluster",
+                        "timeSeriesDisplayNameTemplate": "[CURRENT] {{kubernetes.hpa.name}} \u003c {{kubernetes.namespace.name}} \u003c {{kubernetes.cluster.name}}",
+                        "type": "lines"
+                    },
+                    "enabled": true,
+                    "format": {
+                        "decimals": null,
+                        "displayFormat": "auto",
+                        "inputFormat": "1",
+                        "nullValueDisplayMode": "nullGap",
+                        "unit": "number",
+                        "yAxis": "auto"
+                    },
+                    "metrics": [
+                        {
+                            "descriptor": {
+                                "aggregationForGroup": "avg",
+                                "canFilter": false,
+                                "canGroupBy": false,
+                                "canMonitor": false,
+                                "category": "kubernetes.kube-state",
+                                "customerId": 1,
+                                "deferred": false,
+                                "description": "replicas current TBD",
+                                "documentId": "1--1323588998257436350",
+                                "documentType": "metric",
+                                "documented": true,
+                                "experimental": false,
+                                "firstSeen": 1612202340348,
+                                "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesResourceMetric",
+                                "generator": {
+                                    "aggregationForGroup": "avg",
+                                    "aggregations": [],
+                                    "avg": false,
+                                    "canCalculate": false,
+                                    "canFilter": false,
+                                    "canGroupBy": false,
+                                    "canMonitor": false,
+                                    "category": "kubernetes.kube-state",
+                                    "concat": false,
+                                    "context": [
+                                        "container"
+                                    ],
+                                    "count": false,
+                                    "countDistinct": false,
+                                    "deferred": false,
+                                    "description": "replicas current TBD",
+                                    "documented": true,
+                                    "experimental": false,
+                                    "firstSeen": 1612202340348,
+                                    "groupAggregations": [
+                                        "avg",
+                                        "sum",
+                                        "min",
+                                        "max"
+                                    ],
+                                    "groupBy": [
+                                        "container.name",
+                                        "cloudProvider.tag",
+                                        "host.hostName",
+                                        "agent.tag",
+                                        "container.image",
+                                        "host.mac",
+                                        "container.id"
+                                    ],
+                                    "heuristic": false,
+                                    "hidden": false,
+                                    "id": "kubernetes.hpa.replicas.current",
+                                    "identity": false,
+                                    "label": false,
+                                    "max": false,
+                                    "metricType": "gauge",
+                                    "min": false,
+                                    "name": "replicas current TBD",
+                                    "namespaces": [
+                                        "kubernetes.cluster",
+                                        "kubernetes.namespace",
+                                        "kubernetes.hpa"
+                                    ],
+                                    "rateOfChange": false,
+                                    "scale": 1,
+                                    "scopes": [],
+                                    "sum": false,
+                                    "timeAggregations": [
+                                        "avg",
+                                        "timeAvg",
+                                        "sum",
+                                        "min",
+                                        "max",
+                                        "rateOfChange"
+                                    ],
+                                    "timeAvg": false,
+                                    "type": "number"
+                                },
+                                "groupAggregations": [
+                                    "avg",
+                                    "sum",
+                                    "min",
+                                    "max"
+                                ],
+                                "heuristic": false,
+                                "hidden": false,
+                                "id": "kubernetes.hpa.replicas.current",
+                                "identity": false,
+                                "metricType": "gauge",
+                                "name": "replicas current TBD",
+                                "namespaces": [
+                                    "kubernetes.cluster",
+                                    "kubernetes.namespace",
+                                    "kubernetes.hpa"
+                                ],
+                                "publicId": "kubernetes.hpa.replicas.current",
+                                "scale": 1,
+                                "scopes": [],
+                                "segment": false,
+                                "segmentations": [
+                                    "agent.tag",
+                                    "cloudProvider.tag",
+                                    "container.id",
+                                    "container.image",
+                                    "container.name",
+                                    "host.hostName",
+                                    "host.mac"
+                                ],
+                                "timeAggregations": [
+                                    "avg",
+                                    "timeAvg",
+                                    "sum",
+                                    "min",
+                                    "max",
+                                    "rateOfChange"
+                                ],
+                                "type": "number"
+                            },
+                            "groupAggregation": "avg",
+                            "id": "kubernetes.hpa.replicas.current",
+                            "sorting": null,
+                            "timeAggregation": "avg"
+                        }
+                    ],
+                    "scope": {
+                        "expressions": [],
+                        "extendsDashboardScope": true
+                    },
+                    "segmentation": {
+                        "direction": "desc",
+                        "labels": [
+                            {
+                                "descriptor": {
+                                    "aggregationForGroup": "none",
+                                    "canFilter": true,
+                                    "canGroupBy": true,
+                                    "canMonitor": false,
+                                    "category": "kubernetes",
+                                    "customerId": 1,
+                                    "deferred": false,
+                                    "documentId": "1--6139949314852700299",
+                                    "documentType": "metric",
+                                    "experimental": false,
+                                    "firstSeen": 1612202275360,
+                                    "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+                                    "generator": {
+                                        "aggregationForGroup": "none",
+                                        "aggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "avg": false,
+                                        "canCalculate": false,
+                                        "canFilter": true,
+                                        "canGroupBy": true,
+                                        "canMonitor": false,
+                                        "category": "kubernetes",
+                                        "concat": false,
+                                        "context": [
+                                            "container"
+                                        ],
+                                        "count": false,
+                                        "countDistinct": false,
+                                        "deferred": false,
+                                        "experimental": false,
+                                        "firstSeen": 1612202275360,
+                                        "groupAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "groupBy": [],
+                                        "heuristic": false,
+                                        "hidden": false,
+                                        "id": "kubernetes.cluster.name",
+                                        "identity": false,
+                                        "label": true,
+                                        "max": false,
+                                        "metricType": "none",
+                                        "min": false,
+                                        "namespaces": [
+                                            "kubernetes.cluster"
+                                        ],
+                                        "rateOfChange": false,
+                                        "scale": 1,
+                                        "scopes": [],
+                                        "sum": false,
+                                        "timeAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "timeAvg": false,
+                                        "type": "string"
+                                    },
+                                    "groupAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "heuristic": false,
+                                    "hidden": false,
+                                    "id": "kubernetes.cluster.name",
+                                    "identity": false,
+                                    "metricType": "tag",
+                                    "namespaces": [
+                                        "kubernetes.cluster"
+                                    ],
+                                    "publicId": "kube_cluster_name",
+                                    "scale": 1,
+                                    "scopes": [],
+                                    "segment": false,
+                                    "segmentations": [],
+                                    "timeAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "type": "string"
+                                },
+                                "displayName": null,
+                                "id": "kubernetes.cluster.name",
+                                "sorting": null
+                            },
+                            {
+                                "descriptor": {
+                                    "aggregationForGroup": "none",
+                                    "canFilter": true,
+                                    "canGroupBy": true,
+                                    "canMonitor": false,
+                                    "category": "kubernetes",
+                                    "customerId": 1,
+                                    "deferred": false,
+                                    "documentId": "1--7083949535721519842",
+                                    "documentType": "metric",
+                                    "experimental": false,
+                                    "firstSeen": 1612202275360,
+                                    "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+                                    "generator": {
+                                        "aggregationForGroup": "none",
+                                        "aggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "avg": false,
+                                        "canCalculate": false,
+                                        "canFilter": true,
+                                        "canGroupBy": true,
+                                        "canMonitor": false,
+                                        "category": "kubernetes",
+                                        "concat": false,
+                                        "context": [
+                                            "container"
+                                        ],
+                                        "count": false,
+                                        "countDistinct": false,
+                                        "deferred": false,
+                                        "experimental": false,
+                                        "firstSeen": 1612202275360,
+                                        "groupAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "groupBy": [],
+                                        "heuristic": false,
+                                        "hidden": false,
+                                        "id": "kubernetes.namespace.name",
+                                        "identity": false,
+                                        "label": true,
+                                        "max": false,
+                                        "metricType": "none",
+                                        "min": false,
+                                        "namespaces": [
+                                            "kubernetes.namespace"
+                                        ],
+                                        "rateOfChange": false,
+                                        "scale": 1,
+                                        "scopes": [],
+                                        "sum": false,
+                                        "timeAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "timeAvg": false,
+                                        "type": "string"
+                                    },
+                                    "groupAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "heuristic": false,
+                                    "hidden": false,
+                                    "id": "kubernetes.namespace.name",
+                                    "identity": false,
+                                    "metricType": "tag",
+                                    "namespaces": [
+                                        "kubernetes.namespace"
+                                    ],
+                                    "publicId": "kube_namespace_name",
+                                    "scale": 1,
+                                    "scopes": [],
+                                    "segment": false,
+                                    "segmentations": [],
+                                    "timeAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "type": "string"
+                                },
+                                "displayName": null,
+                                "id": "kubernetes.namespace.name",
+                                "sorting": null
+                            },
+                            {
+                                "descriptor": {
+                                    "aggregationForGroup": "none",
+                                    "canFilter": true,
+                                    "canGroupBy": true,
+                                    "canMonitor": false,
+                                    "category": "kubernetes",
+                                    "customerId": 1,
+                                    "deferred": false,
+                                    "documentId": "1-1411673060260380057",
+                                    "documentType": "metric",
+                                    "experimental": false,
+                                    "firstSeen": 1612202275360,
+                                    "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+                                    "generator": {
+                                        "aggregationForGroup": "none",
+                                        "aggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "avg": false,
+                                        "canCalculate": false,
+                                        "canFilter": true,
+                                        "canGroupBy": true,
+                                        "canMonitor": false,
+                                        "category": "kubernetes",
+                                        "concat": false,
+                                        "context": [
+                                            "container"
+                                        ],
+                                        "count": false,
+                                        "countDistinct": false,
+                                        "deferred": false,
+                                        "experimental": false,
+                                        "firstSeen": 1612202275360,
+                                        "groupAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "groupBy": [],
+                                        "heuristic": false,
+                                        "hidden": false,
+                                        "id": "kubernetes.hpa.name",
+                                        "identity": false,
+                                        "label": true,
+                                        "max": false,
+                                        "metricType": "none",
+                                        "min": false,
+                                        "namespaces": [
+                                            "kubernetes.hpa"
+                                        ],
+                                        "rateOfChange": false,
+                                        "scale": 1,
+                                        "scopes": [],
+                                        "sum": false,
+                                        "timeAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "timeAvg": false,
+                                        "type": "string"
+                                    },
+                                    "groupAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "heuristic": false,
+                                    "hidden": false,
+                                    "id": "kubernetes.hpa.name",
+                                    "identity": false,
+                                    "metricType": "tag",
+                                    "namespaces": [
+                                        "kubernetes.hpa"
+                                    ],
+                                    "publicId": "kube_hpa_name",
+                                    "scale": 1,
+                                    "scopes": [],
+                                    "segment": false,
+                                    "segmentations": [],
+                                    "timeAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "type": "string"
+                                },
+                                "displayName": null,
+                                "id": "kubernetes.hpa.name",
+                                "sorting": null
+                            }
+                        ],
+                        "limit": 10
+                    }
+                },
+                {
+                    "compareTo": {
+                        "delta": 1,
+                        "enabled": false,
+                        "timeFormat": "day"
+                    },
+                    "displayInfo": {
+                        "displayName": "[DESIRED] HPA \u003c Namespace \u003c Cluster",
+                        "timeSeriesDisplayNameTemplate": "[DESIRED] {{kubernetes.hpa.name}} \u003c {{kubernetes.namespace.name}} \u003c {{kubernetes.cluster.name}}",
+                        "type": "lines"
+                    },
+                    "enabled": true,
+                    "format": {
+                        "decimals": null,
+                        "displayFormat": "auto",
+                        "inputFormat": "1",
+                        "nullValueDisplayMode": "nullGap",
+                        "unit": "number",
+                        "yAxis": "auto"
+                    },
+                    "metrics": [
+                        {
+                            "descriptor": {
+                                "aggregationForGroup": "avg",
+                                "canFilter": false,
+                                "canGroupBy": false,
+                                "canMonitor": false,
+                                "category": "kubernetes.kube-state",
+                                "customerId": 1,
+                                "deferred": false,
+                                "description": "replicas desired TBD",
+                                "documentId": "1--1236241911194675981",
+                                "documentType": "metric",
+                                "documented": true,
+                                "experimental": false,
+                                "firstSeen": 1612202340333,
+                                "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesResourceMetric",
+                                "generator": {
+                                    "aggregationForGroup": "avg",
+                                    "aggregations": [],
+                                    "avg": false,
+                                    "canCalculate": false,
+                                    "canFilter": false,
+                                    "canGroupBy": false,
+                                    "canMonitor": false,
+                                    "category": "kubernetes.kube-state",
+                                    "concat": false,
+                                    "context": [
+                                        "container"
+                                    ],
+                                    "count": false,
+                                    "countDistinct": false,
+                                    "deferred": false,
+                                    "description": "replicas desired TBD",
+                                    "documented": true,
+                                    "experimental": false,
+                                    "firstSeen": 1612202340333,
+                                    "groupAggregations": [
+                                        "avg",
+                                        "sum",
+                                        "min",
+                                        "max"
+                                    ],
+                                    "groupBy": [
+                                        "container.name",
+                                        "cloudProvider.tag",
+                                        "host.hostName",
+                                        "agent.tag",
+                                        "container.image",
+                                        "host.mac",
+                                        "container.id"
+                                    ],
+                                    "heuristic": false,
+                                    "hidden": false,
+                                    "id": "kubernetes.hpa.replicas.desired",
+                                    "identity": false,
+                                    "label": false,
+                                    "max": false,
+                                    "metricType": "gauge",
+                                    "min": false,
+                                    "name": "replicas desired TBD",
+                                    "namespaces": [
+                                        "kubernetes.cluster",
+                                        "kubernetes.namespace",
+                                        "kubernetes.hpa"
+                                    ],
+                                    "rateOfChange": false,
+                                    "scale": 1,
+                                    "scopes": [],
+                                    "sum": false,
+                                    "timeAggregations": [
+                                        "avg",
+                                        "timeAvg",
+                                        "sum",
+                                        "min",
+                                        "max",
+                                        "rateOfChange"
+                                    ],
+                                    "timeAvg": false,
+                                    "type": "number"
+                                },
+                                "groupAggregations": [
+                                    "avg",
+                                    "sum",
+                                    "min",
+                                    "max"
+                                ],
+                                "heuristic": false,
+                                "hidden": false,
+                                "id": "kubernetes.hpa.replicas.desired",
+                                "identity": false,
+                                "metricType": "gauge",
+                                "name": "replicas desired TBD",
+                                "namespaces": [
+                                    "kubernetes.cluster",
+                                    "kubernetes.namespace",
+                                    "kubernetes.hpa"
+                                ],
+                                "publicId": "kubernetes.hpa.replicas.desired",
+                                "scale": 1,
+                                "scopes": [],
+                                "segment": false,
+                                "segmentations": [
+                                    "agent.tag",
+                                    "cloudProvider.tag",
+                                    "container.id",
+                                    "container.image",
+                                    "container.name",
+                                    "host.hostName",
+                                    "host.mac"
+                                ],
+                                "timeAggregations": [
+                                    "avg",
+                                    "timeAvg",
+                                    "sum",
+                                    "min",
+                                    "max",
+                                    "rateOfChange"
+                                ],
+                                "type": "number"
+                            },
+                            "groupAggregation": "avg",
+                            "id": "kubernetes.hpa.replicas.desired",
+                            "sorting": null,
+                            "timeAggregation": "avg"
+                        }
+                    ],
+                    "scope": {
+                        "expressions": [],
+                        "extendsDashboardScope": true
+                    },
+                    "segmentation": {
+                        "direction": "desc",
+                        "labels": [
+                            {
+                                "descriptor": {
+                                    "aggregationForGroup": "none",
+                                    "canFilter": true,
+                                    "canGroupBy": true,
+                                    "canMonitor": false,
+                                    "category": "kubernetes",
+                                    "customerId": 1,
+                                    "deferred": false,
+                                    "documentId": "1--6139949314852700299",
+                                    "documentType": "metric",
+                                    "experimental": false,
+                                    "firstSeen": 1612202275360,
+                                    "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+                                    "generator": {
+                                        "aggregationForGroup": "none",
+                                        "aggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "avg": false,
+                                        "canCalculate": false,
+                                        "canFilter": true,
+                                        "canGroupBy": true,
+                                        "canMonitor": false,
+                                        "category": "kubernetes",
+                                        "concat": false,
+                                        "context": [
+                                            "container"
+                                        ],
+                                        "count": false,
+                                        "countDistinct": false,
+                                        "deferred": false,
+                                        "experimental": false,
+                                        "firstSeen": 1612202275360,
+                                        "groupAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "groupBy": [],
+                                        "heuristic": false,
+                                        "hidden": false,
+                                        "id": "kubernetes.cluster.name",
+                                        "identity": false,
+                                        "label": true,
+                                        "max": false,
+                                        "metricType": "none",
+                                        "min": false,
+                                        "namespaces": [
+                                            "kubernetes.cluster"
+                                        ],
+                                        "rateOfChange": false,
+                                        "scale": 1,
+                                        "scopes": [],
+                                        "sum": false,
+                                        "timeAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "timeAvg": false,
+                                        "type": "string"
+                                    },
+                                    "groupAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "heuristic": false,
+                                    "hidden": false,
+                                    "id": "kubernetes.cluster.name",
+                                    "identity": false,
+                                    "metricType": "tag",
+                                    "namespaces": [
+                                        "kubernetes.cluster"
+                                    ],
+                                    "publicId": "kube_cluster_name",
+                                    "scale": 1,
+                                    "scopes": [],
+                                    "segment": false,
+                                    "segmentations": [],
+                                    "timeAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "type": "string"
+                                },
+                                "displayName": null,
+                                "id": "kubernetes.cluster.name",
+                                "sorting": null
+                            },
+                            {
+                                "descriptor": {
+                                    "aggregationForGroup": "none",
+                                    "canFilter": true,
+                                    "canGroupBy": true,
+                                    "canMonitor": false,
+                                    "category": "kubernetes",
+                                    "customerId": 1,
+                                    "deferred": false,
+                                    "documentId": "1--7083949535721519842",
+                                    "documentType": "metric",
+                                    "experimental": false,
+                                    "firstSeen": 1612202275360,
+                                    "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+                                    "generator": {
+                                        "aggregationForGroup": "none",
+                                        "aggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "avg": false,
+                                        "canCalculate": false,
+                                        "canFilter": true,
+                                        "canGroupBy": true,
+                                        "canMonitor": false,
+                                        "category": "kubernetes",
+                                        "concat": false,
+                                        "context": [
+                                            "container"
+                                        ],
+                                        "count": false,
+                                        "countDistinct": false,
+                                        "deferred": false,
+                                        "experimental": false,
+                                        "firstSeen": 1612202275360,
+                                        "groupAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "groupBy": [],
+                                        "heuristic": false,
+                                        "hidden": false,
+                                        "id": "kubernetes.namespace.name",
+                                        "identity": false,
+                                        "label": true,
+                                        "max": false,
+                                        "metricType": "none",
+                                        "min": false,
+                                        "namespaces": [
+                                            "kubernetes.namespace"
+                                        ],
+                                        "rateOfChange": false,
+                                        "scale": 1,
+                                        "scopes": [],
+                                        "sum": false,
+                                        "timeAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "timeAvg": false,
+                                        "type": "string"
+                                    },
+                                    "groupAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "heuristic": false,
+                                    "hidden": false,
+                                    "id": "kubernetes.namespace.name",
+                                    "identity": false,
+                                    "metricType": "tag",
+                                    "namespaces": [
+                                        "kubernetes.namespace"
+                                    ],
+                                    "publicId": "kube_namespace_name",
+                                    "scale": 1,
+                                    "scopes": [],
+                                    "segment": false,
+                                    "segmentations": [],
+                                    "timeAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "type": "string"
+                                },
+                                "displayName": null,
+                                "id": "kubernetes.namespace.name",
+                                "sorting": null
+                            },
+                            {
+                                "descriptor": {
+                                    "aggregationForGroup": "none",
+                                    "canFilter": true,
+                                    "canGroupBy": true,
+                                    "canMonitor": false,
+                                    "category": "kubernetes",
+                                    "customerId": 1,
+                                    "deferred": false,
+                                    "documentId": "1-1411673060260380057",
+                                    "documentType": "metric",
+                                    "experimental": false,
+                                    "firstSeen": 1612202275360,
+                                    "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+                                    "generator": {
+                                        "aggregationForGroup": "none",
+                                        "aggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "avg": false,
+                                        "canCalculate": false,
+                                        "canFilter": true,
+                                        "canGroupBy": true,
+                                        "canMonitor": false,
+                                        "category": "kubernetes",
+                                        "concat": false,
+                                        "context": [
+                                            "container"
+                                        ],
+                                        "count": false,
+                                        "countDistinct": false,
+                                        "deferred": false,
+                                        "experimental": false,
+                                        "firstSeen": 1612202275360,
+                                        "groupAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "groupBy": [],
+                                        "heuristic": false,
+                                        "hidden": false,
+                                        "id": "kubernetes.hpa.name",
+                                        "identity": false,
+                                        "label": true,
+                                        "max": false,
+                                        "metricType": "none",
+                                        "min": false,
+                                        "namespaces": [
+                                            "kubernetes.hpa"
+                                        ],
+                                        "rateOfChange": false,
+                                        "scale": 1,
+                                        "scopes": [],
+                                        "sum": false,
+                                        "timeAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "timeAvg": false,
+                                        "type": "string"
+                                    },
+                                    "groupAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "heuristic": false,
+                                    "hidden": false,
+                                    "id": "kubernetes.hpa.name",
+                                    "identity": false,
+                                    "metricType": "tag",
+                                    "namespaces": [
+                                        "kubernetes.hpa"
+                                    ],
+                                    "publicId": "kube_hpa_name",
+                                    "scale": 1,
+                                    "scopes": [],
+                                    "segment": false,
+                                    "segmentations": [],
+                                    "timeAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "type": "string"
+                                },
+                                "displayName": null,
+                                "id": "kubernetes.hpa.name",
+                                "sorting": null
+                            }
+                        ],
+                        "limit": 10
+                    }
+                },
+                {
+                    "compareTo": {
+                        "delta": 1,
+                        "enabled": false,
+                        "timeFormat": "day"
+                    },
+                    "displayInfo": {
+                        "displayName": "[MAX] HPA \u003c Namespace \u003c Cluster",
+                        "timeSeriesDisplayNameTemplate": "[MAX] {{kubernetes.hpa.name}} \u003c {{kubernetes.namespace.name}} \u003c {{kubernetes.cluster.name}}",
+                        "type": "lines"
+                    },
+                    "enabled": true,
+                    "format": {
+                        "decimals": null,
+                        "displayFormat": "auto",
+                        "inputFormat": "1",
+                        "nullValueDisplayMode": "nullGap",
+                        "unit": "number",
+                        "yAxis": "auto"
+                    },
+                    "metrics": [
+                        {
+                            "descriptor": {
+                                "aggregationForGroup": "avg",
+                                "canFilter": false,
+                                "canGroupBy": false,
+                                "canMonitor": false,
+                                "category": "kubernetes.kube-state",
+                                "customerId": 1,
+                                "deferred": false,
+                                "description": "replicas max TBD",
+                                "documentId": "1--2578372248917609712",
+                                "documentType": "metric",
+                                "documented": true,
+                                "experimental": false,
+                                "firstSeen": 1612202340348,
+                                "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesResourceMetric",
+                                "generator": {
+                                    "aggregationForGroup": "avg",
+                                    "aggregations": [],
+                                    "avg": false,
+                                    "canCalculate": false,
+                                    "canFilter": false,
+                                    "canGroupBy": false,
+                                    "canMonitor": false,
+                                    "category": "kubernetes.kube-state",
+                                    "concat": false,
+                                    "context": [
+                                        "container"
+                                    ],
+                                    "count": false,
+                                    "countDistinct": false,
+                                    "deferred": false,
+                                    "description": "replicas max TBD",
+                                    "documented": true,
+                                    "experimental": false,
+                                    "firstSeen": 1612202340348,
+                                    "groupAggregations": [
+                                        "avg",
+                                        "sum",
+                                        "min",
+                                        "max"
+                                    ],
+                                    "groupBy": [
+                                        "container.name",
+                                        "cloudProvider.tag",
+                                        "host.hostName",
+                                        "agent.tag",
+                                        "container.image",
+                                        "host.mac",
+                                        "container.id"
+                                    ],
+                                    "heuristic": false,
+                                    "hidden": false,
+                                    "id": "kubernetes.hpa.replicas.max",
+                                    "identity": false,
+                                    "label": false,
+                                    "max": false,
+                                    "metricType": "gauge",
+                                    "min": false,
+                                    "name": "replicas max TBD",
+                                    "namespaces": [
+                                        "kubernetes.cluster",
+                                        "kubernetes.namespace",
+                                        "kubernetes.hpa"
+                                    ],
+                                    "rateOfChange": false,
+                                    "scale": 1,
+                                    "scopes": [],
+                                    "sum": false,
+                                    "timeAggregations": [
+                                        "avg",
+                                        "timeAvg",
+                                        "sum",
+                                        "min",
+                                        "max",
+                                        "rateOfChange"
+                                    ],
+                                    "timeAvg": false,
+                                    "type": "number"
+                                },
+                                "groupAggregations": [
+                                    "avg",
+                                    "sum",
+                                    "min",
+                                    "max"
+                                ],
+                                "heuristic": false,
+                                "hidden": false,
+                                "id": "kubernetes.hpa.replicas.max",
+                                "identity": false,
+                                "metricType": "gauge",
+                                "name": "replicas max TBD",
+                                "namespaces": [
+                                    "kubernetes.cluster",
+                                    "kubernetes.namespace",
+                                    "kubernetes.hpa"
+                                ],
+                                "publicId": "kubernetes.hpa.replicas.max",
+                                "scale": 1,
+                                "scopes": [],
+                                "segment": false,
+                                "segmentations": [
+                                    "agent.tag",
+                                    "cloudProvider.tag",
+                                    "container.id",
+                                    "container.image",
+                                    "container.name",
+                                    "host.hostName",
+                                    "host.mac"
+                                ],
+                                "timeAggregations": [
+                                    "avg",
+                                    "timeAvg",
+                                    "sum",
+                                    "min",
+                                    "max",
+                                    "rateOfChange"
+                                ],
+                                "type": "number"
+                            },
+                            "groupAggregation": "avg",
+                            "id": "kubernetes.hpa.replicas.max",
+                            "sorting": null,
+                            "timeAggregation": "avg"
+                        }
+                    ],
+                    "scope": {
+                        "expressions": [],
+                        "extendsDashboardScope": true
+                    },
+                    "segmentation": {
+                        "direction": "desc",
+                        "labels": [
+                            {
+                                "descriptor": {
+                                    "aggregationForGroup": "none",
+                                    "canFilter": true,
+                                    "canGroupBy": true,
+                                    "canMonitor": false,
+                                    "category": "kubernetes",
+                                    "customerId": 1,
+                                    "deferred": false,
+                                    "documentId": "1--6139949314852700299",
+                                    "documentType": "metric",
+                                    "experimental": false,
+                                    "firstSeen": 1612202275360,
+                                    "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+                                    "generator": {
+                                        "aggregationForGroup": "none",
+                                        "aggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "avg": false,
+                                        "canCalculate": false,
+                                        "canFilter": true,
+                                        "canGroupBy": true,
+                                        "canMonitor": false,
+                                        "category": "kubernetes",
+                                        "concat": false,
+                                        "context": [
+                                            "container"
+                                        ],
+                                        "count": false,
+                                        "countDistinct": false,
+                                        "deferred": false,
+                                        "experimental": false,
+                                        "firstSeen": 1612202275360,
+                                        "groupAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "groupBy": [],
+                                        "heuristic": false,
+                                        "hidden": false,
+                                        "id": "kubernetes.cluster.name",
+                                        "identity": false,
+                                        "label": true,
+                                        "max": false,
+                                        "metricType": "none",
+                                        "min": false,
+                                        "namespaces": [
+                                            "kubernetes.cluster"
+                                        ],
+                                        "rateOfChange": false,
+                                        "scale": 1,
+                                        "scopes": [],
+                                        "sum": false,
+                                        "timeAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "timeAvg": false,
+                                        "type": "string"
+                                    },
+                                    "groupAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "heuristic": false,
+                                    "hidden": false,
+                                    "id": "kubernetes.cluster.name",
+                                    "identity": false,
+                                    "metricType": "tag",
+                                    "namespaces": [
+                                        "kubernetes.cluster"
+                                    ],
+                                    "publicId": "kube_cluster_name",
+                                    "scale": 1,
+                                    "scopes": [],
+                                    "segment": false,
+                                    "segmentations": [],
+                                    "timeAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "type": "string"
+                                },
+                                "displayName": null,
+                                "id": "kubernetes.cluster.name",
+                                "sorting": null
+                            },
+                            {
+                                "descriptor": {
+                                    "aggregationForGroup": "none",
+                                    "canFilter": true,
+                                    "canGroupBy": true,
+                                    "canMonitor": false,
+                                    "category": "kubernetes",
+                                    "customerId": 1,
+                                    "deferred": false,
+                                    "documentId": "1--7083949535721519842",
+                                    "documentType": "metric",
+                                    "experimental": false,
+                                    "firstSeen": 1612202275360,
+                                    "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+                                    "generator": {
+                                        "aggregationForGroup": "none",
+                                        "aggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "avg": false,
+                                        "canCalculate": false,
+                                        "canFilter": true,
+                                        "canGroupBy": true,
+                                        "canMonitor": false,
+                                        "category": "kubernetes",
+                                        "concat": false,
+                                        "context": [
+                                            "container"
+                                        ],
+                                        "count": false,
+                                        "countDistinct": false,
+                                        "deferred": false,
+                                        "experimental": false,
+                                        "firstSeen": 1612202275360,
+                                        "groupAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "groupBy": [],
+                                        "heuristic": false,
+                                        "hidden": false,
+                                        "id": "kubernetes.namespace.name",
+                                        "identity": false,
+                                        "label": true,
+                                        "max": false,
+                                        "metricType": "none",
+                                        "min": false,
+                                        "namespaces": [
+                                            "kubernetes.namespace"
+                                        ],
+                                        "rateOfChange": false,
+                                        "scale": 1,
+                                        "scopes": [],
+                                        "sum": false,
+                                        "timeAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "timeAvg": false,
+                                        "type": "string"
+                                    },
+                                    "groupAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "heuristic": false,
+                                    "hidden": false,
+                                    "id": "kubernetes.namespace.name",
+                                    "identity": false,
+                                    "metricType": "tag",
+                                    "namespaces": [
+                                        "kubernetes.namespace"
+                                    ],
+                                    "publicId": "kube_namespace_name",
+                                    "scale": 1,
+                                    "scopes": [],
+                                    "segment": false,
+                                    "segmentations": [],
+                                    "timeAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "type": "string"
+                                },
+                                "displayName": null,
+                                "id": "kubernetes.namespace.name",
+                                "sorting": null
+                            },
+                            {
+                                "descriptor": {
+                                    "aggregationForGroup": "none",
+                                    "canFilter": true,
+                                    "canGroupBy": true,
+                                    "canMonitor": false,
+                                    "category": "kubernetes",
+                                    "customerId": 1,
+                                    "deferred": false,
+                                    "documentId": "1-1411673060260380057",
+                                    "documentType": "metric",
+                                    "experimental": false,
+                                    "firstSeen": 1612202275360,
+                                    "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+                                    "generator": {
+                                        "aggregationForGroup": "none",
+                                        "aggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "avg": false,
+                                        "canCalculate": false,
+                                        "canFilter": true,
+                                        "canGroupBy": true,
+                                        "canMonitor": false,
+                                        "category": "kubernetes",
+                                        "concat": false,
+                                        "context": [
+                                            "container"
+                                        ],
+                                        "count": false,
+                                        "countDistinct": false,
+                                        "deferred": false,
+                                        "experimental": false,
+                                        "firstSeen": 1612202275360,
+                                        "groupAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "groupBy": [],
+                                        "heuristic": false,
+                                        "hidden": false,
+                                        "id": "kubernetes.hpa.name",
+                                        "identity": false,
+                                        "label": true,
+                                        "max": false,
+                                        "metricType": "none",
+                                        "min": false,
+                                        "namespaces": [
+                                            "kubernetes.hpa"
+                                        ],
+                                        "rateOfChange": false,
+                                        "scale": 1,
+                                        "scopes": [],
+                                        "sum": false,
+                                        "timeAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "timeAvg": false,
+                                        "type": "string"
+                                    },
+                                    "groupAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "heuristic": false,
+                                    "hidden": false,
+                                    "id": "kubernetes.hpa.name",
+                                    "identity": false,
+                                    "metricType": "tag",
+                                    "namespaces": [
+                                        "kubernetes.hpa"
+                                    ],
+                                    "publicId": "kube_hpa_name",
+                                    "scale": 1,
+                                    "scopes": [],
+                                    "segment": false,
+                                    "segmentations": [],
+                                    "timeAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "type": "string"
+                                },
+                                "displayName": null,
+                                "id": "kubernetes.hpa.name",
+                                "sorting": null
+                            }
+                        ],
+                        "limit": 10
+                    }
+                },
+                {
+                    "compareTo": {
+                        "delta": 1,
+                        "enabled": false,
+                        "timeFormat": "day"
+                    },
+                    "displayInfo": {
+                        "displayName": "[MIN] HPA \u003c Namespace \u003c Cluster",
+                        "timeSeriesDisplayNameTemplate": "[MIN] {{kubernetes.hpa.name}} \u003c {{kubernetes.namespace.name}} \u003c {{kubernetes.cluster.name}}",
+                        "type": "lines"
+                    },
+                    "enabled": true,
+                    "format": {
+                        "decimals": null,
+                        "displayFormat": "auto",
+                        "inputFormat": "1",
+                        "nullValueDisplayMode": "nullGap",
+                        "unit": "number",
+                        "yAxis": "auto"
+                    },
+                    "metrics": [
+                        {
+                            "descriptor": {
+                                "aggregationForGroup": "avg",
+                                "canFilter": false,
+                                "canGroupBy": false,
+                                "canMonitor": false,
+                                "category": "kubernetes.kube-state",
+                                "customerId": 1,
+                                "deferred": false,
+                                "description": "replicas min TBD",
+                                "documentId": "1-196164527348791098",
+                                "documentType": "metric",
+                                "documented": true,
+                                "experimental": false,
+                                "firstSeen": 1612202340348,
+                                "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesResourceMetric",
+                                "generator": {
+                                    "aggregationForGroup": "avg",
+                                    "aggregations": [],
+                                    "avg": false,
+                                    "canCalculate": false,
+                                    "canFilter": false,
+                                    "canGroupBy": false,
+                                    "canMonitor": false,
+                                    "category": "kubernetes.kube-state",
+                                    "concat": false,
+                                    "context": [
+                                        "container"
+                                    ],
+                                    "count": false,
+                                    "countDistinct": false,
+                                    "deferred": false,
+                                    "description": "replicas min TBD",
+                                    "documented": true,
+                                    "experimental": false,
+                                    "firstSeen": 1612202340348,
+                                    "groupAggregations": [
+                                        "avg",
+                                        "sum",
+                                        "min",
+                                        "max"
+                                    ],
+                                    "groupBy": [
+                                        "container.name",
+                                        "cloudProvider.tag",
+                                        "host.hostName",
+                                        "agent.tag",
+                                        "container.image",
+                                        "host.mac",
+                                        "container.id"
+                                    ],
+                                    "heuristic": false,
+                                    "hidden": false,
+                                    "id": "kubernetes.hpa.replicas.min",
+                                    "identity": false,
+                                    "label": false,
+                                    "max": false,
+                                    "metricType": "gauge",
+                                    "min": false,
+                                    "name": "replicas min TBD",
+                                    "namespaces": [
+                                        "kubernetes.cluster",
+                                        "kubernetes.namespace",
+                                        "kubernetes.hpa"
+                                    ],
+                                    "rateOfChange": false,
+                                    "scale": 1,
+                                    "scopes": [],
+                                    "sum": false,
+                                    "timeAggregations": [
+                                        "avg",
+                                        "timeAvg",
+                                        "sum",
+                                        "min",
+                                        "max",
+                                        "rateOfChange"
+                                    ],
+                                    "timeAvg": false,
+                                    "type": "number"
+                                },
+                                "groupAggregations": [
+                                    "avg",
+                                    "sum",
+                                    "min",
+                                    "max"
+                                ],
+                                "heuristic": false,
+                                "hidden": false,
+                                "id": "kubernetes.hpa.replicas.min",
+                                "identity": false,
+                                "metricType": "gauge",
+                                "name": "replicas min TBD",
+                                "namespaces": [
+                                    "kubernetes.cluster",
+                                    "kubernetes.namespace",
+                                    "kubernetes.hpa"
+                                ],
+                                "publicId": "kubernetes.hpa.replicas.min",
+                                "scale": 1,
+                                "scopes": [],
+                                "segment": false,
+                                "segmentations": [
+                                    "agent.tag",
+                                    "cloudProvider.tag",
+                                    "container.id",
+                                    "container.image",
+                                    "container.name",
+                                    "host.hostName",
+                                    "host.mac"
+                                ],
+                                "timeAggregations": [
+                                    "avg",
+                                    "timeAvg",
+                                    "sum",
+                                    "min",
+                                    "max",
+                                    "rateOfChange"
+                                ],
+                                "type": "number"
+                            },
+                            "groupAggregation": "avg",
+                            "id": "kubernetes.hpa.replicas.min",
+                            "sorting": null,
+                            "timeAggregation": "avg"
+                        }
+                    ],
+                    "scope": {
+                        "expressions": [],
+                        "extendsDashboardScope": true
+                    },
+                    "segmentation": {
+                        "direction": "desc",
+                        "labels": [
+                            {
+                                "descriptor": {
+                                    "aggregationForGroup": "none",
+                                    "canFilter": true,
+                                    "canGroupBy": true,
+                                    "canMonitor": false,
+                                    "category": "kubernetes",
+                                    "customerId": 1,
+                                    "deferred": false,
+                                    "documentId": "1--6139949314852700299",
+                                    "documentType": "metric",
+                                    "experimental": false,
+                                    "firstSeen": 1612202275360,
+                                    "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+                                    "generator": {
+                                        "aggregationForGroup": "none",
+                                        "aggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "avg": false,
+                                        "canCalculate": false,
+                                        "canFilter": true,
+                                        "canGroupBy": true,
+                                        "canMonitor": false,
+                                        "category": "kubernetes",
+                                        "concat": false,
+                                        "context": [
+                                            "container"
+                                        ],
+                                        "count": false,
+                                        "countDistinct": false,
+                                        "deferred": false,
+                                        "experimental": false,
+                                        "firstSeen": 1612202275360,
+                                        "groupAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "groupBy": [],
+                                        "heuristic": false,
+                                        "hidden": false,
+                                        "id": "kubernetes.cluster.name",
+                                        "identity": false,
+                                        "label": true,
+                                        "max": false,
+                                        "metricType": "none",
+                                        "min": false,
+                                        "namespaces": [
+                                            "kubernetes.cluster"
+                                        ],
+                                        "rateOfChange": false,
+                                        "scale": 1,
+                                        "scopes": [],
+                                        "sum": false,
+                                        "timeAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "timeAvg": false,
+                                        "type": "string"
+                                    },
+                                    "groupAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "heuristic": false,
+                                    "hidden": false,
+                                    "id": "kubernetes.cluster.name",
+                                    "identity": false,
+                                    "metricType": "tag",
+                                    "namespaces": [
+                                        "kubernetes.cluster"
+                                    ],
+                                    "publicId": "kube_cluster_name",
+                                    "scale": 1,
+                                    "scopes": [],
+                                    "segment": false,
+                                    "segmentations": [],
+                                    "timeAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "type": "string"
+                                },
+                                "displayName": null,
+                                "id": "kubernetes.cluster.name",
+                                "sorting": null
+                            },
+                            {
+                                "descriptor": {
+                                    "aggregationForGroup": "none",
+                                    "canFilter": true,
+                                    "canGroupBy": true,
+                                    "canMonitor": false,
+                                    "category": "kubernetes",
+                                    "customerId": 1,
+                                    "deferred": false,
+                                    "documentId": "1--7083949535721519842",
+                                    "documentType": "metric",
+                                    "experimental": false,
+                                    "firstSeen": 1612202275360,
+                                    "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+                                    "generator": {
+                                        "aggregationForGroup": "none",
+                                        "aggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "avg": false,
+                                        "canCalculate": false,
+                                        "canFilter": true,
+                                        "canGroupBy": true,
+                                        "canMonitor": false,
+                                        "category": "kubernetes",
+                                        "concat": false,
+                                        "context": [
+                                            "container"
+                                        ],
+                                        "count": false,
+                                        "countDistinct": false,
+                                        "deferred": false,
+                                        "experimental": false,
+                                        "firstSeen": 1612202275360,
+                                        "groupAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "groupBy": [],
+                                        "heuristic": false,
+                                        "hidden": false,
+                                        "id": "kubernetes.namespace.name",
+                                        "identity": false,
+                                        "label": true,
+                                        "max": false,
+                                        "metricType": "none",
+                                        "min": false,
+                                        "namespaces": [
+                                            "kubernetes.namespace"
+                                        ],
+                                        "rateOfChange": false,
+                                        "scale": 1,
+                                        "scopes": [],
+                                        "sum": false,
+                                        "timeAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "timeAvg": false,
+                                        "type": "string"
+                                    },
+                                    "groupAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "heuristic": false,
+                                    "hidden": false,
+                                    "id": "kubernetes.namespace.name",
+                                    "identity": false,
+                                    "metricType": "tag",
+                                    "namespaces": [
+                                        "kubernetes.namespace"
+                                    ],
+                                    "publicId": "kube_namespace_name",
+                                    "scale": 1,
+                                    "scopes": [],
+                                    "segment": false,
+                                    "segmentations": [],
+                                    "timeAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "type": "string"
+                                },
+                                "displayName": null,
+                                "id": "kubernetes.namespace.name",
+                                "sorting": null
+                            },
+                            {
+                                "descriptor": {
+                                    "aggregationForGroup": "none",
+                                    "canFilter": true,
+                                    "canGroupBy": true,
+                                    "canMonitor": false,
+                                    "category": "kubernetes",
+                                    "customerId": 1,
+                                    "deferred": false,
+                                    "documentId": "1-1411673060260380057",
+                                    "documentType": "metric",
+                                    "experimental": false,
+                                    "firstSeen": 1612202275360,
+                                    "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+                                    "generator": {
+                                        "aggregationForGroup": "none",
+                                        "aggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "avg": false,
+                                        "canCalculate": false,
+                                        "canFilter": true,
+                                        "canGroupBy": true,
+                                        "canMonitor": false,
+                                        "category": "kubernetes",
+                                        "concat": false,
+                                        "context": [
+                                            "container"
+                                        ],
+                                        "count": false,
+                                        "countDistinct": false,
+                                        "deferred": false,
+                                        "experimental": false,
+                                        "firstSeen": 1612202275360,
+                                        "groupAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "groupBy": [],
+                                        "heuristic": false,
+                                        "hidden": false,
+                                        "id": "kubernetes.hpa.name",
+                                        "identity": false,
+                                        "label": true,
+                                        "max": false,
+                                        "metricType": "none",
+                                        "min": false,
+                                        "namespaces": [
+                                            "kubernetes.hpa"
+                                        ],
+                                        "rateOfChange": false,
+                                        "scale": 1,
+                                        "scopes": [],
+                                        "sum": false,
+                                        "timeAggregations": [
+                                            "concat",
+                                            "distinct",
+                                            "count"
+                                        ],
+                                        "timeAvg": false,
+                                        "type": "string"
+                                    },
+                                    "groupAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "heuristic": false,
+                                    "hidden": false,
+                                    "id": "kubernetes.hpa.name",
+                                    "identity": false,
+                                    "metricType": "tag",
+                                    "namespaces": [
+                                        "kubernetes.hpa"
+                                    ],
+                                    "publicId": "kube_hpa_name",
+                                    "scale": 1,
+                                    "scopes": [],
+                                    "segment": false,
+                                    "segmentations": [],
+                                    "timeAggregations": [
+                                        "concat",
+                                        "distinct",
+                                        "count"
+                                    ],
+                                    "type": "string"
+                                },
+                                "displayName": null,
+                                "id": "kubernetes.hpa.name",
+                                "sorting": null
+                            }
+                        ],
+                        "limit": 10
+                    }
+                }
+            ],
+            "description": "",
+            "id": 3,
+            "legendConfiguration": {
+                "enabled": true,
+                "height": null,
+                "layout": "table",
+                "position": "bottom",
+                "showCurrent": true,
+                "width": null
+            },
+            "name": "Evolution of Scaled Replicas",
+            "nullValueDisplayText": null,
+            "type": "basicTimechart"
+        }
+    ],
+    "publicNotation": false,
+    "schema": 3,
+    "scopeExpressionList": [
+        {
+            "descriptor": {
+                "aggregationForGroup": "none",
+                "canFilter": true,
+                "canGroupBy": true,
+                "canMonitor": false,
+                "category": "kubernetes",
+                "customerId": 1,
+                "deferred": false,
+                "documentId": "1--6139949314852700299",
+                "documentType": "metric",
+                "experimental": false,
+                "firstSeen": 1612202275360,
+                "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+                "generator": {
+                    "aggregationForGroup": "none",
+                    "aggregations": [
+                        "concat",
+                        "distinct",
+                        "count"
+                    ],
+                    "avg": false,
+                    "canCalculate": false,
+                    "canFilter": true,
+                    "canGroupBy": true,
+                    "canMonitor": false,
+                    "category": "kubernetes",
+                    "concat": false,
+                    "context": [
+                        "container"
+                    ],
+                    "count": false,
+                    "countDistinct": false,
+                    "deferred": false,
+                    "experimental": false,
+                    "firstSeen": 1612202275360,
+                    "groupAggregations": [
+                        "concat",
+                        "distinct",
+                        "count"
+                    ],
+                    "groupBy": [],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "kubernetes.cluster.name",
+                    "identity": false,
+                    "label": true,
+                    "max": false,
+                    "metricType": "none",
+                    "min": false,
+                    "namespaces": [
+                        "kubernetes.cluster"
+                    ],
+                    "rateOfChange": false,
+                    "scale": 1,
+                    "scopes": [],
+                    "sum": false,
+                    "timeAggregations": [
+                        "concat",
+                        "distinct",
+                        "count"
+                    ],
+                    "timeAvg": false,
+                    "type": "string"
+                },
+                "groupAggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                ],
+                "heuristic": false,
+                "hidden": false,
+                "id": "kubernetes.cluster.name",
+                "identity": false,
+                "metricType": "tag",
+                "namespaces": [
+                    "kubernetes.cluster"
+                ],
+                "publicId": "kube_cluster_name",
+                "scale": 1,
+                "scopes": [],
+                "segment": false,
+                "segmentations": [],
+                "timeAggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                ],
+                "type": "string"
+            },
+            "displayName": "cluster",
+            "isVariable": true,
+            "operand": "kubernetes.cluster.name",
+            "operator": "in",
+            "value": [],
+            "variable": true
+        },
+        {
+            "descriptor": {
+                "aggregationForGroup": "none",
+                "canFilter": true,
+                "canGroupBy": true,
+                "canMonitor": false,
+                "category": "kubernetes",
+                "customerId": 1,
+                "deferred": false,
+                "documentId": "1--7083949535721519842",
+                "documentType": "metric",
+                "experimental": false,
+                "firstSeen": 1612202275360,
+                "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+                "generator": {
+                    "aggregationForGroup": "none",
+                    "aggregations": [
+                        "concat",
+                        "distinct",
+                        "count"
+                    ],
+                    "avg": false,
+                    "canCalculate": false,
+                    "canFilter": true,
+                    "canGroupBy": true,
+                    "canMonitor": false,
+                    "category": "kubernetes",
+                    "concat": false,
+                    "context": [
+                        "container"
+                    ],
+                    "count": false,
+                    "countDistinct": false,
+                    "deferred": false,
+                    "experimental": false,
+                    "firstSeen": 1612202275360,
+                    "groupAggregations": [
+                        "concat",
+                        "distinct",
+                        "count"
+                    ],
+                    "groupBy": [],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "kubernetes.namespace.name",
+                    "identity": false,
+                    "label": true,
+                    "max": false,
+                    "metricType": "none",
+                    "min": false,
+                    "namespaces": [
+                        "kubernetes.namespace"
+                    ],
+                    "rateOfChange": false,
+                    "scale": 1,
+                    "scopes": [],
+                    "sum": false,
+                    "timeAggregations": [
+                        "concat",
+                        "distinct",
+                        "count"
+                    ],
+                    "timeAvg": false,
+                    "type": "string"
+                },
+                "groupAggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                ],
+                "heuristic": false,
+                "hidden": false,
+                "id": "kubernetes.namespace.name",
+                "identity": false,
+                "metricType": "tag",
+                "namespaces": [
+                    "kubernetes.namespace"
+                ],
+                "publicId": "kube_namespace_name",
+                "scale": 1,
+                "scopes": [],
+                "segment": false,
+                "segmentations": [],
+                "timeAggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                ],
+                "type": "string"
+            },
+            "displayName": "namespace",
+            "isVariable": true,
+            "operand": "kubernetes.namespace.name",
+            "operator": "in",
+            "value": [],
+            "variable": true
+        },
+        {
+            "descriptor": {
+                "aggregationForGroup": "none",
+                "canFilter": true,
+                "canGroupBy": true,
+                "canMonitor": false,
+                "category": "kubernetes",
+                "customerId": 1,
+                "deferred": false,
+                "documentId": "1--3678655470823086545",
+                "documentType": "metric",
+                "experimental": false,
+                "firstSeen": 1619467970842,
+                "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesWorkload",
+                "generator": {
+                    "aggregationForGroup": "none",
+                    "aggregations": [
+                        "concat",
+                        "distinct",
+                        "count"
+                    ],
+                    "avg": false,
+                    "canCalculate": false,
+                    "canFilter": true,
+                    "canGroupBy": true,
+                    "canMonitor": false,
+                    "category": "kubernetes",
+                    "concat": false,
+                    "context": [
+                        "container"
+                    ],
+                    "count": false,
+                    "countDistinct": false,
+                    "deferred": false,
+                    "experimental": false,
+                    "firstSeen": 1619467970842,
+                    "groupAggregations": [
+                        "concat",
+                        "distinct",
+                        "count"
+                    ],
+                    "groupBy": [],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "kubernetes.workload.name",
+                    "identity": false,
+                    "label": true,
+                    "max": false,
+                    "metricType": "none",
+                    "min": false,
+                    "namespaces": [
+                        "kubernetes.workload.name"
+                    ],
+                    "rateOfChange": false,
+                    "scale": 1,
+                    "scopes": [],
+                    "sum": false,
+                    "timeAggregations": [
+                        "concat",
+                        "distinct",
+                        "count"
+                    ],
+                    "timeAvg": false,
+                    "type": "string"
+                },
+                "groupAggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                ],
+                "heuristic": false,
+                "hidden": false,
+                "id": "kubernetes.workload.name",
+                "identity": false,
+                "metricType": "tag",
+                "namespaces": [
+                    "kubernetes.workload.name"
+                ],
+                "publicId": "kube_workload_name",
+                "scale": 1,
+                "scopes": [],
+                "segment": false,
+                "segmentations": [],
+                "timeAggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                ],
+                "type": "string"
+            },
+            "displayName": "workload",
+            "isVariable": true,
+            "operand": "kubernetes.workload.name",
+            "operator": "in",
+            "value": [],
+            "variable": true
+        }
+    ],
+    "version": 12
+}
