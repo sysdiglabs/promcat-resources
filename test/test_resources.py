@@ -21,7 +21,7 @@ all_resources = [descriptions, dashboards, setupGuides, alerts, recordingRules]
 kinds_with_description = ['Description','SetupGuide', 'Alert', 'RecordingRule']
 kinds_with_configurations = ['Dashboard', 'Alert', 'SetupGuide', 'RecordingRule']
 
-sysdig_dashboard_keys_level_1 = ['description','layout','name','panels','schema','scopeExpressionList','eventDisplaySettings']
+sysdig_dashboard_keys_level_1 = ['description','layout','name','panels','schema','scopeExpressionList','eventDisplaySettings','publicNotation']
 
 compulsory_fields_all = ["apiVersion", "kind", "app", "version", "appVersion"]
 
