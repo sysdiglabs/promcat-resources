@@ -66,3 +66,16 @@ Execute a python script in all the alert files:
 ```
 find . -name \*alerts*.yaml -type f -exec python3 tools/script.py -f '{}' -o '{}'_sysdig.yaml \;
 ```
+
+Regex to get the metrics name
+
+```
+^.*[^# ].*\n
+
+# TYPE .*\n
+
+(# HELP )([\w]*)( .*)
+$2
+^[^mysql].*\n
+
+```

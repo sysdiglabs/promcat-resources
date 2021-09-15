@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: SetupGuide
+app: Keda
+version: 1.0.0
+appVersion:
+- '2.0'
+configurations:
+- name: sysdig-agent.yaml
+  file: include/sysdig-agent.yaml
+descriptionFile: INSTALL.md
