@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Dashboard
+app: Sysdig Admission Controller
+version: 1.0.0
+appVersion:
+- '0.0.9'
+configurations:
+- name: Redis Golden Signals
+  kind: Sysdig
+  image: sysdig-admission-controller/images/sysdig-admission-controller-sysdig.png
+  description: |
+    This dashboard offers information on:
+    * Kubernetes Audit Events
+    * Image scanning
+    * Procession queues
+  file: include/Sysdig_Admission_Controller.json
