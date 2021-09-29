@@ -8,9 +8,10 @@ Sysdig Admission Controller expose metrics on:
 * Kubernetes Audit Events
 * Image scanning
 * Procession queues
+* Inline image scanning metrics
 
 # Number of time series generated
-Redis generates around 150 metrics per admission controller.
+Sysdig Admission Controller generates around 150 metrics per admission controller.
 
 # Attributions
 Configuration files, alerts, and dashboards are maintained by [Sysdig team](https://sysdig.com/).
