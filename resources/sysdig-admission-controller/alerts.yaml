@@ -13,7 +13,7 @@ configurations:
       rules:
       - alert: "[Sysdig Admission Controller] No K8s Audit Events Received"
         expr: |
-          sum(rate(k8s_audit_ac_events_received_total[5m]))
+          sum(rate(k8s_audit_ac_events_received_total[5m])) == 0
         for: 10m
         labels:
           severity: High
