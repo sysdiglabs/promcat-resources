@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Alert
+app: Sysdig Admission Controller
+version: 1.0.0
+appVersion:
+- '0.0.9'
+descriptionFile: ALERTS.md
+configurations:
+- kind: Prometheus
+  data: |
+    groups:
+    - name: SysdigAdmissionController
+      rules:
+      - alert: "[Sysdig Admission Controller] No K8s Audit Events Received"
+        expr: |
+          sum(rate(k8s_audit_ac_events_received_total[5m])) == 0
+        for: 10m
+        labels:
+          severity: High
+        annotations:
+          summary: The Admission Controller is not receiving Kubernetes Audit events. 
+      - alert: "[Sysdig Admission Controller] K8s Audit Events Throttling"
+        expr: |
+          (sum(rate(k8s_audit_ac_events_processed_total[5m])) 
+            - sum(rate(k8s_audit_ac_events_received_total[5m]))
+          ) > 32
+        for: 15m
+        labels:
+          severity: Medium
+        annotations:
+          summary: Kubernetes Audit events is being throttled.
+      - alert: "[Sysdig Admission Controller] Scanning Events Throttling"
+        expr: |
+          (sum(rate(scanning_ac_http_scanning_handler_requests_total[5m])) 
+            - sum(rate(scanning_ac_containers_processed_total[5m]))
+          ) > 32
+        for: 15m
+        labels:
+          severity: Medium
+        annotations:
+          summary: Scanning events is being throttled.
+
