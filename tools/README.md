@@ -70,7 +70,7 @@ find . -name \*alerts*.yaml -type f -exec python3 tools/script.py -f '{}' -o '{}
 Regex to get the metrics name
 
 ```
-^.*[^# ].*\n
+^[^# ].*\n
 
 # TYPE .*\n
 
