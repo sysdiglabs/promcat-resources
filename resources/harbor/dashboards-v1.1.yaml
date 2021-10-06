@@ -7,19 +7,19 @@ appVersion:
 configurations:
 - name: Harbor
   kind: Grafana
-  image: harbor/images/harbor_grafana.png
+  image: harbor/images/harbor_grafana-v1.1.png
   description: |
     This dashboard offers information on:
     * Harbor Storage
     * Harbor Projects
     * Harbor Tasks
-  file: include/dashboard-Grafana-Harbor-1.1.json
+  file: include/dashboard-Grafana-Harbor-v1.1.json
 - name: Harbor
   kind: Sysdig
-  image: harbor/images/harbor_sysdig.png
+  image: harbor/images/harbor_sysdig-v1.1.png
   description: |
     This dashboard offers information on:
     * Harbor Storage
     * Harbor Projects
     * Harbor Tasks
-  file: include/dashboard-Sysdig-Harbor-1.1.json
+  file: include/dashboard-Sysdig-Harbor-v1.1.json

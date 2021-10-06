@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Dashboard
+app: Harbor
+version: 1.0.0
+appVersion:
+- '2.2'
+configurations:
+- name: Harbor
+  kind: Grafana
+  image: harbor/images/harbor_grafana-v1.1.png
+  description: |
+    This dashboard offers information on:
+    * Harbor Storage
+    * Harbor Projects
+    * Harbor Tasks
+  file: include/dashboard-Grafana-Harbor-v1.1.json
+- name: Harbor
+  kind: Sysdig
+  image: harbor/images/harbor_sysdig-v2.2.png
+  description: |
+    This dashboard offers information on:
+    * Harbor Storage
+    * Harbor Projects
+    * Harbor Tasks
+    * Harbor Registry
+  file: include/dashboard-Sysdig-Harbor-v2.2.json
