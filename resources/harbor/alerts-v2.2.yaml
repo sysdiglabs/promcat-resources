@@ -1,0 +1,90 @@
+apiVersion: v1
+kind: Alert
+app: Harbor
+version: 1.0.0
+appVersion:
+- '2.2'
+descriptionFile: ALERTS-v2.2.md
+configurations:
+- kind: Prometheus
+  data: |
+    groups:
+    - name: Harbor
+      rules:
+      - alert: HarborCoreIsDown
+        expr: harbor_up{component="core"} == 0
+        for: 5m
+        labels:
+          severity: high
+        annotations:
+          summary: Harbor Core Is Down
+
+      - alert: HarborDatabaseIsDown
+        expr: harbor_up{component="database"} == 0
+        for: 5m
+        labels:
+          severity: high
+        annotations:
+          summary: Harbor Database Is Down
+
+      - alert: HarborRegistryIsDown
+        expr: harbor_up{component="registry"} == 0
+        for: 5m
+        labels:
+          severity: high
+        annotations:
+          summary: Harbor Registry Is Down
+
+      - alert: HarborRedisIsDown
+        expr: harbor_up{component="redis"} == 0
+        for: 5m
+        labels:
+          severity: high
+        annotations:
+          summary: Harbor Redis Is Down
+
+      - alert: HarborTrivyIsDown
+        expr: harbor_up{component="trivy"} == 0
+        for: 5m
+        labels:
+          severity: high
+        annotations:
+          summary: Harbor Trivy Is Down
+
+      - alert: HarborJobServiceIsDown
+        expr: harbor_up{component="jobservice"} == 0
+        for: 5m
+        labels:
+          severity: high
+        annotations:
+          summary: Harbor JobService Is Down
+
+      - alert: ProjectQuotaIsRaisingTheLimit
+        expr: ((harbor_project_quota_usage_byte > 0) /  harbor_quotas_size_bytes) > 0.95
+        for: 5m
+        labels:
+          severity: high
+        annotations:
+          summary: Project Quota Is Raising The Limit
+
+      - alert: Harborp99latencyishigherthan10seconds
+        expr: |
+          histogram_quantile(0.99, 
+            sum
+              (rate(registry_http_request_duration_seconds_bucket[30m])
+            )
+          ) > 10
+        for: 5m
+        labels:
+          severity: medium
+        annotations:
+          summary: Harbor p99 latency is higher than 10 seconds
+
+      - alert: HarborErrorRateisHigh
+        expr: |
+          sum(rate(registry_http_requests_total[5m]))/sum(rate(registry_http_requests_total[5m]))
+        for: 5m
+        labels:
+          severity: medium
+        annotations:
+          summary: Harbor Error Rate is High
