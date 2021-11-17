@@ -1,0 +1,1342 @@
+{
+    "id": 3585824,
+    "teamId": 2391,
+    "userId": 186313,
+    "name": "Memcached",
+    "panels": [
+        {
+            "id": 2,
+            "type": "advancedNumber",
+            "name": "Min Uptime",
+            "description": "",
+            "nullValueDisplayText": null,
+            "advancedQueries": [
+                {
+                    "query": "min(memcached_uptime_seconds{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod})",
+                    "enabled": true,
+                    "displayInfo": {
+                        "displayName": "",
+                        "timeSeriesDisplayNameTemplate": "",
+                        "type": "lines"
+                    },
+                    "format": {
+                        "unit": "relativeTime",
+                        "inputFormat": "s",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "yAxis": "auto",
+                        "nullValueDisplayMode": "nullGap"
+                    }
+                }
+            ],
+            "numberThresholds": {
+                "values": [
+                    {
+                        "severity": "ok",
+                        "value": 3600.0,
+                        "inputFormat": "s",
+                        "displayText": ""
+                    }
+                ],
+                "base": {
+                    "severity": "high",
+                    "displayText": ""
+                }
+            }
+        },
+        {
+            "id": 4,
+            "type": "advancedNumber",
+            "name": "Max Conns Usage",
+            "description": "",
+            "nullValueDisplayText": null,
+            "advancedQueries": [
+                {
+                    "query": "max(memcached_current_connections{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}\n      / memcached_max_connections{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod})",
+                    "enabled": true,
+                    "displayInfo": {
+                        "displayName": "",
+                        "timeSeriesDisplayNameTemplate": "",
+                        "type": "lines"
+                    },
+                    "format": {
+                        "unit": "%",
+                        "inputFormat": "0-1",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "yAxis": "auto",
+                        "nullValueDisplayMode": "nullGap"
+                    }
+                }
+            ],
+            "numberThresholds": {
+                "values": [],
+                "base": {
+                    "severity": "ok",
+                    "displayText": ""
+                }
+            }
+        },
+        {
+            "id": 6,
+            "type": "advancedNumber",
+            "name": "Total Items",
+            "description": "",
+            "nullValueDisplayText": null,
+            "advancedQueries": [
+                {
+                    "query": "sum(memcached_current_items{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod})",
+                    "enabled": true,
+                    "displayInfo": {
+                        "displayName": "",
+                        "timeSeriesDisplayNameTemplate": "",
+                        "type": "lines"
+                    },
+                    "format": {
+                        "unit": "number",
+                        "inputFormat": "1",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "yAxis": "auto",
+                        "nullValueDisplayMode": "nullGap"
+                    }
+                }
+            ],
+            "numberThresholds": {
+                "values": [],
+                "base": {
+                    "severity": "ok",
+                    "displayText": ""
+                }
+            }
+        },
+        {
+            "id": 9,
+            "type": "advancedTimechart",
+            "name": "Hit Rate",
+            "description": "",
+            "nullValueDisplayText": null,
+            "advancedQueries": [
+                {
+                    "query": "sum by (kube_pod_name,kube_namespace_name,kube_workload_name,kube_cluster_name)(rate (memcached_commands_total{status=\"hit\",command=\"get\",kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval]))/sum by (kube_pod_name,kube_namespace_name,kube_workload_name,kube_cluster_name)(rate(memcached_commands_total{command=\"get\",kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval]))",
+                    "enabled": true,
+                    "displayInfo": {
+                        "displayName": "Hit - Pod < Workload < Namespace < Cluster",
+                        "timeSeriesDisplayNameTemplate": "Hit - {{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+                        "type": "lines"
+                    },
+                    "format": {
+                        "unit": "%",
+                        "inputFormat": "0-1",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "yAxis": "auto",
+                        "nullValueDisplayMode": "connectSolid"
+                    }
+                }
+            ],
+            "legendConfiguration": {
+                "enabled": true,
+                "position": "bottom",
+                "layout": "table",
+                "showCurrent": true,
+                "width": null,
+                "height": null
+            },
+            "axesConfiguration": {
+                "bottom": {
+                    "enabled": true
+                },
+                "left": {
+                    "enabled": true,
+                    "displayName": null,
+                    "unit": "auto",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "minValue": 0.0,
+                    "maxValue": null,
+                    "minInputFormat": "0-100",
+                    "maxInputFormat": "0-100",
+                    "scale": "linear"
+                },
+                "right": {
+                    "enabled": true,
+                    "displayName": null,
+                    "unit": "auto",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "minValue": 0.0,
+                    "maxValue": null,
+                    "minInputFormat": "0-100",
+                    "maxInputFormat": "0-100",
+                    "scale": "linear"
+                }
+            }
+        },
+        {
+            "id": 11,
+            "type": "advancedTimechart",
+            "name": "Memory usage",
+            "description": "Memory usage compared to the memory limit of the Memcached application. Keep in mind that you can adjust that limit from the command line argument to fit the memory limit of the container. ",
+            "nullValueDisplayText": null,
+            "advancedQueries": [
+                {
+                    "query": "memcached_current_bytes{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace, kube_workload_name=~$workload,kube_pod_name=~$pod} /memcached_limit_bytes{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace, kube_workload_name=~$workload,kube_pod_name=~$pod}",
+                    "enabled": true,
+                    "displayInfo": {
+                        "displayName": " Pod < Workload < Namespace < Cluster",
+                        "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+                        "type": "lines"
+                    },
+                    "format": {
+                        "unit": "%",
+                        "inputFormat": "0-1",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "yAxis": "auto",
+                        "nullValueDisplayMode": "nullGap"
+                    }
+                }
+            ],
+            "legendConfiguration": {
+                "enabled": true,
+                "position": "bottom",
+                "layout": "table",
+                "showCurrent": true,
+                "width": null,
+                "height": null
+            },
+            "axesConfiguration": {
+                "bottom": {
+                    "enabled": true
+                },
+                "left": {
+                    "enabled": true,
+                    "displayName": null,
+                    "unit": "auto",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "minValue": 0.0,
+                    "maxValue": null,
+                    "minInputFormat": "0-100",
+                    "maxInputFormat": "0-100",
+                    "scale": "linear"
+                },
+                "right": {
+                    "enabled": true,
+                    "displayName": null,
+                    "unit": "auto",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "minValue": 0.0,
+                    "maxValue": null,
+                    "minInputFormat": "1",
+                    "maxInputFormat": "1",
+                    "scale": "linear"
+                }
+            }
+        },
+        {
+            "id": 13,
+            "type": "advancedTimechart",
+            "name": "Evicts & Reclaims",
+            "description": "Evictions: Valid items removed from cache to free memory for new items\nReclaims: Number of times an entry was stored using memory from an expired entry",
+            "nullValueDisplayText": null,
+            "advancedQueries": [
+                {
+                    "query": "rate (memcached_items_evicted_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])",
+                    "enabled": true,
+                    "displayInfo": {
+                        "displayName": "Evicted - Pod < Workload < Namespace < Cluster",
+                        "timeSeriesDisplayNameTemplate": "Evicted - {{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+                        "type": "lines"
+                    },
+                    "format": {
+                        "unit": "numberRate",
+                        "inputFormat": "/s",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "yAxis": "auto",
+                        "nullValueDisplayMode": "connectSolid"
+                    }
+                },
+                {
+                    "query": "rate (memcached_items_reclaimed_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])",
+                    "enabled": true,
+                    "displayInfo": {
+                        "displayName": "Reclaimed - Pod < Workload < Namespace < Cluster",
+                        "timeSeriesDisplayNameTemplate": "Reclaimed - {{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+                        "type": "lines"
+                    },
+                    "format": {
+                        "unit": "numberRate",
+                        "inputFormat": "/s",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "yAxis": "auto",
+                        "nullValueDisplayMode": "nullGap"
+                    }
+                }
+            ],
+            "legendConfiguration": {
+                "enabled": true,
+                "position": "bottom",
+                "layout": "table",
+                "showCurrent": true,
+                "width": null,
+                "height": null
+            },
+            "axesConfiguration": {
+                "bottom": {
+                    "enabled": true
+                },
+                "left": {
+                    "enabled": true,
+                    "displayName": null,
+                    "unit": "auto",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "minValue": 0.0,
+                    "maxValue": null,
+                    "minInputFormat": "/s",
+                    "maxInputFormat": "/s",
+                    "scale": "linear"
+                },
+                "right": {
+                    "enabled": true,
+                    "displayName": null,
+                    "unit": "auto",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "minValue": 0.0,
+                    "maxValue": null,
+                    "minInputFormat": "1",
+                    "maxInputFormat": "1",
+                    "scale": "linear"
+                }
+            }
+        },
+        {
+            "id": 14,
+            "type": "advancedTimechart",
+            "name": "Connections Usage %",
+            "description": "",
+            "nullValueDisplayText": null,
+            "advancedQueries": [
+                {
+                    "query": "memcached_current_connections{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}\n      / memcached_max_connections{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}",
+                    "enabled": true,
+                    "displayInfo": {
+                        "displayName": "Pod < Workload < Namespace < Cluster",
+                        "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+                        "type": "lines"
+                    },
+                    "format": {
+                        "unit": "%",
+                        "inputFormat": "0-1",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "yAxis": "auto",
+                        "nullValueDisplayMode": "connectSolid"
+                    }
+                }
+            ],
+            "legendConfiguration": {
+                "enabled": true,
+                "position": "bottom",
+                "layout": "table",
+                "showCurrent": true,
+                "width": null,
+                "height": null
+            },
+            "axesConfiguration": {
+                "bottom": {
+                    "enabled": true
+                },
+                "left": {
+                    "enabled": true,
+                    "displayName": null,
+                    "unit": "auto",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "minValue": 0.0,
+                    "maxValue": null,
+                    "minInputFormat": "0-100",
+                    "maxInputFormat": "0-100",
+                    "scale": "linear"
+                },
+                "right": {
+                    "enabled": true,
+                    "displayName": null,
+                    "unit": "auto",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "minValue": 0.0,
+                    "maxValue": null,
+                    "minInputFormat": "1",
+                    "maxInputFormat": "1",
+                    "scale": "linear"
+                }
+            }
+        },
+        {
+            "id": 15,
+            "type": "advancedTimechart",
+            "name": "Commands",
+            "description": "",
+            "nullValueDisplayText": null,
+            "advancedQueries": [
+                {
+                    "query": "sum by (kube_pod_name,kube_namespace_name,kube_workload_name,kube_cluster_name,command)(rate(memcached_commands_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval]))",
+                    "enabled": true,
+                    "displayInfo": {
+                        "displayName": "Command < Pod < Workload < Namespace < Cluster",
+                        "timeSeriesDisplayNameTemplate": "{{command}} < {{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+                        "type": "lines"
+                    },
+                    "format": {
+                        "unit": "number",
+                        "inputFormat": "1",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "yAxis": "auto",
+                        "nullValueDisplayMode": "connectSolid"
+                    }
+                }
+            ],
+            "legendConfiguration": {
+                "enabled": true,
+                "position": "bottom",
+                "layout": "table",
+                "showCurrent": true,
+                "width": null,
+                "height": null
+            },
+            "axesConfiguration": {
+                "bottom": {
+                    "enabled": true
+                },
+                "left": {
+                    "enabled": true,
+                    "displayName": null,
+                    "unit": "auto",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "minValue": 0.0,
+                    "maxValue": null,
+                    "minInputFormat": "1",
+                    "maxInputFormat": "1",
+                    "scale": "linear"
+                },
+                "right": {
+                    "enabled": true,
+                    "displayName": null,
+                    "unit": "auto",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "minValue": 0.0,
+                    "maxValue": null,
+                    "minInputFormat": "1",
+                    "maxInputFormat": "1",
+                    "scale": "linear"
+                }
+            }
+        },
+        {
+            "id": 18,
+            "type": "text",
+            "name": "Connections (2)",
+            "description": "",
+            "nullValueDisplayText": null,
+            "markdownSource": "## Connections",
+            "transparentBackground": true,
+            "panelTitleVisible": false,
+            "textAutosized": false
+        },
+        {
+            "id": 19,
+            "type": "text",
+            "name": "Connections (3)",
+            "description": "",
+            "nullValueDisplayText": null,
+            "markdownSource": "## Cache & Memory",
+            "transparentBackground": true,
+            "panelTitleVisible": false,
+            "textAutosized": false
+        },
+        {
+            "id": 21,
+            "type": "advancedTimechart",
+            "name": "Connections Refused",
+            "description": "Reached the number of maximum connections and caused a connection error",
+            "nullValueDisplayText": null,
+            "advancedQueries": [
+                {
+                    "query": "rate(memcached_connections_listener_disabled_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])",
+                    "enabled": true,
+                    "displayInfo": {
+                        "displayName": "Pod < Workload < Namespace < Cluster",
+                        "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+                        "type": "lines"
+                    },
+                    "format": {
+                        "unit": "number",
+                        "inputFormat": "1",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "yAxis": "auto",
+                        "nullValueDisplayMode": "connectSolid"
+                    }
+                }
+            ],
+            "legendConfiguration": {
+                "enabled": true,
+                "position": "bottom",
+                "layout": "table",
+                "showCurrent": true,
+                "width": null,
+                "height": null
+            },
+            "axesConfiguration": {
+                "bottom": {
+                    "enabled": true
+                },
+                "left": {
+                    "enabled": true,
+                    "displayName": null,
+                    "unit": "auto",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "minValue": 0.0,
+                    "maxValue": null,
+                    "minInputFormat": "1",
+                    "maxInputFormat": "1",
+                    "scale": "linear"
+                },
+                "right": {
+                    "enabled": true,
+                    "displayName": null,
+                    "unit": "auto",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "minValue": 0.0,
+                    "maxValue": null,
+                    "minInputFormat": "1",
+                    "maxInputFormat": "1",
+                    "scale": "linear"
+                }
+            }
+        },
+        {
+            "id": 20,
+            "type": "advancedTimechart",
+            "name": "Connections Throttled",
+            "description": "Connection throttled because max number of requests per event process reached. When sending GETs in batch mode and the connection contains too many requests (limited by -R parameter) the connection might be throttled to prevent starvation.",
+            "nullValueDisplayText": null,
+            "advancedQueries": [
+                {
+                    "query": "rate(memcached_connections_yielded_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])",
+                    "enabled": true,
+                    "displayInfo": {
+                        "displayName": "Pod < Workload < Namespace < Cluster",
+                        "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+                        "type": "lines"
+                    },
+                    "format": {
+                        "unit": "%",
+                        "inputFormat": "0-1",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "yAxis": "auto",
+                        "nullValueDisplayMode": "connectSolid"
+                    }
+                }
+            ],
+            "legendConfiguration": {
+                "enabled": true,
+                "position": "bottom",
+                "layout": "table",
+                "showCurrent": true,
+                "width": null,
+                "height": null
+            },
+            "axesConfiguration": {
+                "bottom": {
+                    "enabled": true
+                },
+                "left": {
+                    "enabled": true,
+                    "displayName": null,
+                    "unit": "auto",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "minValue": 0.0,
+                    "maxValue": null,
+                    "minInputFormat": "0-100",
+                    "maxInputFormat": "0-100",
+                    "scale": "linear"
+                },
+                "right": {
+                    "enabled": true,
+                    "displayName": null,
+                    "unit": "auto",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "minValue": 0.0,
+                    "maxValue": null,
+                    "minInputFormat": "1",
+                    "maxInputFormat": "1",
+                    "scale": "linear"
+                }
+            }
+        },
+        {
+            "id": 22,
+            "type": "advancedNumber",
+            "name": "# Instances Up",
+            "description": "",
+            "nullValueDisplayText": null,
+            "advancedQueries": [
+                {
+                    "query": "sum((memcached_up{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}))",
+                    "enabled": true,
+                    "displayInfo": {
+                        "displayName": "",
+                        "timeSeriesDisplayNameTemplate": "",
+                        "type": "lines"
+                    },
+                    "format": {
+                        "unit": "number",
+                        "inputFormat": "1",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "yAxis": "auto",
+                        "nullValueDisplayMode": "nullGap"
+                    }
+                }
+            ],
+            "numberThresholds": {
+                "values": [
+                    {
+                        "severity": "ok",
+                        "value": 1.0,
+                        "inputFormat": "1",
+                        "displayText": ""
+                    }
+                ],
+                "base": {
+                    "severity": "high",
+                    "displayText": ""
+                }
+            }
+        },
+        {
+            "id": 23,
+            "type": "advancedNumber",
+            "name": "# Instances Down",
+            "description": "",
+            "nullValueDisplayText": "",
+            "advancedQueries": [
+                {
+                    "query": "sum(memcached_up{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod} == 0) or vector(0)",
+                    "enabled": true,
+                    "displayInfo": {
+                        "displayName": "",
+                        "timeSeriesDisplayNameTemplate": "",
+                        "type": "lines"
+                    },
+                    "format": {
+                        "unit": "number",
+                        "inputFormat": "1",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "yAxis": "auto",
+                        "nullValueDisplayMode": "nullGap"
+                    }
+                }
+            ],
+            "numberThresholds": {
+                "values": [
+                    {
+                        "severity": "high",
+                        "value": 1.0,
+                        "inputFormat": "1",
+                        "displayText": ""
+                    }
+                ],
+                "base": {
+                    "severity": "ok",
+                    "displayText": ""
+                }
+            }
+        },
+        {
+            "id": 24,
+            "type": "advancedTimechart",
+            "name": "New Items",
+            "description": "Evictions: Valid items removed from cache to free memory for new items\nReclaims: Number of times an entry was stored using memory from an expired entry",
+            "nullValueDisplayText": null,
+            "advancedQueries": [
+                {
+                    "query": "rate (memcached_items_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])",
+                    "enabled": true,
+                    "displayInfo": {
+                        "displayName": "Pod < Workload < Namespace < Cluster",
+                        "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+                        "type": "lines"
+                    },
+                    "format": {
+                        "unit": "numberRate",
+                        "inputFormat": "/s",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "yAxis": "auto",
+                        "nullValueDisplayMode": "connectSolid"
+                    }
+                }
+            ],
+            "legendConfiguration": {
+                "enabled": true,
+                "position": "bottom",
+                "layout": "table",
+                "showCurrent": true,
+                "width": null,
+                "height": null
+            },
+            "axesConfiguration": {
+                "bottom": {
+                    "enabled": true
+                },
+                "left": {
+                    "enabled": true,
+                    "displayName": null,
+                    "unit": "auto",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "minValue": 0.0,
+                    "maxValue": null,
+                    "minInputFormat": "/s",
+                    "maxInputFormat": "/s",
+                    "scale": "linear"
+                },
+                "right": {
+                    "enabled": true,
+                    "displayName": null,
+                    "unit": "auto",
+                    "displayFormat": "auto",
+                    "decimals": null,
+                    "minValue": 0.0,
+                    "maxValue": null,
+                    "minInputFormat": "1",
+                    "maxInputFormat": "1",
+                    "scale": "linear"
+                }
+            }
+        },
+        {
+            "id": 26,
+            "type": "advancedNumber",
+            "name": "Max Mem Usage",
+            "description": "",
+            "nullValueDisplayText": null,
+            "advancedQueries": [
+                {
+                    "query": "max(memcached_current_bytes{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace, kube_workload_name=~$workload,kube_pod_name=~$pod} /memcached_limit_bytes{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace, kube_workload_name=~$workload,kube_pod_name=~$pod})",
+                    "enabled": true,
+                    "displayInfo": {
+                        "displayName": "",
+                        "timeSeriesDisplayNameTemplate": "",
+                        "type": "lines"
+                    },
+                    "format": {
+                        "unit": "%",
+                        "inputFormat": "0-1",
+                        "displayFormat": "auto",
+                        "decimals": null,
+                        "yAxis": "auto",
+                        "nullValueDisplayMode": "nullGap"
+                    }
+                }
+            ],
+            "numberThresholds": {
+                "values": [
+                    {
+                        "severity": "high",
+                        "value": 95.0,
+                        "inputFormat": "0-100",
+                        "displayText": ""
+                    },
+                    {
+                        "severity": "medium",
+                        "value": 80.0,
+                        "inputFormat": "0-100",
+                        "displayText": ""
+                    }
+                ],
+                "base": {
+                    "severity": "ok",
+                    "displayText": ""
+                }
+            }
+        }
+    ],
+    "scopeExpressionList": [
+        {
+            "operand": "kubernetes.cluster.name",
+            "operator": "in",
+            "displayName": "cluster",
+            "value": [],
+            "descriptor": {
+                "generator": {
+                    "lastSeen": 1636634916080,
+                    "firstSeen": 1612202275360,
+                    "metricType": "none",
+                    "aggregationForGroup": "none",
+                    "id": "kubernetes.cluster.name",
+                    "type": "string",
+                    "scale": 1.0,
+                    "groupBy": [],
+                    "canCalculate": false,
+                    "canGroupBy": true,
+                    "aggregations": [
+                        "concat",
+                        "distinct",
+                        "count"
+                    ],
+                    "timeAggregations": [
+                        "concat",
+                        "distinct",
+                        "count"
+                    ],
+                    "groupAggregations": [
+                        "concat",
+                        "distinct",
+                        "count"
+                    ],
+                    "timeAvg": false,
+                    "avg": false,
+                    "sum": false,
+                    "min": false,
+                    "max": false,
+                    "concat": false,
+                    "count": false,
+                    "countDistinct": false,
+                    "rateOfChange": false,
+                    "identity": false,
+                    "hidden": false,
+                    "namespaces": [
+                        "kubernetes.cluster"
+                    ],
+                    "context": [
+                        "container"
+                    ],
+                    "category": "kubernetes",
+                    "canFilter": true,
+                    "canMonitor": false,
+                    "scopes": [],
+                    "label": true,
+                    "heuristic": false,
+                    "experimental": false,
+                    "deferred": false
+                },
+                "segmentations": [],
+                "documentId": "1--6139949314852700299",
+                "customerId": 1,
+                "id": "kubernetes.cluster.name",
+                "metricType": "tag",
+                "type": "string",
+                "scale": 1.0,
+                "category": "kubernetes",
+                "namespaces": [
+                    "kubernetes.cluster"
+                ],
+                "scopes": [],
+                "timeAggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                ],
+                "groupAggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                ],
+                "aggregationForGroup": "none",
+                "createdAt": 1637075647306,
+                "firstSeen": 1612202275360,
+                "lastSeen": 1636634916080,
+                "hidden": false,
+                "experimental": false,
+                "deferred": false,
+                "identity": false,
+                "canMonitor": false,
+                "canGroupBy": true,
+                "canFilter": true,
+                "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+                "publicId": "kube_cluster_name",
+                "segment": false,
+                "heuristic": false,
+                "documentTimestamp": 1637075647306,
+                "documentType": "metric"
+            },
+            "variable": true,
+            "isVariable": true
+        },
+        {
+            "operand": "kubernetes.namespace.name",
+            "operator": "in",
+            "displayName": "namespace",
+            "value": [],
+            "descriptor": {
+                "generator": {
+                    "lastSeen": 1636634916080,
+                    "firstSeen": 1612202275360,
+                    "metricType": "none",
+                    "aggregationForGroup": "none",
+                    "id": "kubernetes.namespace.name",
+                    "type": "string",
+                    "scale": 1.0,
+                    "groupBy": [],
+                    "canCalculate": false,
+                    "canGroupBy": true,
+                    "aggregations": [
+                        "concat",
+                        "distinct",
+                        "count"
+                    ],
+                    "timeAggregations": [
+                        "concat",
+                        "distinct",
+                        "count"
+                    ],
+                    "groupAggregations": [
+                        "concat",
+                        "distinct",
+                        "count"
+                    ],
+                    "timeAvg": false,
+                    "avg": false,
+                    "sum": false,
+                    "min": false,
+                    "max": false,
+                    "concat": false,
+                    "count": false,
+                    "countDistinct": false,
+                    "rateOfChange": false,
+                    "identity": false,
+                    "hidden": false,
+                    "namespaces": [
+                        "kubernetes.namespace"
+                    ],
+                    "context": [
+                        "container"
+                    ],
+                    "category": "kubernetes",
+                    "canFilter": true,
+                    "canMonitor": false,
+                    "scopes": [],
+                    "label": true,
+                    "heuristic": false,
+                    "experimental": false,
+                    "deferred": false
+                },
+                "segmentations": [],
+                "documentId": "1--7083949535721519842",
+                "customerId": 1,
+                "id": "kubernetes.namespace.name",
+                "metricType": "tag",
+                "type": "string",
+                "scale": 1.0,
+                "category": "kubernetes",
+                "namespaces": [
+                    "kubernetes.namespace"
+                ],
+                "scopes": [],
+                "timeAggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                ],
+                "groupAggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                ],
+                "aggregationForGroup": "none",
+                "createdAt": 1637075647306,
+                "firstSeen": 1612202275360,
+                "lastSeen": 1636634916080,
+                "hidden": false,
+                "experimental": false,
+                "deferred": false,
+                "identity": false,
+                "canMonitor": false,
+                "canGroupBy": true,
+                "canFilter": true,
+                "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+                "publicId": "kube_namespace_name",
+                "segment": false,
+                "heuristic": false,
+                "documentTimestamp": 1637075647306,
+                "documentType": "metric"
+            },
+            "variable": true,
+            "isVariable": true
+        },
+        {
+            "operand": "kubernetes.workload.name",
+            "operator": "in",
+            "displayName": "workload",
+            "value": [],
+            "descriptor": {
+                "generator": {
+                    "lastSeen": 1636634916080,
+                    "firstSeen": 1619467970842,
+                    "metricType": "none",
+                    "aggregationForGroup": "none",
+                    "id": "kubernetes.workload.name",
+                    "type": "string",
+                    "scale": 1.0,
+                    "groupBy": [],
+                    "canCalculate": false,
+                    "canGroupBy": true,
+                    "aggregations": [
+                        "concat",
+                        "distinct",
+                        "count"
+                    ],
+                    "timeAggregations": [
+                        "concat",
+                        "distinct",
+                        "count"
+                    ],
+                    "groupAggregations": [
+                        "concat",
+                        "distinct",
+                        "count"
+                    ],
+                    "timeAvg": false,
+                    "avg": false,
+                    "sum": false,
+                    "min": false,
+                    "max": false,
+                    "concat": false,
+                    "count": false,
+                    "countDistinct": false,
+                    "rateOfChange": false,
+                    "identity": false,
+                    "hidden": false,
+                    "namespaces": [
+                        "kubernetes.workload.name"
+                    ],
+                    "context": [
+                        "container"
+                    ],
+                    "category": "kubernetes",
+                    "canFilter": true,
+                    "canMonitor": false,
+                    "scopes": [],
+                    "label": true,
+                    "heuristic": false,
+                    "experimental": false,
+                    "deferred": false
+                },
+                "segmentations": [],
+                "documentId": "1--3678655470823086545",
+                "customerId": 1,
+                "id": "kubernetes.workload.name",
+                "metricType": "tag",
+                "type": "string",
+                "scale": 1.0,
+                "category": "kubernetes",
+                "namespaces": [
+                    "kubernetes.workload.name"
+                ],
+                "scopes": [],
+                "timeAggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                ],
+                "groupAggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                ],
+                "aggregationForGroup": "none",
+                "createdAt": 1637075647306,
+                "firstSeen": 1619467970842,
+                "lastSeen": 1636634916080,
+                "hidden": false,
+                "experimental": false,
+                "deferred": false,
+                "identity": false,
+                "canMonitor": false,
+                "canGroupBy": true,
+                "canFilter": true,
+                "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesWorkload",
+                "publicId": "kube_workload_name",
+                "segment": false,
+                "heuristic": false,
+                "documentTimestamp": 1637075647306,
+                "documentType": "metric"
+            },
+            "variable": true,
+            "isVariable": true
+        },
+        {
+            "operand": "kubernetes.pod.name",
+            "operator": "in",
+            "displayName": "pod",
+            "value": [],
+            "descriptor": {
+                "generator": {
+                    "lastSeen": 1636634916080,
+                    "firstSeen": 1612202275360,
+                    "metricType": "none",
+                    "aggregationForGroup": "none",
+                    "id": "kubernetes.pod.name",
+                    "type": "string",
+                    "scale": 1.0,
+                    "groupBy": [],
+                    "canCalculate": false,
+                    "canGroupBy": true,
+                    "aggregations": [
+                        "concat",
+                        "distinct",
+                        "count"
+                    ],
+                    "timeAggregations": [
+                        "concat",
+                        "distinct",
+                        "count"
+                    ],
+                    "groupAggregations": [
+                        "concat",
+                        "distinct",
+                        "count"
+                    ],
+                    "timeAvg": false,
+                    "avg": false,
+                    "sum": false,
+                    "min": false,
+                    "max": false,
+                    "concat": false,
+                    "count": false,
+                    "countDistinct": false,
+                    "rateOfChange": false,
+                    "identity": false,
+                    "hidden": false,
+                    "namespaces": [
+                        "kubernetes.pod"
+                    ],
+                    "context": [
+                        "container"
+                    ],
+                    "category": "kubernetes",
+                    "canFilter": true,
+                    "canMonitor": false,
+                    "scopes": [],
+                    "label": true,
+                    "heuristic": false,
+                    "experimental": false,
+                    "deferred": false
+                },
+                "segmentations": [],
+                "documentId": "1--7638853878924989689",
+                "customerId": 1,
+                "id": "kubernetes.pod.name",
+                "metricType": "tag",
+                "type": "string",
+                "scale": 1.0,
+                "category": "kubernetes",
+                "namespaces": [
+                    "kubernetes.pod"
+                ],
+                "scopes": [],
+                "timeAggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                ],
+                "groupAggregations": [
+                    "concat",
+                    "distinct",
+                    "count"
+                ],
+                "aggregationForGroup": "none",
+                "createdAt": 1637075647306,
+                "firstSeen": 1612202275360,
+                "lastSeen": 1636634916080,
+                "hidden": false,
+                "experimental": false,
+                "deferred": false,
+                "identity": false,
+                "canMonitor": false,
+                "canGroupBy": true,
+                "canFilter": true,
+                "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+                "publicId": "kube_pod_name",
+                "segment": false,
+                "heuristic": false,
+                "documentTimestamp": 1637075647306,
+                "documentType": "metric"
+            },
+            "variable": true,
+            "isVariable": true
+        }
+    ],
+    "eventDisplaySettings": {
+        "enabled": true,
+        "queryParams": {
+            "severities": [],
+            "alertStatuses": [],
+            "categories": [],
+            "filter": "",
+            "teamScope": false
+        }
+    },
+    "shared": true,
+    "public": false,
+    "version": 135,
+    "createdOn": 1636562101698,
+    "modifiedOn": 1637073834784,
+    "description": "",
+    "layout": [
+        {
+            "panelId": 2,
+            "x": 8,
+            "y": 0,
+            "w": 4,
+            "h": 2
+        },
+        {
+            "panelId": 4,
+            "x": 12,
+            "y": 0,
+            "w": 4,
+            "h": 2
+        },
+        {
+            "panelId": 6,
+            "x": 16,
+            "y": 0,
+            "w": 4,
+            "h": 2
+        },
+        {
+            "panelId": 9,
+            "x": 0,
+            "y": 11,
+            "w": 8,
+            "h": 7
+        },
+        {
+            "panelId": 11,
+            "x": 0,
+            "y": 18,
+            "w": 12,
+            "h": 7
+        },
+        {
+            "panelId": 13,
+            "x": 8,
+            "y": 11,
+            "w": 8,
+            "h": 7
+        },
+        {
+            "panelId": 14,
+            "x": 0,
+            "y": 3,
+            "w": 8,
+            "h": 7
+        },
+        {
+            "panelId": 15,
+            "x": 12,
+            "y": 18,
+            "w": 12,
+            "h": 7
+        },
+        {
+            "panelId": 18,
+            "x": 0,
+            "y": 2,
+            "w": 24,
+            "h": 1
+        },
+        {
+            "panelId": 19,
+            "x": 0,
+            "y": 10,
+            "w": 24,
+            "h": 1
+        },
+        {
+            "panelId": 21,
+            "x": 16,
+            "y": 3,
+            "w": 8,
+            "h": 7
+        },
+        {
+            "panelId": 20,
+            "x": 8,
+            "y": 3,
+            "w": 8,
+            "h": 7
+        },
+        {
+            "panelId": 22,
+            "x": 0,
+            "y": 0,
+            "w": 4,
+            "h": 2
+        },
+        {
+            "panelId": 23,
+            "x": 4,
+            "y": 0,
+            "w": 4,
+            "h": 2
+        },
+        {
+            "panelId": 24,
+            "x": 16,
+            "y": 11,
+            "w": 8,
+            "h": 7
+        },
+        {
+            "panelId": 26,
+            "x": 20,
+            "y": 0,
+            "w": 4,
+            "h": 2
+        }
+    ],
+    "sharingSettings": [
+        {
+            "role": "ROLE_RESOURCE_EDIT",
+            "member": {
+                "type": "USER_TEAMS",
+                "id": null,
+                "name": null,
+                "teamTheme": null
+            }
+        }
+    ],
+    "publicNotation": false,
+    "publicToken": "1708db4df8c045bbbd8aaf7d5b6e12bd",
+    "favorite": false,
+    "schema": 3,
+    "username": "David Lorite Solanas (david.lorite+staging@sysdig.com)",
+    "permissions": [
+        "dashboards.transfer",
+        "dashboards.read",
+        "dashboards.delete",
+        "dashboards.edit",
+        "dashboards.sharing"
+    ]
+}
