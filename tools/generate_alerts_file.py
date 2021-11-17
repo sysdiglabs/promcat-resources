@@ -36,18 +36,19 @@ newDescription += "# Alerts\n"
 
 for prometheusAlertElement in prometheusAlerts:
   prometheusAlertsYaml = pypromcat.loadYaml(prometheusAlertElement["data"])
-  for alert in prometheusAlertsYaml:
-    newDescription = newDescription + "## " + alert["alert"] + "\n"
-    if "annotations" in alert:
-      if "summary" in alert["annotations"]:
-        newDescription = newDescription + alert["annotations"]["summary"] + "\n\n"
-      if "message" in alert["annotations"]:
-        newDescription = newDescription + alert["annotations"]["message"] + "\n\n"
-      if "runbook_url" in alert["annotations"]:
-        newDescription = newDescription \
-                        + "[Runbook](" \
-                        + alert["annotations"]["runbook_url"] \
-                        + ")\n\n"
+  for group in prometheusAlertsYaml["groups"]:
+    for alert in group["rules"]:
+      newDescription = newDescription + "## " + alert["alert"] + "\n"
+      if "annotations" in alert:
+        if "summary" in alert["annotations"]:
+          newDescription = newDescription + alert["annotations"]["summary"] + "\n\n"
+        if "message" in alert["annotations"]:
+          newDescription = newDescription + alert["annotations"]["message"] + "\n\n"
+        if "runbook_url" in alert["annotations"]:
+          newDescription = newDescription \
+                          + "[Runbook](" \
+                          + alert["annotations"]["runbook_url"] \
+                          + ")\n\n"
 
 with open(filesDirectory + "/ALERTS.md", "w") as f:
     f.write(newDescription)
