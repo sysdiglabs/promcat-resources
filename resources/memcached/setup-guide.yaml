@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: SetupGuide
-app: redis
+app: memcached
 version: 1.0.0
 appVersion:
-- 2-8
+- '1.6'
 descriptionFile: INSTALL.md
 configurations:
-- name: redis-deploy.yaml
-  file: include/redis-exporter-annotated.yaml
+- name: memcached-deploy.yaml
+  file: include/memcached-exporter-deploy.yaml
 - name: sysdig-agent-config.yaml
   file: include/sysdig-agent-config.yaml

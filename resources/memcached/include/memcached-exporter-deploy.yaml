@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: memcached-exporter
+  namespace: memcached
+spec:
+  selector:
+    matchLabels:
+      app: memcached-exporter
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: memcached-exporter
+      annotations:
+        promcat.sysdig.com/port: "9150"
+        promcat.sysdig.com/target_ns: Your-namespace-name
+        promcat.sysdig.com/target_workload_type: deployment
+        promcat.sysdig.com/target_workload_name: memcached
+        promcat.sysdig.com/integration_type: memcached
+    spec:
+      containers:
+      - name: memcached-exporter
+        image: quay.io/prometheus/memcached-exporter:latest
+        ports:
+          - containerPort: 9150
+        command: ["/bin/memcached_exporter"]
+        args: ["--memcached.address","memcached:11211"]
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "256m"
