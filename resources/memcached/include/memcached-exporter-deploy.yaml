@@ -15,10 +15,10 @@ spec:
         app: memcached-exporter
       annotations:
         promcat.sysdig.com/port: "9150"
-        promcat.sysdig.com/target_ns: memcached
+        promcat.sysdig.com/target_ns: Your-namespace-name
         promcat.sysdig.com/target_workload_type: deployment
         promcat.sysdig.com/target_workload_name: memcached
-        promcat.sysdig.com/target_cluster_name: demo-env-prom
+        promcat.sysdig.com/target_cluster_name: Your-cluster-name
         promcat.sysdig.com/integration_type: memcached
     spec:
       containers:
