@@ -27,7 +27,7 @@ configurations:
           summary: SQL Server deadlock (instance {{ $labels.instance }})
           description: SQL Server is having some deadlock.
       - alert: SqlDiskIsRunningOut
-        expr: sum(mssql_disk_space_available_bytes_total{job=~"mssql"})/sum(mssql_disk_space_total_bytes_total{job=~"mssql"}) < 0.15
+        expr: sum(mssql_disk_space_avaiable_bytes_total{job=~"mssql"})/sum(mssql_disk_space_total_bytes_total{job=~"mssql"}) < 0.15
         for: 0m
         labels:
           severity: warning
