@@ -79,3 +79,9 @@ $2
 ^[^mysql].*\n
 
 ```
+
+Extract the dashboards in json format with promcat connect
+
+```
+python3 ~/sysdig/promcat-connect/src/main.py backup dashboards:consul --local_repository ~/sysdig/dashboards -t API_KEY --name "Consul" --local -u https://app-staging.sysdigcloud.com
+```
