@@ -42,8 +42,8 @@ for prometheusAlertElement in prometheusAlerts:
       if "annotations" in alert:
         if "summary" in alert["annotations"]:
           newDescription = newDescription + alert["annotations"]["summary"] + "\n\n"
-        if "message" in alert["annotations"]:
-          newDescription = newDescription + alert["annotations"]["message"] + "\n\n"
+        if "description" in alert["annotations"]:
+          newDescription = newDescription + alert["annotations"]["description"] + "\n\n"
         if "runbook_url" in alert["annotations"]:
           newDescription = newDescription \
                           + "[Runbook](" \
