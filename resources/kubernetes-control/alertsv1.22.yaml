@@ -1,0 +1,309 @@
+apiVersion: v1
+kind: Alert
+app: Kubernetes control plane
+version: 1.0.0
+appVersion:
+- 1.22.0
+descriptionFile: ALERTSv1.22.md
+configurations:
+- kind: Prometheus
+  data: |
+    groups:
+    - name: Kubernetes Control Plane
+      rules:
+      - alert: '[KubeProxy] Kube Proxy Down'
+        expr: |
+          sum(up{job="kube-proxy"}) < count(kube_node_info)
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          description: KubeProxy detected down
+      - alert: '[KubeProxy] High Rest Client Latency'
+        expr: |
+          histogram_quantile(0.99, sum(rate(rest_client_request_duration_seconds_bucket{verb="POST"}[5m])) by (verb, url, le)) > 60
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          description: High Rest Client Latency detected
+      - alert: '[KubeProxy] High Rule Sync Latency'
+        expr: |
+          histogram_quantile(0.99, sum(rate(kubeproxy_sync_proxy_rules_duration_seconds_bucket[5m])) by (verb, url, le)) > 60
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          description: High Rule Sync Latency detected
+      - alert: '[KubeProxy] Too Many 500 Code'
+        expr: |
+          sum(rate(rest_client_requests_total{code=~"5.."}[5m])) by (host,method)/sum(rate(rest_client_requests_total[5m])) by (host,method) > 0.10
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          description: Too Many 500 Code detected
+      - alert: '[CoreDNS] Error High'
+        expr: |
+          sum(rate(coredns_dns_responses_total{rcode="SERVFAIL"}[5m]))/sum(rate(coredns_dns_responses_total[5m])) > 0.03
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          description: High Request Duration
+      - alert: '[CoreDNS] Latency High'
+        expr: |
+          histogram_quantile(0.99, sum(rate(coredns_dns_request_duration_seconds_bucket[5m])) by(server, zone, le)) > 60
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          description: Latency High
+      - alert: '[Etcd] Etcd Members Down'
+        expr: |
+          max(max(up{job=~"etcd-default"} == bool 0) or count by (endpoint) (sum by (endpoint,To) (rate(etcd_network_peer_sent_failures_total{job=~"etcd-default"}[3m])) > 0.01))> 0
+        for: 3m
+        labels:
+          severity: critical
+        annotations:
+          description: There are members down.
+      - alert: '[Etcd] Etcd Insufficient Members'
+        expr: |
+          sum(up{job=~"etcd-default"} == bool 1)< ((count(up{job=~"etcd-default"})+ 1) / 2)
+        for: 3m
+        labels:
+          severity: critical
+        annotations:
+          description: Etcd cluster has insufficient members
+      - alert: '[Etcd] Etcd No Leader'
+        expr: |
+          etcd_server_has_leader{job=~"etcd-default"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          description: Member has no leader.
+      - alert: '[Etcd] Etcd High Number Of Leader Changes'
+        expr: |
+          increase((max(etcd_server_leader_changes_seen_total{job=~"etcd-default"}) or 0*absent(etcd_server_leader_changes_seen_total{job=~"etcd-default"}))[15m:1m]) >= 3
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          description: Leader changes within the last 15 minutes.
+      - alert: '[Etcd] Etcd High Number Of Failed GRPC Requests'
+        expr: |
+          100 * sum(rate(grpc_server_handled_total{job=~"etcd-default", grpc_code!="OK"}[5m])) by ( instance, grpc_service, grpc_method)/sum(rate(grpc_server_handled_total{job=~"etcd-default"}[5m])) by ( instance, grpc_service, grpc_method)> 5
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          description: High number of failed grpc requests
+      - alert: '[Etcd] Etcd GRPC Requests Slow'
+        expr: |
+          histogram_quantile(0.99, sum(rate(grpc_server_handling_seconds_bucket{job=~"etcd-default", grpc_type="unary"}[5m])) by ( instance, grpc_service, grpc_method, le))> 0.15
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          description: gRPC requests are taking too much time
+      - alert: '[Etcd] Etcd High Number Of Failed Proposals'
+        expr: |
+          rate(etcd_server_proposals_failed_total{job=~"etcd-default"}[15m]) > 5
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          description: High number of proposal failures within the last 30 minutes on etcd instance
+      - alert: '[Etcd] Etcd High Fsync Durations'
+        expr: |
+          histogram_quantile(0.99, rate(etcd_disk_wal_fsync_duration_seconds_bucket{job=~"etcd-default"}[5m]))> 0.5
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          description: 99th percentile fync durations are too high
+      - alert: '[Etcd] Etcd High Commit Durations'
+        expr: |
+          histogram_quantile(0.99, rate(etcd_disk_backend_commit_duration_seconds_bucket{job=~"etcd-default"}[5m]))> 0.25
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          description: 99th percentile commit durations are too high
+      - alert: '[Etcd] Etcd HighNumber Of Failed HTTP Requests'
+        expr: |
+          sum(rate(etcd_http_failed_total{job=~"etcd-default", code!="404"}[5m])) by (method) / sum(rate(etcd_http_received_total{job=~"etcd-default"}[5m]))by (method) > 0.05
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          description: High number of failed http requests
+      - alert: '[Etcd] Etcd HTTP Requests Slow'
+        expr: |
+          histogram_quantile(0.99, rate(etcd_http_successful_duration_seconds_bucket[5m])) > 0.15
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          description: Https request are slow
+      - alert: '[Kubelet] PV Not Available'
+        expr: |
+          kube_persistentvolume_status_phase{phase="Failed|Pending"} > 0
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          description: Persistent Volume not available
+      - alert: '[Kubelet] High Storage Error Rate'
+        expr: |
+          sum by(kube_node_name)(rate(storage_operation_status_count{status!='success'}[5m])) / sum by(kube_node_name)(rate(storage_operation_status_count[5m])) > 0.15
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          description: High Storage Error Rate
+      - alert: '[Kubelet] High Storage Latency'
+        expr: |
+          histogram_quantile(0.95,sum(rate(storage_operation_duration_seconds_bucket[5m])) by (le,kube_node_name,operation_name)) > 0.25
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          description: High Storage Latency
+      - alert: '[Kubernetes Api Server] Deprecated APIs'
+        expr: |
+          sum (apiserver_requested_deprecated_apis) > 0
+        for: 5m
+        labels:
+          severity: info
+        annotations:
+          description: API-Server Deprecated APIs
+      - alert: '[Kubernetes Api Server] Certificate Expiry'
+        expr: |
+          apiserver_client_certificate_expiration_seconds_count > 0 and on(job) histogram_quantile(0.01, sum(rate(apiserver_client_certificate_expiration_seconds_bucket{job="kubernetes-apiservers-default"}[5m]))by(job,le)) < 604800 
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          description: API-Server Certificate Expiry
+      - alert: '[Kubernetes Api Server] Admission Controller High Latency'
+        expr: |
+          sum by(operation)(rate(apiserver_admission_controller_admission_duration_seconds_sum[5m]))/ sum by(operation)(rate(apiserver_admission_controller_admission_duration_seconds_count[5m]))> 0.5
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          description: API-Server Admission Controller High Latency
+      - alert: '[Kubernetes Api Server] Webhook Admission Controller High Latency'
+        expr: |
+          sum by(operation)(rate(apiserver_admission_webhook_admission_duration_seconds_sum[5m]))/ sum by(operation)(rate(apiserver_admission_webhook_admission_duration_seconds_count[5m]))>0.5
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          description: API-Server Webhook Admission Controller High Latency
+      - alert: '[Kubernetes Api Server] High 4xx RequestError Rate'
+        expr: |
+          sum (rate(apiserver_request_total{code=~"4.."}[5m]))/ sum (rate(apiserver_request_total[5m]))> 0.05
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          description: APIS-Server High 4xx Request Error Rate
+      - alert: '[Kubernetes Api Server] High 5xx RequestError Rate'
+        expr: |
+          sum (rate(apiserver_request_total{code=~"5.."}[5m]))/ sum (rate(apiserver_request_total[5m]))> 0.05
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          description: APIS-Server High 5xx Request Error Rate
+      - alert: '[Kubernetes Api Server] High Request Latency'
+        expr: |
+          sum by(verb)(rate(apiserver_request_duration_seconds_sum{verb!="WATCH"}[5m]))/ sum by(verb)(rate(apiserver_request_duration_seconds_count{verb!="WATCH"}[5m]))> 0.5
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          description: APIS-Server High Request Latency
+      - alert: '[k8s-kubelet] Kubelet Too Many Pods'
+        expr: |
+          max(kubelet_running_pods or kubelet_running_pod_count) by (node)/max(kube_node_status_capacity_pods) by (node)> 0.95
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          description: Kubelet Too Many Pods
+      - alert: '[k8s-kubelet] Kubelet Pod Lifecycle Event Generator Duration High'
+        expr: |
+          histogram_quantile(0.99, sum(rate(kubelet_pleg_relist_duration_seconds_bucket[5m]))by (instance, le))>= 10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          description: Kubelet Pod Lifecycle Event Generator Duration High
+      - alert: '[k8s-kubelet] Kubelet Pod StartUp Latency High'
+        expr: |
+          histogram_quantile(0.99, sum(rate(kubelet_pod_worker_duration_seconds_bucket[5m]))by (instance, le))> 60
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          description: Kubelet Pod StartUp Latency High
+      - alert: '[k8s-kubelet] Kubelet Down'
+        expr: |
+          sum(kube_node_status_condition{condition="Ready", status="true"}) - (sum(up{job="k8s-kubelet-default"}) or vector(0) )> 0
+        for: 15m
+        labels:
+          severity: critical
+        annotations:
+          description: Kubelet Down
+      - alert: '[k8s-pvc] PV Not Available'
+        expr: |
+          kube_persistentvolume_status_phase{phase="Failed|Pending"} > 0
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          description: Persistent Volume not available
+      - alert: '[k8s-pvc] PVC Pending For a Long Time'
+        expr: |
+          kube_persistentvolumeclaim_status_phase{phase=~"Pending"} > 0
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          description: Persistent Volume Claim not available
+      - alert: '[k8s-pvc] PVC Lost'
+        expr: |
+          kube_persistentvolumeclaim_status_phase{phase=~"Lost"} > 0
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          description: Persistent Volume Claim lost
+      - alert: '[k8s-pvc] PVC Storage Usage Is Reaching The Limit'
+        expr: |
+          kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes > 0.95
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          description: Persistent Volume Claim storage at 95%
+      - alert: '[k8s-pvc] PVC Inodes Usage Is Reaching The Limit'
+        expr: |
+          kubelet_volume_stats_inodes_used / kubelet_volume_stats_inodes > 0.95
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          description: PVC inodes Usage Is Reaching The Limit
+      - alert: '[k8s-pvc] PV Full In Four Days'
+        expr: |
+          predict_linear(kubelet_volume_stats_available_bytes[6h], 4 * 24 * 3600) < 0
+        for: 1h
+        labels:
+          severity: critical
+        annotations:
+          description: Persistent Volume Full In Four Days
