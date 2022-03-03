@@ -8,6 +8,6 @@ If you install Consul with Helm, you need to use the following flags:
 ```
 --set 'global.metrics.enabled=true'
 --set 'global.metrics.enableAgentMetrics=true'
---set 'server.extraConfig="{"disable_hostname": "true"}"'
---set 'client.extraConfig="{"disable_hostname": "true"}"'
+--set 'server.extraConfig="{"telemetry": {"disable_hostname": true}}"'
+--set 'client.extraConfig="{"telemetry": {"disable_hostname": true}}"'
 ```
