@@ -456,7 +456,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "min(consul_per_server_autopilot_healthy{kube_cluster_name=~$cluster, kube_namespace_name=~$namespace})"
+            "query": "min(consul_autopilot_healthy{kube_cluster_name=~$cluster, kube_namespace_name=~$namespace})"
           }
         ],
         "description": "",
@@ -655,7 +655,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "consul_per_server_autopilot_failure_tolerance{kube_cluster_name=~$cluster, kube_namespace_name=~$namespace}"
+            "query": "consul_autopilot_failure_tolerance{kube_cluster_name=~$cluster, kube_namespace_name=~$namespace}"
           }
         ],
         "axesConfiguration": {
@@ -718,7 +718,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "consul_per_server_autopilot_healthy{kube_cluster_name=~$cluster, kube_namespace_name=~$namespace}"
+            "query": "consul_autopilot_healthy{kube_cluster_name=~$cluster, kube_namespace_name=~$namespace}"
           }
         ],
         "axesConfiguration": {
@@ -1433,7 +1433,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "consul_per_server_raft_leader_oldestLogAge{kube_cluster_name=~$cluster, kube_namespace_name=~$namespace} > 0\n"
+            "query": "consul_raft_leader_oldestLogAge{kube_cluster_name=~$cluster, kube_namespace_name=~$namespace} > 0\n"
           },
           {
             "displayInfo": {

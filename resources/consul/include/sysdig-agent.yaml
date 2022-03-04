@@ -29,6 +29,9 @@ data:
       scrape_interval: 10s
     scrape_configs:
     - job_name: 'consul-envoy-default'
+      metrics_path: '/v1/agent/metrics'
+      params:
+        format: ['prometheus']
       tls_config:
         insecure_skip_verify: true
       kubernetes_sd_configs:
@@ -103,19 +106,8 @@ data:
         source_labels: [__address__]
         regex: (.*:8500)
       - action: replace
-        source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
-        target_label: __metrics_path__
-        regex: (.+)
-        replacement: '/v1/agent/metrics'
-      - action: replace
         source_labels: [__meta_kubernetes_pod_uid]
         target_label: sysdig_k8s_pod_uid
       - action: replace
         source_labels: [__meta_kubernetes_pod_container_name]
         target_label: sysdig_k8s_pod_container_name
-      metric_relabel_configs:
-      # Change the name of the metric to remove the name of the pod
-      - source_labels: ['__name__']
-        target_label: '__name__'
-        regex: '(consul_)([a-z]+_)+[0-9]+_(.+)'
-        replacement: ${1}per_server_${3}

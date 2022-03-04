@@ -74,7 +74,7 @@ configurations:
           description: There are too many elections for leadership."
       - alert: Server cluster unhealthy
         expr: |
-          consul_per_server_autopilot_healthy == 0
+          consul_autopilot_healthy == 0
         for: 5m
         labels:
           severity: high
@@ -82,7 +82,7 @@ configurations:
           description: One or many Consul servers in the cluster are unhealthy.
       - alert: Zero failure tolerance
         expr: |
-          consul_per_server_autopilot_failure_tolerance == 0
+          consul_autopilot_failure_tolerance == 0
         for: 5m
         labels:
           severity: medium
@@ -138,7 +138,7 @@ configurations:
           description: Garbage Collection stop-the-world pauses were greater than 5 seconds per minute.
       - alert: Raft restore duration too high
         expr: |
-          consul_per_server_raft_leader_oldestLogAge < 2* max(consul_raft_fsm_lastRestoreDuration{kube_pod_label_component="server"})
+          consul_raft_leader_oldestLogAge < 2* max(consul_raft_fsm_lastRestoreDuration{kube_pod_label_component="server"})
         for: 5m
         labels:
           severity: medium

@@ -1,0 +1,1505 @@
+{
+  "dashboard": {
+    "description": "",
+    "eventDisplaySettings": {
+      "enabled": false,
+      "queryParams": {
+        "alertStatuses": [],
+        "categories": [],
+        "filter": "",
+        "severities": [],
+        "teamScope": false
+      }
+    },
+    "layout": [
+      {
+        "h": 1,
+        "panelId": 13,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 5,
+        "panelId": 14,
+        "w": 12,
+        "x": 0,
+        "y": 18
+      },
+      {
+        "h": 5,
+        "panelId": 15,
+        "w": 12,
+        "x": 12,
+        "y": 18
+      },
+      {
+        "h": 5,
+        "panelId": 16,
+        "w": 12,
+        "x": 0,
+        "y": 23
+      },
+      {
+        "h": 5,
+        "panelId": 17,
+        "w": 12,
+        "x": 12,
+        "y": 23
+      },
+      {
+        "h": 5,
+        "panelId": 18,
+        "w": 12,
+        "x": 0,
+        "y": 28
+      },
+      {
+        "h": 5,
+        "panelId": 19,
+        "w": 12,
+        "x": 12,
+        "y": 28
+      },
+      {
+        "h": 5,
+        "panelId": 20,
+        "w": 12,
+        "x": 0,
+        "y": 34
+      },
+      {
+        "h": 5,
+        "panelId": 21,
+        "w": 12,
+        "x": 12,
+        "y": 34
+      },
+      {
+        "h": 5,
+        "panelId": 22,
+        "w": 24,
+        "x": 0,
+        "y": 39
+      },
+      {
+        "h": 3,
+        "panelId": 23,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      {
+        "h": 1,
+        "panelId": 24,
+        "w": 24,
+        "x": 0,
+        "y": 33
+      },
+      {
+        "h": 1,
+        "panelId": 25,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
+      {
+        "h": 5,
+        "panelId": 26,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      {
+        "h": 5,
+        "panelId": 27,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      {
+        "h": 5,
+        "panelId": 28,
+        "w": 12,
+        "x": 12,
+        "y": 4
+      },
+      {
+        "h": 5,
+        "panelId": 29,
+        "w": 12,
+        "x": 0,
+        "y": 4
+      },
+      {
+        "h": 6,
+        "panelId": 30,
+        "w": 12,
+        "x": 0,
+        "y": 45
+      },
+      {
+        "h": 6,
+        "panelId": 31,
+        "w": 12,
+        "x": 12,
+        "y": 45
+      },
+      {
+        "h": 6,
+        "panelId": 32,
+        "w": 24,
+        "x": 0,
+        "y": 51
+      },
+      {
+        "h": 1,
+        "panelId": 33,
+        "w": 24,
+        "x": 0,
+        "y": 44
+      },
+      {
+        "h": 3,
+        "panelId": 34,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      }
+    ],
+    "name": "Kubernetes Scheduler",
+    "panels": [
+      {
+        "description": "",
+        "id": 13,
+        "markdownSource": "### Scheduling",
+        "name": "New Panel",
+        "nullValueDisplayText": null,
+        "panelTitleVisible": false,
+        "textAutosized": false,
+        "transparentBackground": true,
+        "type": "text"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "[NAME] Pod < Cluster",
+              "timeSeriesDisplayNameTemplate": "[{{name}}] {{kube_pod_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullZero",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "topk(30,rate(workqueue_retries_total{job=~\"kube-scheduler-default\",kube_cluster_name=~$cluster,kube_pod_name=~$pod}[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 14,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Work Queue Retries",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "[NAME] Pod < Cluster",
+              "timeSeriesDisplayNameTemplate": "[{{name}}] {{kube_pod_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullZero",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "topk(30,rate(workqueue_unfinished_work_seconds{container_name=~\".*kube-scheduler.*\",kube_cluster_name=~$cluster,kube_pod_name=~$pod}[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 15,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Work Queue Unfinished Work Time",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "[NAME] Pod < Cluster",
+              "timeSeriesDisplayNameTemplate": "[{{name}}] {{kube_pod_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "nullValueDisplayMode": "nullZero",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "topk(30,rate(workqueue_queue_duration_seconds_sum{job=~\"kube-scheduler-default\",kube_cluster_name=~$cluster,kube_pod_name=~$pod}[$__interval]) / rate(workqueue_queue_duration_seconds_count{job=~\"kube-scheduler-default\",kube_cluster_name=~$cluster,kube_pod_name=~$pod}[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 16,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Work Queue Latency in Queue",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "[NAME] Pod < Cluster",
+              "timeSeriesDisplayNameTemplate": "[{{name}}] {{kube_pod_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "nullValueDisplayMode": "nullZero",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "topk(30,rate(workqueue_work_duration_seconds_sum{container_name=~\".*kube-scheduler.*\",kube_cluster_name=~$cluster,kube_pod_name=~$pod}[$__interval]) / rate(workqueue_work_duration_seconds_count{container_name=~\".*kube-scheduler.*\",kube_cluster_name=~$cluster,kube_pod_name=~$pod}[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 17,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Work Queue Latency Processing ",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "[NAME] Pod < Cluster",
+              "timeSeriesDisplayNameTemplate": "[{{name}}] {{kube_pod_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullZero",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "topk(30,rate(workqueue_depth{container_name=~\".*kube-scheduler.*\",kube_cluster_name=~$cluster,kube_pod_name=~$pod}[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 18,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Work Queue Depth",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "[NAME] Pod < Cluster",
+              "timeSeriesDisplayNameTemplate": "[{{name}}] {{kube_pod_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullZero",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "topk(30,rate(workqueue_adds_total{container_name=~\".*kube-scheduler.*\",kube_cluster_name=~$cluster,kube_pod_name=~$pod}[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 19,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Work Queue Add Rate",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Pod < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-1",
+              "nullValueDisplayMode": "nullZero",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "sum by (kube_cluster_name,kube_pod_name)(rate(rest_client_requests_total{container_name=~\".*kube-scheduler.*\",code!~\"2..|3..\",kube_cluster_name=~$cluster,kube_pod_name=~$pod}[$__interval])) / sum by (kube_cluster_name,kube_pod_name)(rate(rest_client_requests_total{container_name=~\".*kube-scheduler.*\",kube_cluster_name=~$cluster,kube_pod_name=~$pod}[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 20,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Kube API Error Rate",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "[]VERB] Pod  < Cluster",
+              "timeSeriesDisplayNameTemplate": "[{{verb}}] {{kube_pod_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "nullValueDisplayMode": "connectSolid",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "topk(30,sum by(verb,kube_cluster_name,kube_pod_name)(rate(rest_client_request_duration_seconds_sum{container_name=~\".*kube-scheduler.*\",kube_cluster_name=~$cluster,kube_pod_name=~$pod}[$__interval])) / sum by(verb,kube_cluster_name,kube_pod_name)(rate(rest_client_request_duration_seconds_count{container_name=~\".*kube-scheduler.*\",kube_cluster_name=~$cluster,kube_pod_name=~$pod}[$__interval])))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 21,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Kube Request Latency",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "[2XX] Pod < Cluster",
+              "timeSeriesDisplayNameTemplate": "[2XX] {{kube_pod_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullZero",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by (kube_cluster_name,kube_pod_name)(rate(rest_client_requests_total{container_name=~\".*kube-scheduler.*\",code=~\"2..\",kube_cluster_name=~$cluster,kube_pod_name=~$pod}[$__interval]))"
+          },
+          {
+            "displayInfo": {
+              "displayName": "[3XX] Pod < Cluster",
+              "timeSeriesDisplayNameTemplate": "[3XX] {{kube_pod_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by (kube_cluster_name,kube_pod_name)(rate(rest_client_requests_total{container_name=~\".*kube-scheduler.*\",code=~\"3..\",kube_cluster_name=~$cluster,kube_pod_name=~$pod}[$__interval]))"
+          },
+          {
+            "displayInfo": {
+              "displayName": "[4XX] Pod < Cluster",
+              "timeSeriesDisplayNameTemplate": "[4XX] {{kube_pod_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by (kube_cluster_name,kube_pod_name)(rate(rest_client_requests_total{container_name=~\".*kube-scheduler.*\",code=~\"4..\",kube_cluster_name=~$cluster,kube_pod_name=~$pod}[$__interval]))"
+          },
+          {
+            "displayInfo": {
+              "displayName": "[5XX] Pod < Cluster",
+              "timeSeriesDisplayNameTemplate": "[5XX] {{kube_pod_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by (kube_cluster_name,kube_pod_name)(rate(rest_client_requests_total{container_name=~\".*kube-scheduler.*\",code=~\"5..\",kube_cluster_name=~$cluster,kube_pod_name=~$pod}[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": 2,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 22,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Kube API Request Rate by Code",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "description": "",
+        "id": 23,
+        "markdownSource": "\u2705 Check that the percentage of attempts to schedule pods and the number of attempts to correctly schedule a pod are low.\n* \ud83d\udc49 `unschedulable` means a pod could not be scheduled, \n* \ud83d\udc49 `error` means an internal scheduler problem.\n\n\u2705 Check that there are no pods in pending queues.\n\n\u2705 Check the latencies of end-to-end scheduling (scheduling algorithm + binding).",
+        "name": "New Panel (2)",
+        "nullValueDisplayText": null,
+        "panelTitleVisible": false,
+        "textAutosized": false,
+        "transparentBackground": false,
+        "type": "text"
+      },
+      {
+        "description": "",
+        "id": 24,
+        "markdownSource": "### API Requests",
+        "name": "New Panel (3)",
+        "nullValueDisplayText": null,
+        "panelTitleVisible": false,
+        "textAutosized": false,
+        "transparentBackground": true,
+        "type": "text"
+      },
+      {
+        "description": "",
+        "id": 25,
+        "markdownSource": "### Work Queue",
+        "name": "New Panel (4)",
+        "nullValueDisplayText": null,
+        "panelTitleVisible": false,
+        "textAutosized": false,
+        "transparentBackground": true,
+        "type": "text"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "[RESULT] Pod < Cluster",
+              "timeSeriesDisplayNameTemplate": "[{{result}}] {{kube_pod_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "nullValueDisplayMode": "nullZero",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "topk(30,rate(scheduler_e2e_scheduling_duration_seconds_sum{container_name=~\".*kube-scheduler.*\",kube_cluster_name=~$cluster,kube_pod_name=~$pod}[$__interval]) / rate(scheduler_e2e_scheduling_duration_seconds_count{container_name=~\".*kube-scheduler.*\",kube_cluster_name=~$cluster,kube_pod_name=~$pod}[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 26,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "End-to-End Scheduling Latency by Result",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "[QUEUE] Pod < Cluster",
+              "timeSeriesDisplayNameTemplate": "[{{queue}}] {{kube_pod_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "nullValueDisplayMode": "nullZero",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "topk(30,rate(scheduler_pending_pods{kube_cluster_name=~$cluster,kube_pod_name=~$pod}[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 27,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Pending Pods by Queue",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Pod < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullZero",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "topk(30,rate(scheduler_pod_scheduling_attempts_sum{kube_cluster_name=~$cluster,kube_pod_name=~$pod}[$__interval]) / rate(scheduler_pod_scheduling_attempts_count{kube_cluster_name=~$cluster,kube_pod_name=~$pod}[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 28,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "AVG Number of Attempts to Successfully Schedule a Pod ",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "[RESULT] Pod < Cluster",
+              "timeSeriesDisplayNameTemplate": "[{{result}}] {{kube_pod_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-1",
+              "nullValueDisplayMode": "nullZero",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "sum by (kube_cluster_name,kube_pod_name,result) (rate(scheduler_schedule_attempts_total{kube_cluster_name=~$cluster,kube_pod_name=~$pod,result!~\"scheduled\"}[$__interval])) / ignoring(result) group_left sum by (kube_cluster_name,kube_pod_name)(rate(scheduler_schedule_attempts_total{kube_cluster_name=~$cluster,kube_pod_name=~$pod}[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 29,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "% Failed Attempts to Schedule Pods",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Pod < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "sysdig_container_memory_used_bytes{container_name=~\".*kube-scheduler.*\",kube_cluster_name=~$cluster,kube_pod_name=~$pod}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B",
+            "maxValue": null,
+            "minInputFormat": "B",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 30,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Memory",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Pod < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sysdig_container_cpu_cores_used{container_name=~\".*kube-scheduler.*\",kube_cluster_name=~$cluster,kube_pod_name=~$pod}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 31,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "CPU Cores",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Pod < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "go_goroutines{container_name=~\".*kube-scheduler.*\",kube_cluster_name=~$cluster,kube_pod_name=~$pod}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 32,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Goroutines",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "description": "",
+        "id": 33,
+        "markdownSource": "### Resources Usage",
+        "name": "New Panel (5)",
+        "nullValueDisplayText": null,
+        "panelTitleVisible": false,
+        "textAutosized": false,
+        "transparentBackground": true,
+        "type": "text"
+      },
+      {
+        "description": "",
+        "id": 34,
+        "markdownSource": "\u2705 Check that there are no recurrent retries in the work queue\n\n\u2705 Check that there are large values in unfinished works time. That can be a sign of stuck threads.\n\n\u2705 Check the latencies of the queue\n\n* \ud83d\udc49 Queue latency is the time tasks spend in the queue before being processed\n* \ud83d\udc49 Work latency is the time that takes to process  the tasks in the queue\n\n\u2705 Check the depth of the queue. High values can indicate the saturation of the controller manager.",
+        "name": "New Panel (6)",
+        "nullValueDisplayText": null,
+        "panelTitleVisible": false,
+        "textAutosized": false,
+        "transparentBackground": false,
+        "type": "text"
+      }
+    ],
+    "publicNotation": false,
+    "schema": 3,
+    "scopeExpressionList": [
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "category": "kubernetes",
+          "createdAt": 1644254003720,
+          "customerId": 1,
+          "deferred": false,
+          "documentId": "1--6139949314852700299",
+          "documentTimestamp": 1644254003720,
+          "documentType": "metric",
+          "experimental": false,
+          "firstSeen": 1643798966794,
+          "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+          "generator": {
+            "aggregationForGroup": "none",
+            "aggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "avg": false,
+            "canCalculate": false,
+            "canFilter": true,
+            "canGroupBy": true,
+            "canMonitor": false,
+            "category": "kubernetes",
+            "concat": false,
+            "context": [
+              "container"
+            ],
+            "count": false,
+            "countDistinct": false,
+            "deferred": false,
+            "experimental": false,
+            "firstSeen": 1643798966794,
+            "groupAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "groupBy": [],
+            "heuristic": false,
+            "hidden": false,
+            "id": "kubernetes.cluster.name",
+            "identity": false,
+            "label": true,
+            "lastSeen": 1644251361757,
+            "max": false,
+            "metricType": "none",
+            "min": false,
+            "namespaces": [
+              "kubernetes.cluster"
+            ],
+            "rateOfChange": false,
+            "scale": 1.0,
+            "scopes": [],
+            "sum": false,
+            "timeAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "timeAvg": false,
+            "type": "string"
+          },
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.cluster.name",
+          "identity": false,
+          "lastSeen": 1644251361757,
+          "metricType": "tag",
+          "namespaces": [
+            "kubernetes.cluster"
+          ],
+          "publicId": "kube_cluster_name",
+          "scale": 1.0,
+          "scopes": [],
+          "segment": false,
+          "segmentations": [],
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "cluster",
+        "isVariable": true,
+        "operand": "kubernetes.cluster.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "category": "kubernetes",
+          "createdAt": 1644254003720,
+          "customerId": 1,
+          "deferred": false,
+          "documentId": "1--7638853878924989689",
+          "documentTimestamp": 1644254003720,
+          "documentType": "metric",
+          "experimental": false,
+          "firstSeen": 1643798966793,
+          "generatedFrom": "com.draios.model.metrics.kubernetes.KubernetesName",
+          "generator": {
+            "aggregationForGroup": "none",
+            "aggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "avg": false,
+            "canCalculate": false,
+            "canFilter": true,
+            "canGroupBy": true,
+            "canMonitor": false,
+            "category": "kubernetes",
+            "concat": false,
+            "context": [
+              "container"
+            ],
+            "count": false,
+            "countDistinct": false,
+            "deferred": false,
+            "experimental": false,
+            "firstSeen": 1643798966793,
+            "groupAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "groupBy": [],
+            "heuristic": false,
+            "hidden": false,
+            "id": "kubernetes.pod.name",
+            "identity": false,
+            "label": true,
+            "lastSeen": 1644251361757,
+            "max": false,
+            "metricType": "none",
+            "min": false,
+            "namespaces": [
+              "kubernetes.pod"
+            ],
+            "rateOfChange": false,
+            "scale": 1.0,
+            "scopes": [],
+            "sum": false,
+            "timeAggregations": [
+              "concat",
+              "distinct",
+              "count"
+            ],
+            "timeAvg": false,
+            "type": "string"
+          },
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.pod.name",
+          "identity": false,
+          "lastSeen": 1644251361757,
+          "metricType": "tag",
+          "namespaces": [
+            "kubernetes.pod"
+          ],
+          "publicId": "kube_pod_name",
+          "scale": 1.0,
+          "scopes": [],
+          "segment": false,
+          "segmentations": [],
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "pod",
+        "isVariable": true,
+        "operand": "kubernetes.pod.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      }
+    ]
+  }
+}
