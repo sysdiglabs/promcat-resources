@@ -61,13 +61,6 @@ configurations:
           severity: page
         annotations:
           summary: Recurrent queue spillover rejections in load balancer {{$labels.dimension_LoadBalancerName}}
-      - alert: RejectedConnectionsInLoadBalancer
-        expr: aws_alb_rejected_connection_count_sum > 0
-        for: 10m
-        labels:
-          severity: page
-        annotations:
-          summary: Rejected connections in load balancer {{$labels.dimension_LoadBalancerName}}
       - alert: HighLatencyInLoadBalancer
         expr: aws_elb_latency_p95 > 0.250
         for: 10m
