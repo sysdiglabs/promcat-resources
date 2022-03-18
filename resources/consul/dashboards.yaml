@@ -17,3 +17,10 @@ configurations:
     * Network
     * Cache
   file: include/consul_sysdig.json
+- name: Envoy
+  kind: Sysdig
+  image: consul/images/consul_envoy_sysdig.png
+  description: |
+    This dashboard offers information on:
+    * Envoy
+  file: include/consul_envoy_sysdig.json

@@ -53,3 +53,10 @@ RPC requests error rate is higher than 5%.
 ## Cache hit rate is low
 RPC requests error rate is higher than 5%.
 
+## High Request Latency
+Envoy High Request Latency
+## High Response Latency
+Envoy High Response Latency
+
+## Certificate close to expire
+Certificate close to expire

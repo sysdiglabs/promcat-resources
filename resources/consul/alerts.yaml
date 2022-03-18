@@ -17,7 +17,7 @@ configurations:
           + 2* stddev_over_time(rate(consul_kvs_apply_sum{kube_pod_label_component="server"}[1m]) [1h:1m]))
         for: 5m
         labels:
-          severity: medium
+          severity: warning
         annotations:
           description: Consul KV Store update time had noticeable deviations from baseline over the previous hour.
       - alert: Transaction time anomaly
@@ -26,7 +26,7 @@ configurations:
           + 2* stddev_over_time(rate(consul_txn_apply_sum{kube_pod_label_component="server"}[1m]) [1h:1m]))
         for: 5m
         labels:
-          severity: medium
+          severity: warning
         annotations:
           description: Consul Transaction time had noticeable deviations from baseline over the previous hour.
       - alert: Raft transactions count anomaly
@@ -36,7 +36,7 @@ configurations:
           + 2* stddev_over_time(rate(consul_raft_apply{kube_pod_label_component="server"}[1m]) [1h:1m]) )
         for: 5m
         labels:
-          severity: medium
+          severity: warning
         annotations:
           description: Consul Raft transactions count rate had noticeable deviations from baseline over the previous hour.
       - alert: Raft commit time anomaly
@@ -45,7 +45,7 @@ configurations:
           + 2* stddev_over_time(rate(consul_raft_commitTime_sum{kube_pod_label_component="server"}[1m]) [1h:1m]))
         for: 5m
         labels:
-          severity: medium
+          severity: warning
         annotations:
           description: Consul Raft commit time had noticeable deviations from baseline over the previous hour.
       - alert: Leader time to contact followers too high
@@ -53,7 +53,7 @@ configurations:
           consul_raft_leader_lastContact{quantile="0.9"} > 200
         for: 5m
         labels:
-          severity: medium
+          severity: warning
         annotations:
           description: Consul Leader time to contact followers was greater than 200ms.
       - alert: Flapping leadership
@@ -61,7 +61,7 @@ configurations:
           sum(rate(consul_raft_state_leader{kube_pod_label_component="server"}[1m])) > 0
         for: 5m
         labels:
-          severity: medium
+          severity: warning
         annotations:
           description: There are too many leadership changes."
       - alert: Too many elections
@@ -69,7 +69,7 @@ configurations:
           sum(rate(consul_raft_state_candidate{kube_pod_label_component="server"}[1m])) > 0
         for: 5m
         labels:
-          severity: medium
+          severity: warning
         annotations:
           description: There are too many elections for leadership."
       - alert: Server cluster unhealthy
@@ -77,7 +77,7 @@ configurations:
           consul_autopilot_healthy == 0
         for: 5m
         labels:
-          severity: high
+          severity: critical
         annotations:
           description: One or many Consul servers in the cluster are unhealthy.
       - alert: Zero failure tolerance
@@ -85,7 +85,7 @@ configurations:
           consul_autopilot_failure_tolerance == 0
         for: 5m
         labels:
-          severity: medium
+          severity: warning
         annotations:
           description: There is no failure tolerance in case one Consul server goes down.
       - alert: Client RPC requests anomaly
@@ -93,7 +93,7 @@ configurations:
           avg(rate(consul_client_rpc[1m]) > 0) > (avg_over_time(rate(consul_client_rpc[1m]) [1h:1m])+ 2* stddev_over_time(rate(consul_client_rpc[1m]) [1h:1m]) )
         for: 5m
         labels:
-          severity: medium
+          severity: warning
         annotations:
           description: Consul Client RPC requests had noticeable deviations from baseline over the previous hour.
       - alert: Client RPC requests rate limit exceeded
@@ -101,7 +101,7 @@ configurations:
           rate(consul_client_rpc_exceeded[1m]) / rate(consul_client_rpc[1m]) > 0.1
         for: 5m
         labels:
-          severity: medium
+          severity: warning
         annotations:
           description: Over 10% of Consul Client RPC requests have exceeded the rate limit.
       - alert: Client RPC requests failed
@@ -109,7 +109,7 @@ configurations:
           rate(consul_client_rpc_failed[1m]) / rate(consul_client_rpc[1m]) > 0.1
         for: 5m
         labels:
-          severity: medium
+          severity: warning
         annotations:
           description: Over 10% of Consul Client RPC requests are failing.
       - alert: License Expiry
@@ -117,7 +117,7 @@ configurations:
           consul_system_licenseExpiration / 24 < 30
         for: 5m
         labels:
-          severity: medium
+          severity: warning
         annotations:
           description: Consul license will expire in less than 30 days.
       - alert: Garbage Collection pause high
@@ -125,7 +125,7 @@ configurations:
           (rate(consul_runtime_gc_pause_ns_sum[1m]) / (1000000000) > 2
         for: 5m
         labels:
-          severity: medium
+          severity: warning
         annotations:
           description: Garbage Collection stop-the-world pauses were greater than 2 seconds per minute.
       - alert: Garbage Collection pause too high
@@ -133,7 +133,7 @@ configurations:
           (min(consul_runtime_gc_pause_ns_sum)) / (1000000000) > 5
         for: 5m
         labels:
-          severity: high
+          severity: critical
         annotations:
           description: Garbage Collection stop-the-world pauses were greater than 5 seconds per minute.
       - alert: Raft restore duration too high
@@ -141,7 +141,7 @@ configurations:
           consul_raft_leader_oldestLogAge < 2* max(consul_raft_fsm_lastRestoreDuration{kube_pod_label_component="server"})
         for: 5m
         labels:
-          severity: medium
+          severity: warning
         annotations:
           description: The Raft FSM restore duration is too close to the Raft leader oldest log age.
       - alert: RPC requests error rate is high
@@ -149,7 +149,7 @@ configurations:
           sum(rate(consul_rpc_request_error[1m])) / sum(rate(consul_rpc_request[1m])) > 0.05
         for: 5m
         labels:
-          severity: medium
+          severity: warning
         annotations:
           description: RPC requests error rate is higher than 5%.
       - alert: Cache hit rate is low
@@ -157,6 +157,30 @@ configurations:
           consul_consul_cache_fetch_success/(consul_consul_cache_fetch_success+ ignoring(result_not_modified) group_leftconsul_consul_cache_fetch_error)< 0.95
         for: 5m
         labels:
-          severity: medium
+          severity: warning
         annotations:
           description: RPC requests error rate is higher than 5%.
+      - alert: High Request Latency
+        expr: |
+          histogram_quantile(0.95,sum(rate(envoy_cluster_upstream_cx_connect_ms_bucket{kube_cluster_name=~$cluster}[5m])) by (le,kube_cluster_name,kube_pod_name,kube_namespace_name)) > 0.25
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          description: "Envoy High Request Latency"
+      - alert: High Response Latency
+        expr: |
+          histogram_quantile(0.95,sum(rate(envoy_cluster_upstream_rq_time_bucket{kube_cluster_name=~$cluster}[5m])) by (le,kube_cluster_name,kube_pod_name,kube_namespace_name)) > 0.25
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          description: "Envoy High Response Latency"
+      - alert: Certificate close to expire
+        expr: |
+          envoy_server_days_until_first_cert_expiring{kube_cluster_name=~$cluster} < 1
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          description: "Certificate close to expire"
