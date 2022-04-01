@@ -1,0 +1,1565 @@
+{
+  "dashboard": {
+    "description": "",
+    "eventDisplaySettings": {
+      "enabled": true,
+      "queryParams": {
+        "alertStatuses": [],
+        "categories": [],
+        "filter": "",
+        "severities": [],
+        "teamScope": false
+      }
+    },
+    "layout": [
+      {
+        "h": 4,
+        "panelId": 30,
+        "w": 2,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 8,
+        "panelId": 33,
+        "w": 8,
+        "x": 2,
+        "y": 0
+      },
+      {
+        "h": 8,
+        "panelId": 34,
+        "w": 7,
+        "x": 10,
+        "y": 0
+      },
+      {
+        "h": 8,
+        "panelId": 32,
+        "w": 7,
+        "x": 17,
+        "y": 0
+      },
+      {
+        "h": 4,
+        "panelId": 31,
+        "w": 2,
+        "x": 0,
+        "y": 4
+      },
+      {
+        "h": 8,
+        "panelId": 35,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      {
+        "h": 8,
+        "panelId": 36,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      {
+        "h": 8,
+        "panelId": 37,
+        "w": 12,
+        "x": 0,
+        "y": 16
+      },
+      {
+        "h": 8,
+        "panelId": 43,
+        "w": 12,
+        "x": 12,
+        "y": 16
+      },
+      {
+        "h": 8,
+        "panelId": 38,
+        "w": 8,
+        "x": 0,
+        "y": 24
+      },
+      {
+        "h": 8,
+        "panelId": 40,
+        "w": 8,
+        "x": 8,
+        "y": 24
+      },
+      {
+        "h": 8,
+        "panelId": 39,
+        "w": 8,
+        "x": 16,
+        "y": 24
+      }
+    ],
+    "name": "Portworx Volumes",
+    "panels": [
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "count(px_volume_attached{kube_cluster_name=$cluster, kube_namespace_name=~$namespace} == 1) or vector(0)"
+          }
+        ],
+        "description": "",
+        "id": 30,
+        "name": "Volumes attached\n",
+        "nullValueDisplayText": null,
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "count(px_volume_attached{kube_cluster_name=$cluster, kube_namespace_name=~$namespace} == 0) or vector(0)"
+          }
+        ],
+        "description": "",
+        "id": 31,
+        "name": "Volumes detached",
+        "nullValueDisplayText": null,
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "None: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "None: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_status{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 0"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Not present: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Not present: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_status{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 1"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Up: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Up: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_status{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 2"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Down: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Down: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_status{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 3"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Degraded: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Degraded: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_status{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 4"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "Values show the Status code, not the number of volumes in that status.",
+        "id": 32,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": false,
+          "width": null
+        },
+        "name": "Volume Status Code",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "None: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "None: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_state{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 0"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Pending: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Pending: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_state{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 1"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Available: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Available: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_state{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 2"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Attached: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Attached: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_state{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 3"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Detached: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Detached: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_state{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 4"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Detaching: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Detaching: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_state{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 5"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Error: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Error: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_state{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 6"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Deleted: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Deleted: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_state{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 7"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Try detaching: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Try detaching: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_state{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 8"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Restoring: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Restoring: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_state{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 9"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "Values show the State code, not the number of volumes in that state.",
+        "id": 33,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": false,
+          "width": null
+        },
+        "name": "Volume State Code",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Externally available: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Externally available: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_attached_state{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 0"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Internally available: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Internally available: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_attached_state{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 1"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Switching from external to internal: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Switching from external to internal: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_attached_state{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 2"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "Values show the Attached State code, not the number of volumes in that state.",
+        "id": 34,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": false,
+          "width": null
+        },
+        "name": "Volume Attached State Code",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Read: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Read: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "/s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "numberRate",
+              "yAxis": "auto"
+            },
+            "query": "rate(px_volume_reads_total{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc}[$__interval])"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Write: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Write: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "/s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "numberRate",
+              "yAxis": "auto"
+            },
+            "query": "rate(px_volume_writes_total{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc}[$__interval])"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "/s",
+            "maxValue": null,
+            "minInputFormat": "/s",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 38,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Volume Read / Write IOPS",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Read: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Read: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_read_latency_seconds{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc}"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Write: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Write: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_write_latency_seconds{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 39,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Volume Read / Write Latency",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_capacity_bytes{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B",
+            "maxValue": null,
+            "minInputFormat": "B",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 35,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Volume Capacity",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_usage_bytes{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc}\n/\npx_volume_capacity_bytes{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 36,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Volume Usage",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Read: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Read: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B/s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "byteRate",
+              "yAxis": "auto"
+            },
+            "query": "rate(px_volume_read_bytes_total{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc}[$__interval])"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Write: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Write: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B/s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "byteRate",
+              "yAxis": "auto"
+            },
+            "query": "rate(px_volume_written_bytes_total{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc}[$__interval])"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B/s",
+            "maxValue": null,
+            "minInputFormat": "B/s",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 40,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Volume Read / Write Throughput",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Up: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Up: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_replication_status{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 0"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Not in quorum: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Not in quorum: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_replication_status{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 1"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Resync state: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Resync state: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_replication_status{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 2"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Degraded: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Degraded: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_replication_status{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 3"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Detached: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Detached: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_replication_status{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 4"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Restore: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Restore: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_replication_status{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc} == 5"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "Values show the Status code, not the number of volumes in that status.",
+        "id": 43,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": false,
+          "width": null
+        },
+        "name": "Volume Replication Status",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Configured: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Configured: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_halevel{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc}"
+          },
+          {
+            "displayInfo": {
+              "displayName": "Current: PVC < Namespace < Node < Cluster",
+              "timeSeriesDisplayNameTemplate": "Current: {{pvc}} < {{kube_namespace_name}} < {{kube_node_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "px_volume_currhalevel{kube_cluster_name=$cluster, kube_node_name=~$node, kube_namespace_name=~$namespace, pvc=~$pvc}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "Values show the Status code, not the number of volumes in that status.",
+        "id": 37,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Volume HA Level",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      }
+    ],
+    "publicNotation": false,
+    "schema": 3,
+    "scopeExpressionList": [
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "kubernetes.cluster.name",
+          "documentId": "kubernetes.cluster.name",
+          "documentTimestamp": 1648798703915,
+          "documentType": "metric",
+          "documented": true,
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.cluster.name",
+          "identity": false,
+          "metricType": "tag",
+          "name": "kubernetes.cluster.name",
+          "namespaces": [
+            "kubernetes.cluster"
+          ],
+          "publicId": "kube_cluster_name",
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "cluster",
+        "isVariable": true,
+        "operand": "kubernetes.cluster.name",
+        "operator": "equals",
+        "value": [
+          "portworx-integration-kops"
+        ],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "kubernetes.node.name",
+          "documentId": "kubernetes.node.name",
+          "documentTimestamp": 1648798703915,
+          "documentType": "metric",
+          "documented": true,
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.node.name",
+          "identity": false,
+          "metricType": "tag",
+          "name": "kubernetes.node.name",
+          "namespaces": [
+            "kubernetes.node"
+          ],
+          "publicId": "kube_node_name",
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "node",
+        "isVariable": true,
+        "operand": "kubernetes.node.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": false,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "pool",
+          "documentId": "pool",
+          "documentTimestamp": 1648798703916,
+          "documentType": "metric",
+          "documented": true,
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "pool",
+          "identity": false,
+          "metricType": "tag",
+          "name": "pool",
+          "namespaces": [
+            "cloudProvider",
+            "host.container",
+            "ecs",
+            "host.fs",
+            "host.file",
+            "host",
+            "kubernetes",
+            "kubernetes.cluster",
+            "kubernetes.daemonSet",
+            "kubernetes.deployment",
+            "kubernetes.job",
+            "kubernetes.namespace",
+            "kubernetes.node",
+            "kubernetes.pod",
+            "kubernetes.replicaSet",
+            "kubernetes.service",
+            "kubernetes.statefulSet",
+            "kubernetes.resourcequota",
+            "kubernetes.hpa",
+            "link",
+            "mesos",
+            "host.net",
+            "host.process",
+            "prometheus",
+            "swarm",
+            "prombeacon"
+          ],
+          "publicId": "pool",
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "pool",
+        "isVariable": true,
+        "operand": "pool",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": false,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "disk",
+          "documentId": "disk",
+          "documentTimestamp": 1648798703916,
+          "documentType": "metric",
+          "documented": true,
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "disk",
+          "identity": false,
+          "metricType": "tag",
+          "name": "disk",
+          "namespaces": [
+            "cloudProvider",
+            "host.container",
+            "ecs",
+            "host.fs",
+            "host.file",
+            "host",
+            "kubernetes",
+            "kubernetes.cluster",
+            "kubernetes.daemonSet",
+            "kubernetes.deployment",
+            "kubernetes.job",
+            "kubernetes.namespace",
+            "kubernetes.node",
+            "kubernetes.pod",
+            "kubernetes.replicaSet",
+            "kubernetes.service",
+            "kubernetes.statefulSet",
+            "kubernetes.resourcequota",
+            "kubernetes.hpa",
+            "link",
+            "mesos",
+            "host.net",
+            "host.process",
+            "prometheus",
+            "swarm",
+            "prombeacon"
+          ],
+          "publicId": "disk",
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "disk",
+        "isVariable": true,
+        "operand": "disk",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "kubernetes.namespace.name",
+          "documentId": "kubernetes.namespace.name",
+          "documentTimestamp": 1648798703916,
+          "documentType": "metric",
+          "documented": true,
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.namespace.name",
+          "identity": false,
+          "metricType": "tag",
+          "name": "kubernetes.namespace.name",
+          "namespaces": [
+            "kubernetes.namespace"
+          ],
+          "publicId": "kube_namespace_name",
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "namespace",
+        "isVariable": true,
+        "operand": "kubernetes.namespace.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": false,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "pvc",
+          "documentId": "pvc",
+          "documentTimestamp": 1648798703916,
+          "documentType": "metric",
+          "documented": true,
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "pvc",
+          "identity": false,
+          "metricType": "tag",
+          "name": "pvc",
+          "namespaces": [
+            "cloudProvider",
+            "host.container",
+            "ecs",
+            "host.fs",
+            "host.file",
+            "host",
+            "kubernetes",
+            "kubernetes.cluster",
+            "kubernetes.daemonSet",
+            "kubernetes.deployment",
+            "kubernetes.job",
+            "kubernetes.namespace",
+            "kubernetes.node",
+            "kubernetes.pod",
+            "kubernetes.replicaSet",
+            "kubernetes.service",
+            "kubernetes.statefulSet",
+            "kubernetes.resourcequota",
+            "kubernetes.hpa",
+            "link",
+            "mesos",
+            "host.net",
+            "host.process",
+            "prometheus",
+            "swarm",
+            "prombeacon"
+          ],
+          "publicId": "pvc",
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "pvc",
+        "isVariable": true,
+        "operand": "pvc",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      }
+    ]
+  }
+}
