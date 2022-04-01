@@ -1,0 +1,164 @@
+apiVersion: v1
+kind: Alert
+app: Portworx
+version: 1.0.0
+appVersion:
+- '2.9'
+descriptionFile: ALERTS.md
+configurations:
+- kind: Prometheus
+  data: |-
+    groups:
+    - name: Portworx
+      rules:
+      - alert: '[Portworx] No Quorum'
+        expr: "px_cluster_status_quorum != 1"
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          description: Portworx No Quorum.
+      - alert: '[Portworx] Node Status Not OK'
+        expr: "px_node_status_node_status != 2"
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          description: Portworx Node Status Not OK.
+      - alert: '[Portworx] Offline Nodes'
+        expr: "px_cluster_status_nodes_offline > 0"
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          description: Portworx Offline Nodes.
+      - alert: '[Portworx] Nodes Storage Full or Down'
+        expr: "px_cluster_status_nodes_storage_down > 0"
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          description: Portworx Nodes Storage Full or Down.
+      - alert: '[Portworx] Offline Storage Nodes'
+        expr: "px_cluster_status_storage_nodes_offline > 0"
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          description: Portworx Offline Storage Nodes.
+      - alert: '[Portworx] Unhealthy Node KVDB'
+        expr: "px_kvdb_health_state_node_view == 2"
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          description: Portworx Unhealthy Node KVDB.
+      - alert: '[Portworx] Cache read hit rate is low'
+        expr: "px_px_cache_read_hits/( px_px_cache_read_hits +  px_px_cache_read_miss)< 0.80"
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          description: Portworx Cache read hit rate is low.
+      - alert: '[Portworx] Cache write hit rate is low'
+        expr: "px_px_cache_write_hits/( px_px_cache_write_hits +  px_px_cache_write_miss)< 0.80"
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          description: Portworx Cache write hit rate is low.
+      - alert: '[Portworx] High Read Latency In Disk'
+        expr: |
+          px_disk_stats_read_latency_seconds{ disk=~$disk} > 0.100
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          description: Portworx High Read Latency In Disk.
+      - alert: '[Portworx] High Write Latency In Disk'
+        expr: |
+          px_disk_stats_write_latency_seconds{ disk=~$disk} > 0.250
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          description: Portworx High Write Latency In Disk.
+      - alert: '[Portworx] Low Cluster Capacity'
+        expr: |
+          (sum (px_cluster_disk_available_bytes))/(sum (px_cluster_disk_total_bytes))< 0.10
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          description: Portworx Low Cluster Capacity.
+      - alert: '[Portworx] Disk Full In 48H'
+        expr: |
+          predict_linear(px_cluster_disk_available_bytes[48h], 48 * 3600) < 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          description: Portworx Disk Full In 48H.
+      - alert: '[Portworx] Disk Full In 12H'
+        expr: |
+          predict_linear(px_cluster_disk_available_bytes[12h], 12 * 3600) < 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          description: Portworx Disk Full In 12H.
+      - alert: '[Portworx] Pool Status Not Online'
+        expr: "px_pool_stats_status{ pool=~$pool} != 1"
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          description: Portworx Node Status Not Online.
+      - alert: '[Portworx] High Write Latency In Pool'
+        expr: |
+          px_pool_stats_write_latency_seconds{ pool=~$pool} > 0.250
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          description: Portworx High Write Latency In Pool.
+      - alert: '[Portworx] Pool Full In 48H'
+        expr: |
+          predict_linear(px_pool_stats_available_bytes{ pool=~$pool}[48h], 48 * 3600) < 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          description: Portworx Pool Full In 48H.
+      - alert: '[Portworx] Pool Full In 12H'
+        expr: |
+          predict_linear(px_pool_stats_available_bytes{ pool=~$pool}[12h], 12 * 3600) < 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          description: Portworx Pool Full In 12H.
+      - alert: '[Portworx] High Write Latency In Volume'
+        expr: |
+          px_volume_write_latency_seconds{ pvc=~$pvc} > 0.250
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          description: Portworx High Write Latency In Volume.
+      - alert: '[Portworx] High Read Latency In Volume'
+        expr: |
+          px_volume_read_latency_seconds{ pvc=~$pvc} > 0.100
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          description: Portworx High Read Latency In Volume.
+      - alert: '[Portworx] License Expiry'
+        expr: |
+          min(px_node_status_license_expiry) < 30
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          description: Portworx License Expiry.
