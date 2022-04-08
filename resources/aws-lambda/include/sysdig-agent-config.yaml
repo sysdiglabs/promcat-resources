@@ -23,13 +23,13 @@ data:
       - action: keep
         source_labels: [__meta_kubernetes_pod_host_ip]
         regex: __HOSTIPS__
-      - action: kee(and cluster hierarchy)
       - action: replace
         source_labels: [__meta_kubernetes_pod_uid]
         target_label: sysdig_k8s_pod_uid
       - action: replace
         source_labels: [__meta_kubernetes_pod_container_name]
-        target_label: sysdig_k8s_pod_container_namep
+        target_label: sysdig_k8s_pod_container_name
+      - action: keep
         source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
         regex: true
       - action: replace
@@ -45,8 +45,6 @@ data:
         regex: ([^:]+)(?::\d+)?;(\d+)
         replacement: $1:$2
         target_label: __address__
-        # Holding on to pod-id and container name so we can associate the metrics
-        # with the container
   dragent.yaml: |
     new_k8s: true
     k8s_cluster_name: your-cluster-name
