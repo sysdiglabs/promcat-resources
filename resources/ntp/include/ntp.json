@@ -1,0 +1,555 @@
+{
+  "dashboard": {
+    "description": "",
+    "eventDisplaySettings": {
+      "enabled": true,
+      "queryParams": {
+        "alertStatuses": [],
+        "categories": [],
+        "filter": "",
+        "severities": [],
+        "teamScope": false
+      }
+    },
+    "layout": [
+      {
+        "h": 7,
+        "panelId": 2,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 11,
+        "panelId": 1,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      }
+    ],
+    "name": "NTP",
+    "panels": [
+      {
+        "advancedQueries": [
+          {
+            "displayInfo": {
+              "displayName": "Node < NTP server",
+              "timeSeriesDisplayNameTemplate": "{{kube_node_name}} > {{server}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "ntp_drift_seconds{_sysdig_datasource=\"agent\",kube_cluster_name=~$cluster,kube_node_name=~$node}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 1,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "NTP drift",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "displayedValue": null,
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "description": "",
+                  "documentId": "prometheus.ntp_drift_seconds",
+                  "documentTimestamp": 1652364230019,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "ntp_drift_seconds",
+                  "identity": false,
+                  "lastSeen": 1652357943000,
+                  "legacyId": "ntp_drift_seconds",
+                  "metricType": "gauge",
+                  "name": "ntp_drift_seconds",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "publicId": "ntp_drift_seconds",
+                  "scale": 1000000000.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "relativeTime"
+                },
+                "groupAggregation": "avg",
+                "id": "ntp_drift_seconds",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": true,
+                    "canMonitor": false,
+                    "deferred": false,
+                    "description": "kube_cluster_name",
+                    "documentId": "kube_cluster_name",
+                    "documentTimestamp": 1652364230019,
+                    "documentType": "metric",
+                    "documented": true,
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "kube_cluster_name",
+                    "identity": false,
+                    "metricType": "tag",
+                    "name": "kube_cluster_name",
+                    "namespaces": [
+                      "cloudProvider",
+                      "host.container",
+                      "ecs",
+                      "host.fs",
+                      "host.file",
+                      "host",
+                      "kubernetes",
+                      "kubernetes.cluster",
+                      "kubernetes.daemonSet",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.namespace",
+                      "kubernetes.node",
+                      "kubernetes.pod",
+                      "kubernetes.replicaSet",
+                      "kubernetes.service",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.hpa",
+                      "link",
+                      "mesos",
+                      "host.net",
+                      "host.process",
+                      "prometheus",
+                      "swarm",
+                      "prombeacon"
+                    ],
+                    "publicId": "kube_cluster_name",
+                    "scale": 0.0,
+                    "scopes": [],
+                    "segment": false,
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": "cluster",
+                  "id": "kube_cluster_name",
+                  "sorting": null
+                },
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": true,
+                    "canMonitor": false,
+                    "deferred": false,
+                    "description": "kube_node_name",
+                    "documentId": "kube_node_name",
+                    "documentTimestamp": 1652364230019,
+                    "documentType": "metric",
+                    "documented": true,
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "kube_node_name",
+                    "identity": false,
+                    "metricType": "tag",
+                    "name": "kube_node_name",
+                    "namespaces": [
+                      "cloudProvider",
+                      "host.container",
+                      "ecs",
+                      "host.fs",
+                      "host.file",
+                      "host",
+                      "kubernetes",
+                      "kubernetes.cluster",
+                      "kubernetes.daemonSet",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.namespace",
+                      "kubernetes.node",
+                      "kubernetes.pod",
+                      "kubernetes.replicaSet",
+                      "kubernetes.service",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.hpa",
+                      "link",
+                      "mesos",
+                      "host.net",
+                      "host.process",
+                      "prometheus",
+                      "swarm",
+                      "prombeacon"
+                    ],
+                    "publicId": "kube_node_name",
+                    "scale": 0.0,
+                    "scopes": [],
+                    "segment": false,
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": "node",
+                  "id": "kube_node_name",
+                  "sorting": null
+                },
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "deferred": false,
+                    "description": "server",
+                    "documentId": "server",
+                    "documentTimestamp": 1652364230019,
+                    "documentType": "metric",
+                    "documented": true,
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "server",
+                    "identity": false,
+                    "metricType": "tag",
+                    "name": "server",
+                    "namespaces": [
+                      "cloudProvider",
+                      "host.container",
+                      "ecs",
+                      "host.fs",
+                      "host.file",
+                      "host",
+                      "kubernetes",
+                      "kubernetes.cluster",
+                      "kubernetes.daemonSet",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.namespace",
+                      "kubernetes.node",
+                      "kubernetes.pod",
+                      "kubernetes.replicaSet",
+                      "kubernetes.service",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.hpa",
+                      "link",
+                      "mesos",
+                      "host.net",
+                      "host.process",
+                      "prometheus",
+                      "swarm",
+                      "prombeacon"
+                    ],
+                    "publicId": "server",
+                    "scale": 0.0,
+                    "scopes": [],
+                    "segment": false,
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": "server",
+                  "id": "server",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 2,
+        "name": "New Panel",
+        "nullValueDisplayText": null,
+        "type": "basicTable"
+      }
+    ],
+    "publicNotation": false,
+    "schema": 3,
+    "scopeExpressionList": [
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "kube_cluster_name",
+          "documentId": "kube_cluster_name",
+          "documentTimestamp": 1652364230019,
+          "documentType": "metric",
+          "documented": true,
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kube_cluster_name",
+          "identity": false,
+          "metricType": "tag",
+          "name": "kube_cluster_name",
+          "namespaces": [
+            "cloudProvider",
+            "host.container",
+            "ecs",
+            "host.fs",
+            "host.file",
+            "host",
+            "kubernetes",
+            "kubernetes.cluster",
+            "kubernetes.daemonSet",
+            "kubernetes.deployment",
+            "kubernetes.job",
+            "kubernetes.namespace",
+            "kubernetes.node",
+            "kubernetes.pod",
+            "kubernetes.replicaSet",
+            "kubernetes.service",
+            "kubernetes.statefulSet",
+            "kubernetes.resourcequota",
+            "kubernetes.hpa",
+            "link",
+            "mesos",
+            "host.net",
+            "host.process",
+            "prometheus",
+            "swarm",
+            "prombeacon"
+          ],
+          "publicId": "kube_cluster_name",
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "cluster",
+        "isVariable": true,
+        "operand": "kube_cluster_name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "kube_node_name",
+          "documentId": "kube_node_name",
+          "documentTimestamp": 1652364230019,
+          "documentType": "metric",
+          "documented": true,
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kube_node_name",
+          "identity": false,
+          "metricType": "tag",
+          "name": "kube_node_name",
+          "namespaces": [
+            "cloudProvider",
+            "host.container",
+            "ecs",
+            "host.fs",
+            "host.file",
+            "host",
+            "kubernetes",
+            "kubernetes.cluster",
+            "kubernetes.daemonSet",
+            "kubernetes.deployment",
+            "kubernetes.job",
+            "kubernetes.namespace",
+            "kubernetes.node",
+            "kubernetes.pod",
+            "kubernetes.replicaSet",
+            "kubernetes.service",
+            "kubernetes.statefulSet",
+            "kubernetes.resourcequota",
+            "kubernetes.hpa",
+            "link",
+            "mesos",
+            "host.net",
+            "host.process",
+            "prometheus",
+            "swarm",
+            "prombeacon"
+          ],
+          "publicId": "kube_node_name",
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "node",
+        "isVariable": true,
+        "operand": "kube_node_name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      }
+    ]
+  }
+}

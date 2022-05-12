@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: SetupGuide
+app: NTP
+version: 1.0.0
+appVersion:
+- '4'
+descriptionFile: INSTALL.md
+configurations:
+- name: ntp-deploy.yaml
+  file: include/ntp-deploy.yaml
