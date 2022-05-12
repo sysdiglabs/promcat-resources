@@ -19,7 +19,7 @@ spec:
       - name: ntp-exporter
         image: sapcc/ntp-exporter:v2.0.2
         args: [
-          "-ntp.server", "chrony-alpine-service"
+          "-ntp.server", "Your-NTP-server"
         ]
         resources:
           limits:
