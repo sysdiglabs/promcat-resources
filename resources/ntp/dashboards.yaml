@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Dashboard
+app: 'NTP'
+version: 1.0.0
+appVersion:
+- '4'
+configurations:
+- name: 'Instance Health'
+  kind: Sysdig
+  image: 'ntp/images/ntp.png'
+  description: |
+    This dashboard offers information on:
+    * Drift per node
+  file: include/ntp.json
