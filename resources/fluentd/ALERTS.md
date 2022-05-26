@@ -1,28 +1,28 @@
 # Alerts
-## No Input From Container
+## [Fluentd] No Input From Container
 No Input From Container.
 
-## Increased Error Ratio
-Increased Error Ratio.
+## [Fluentd] High Error Ratio
+High Error Ratio.
 
-## Increased Retry Ratio
-Increased Retry Ratio.
+## [Fluentd] High Retry Ratio
+High Retry Ratio.
 
-## Increased Retry Wait
-Increased Retry Wait.
+## [Fluentd] High Retry Wait
+High Retry Wait.
 
-## Low Buffer Available Space
+## [Fluentd] Low Buffer Available Space
 Low Buffer Available Space.
 
-## Buffer Queue Length Increasing
+## [Fluentd] Buffer Queue Length Increasing
 Buffer Queue Length Increasing.
 
-## Buffer Total Bytes Increasing
+## [Fluentd] Buffer Total Bytes Increasing
 Buffer Total Bytes Increasing.
 
-## Increased Slow Flush Ratio
-Increased Slow Flush Ratio.
+## [Fluentd] High Slow Flush Ratio
+High Slow Flush Ratio.
 
-## No Output Records From Plugin
+## [Fluentd] No Output Records From Plugin
 No Output Records From Plugin.
 

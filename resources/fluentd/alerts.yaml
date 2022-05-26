@@ -13,36 +13,36 @@ configurations:
       rules:
       - alert: '[Fluentd] No Input From Container'
         expr: |
-          sum by (input_namespace, input_container)(rate(fluentd_input_status_num_records_total[1m])) == 0
+          sum by (input_namespace, input_container)(rate(fluentd_input_status_num_records_total[5m])) == 0
         for: 5m
         labels:
           severity: warning
         annotations:
           description: No Input From Container.
-      - alert: '[Fluentd] Increased Error Ratio'
+      - alert: '[Fluentd] High Error Ratio'
         expr: |
-          sum by (type, plugin_id)(rate(fluentd_output_status_num_errors[1m])) /sum by (type, plugin_id)(rate(fluentd_output_status_emit_count[1m]))> 0.05
+          sum by (type, plugin_id)(rate(fluentd_output_status_num_errors[5m])) /sum by (type, plugin_id)(rate(fluentd_output_status_emit_count[5m]))> 0.05
         for: 5m
         labels:
           severity: critical
         annotations:
-          description: Increased Error Ratio.
-      - alert: '[Fluentd] Increased Retry Ratio'
+          description: High Error Ratio.
+      - alert: '[Fluentd] High Retry Ratio'
         expr: |
-          sum by (type, plugin_id)(rate(fluentd_output_status_retry_count[1m])) /sum by (type, plugin_id)(rate(fluentd_output_status_emit_count[1m]))> 0.05
+          sum by (type, plugin_id)(rate(fluentd_output_status_retry_count[5m])) /sum by (type, plugin_id)(rate(fluentd_output_status_emit_count[5m]))> 0.05
         for: 5m
         labels:
           severity: critical
         annotations:
-          description: Increased Retry Ratio.
-      - alert: '[Fluentd] Increased Retry Wait'
+          description: High Retry Ratio.
+      - alert: '[Fluentd] High Retry Wait'
         expr: |
-          sum by (type, plugin_id)(max_over_time(fluentd_output_status_retry_wait[1m])) > 60
+          sum by (type, plugin_id)(max_over_time(fluentd_output_status_retry_wait[5m])) > 60
         for: 5m
         labels:
           severity: critical
         annotations:
-          description: Increased Retry Wait.
+          description: High Retry Wait.
       - alert: '[Fluentd] Low Buffer Available Space'
         expr: |
           fluentd_output_status_buffer_available_space_ratio < 10
@@ -56,7 +56,7 @@ configurations:
           avg_over_time(fluentd_output_status_buffer_queue_length[5m]) - avg_over_time(fluentd_output_status_buffer_queue_length[5m] offset 5m)> 0
         for: 5m
         labels:
-          severity: critical
+          severity: warning
         annotations:
           description: Buffer Queue Length Increasing.
       - alert: '[Fluentd] Buffer Total Bytes Increasing'
@@ -67,17 +67,17 @@ configurations:
           severity: warning
         annotations:
           description: Buffer Total Bytes Increasing.
-      - alert: '[Fluentd] Increased Slow Flush Ratio'
+      - alert: '[Fluentd] High Slow Flush Ratio'
         expr: |
-          sum by (type, plugin_id)(rate(fluentd_output_status_slow_flush_count[1m])) /sum by (type, plugin_id)(rate(fluentd_output_status_emit_count[1m]))> 0.05
+          sum by (type, plugin_id)(rate(fluentd_output_status_slow_flush_count[5m])) /sum by (type, plugin_id)(rate(fluentd_output_status_emit_count[5m]))> 0.05
         for: 5m
         labels:
           severity: warning
         annotations:
-          description: Increased Slow Flush Ratio.
+          description: High Slow Flush Ratio.
       - alert: '[Fluentd] No Output Records From Plugin'
         expr: |
-          rate(fluentd_output_status_emit_records[1m]) == 0
+          rate(fluentd_output_status_emit_records[5m]) == 0
         for: 5m
         labels:
           severity: warning
