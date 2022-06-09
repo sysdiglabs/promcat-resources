@@ -9,61 +9,69 @@ configurations:
 - kind: Prometheus
   data: |
     groups:
-    - name: HAProxy-Ingress
+    - name: Haproxy-Ingress
       rules:
-      - alert: UpTimeLessThan1Hour
-        expr: max(time() - haproxy_process_start_time_seconds) < 3600
-        for: 10m
-        labels:
-          severity: page
-        annotations:
-          summary: Up Time of less than 1 hour
-      - alert: FrontendDown
-        expr: count by (proxy) (haproxy_frontend_status == 1) == 0
-        for: 10m
-        labels:
-          severity: page
-        annotations:
-          summary: Frontend down {{$labels.proxy}}
-      - alert: BackendDown
-        expr: sum by (proxy) (haproxy_backend_status==1) == 0
-        for: 10m
-        labels:
-          severity: page
-        annotations:
-          summary: No backend instances found for the proxy {{$labels.proxy}}
-      - alert: HighSessionsUsage
-        expr: max by (proxy)(rate(haproxy_backend_sessions_total[5m]) / haproxy_backend_limit_sessions) >0.85
-        for: 10m
-        labels:
-          severity: page
-        annotations:
-          summary: Low number of sessions available in proxy {{$labels.proxy}}
-      - alert: HigErrorRate
-        expr: sum by (proxy)(rate(haproxy_backend_http_responses_total{code!="2xx"}[5m])) / sum by (proxy)(rate(haproxy_backend_http_responses_total[5m])) > 0.15
-        for: 10m
-        labels:
-          severity: page
-        annotations:
-          summary: High HTTP error rate in proxy {{$labels.proxy}}
-      - alert: HighRequestDeniedRate
-        expr: sum by (proxy) (rate(haproxy_backend_requests_denied_total[5m])) / sum by (proxy)(rate(haproxy_backend_http_requests_total[5m])) > 0.15
-        for: 10m
-        labels:
-          severity: page
-        annotations:
-          summary: High request denied error rate in proxy {{$labels.proxy}}
-      - alert: HighResponseDeniedRate
-        expr: sum by (proxy) (rate(haproxy_backend_responses_denied_total[5m])) / sum by (proxy)(rate(haproxy_backend_http_responses_total[5m])) > 0.15
-        for: 10m
-        labels:
-          severity: page
-        annotations:
-          summary: High responses denied rate in proxy {{$labels.proxy}}
-      - alert: HighResponseTime
-        expr: max by (proxy) (haproxy_backend_response_time_average_seconds)> 0.25
-        for: 10m
-        labels:
-          severity: page
-        annotations:
-          summary: High response time in proxy {{$labels.proxy}}
+        - alert: '[Haproxy-Ingress] Uptime less than 1 hour'
+          expr: |
+            max(time() - haproxy_process_start_time_seconds) < 3600
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: This alert detects when all of the instances of the ingress controller have an uptime of less than 1 hour.
+        - alert: '[Haproxy-Ingress] Frontend Down'
+          expr: |
+            count by (proxy) (haproxy_frontend_status == 1) == 0
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: This alert detects when a frontend has all of its instances down for more than 10 minutes.
+        - alert: '[Haproxy-Ingress] Backend Down'
+          expr: |
+            sum by (proxy) (haproxy_backend_status == 1) == 0
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: This alert detects when a backend has all of its instances down for more than 10 minutes.
+        - alert: '[Haproxy-Ingress] High Sessions Usage'
+          expr: |
+            max by (proxy)(rate(haproxy_backend_sessions_total[5m]) / haproxy_backend_limit_sessions) >0.85
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: This alert triggers when the backend sessions overpass the 85% of the sessions capacity for 10 minutes.
+        - alert: '[Haproxy-Ingress] High Error Rate'
+          expr: |
+            sum by (proxy)(rate(haproxy_backend_http_responses_total{code!="2xx"}[5m])) / sum by (proxy)(rate(haproxy_backend_http_responses_total[5m])) > 0.15
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: This alert triggers when there is an error rate over 15% for over 10 minutes in a proxy.
+        - alert: '[Haproxy-Ingress] High Request Denied Rate'
+          expr: |
+            sum by (proxy) (rate(haproxy_backend_requests_denied_total[5m])) / sum by (proxy)(rate(haproxy_backend_http_requests_total[5m])) > 0.15
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: These alerts detect when there is a denied rate of requests over 10% for over 10 minutes in a proxy.
+        - alert: '[Haproxy-Ingress] High Response Denied Rate'
+          expr: |
+            sum by (proxy) (rate(haproxy_backend_responses_denied_total[5m])) / sum by (proxy)(rate(haproxy_backend_http_responses_total[5m])) > 0.15
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: These alerts detect when there is a denied rate of responses over 10% for over 10 minutes in a proxy.
+        - alert: '[Haproxy-Ingress] High Response Rate'
+          expr: |
+            max by (proxy) (haproxy_backend_response_time_average_seconds)> 0.25
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: This alert triggers when a proxy has a mean response time higher than 250ms for over 10 minutes.
