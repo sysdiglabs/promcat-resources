@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-fpm-app
+  namespace: php-fpm
+  labels:
+    app: php-fpm
+    pod: php-app
+spec:
+  selector:
+    matchLabels:
+      app: php-fpm
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: php-fpm
+        pod: php-app
+    spec:
+      containers:
+      - image: php:7.2-fpm
+        imagePullPolicy: Always
+        name: php-fpm
+        ports:
+        - containerPort: 9000
+          protocol: TCP
+        volumeMounts:
+          - name: php-fpm-config
+            mountPath: /usr/local/etc/php-fpm.d/www.conf
+            subPath: www.conf
+      - name: php-fpm-exporter
+        image: "quay.io/sysdig/php-fpm-exporter:v2.3.0"
+        ports:
+        - containerPort: 9253
+        env:
+        - name: PHP_FPM_WEB_LISTEN_ADDRESS
+          value: :9253
+        - name: PHP_FPM_WEB_TELEMETRY_PATH
+          value: /metrics
+        - name: PHP_FPM_SCRAPE_URI
+          value: tcp://127.0.0.1:9000/status
+        - name: PHP_FPM_FIX_PROCESS_COUNT
+          value: "false"
+        - name: PHP_FPM_LOG_LEVEL
+          value: info
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: php-fpm-config
+          name: php-fpm-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    labels:
+      app: php-fpm
+    name: php-fpm-config
+    namespace: php-fpm
+data:
+  www.conf: |
+    [www]
+    user=www-data
+    group=www-data
+    listen=127.0.0.1:9000
+    pm.status_path=/status
+    php_admin_value[display_errors] = Off
+    php_admin_flag[log_errors] = on
+    php_admin_value[error_log] = /var/log/fpm-php.www.log
