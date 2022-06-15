@@ -1,0 +1,91 @@
+apiVersion: v1
+kind: Alert
+app: php-fpm
+version: 1.0.0
+appVersion:
+- '7.2'
+descriptionFile: ALERTS.md
+configurations:
+- kind: Prometheus
+  data: |-
+    groups:
+      - name: "Php-Fpm"
+        groupId: "php-fpm"
+        description: "Php-Fpm alerts"
+        integrationType: "php-fpm"
+        scopeVariables:
+          - variable: cluster
+            label: kubernetes.cluster.name
+            operator: in
+          - variable: namespace
+            label: kubernetes.namespace.name
+            operator: in
+          - variable: workload
+            label: kubernetes.workload.name
+            operator: in
+        rules:
+          - alert: "[Php-Fpm] Percentage of instances low"
+            alertId: "PercentageOfInstancesLow"
+            description: "Most of the instances are down"
+            expr: |
+              sum by (kube_workload_name,kube_namespace_name,kube_cluster_name)(phpfpm_up{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload})/sum by (kube_workload_name,kube_namespace_name,kube_cluster_name)(kube_workload_status_desired{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}) < 0.75
+            for: 5m
+            labels:
+              severity: high
+            annotations:
+              summary: |
+                [{{$labels.kube_cluster_name}} > {{$labels.kube_namespace_name}} > {{$labels.kube_workload_name}}] {{__alert_name__}} is {{__alert_status__}}
+              description: |
+                Most of the instances are down
+          - alert: "[Php-Fpm] Recently reboot"
+            alertId: "RecentlyReeboot"
+            description: "Instances have been recently reboot"
+            expr: |
+              (count by (kube_cluster_name, kube_namespace_name,kube_pod_name)(phpfpm_start_since{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload} < 1800) or vector (0))/sum by (kube_cluster_name, kube_namespace_name,kube_pod_name)(phpfpm_up{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}) > 0.4
+            for: 5m
+            labels:
+              severity: high
+            annotations:
+              summary: |
+                [{{$labels.kube_cluster_name}} > {{$labels.kube_namespace_name}} > {{$labels.kube_workload_name}}] {{__alert_name__}} is {{__alert_status__}}
+              description: |
+                Instances have been recently reboot
+          - alert: "[Php-Fpm] Limit of child proccess exceeded"
+            alertId: "LimitOfChildsExceeded"
+            description: "Number of childs process have been exceeded"
+            expr: |
+              sum by (kube_cluster_name, kube_namespace_name,kube_pod_name) (rate (phpfpm_max_children_reached{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}[5m])) > 0
+            for: 5m
+            labels:
+              severity: high
+            annotations:
+              summary: |
+                [{{$labels.kube_cluster_name}} > {{$labels.kube_namespace_name}} > {{$labels.kube_workload_name}}] {{__alert_name__}} is {{__alert_status__}}
+              description: |
+                Number of childs process have been exceeded
+          - alert: "[Php-Fpm] Reaching limit of queue process"
+            alertId: "ReachedQueueLimit"
+            description: "Buffer of queue requests reaching its limit"
+            expr: |
+              (phpfpm_listen_queue{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload} / phpfpm_listen_queue_length{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}) > 0.8
+            for: 5m
+            labels:
+              severity: medium
+            annotations:
+              summary: |
+                [{{$labels.kube_cluster_name}} > {{$labels.kube_namespace_name}} > {{$labels.kube_workload_name}}] {{__alert_name__}} is {{__alert_status__}}
+              description: |
+                Buffer of queue requests reaching its limit
+          - alert: "[Php-Fpm] Requests processed reached timeout limit"
+            alertId: "TimeoutLimitRequestReached"
+            description: "Timeout limit reached by some of the requests"
+            expr: |
+              rate (phpfpm_slow_requests{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}[5m]) / rate (phpfpm_process_requests{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}[5m]) > 0.75
+            for: 5m
+            labels:
+              severity: medium
+            annotations:
+              summary: |
+                [{{$labels.kube_cluster_name}} > {{$labels.kube_namespace_name}} > {{$labels.kube_workload_name}}] {{__alert_name__}} is {{__alert_status__}}
+              description: |
+                Timeout limit reached by some of the requests
