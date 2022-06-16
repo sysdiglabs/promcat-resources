@@ -40,15 +40,14 @@ configurations:
               (phpfpm_listen_queue / phpfpm_listen_queue_length) > 0.8
             for: 5m
             labels:
-                severity: warning
-              annotations:
-                description: Buffer of queue requests reaching its limit
-            - alert: '[Php-Fpm] Too slow requests processing'
-              expr: |
-                rate (phpfpm_slow_requests[5m]) / rate (phpfpm_process_requests[5m]) > 0.1
-              for: 5m
-              labels:
-                severity: warning
-              annotations:
-                description: Requests have taking too much time to be processed
-
+              severity: warning
+            annotations:
+              description: Buffer of queue requests reaching its limit
+          - alert: '[Php-Fpm] Too slow requests processing'
+            expr: |
+              rate (phpfpm_slow_requests[5m]) / rate (phpfpm_process_requests[5m]) > 0.1
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              description: Requests have taking too much time to be processed
