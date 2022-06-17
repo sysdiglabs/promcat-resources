@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: cassandra-exporter
-        image: gcr.io/mateo-burillo-ns/promcat-cassandra-exporter:latest
+        image: quay.io/sysdig/promcat-cassandra-exporter:v0.9.10
         imagePullPolicy: Always
         volumeMounts:
           - mountPath: /var/lib/cassandra

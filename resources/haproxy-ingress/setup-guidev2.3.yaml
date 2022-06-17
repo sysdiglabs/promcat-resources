@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: SetupGuide
+app: HAProxy Ingress
+version: 1.0.0
+appVersion:
+- '2.3'
+descriptionFile: INSTALLv2.3.md
+configurations:
+- name: sysdig-agent-config.yaml
+  file: include/sysdig-agent-config.yaml
+
