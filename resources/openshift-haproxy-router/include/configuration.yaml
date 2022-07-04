@@ -27,7 +27,7 @@ data:
     - job_name: 'haproxy-router'
       basic_auth:
         username: USER
-        password: PASSWORD
+        password_file: '/etc/secret-volume/password'
       tls_config:
         insecure_skip_verify: true
       kubernetes_sd_configs:
