@@ -215,7 +215,9 @@ def testDescriptionElement():
       
 # Tests for configurations elements
 # For the resources with configurations:
-# Is list not empty (configuration list can be empty)
+#   - app is not empty
+#   - kind is not empty
+#   - configuration is list 
 def testConfigurationsElement():
   for kind in all_resources:
     for res in kind:
