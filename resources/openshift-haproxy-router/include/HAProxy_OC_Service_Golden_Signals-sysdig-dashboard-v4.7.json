@@ -154,7 +154,7 @@
                   "deferred": false,
                   "description": "",
                   "documentId": "prometheus.haproxy_server_up",
-                  "documentTimestamp": 1656660280814,
+                  "documentTimestamp": 1657549748357,
                   "documentType": "metric",
                   "experimental": false,
                   "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
@@ -168,7 +168,7 @@
                   "hidden": false,
                   "id": "haproxy_server_up",
                   "identity": false,
-                  "lastSeen": 1656095524000,
+                  "lastSeen": 1657544526000,
                   "legacyId": "haproxy_server_up",
                   "metricType": "gauge",
                   "name": "haproxy_server_up",
@@ -226,9 +226,8 @@
                     "deferred": false,
                     "description": "kubernetes.cluster.name",
                     "documentId": "kubernetes.cluster.name",
-                    "documentTimestamp": 1656660280814,
+                    "documentTimestamp": 1657549748357,
                     "documentType": "metric",
-                    "documented": true,
                     "experimental": false,
                     "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
                     "groupAggregations": [
@@ -269,9 +268,8 @@
                     "deferred": false,
                     "description": "kubernetes.namespace.name",
                     "documentId": "kubernetes.namespace.name",
-                    "documentTimestamp": 1656660280814,
+                    "documentTimestamp": 1657549748357,
                     "documentType": "metric",
-                    "documented": true,
                     "experimental": false,
                     "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
                     "groupAggregations": [
@@ -312,9 +310,8 @@
                     "deferred": false,
                     "description": "kubernetes.workload.name",
                     "documentId": "kubernetes.workload.name",
-                    "documentTimestamp": 1656660280814,
+                    "documentTimestamp": 1657549748357,
                     "documentType": "metric",
-                    "documented": true,
                     "experimental": false,
                     "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
                     "groupAggregations": [
@@ -380,9 +377,8 @@
                     "deferred": false,
                     "description": "kubernetes.pod.name",
                     "documentId": "kubernetes.pod.name",
-                    "documentTimestamp": 1656660280814,
+                    "documentTimestamp": 1657549748357,
                     "documentType": "metric",
-                    "documented": true,
                     "experimental": false,
                     "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
                     "groupAggregations": [
@@ -448,9 +444,8 @@
                     "deferred": false,
                     "description": "service",
                     "documentId": "service",
-                    "documentTimestamp": 1656660280814,
+                    "documentTimestamp": 1657549748357,
                     "documentType": "metric",
-                    "documented": true,
                     "experimental": false,
                     "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
                     "groupAggregations": [
@@ -519,8 +514,30 @@
         "type": "basicTable"
       },
       {
-        "applyScopeToAll": false,
-        "applySegmentationToAll": false,
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Service < Pod < Workload < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{service}} < {{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "ms",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "haproxy_server_http_average_response_latency_milliseconds{service!=\"\",kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}"
+          }
+        ],
         "axesConfiguration": {
           "bottom": {
             "enabled": true
@@ -550,397 +567,6 @@
             "unit": "auto"
           }
         },
-        "basicQueries": [
-          {
-            "compareTo": {
-              "delta": 1,
-              "enabled": false,
-              "timeFormat": "day"
-            },
-            "displayInfo": {
-              "displayName": "Service < Pod < Workload < Namespace < Cluster",
-              "timeSeriesDisplayNameTemplate": "{{service}} < {{kubernetes.pod.name}} < {{kubernetes.workload.name}} < {{kubernetes.namespace.name}} < {{kubernetes.cluster.name}}",
-              "type": "lines"
-            },
-            "displayedValue": null,
-            "enabled": true,
-            "format": {
-              "decimals": null,
-              "displayFormat": "auto",
-              "inputFormat": "ms",
-              "nullValueDisplayMode": "nullGap",
-              "unit": "relativeTime",
-              "yAxis": "auto"
-            },
-            "metrics": [
-              {
-                "descriptor": {
-                  "aggregationForGroup": "avg",
-                  "canFilter": false,
-                  "canGroupBy": false,
-                  "canMonitor": false,
-                  "category": "prometheus",
-                  "deferred": false,
-                  "description": "",
-                  "documentId": "prometheus.haproxy_server_http_average_response_latency_milliseconds",
-                  "documentTimestamp": 1656660280814,
-                  "documentType": "metric",
-                  "experimental": false,
-                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
-                  "groupAggregations": [
-                    "avg",
-                    "sum",
-                    "min",
-                    "max"
-                  ],
-                  "heuristic": false,
-                  "hidden": false,
-                  "id": "haproxy_server_http_average_response_latency_milliseconds",
-                  "identity": false,
-                  "lastSeen": 1656095524000,
-                  "legacyId": "haproxy_server_http_average_response_latency_milliseconds",
-                  "metricType": "gauge",
-                  "name": "haproxy_server_http_average_response_latency_milliseconds",
-                  "namespaces": [
-                    "host",
-                    "host.process",
-                    "host.container",
-                    "cloudProvider",
-                    "mesos",
-                    "ecs",
-                    "kubernetes.cluster",
-                    "kubernetes.namespace",
-                    "kubernetes.deployment",
-                    "kubernetes.job",
-                    "kubernetes.daemonSet",
-                    "kubernetes.service",
-                    "kubernetes.node",
-                    "kubernetes.replicaSet",
-                    "kubernetes.statefulSet",
-                    "kubernetes.resourcequota",
-                    "kubernetes.persistentvolume",
-                    "kubernetes.persistentvolumeclaim",
-                    "kubernetes.pod"
-                  ],
-                  "publicId": "haproxy_server_http_average_response_latency_milliseconds",
-                  "scale": 1.0,
-                  "scopes": [],
-                  "segment": false,
-                  "timeAggregations": [
-                    "avg",
-                    "min",
-                    "max"
-                  ],
-                  "type": "number"
-                },
-                "groupAggregation": "avg",
-                "id": "haproxy_server_http_average_response_latency_milliseconds",
-                "sorting": null,
-                "timeAggregation": "avg"
-              }
-            ],
-            "scope": {
-              "expressions": [],
-              "extendsDashboardScope": true
-            },
-            "segmentation": {
-              "direction": "desc",
-              "labels": [
-                {
-                  "descriptor": {
-                    "aggregationForGroup": "none",
-                    "canFilter": true,
-                    "canGroupBy": true,
-                    "canMonitor": false,
-                    "deferred": false,
-                    "description": "kubernetes.cluster.name",
-                    "documentId": "kubernetes.cluster.name",
-                    "documentTimestamp": 1656660280814,
-                    "documentType": "metric",
-                    "documented": true,
-                    "experimental": false,
-                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
-                    "groupAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "heuristic": false,
-                    "hidden": false,
-                    "id": "kubernetes.cluster.name",
-                    "identity": false,
-                    "metricType": "tag",
-                    "name": "kubernetes.cluster.name",
-                    "namespaces": [
-                      "kubernetes.cluster"
-                    ],
-                    "publicId": "kube_cluster_name",
-                    "scale": 0.0,
-                    "scopes": [],
-                    "segment": false,
-                    "timeAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "type": "string"
-                  },
-                  "displayName": null,
-                  "id": "kubernetes.cluster.name",
-                  "sorting": null
-                },
-                {
-                  "descriptor": {
-                    "aggregationForGroup": "none",
-                    "canFilter": true,
-                    "canGroupBy": true,
-                    "canMonitor": false,
-                    "deferred": false,
-                    "description": "kubernetes.namespace.name",
-                    "documentId": "kubernetes.namespace.name",
-                    "documentTimestamp": 1656660280814,
-                    "documentType": "metric",
-                    "documented": true,
-                    "experimental": false,
-                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
-                    "groupAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "heuristic": false,
-                    "hidden": false,
-                    "id": "kubernetes.namespace.name",
-                    "identity": false,
-                    "metricType": "tag",
-                    "name": "kubernetes.namespace.name",
-                    "namespaces": [
-                      "kubernetes.namespace"
-                    ],
-                    "publicId": "kube_namespace_name",
-                    "scale": 0.0,
-                    "scopes": [],
-                    "segment": false,
-                    "timeAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "type": "string"
-                  },
-                  "displayName": null,
-                  "id": "kubernetes.namespace.name",
-                  "sorting": null
-                },
-                {
-                  "descriptor": {
-                    "aggregationForGroup": "none",
-                    "canFilter": true,
-                    "canGroupBy": true,
-                    "canMonitor": false,
-                    "deferred": false,
-                    "description": "kubernetes.workload.name",
-                    "documentId": "kubernetes.workload.name",
-                    "documentTimestamp": 1656660280814,
-                    "documentType": "metric",
-                    "documented": true,
-                    "experimental": false,
-                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
-                    "groupAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "heuristic": false,
-                    "hidden": false,
-                    "id": "kubernetes.workload.name",
-                    "identity": false,
-                    "metricType": "tag",
-                    "name": "kubernetes.workload.name",
-                    "namespaces": [
-                      "cloudProvider",
-                      "host.container",
-                      "ecs",
-                      "host.fs",
-                      "host.file",
-                      "host",
-                      "kubernetes",
-                      "kubernetes.cluster",
-                      "kubernetes.daemonSet",
-                      "kubernetes.deployment",
-                      "kubernetes.job",
-                      "kubernetes.namespace",
-                      "kubernetes.node",
-                      "kubernetes.pod",
-                      "kubernetes.replicaSet",
-                      "kubernetes.service",
-                      "kubernetes.statefulSet",
-                      "kubernetes.resourcequota",
-                      "kubernetes.hpa",
-                      "link",
-                      "mesos",
-                      "host.net",
-                      "host.process",
-                      "prometheus",
-                      "swarm",
-                      "prombeacon"
-                    ],
-                    "publicId": "kube_workload_name",
-                    "scale": 0.0,
-                    "scopes": [],
-                    "segment": false,
-                    "timeAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "type": "string"
-                  },
-                  "displayName": null,
-                  "id": "kubernetes.workload.name",
-                  "sorting": null
-                },
-                {
-                  "descriptor": {
-                    "aggregationForGroup": "none",
-                    "canFilter": true,
-                    "canGroupBy": true,
-                    "canMonitor": false,
-                    "deferred": false,
-                    "description": "kubernetes.pod.name",
-                    "documentId": "kubernetes.pod.name",
-                    "documentTimestamp": 1656660280814,
-                    "documentType": "metric",
-                    "documented": true,
-                    "experimental": false,
-                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
-                    "groupAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "heuristic": false,
-                    "hidden": false,
-                    "id": "kubernetes.pod.name",
-                    "identity": false,
-                    "metricType": "tag",
-                    "name": "kubernetes.pod.name",
-                    "namespaces": [
-                      "cloudProvider",
-                      "host.container",
-                      "ecs",
-                      "host.fs",
-                      "host.file",
-                      "host",
-                      "kubernetes",
-                      "kubernetes.cluster",
-                      "kubernetes.daemonSet",
-                      "kubernetes.deployment",
-                      "kubernetes.job",
-                      "kubernetes.namespace",
-                      "kubernetes.node",
-                      "kubernetes.pod",
-                      "kubernetes.replicaSet",
-                      "kubernetes.service",
-                      "kubernetes.statefulSet",
-                      "kubernetes.resourcequota",
-                      "kubernetes.hpa",
-                      "link",
-                      "mesos",
-                      "host.net",
-                      "host.process",
-                      "prometheus",
-                      "swarm",
-                      "prombeacon"
-                    ],
-                    "publicId": "kube_pod_name",
-                    "scale": 0.0,
-                    "scopes": [],
-                    "segment": false,
-                    "timeAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "type": "string"
-                  },
-                  "displayName": null,
-                  "id": "kubernetes.pod.name",
-                  "sorting": null
-                },
-                {
-                  "descriptor": {
-                    "aggregationForGroup": "none",
-                    "canFilter": true,
-                    "canGroupBy": false,
-                    "canMonitor": false,
-                    "deferred": false,
-                    "description": "service",
-                    "documentId": "service",
-                    "documentTimestamp": 1656660280814,
-                    "documentType": "metric",
-                    "documented": true,
-                    "experimental": false,
-                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
-                    "groupAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "heuristic": false,
-                    "hidden": false,
-                    "id": "service",
-                    "identity": false,
-                    "metricType": "tag",
-                    "name": "service",
-                    "namespaces": [
-                      "cloudProvider",
-                      "host.container",
-                      "ecs",
-                      "host.fs",
-                      "host.file",
-                      "host",
-                      "kubernetes",
-                      "kubernetes.cluster",
-                      "kubernetes.daemonSet",
-                      "kubernetes.deployment",
-                      "kubernetes.job",
-                      "kubernetes.namespace",
-                      "kubernetes.node",
-                      "kubernetes.pod",
-                      "kubernetes.replicaSet",
-                      "kubernetes.service",
-                      "kubernetes.statefulSet",
-                      "kubernetes.resourcequota",
-                      "kubernetes.hpa",
-                      "link",
-                      "mesos",
-                      "host.net",
-                      "host.process",
-                      "prometheus",
-                      "swarm",
-                      "prombeacon"
-                    ],
-                    "publicId": "service",
-                    "scale": 0.0,
-                    "scopes": [],
-                    "segment": false,
-                    "timeAggregations": [
-                      "concat",
-                      "distinct",
-                      "count"
-                    ],
-                    "type": "string"
-                  },
-                  "displayName": null,
-                  "id": "service",
-                  "sorting": null
-                }
-              ],
-              "limit": 10
-            }
-          }
-        ],
         "description": "",
         "id": 6,
         "legendConfiguration": {
@@ -953,7 +579,7 @@
         },
         "name": "Average response latency",
         "nullValueDisplayText": null,
-        "type": "basicTimechart"
+        "type": "advancedTimechart"
       },
       {
         "advancedQueries": [
@@ -1428,7 +1054,7 @@
                   "deferred": false,
                   "description": "",
                   "documentId": "prometheus.haproxy_server_current_queue",
-                  "documentTimestamp": 1656660280814,
+                  "documentTimestamp": 1657549748357,
                   "documentType": "metric",
                   "experimental": false,
                   "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
@@ -1442,7 +1068,7 @@
                   "hidden": false,
                   "id": "haproxy_server_current_queue",
                   "identity": false,
-                  "lastSeen": 1656095524000,
+                  "lastSeen": 1657544526000,
                   "legacyId": "haproxy_server_current_queue",
                   "metricType": "gauge",
                   "name": "haproxy_server_current_queue",
@@ -1500,9 +1126,8 @@
                     "deferred": false,
                     "description": "kubernetes.cluster.name",
                     "documentId": "kubernetes.cluster.name",
-                    "documentTimestamp": 1656660280814,
+                    "documentTimestamp": 1657549748357,
                     "documentType": "metric",
-                    "documented": true,
                     "experimental": false,
                     "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
                     "groupAggregations": [
@@ -1543,9 +1168,8 @@
                     "deferred": false,
                     "description": "kubernetes.namespace.name",
                     "documentId": "kubernetes.namespace.name",
-                    "documentTimestamp": 1656660280815,
+                    "documentTimestamp": 1657549748357,
                     "documentType": "metric",
-                    "documented": true,
                     "experimental": false,
                     "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
                     "groupAggregations": [
@@ -1586,9 +1210,8 @@
                     "deferred": false,
                     "description": "kubernetes.workload.name",
                     "documentId": "kubernetes.workload.name",
-                    "documentTimestamp": 1656660280815,
+                    "documentTimestamp": 1657549748357,
                     "documentType": "metric",
-                    "documented": true,
                     "experimental": false,
                     "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
                     "groupAggregations": [
@@ -1654,9 +1277,8 @@
                     "deferred": false,
                     "description": "kubernetes.pod.name",
                     "documentId": "kubernetes.pod.name",
-                    "documentTimestamp": 1656660280815,
+                    "documentTimestamp": 1657549748357,
                     "documentType": "metric",
-                    "documented": true,
                     "experimental": false,
                     "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
                     "groupAggregations": [
@@ -1902,7 +1524,7 @@
                   "deferred": false,
                   "description": "",
                   "documentId": "prometheus.haproxy_server_http_average_response_latency_milliseconds",
-                  "documentTimestamp": 1656660280815,
+                  "documentTimestamp": 1657549748358,
                   "documentType": "metric",
                   "experimental": false,
                   "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
@@ -1916,7 +1538,7 @@
                   "hidden": false,
                   "id": "haproxy_server_http_average_response_latency_milliseconds",
                   "identity": false,
-                  "lastSeen": 1656095524000,
+                  "lastSeen": 1657544526000,
                   "legacyId": "haproxy_server_http_average_response_latency_milliseconds",
                   "metricType": "gauge",
                   "name": "haproxy_server_http_average_response_latency_milliseconds",
@@ -1974,9 +1596,8 @@
                     "deferred": false,
                     "description": "kubernetes.cluster.name",
                     "documentId": "kubernetes.cluster.name",
-                    "documentTimestamp": 1656660280815,
+                    "documentTimestamp": 1657549748358,
                     "documentType": "metric",
-                    "documented": true,
                     "experimental": false,
                     "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
                     "groupAggregations": [
@@ -2017,9 +1638,8 @@
                     "deferred": false,
                     "description": "kubernetes.namespace.name",
                     "documentId": "kubernetes.namespace.name",
-                    "documentTimestamp": 1656660280815,
+                    "documentTimestamp": 1657549748358,
                     "documentType": "metric",
-                    "documented": true,
                     "experimental": false,
                     "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
                     "groupAggregations": [
@@ -2060,9 +1680,8 @@
                     "deferred": false,
                     "description": "kubernetes.workload.name",
                     "documentId": "kubernetes.workload.name",
-                    "documentTimestamp": 1656660280815,
+                    "documentTimestamp": 1657549748358,
                     "documentType": "metric",
-                    "documented": true,
                     "experimental": false,
                     "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
                     "groupAggregations": [
@@ -2128,9 +1747,8 @@
                     "deferred": false,
                     "description": "kubernetes.pod.name",
                     "documentId": "kubernetes.pod.name",
-                    "documentTimestamp": 1656660280815,
+                    "documentTimestamp": 1657549748358,
                     "documentType": "metric",
-                    "documented": true,
                     "experimental": false,
                     "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
                     "groupAggregations": [
@@ -2196,9 +1814,8 @@
                     "deferred": false,
                     "description": "service",
                     "documentId": "service",
-                    "documentTimestamp": 1656660280815,
+                    "documentTimestamp": 1657549748358,
                     "documentType": "metric",
-                    "documented": true,
                     "experimental": false,
                     "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
                     "groupAggregations": [
@@ -2291,7 +1908,7 @@
                   "deferred": false,
                   "description": "",
                   "documentId": "prometheus.haproxy_server_current_queue",
-                  "documentTimestamp": 1656660280815,
+                  "documentTimestamp": 1657549748358,
                   "documentType": "metric",
                   "experimental": false,
                   "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
@@ -2305,7 +1922,7 @@
                   "hidden": false,
                   "id": "haproxy_server_current_queue",
                   "identity": false,
-                  "lastSeen": 1656095524000,
+                  "lastSeen": 1657544526000,
                   "legacyId": "haproxy_server_current_queue",
                   "metricType": "gauge",
                   "name": "haproxy_server_current_queue",
@@ -2389,7 +2006,7 @@
                   "deferred": false,
                   "description": "",
                   "documentId": "prometheus.haproxy_server_current_sessions",
-                  "documentTimestamp": 1656660280815,
+                  "documentTimestamp": 1657549748358,
                   "documentType": "metric",
                   "experimental": false,
                   "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
@@ -2403,7 +2020,7 @@
                   "hidden": false,
                   "id": "haproxy_server_current_sessions",
                   "identity": false,
-                  "lastSeen": 1656095524000,
+                  "lastSeen": 1657544526000,
                   "legacyId": "haproxy_server_current_sessions",
                   "metricType": "gauge",
                   "name": "haproxy_server_current_sessions",
@@ -2508,9 +2125,8 @@
           "deferred": false,
           "description": "kubernetes.cluster.name",
           "documentId": "kubernetes.cluster.name",
-          "documentTimestamp": 1656660280815,
+          "documentTimestamp": 1657549748358,
           "documentType": "metric",
-          "documented": true,
           "experimental": false,
           "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
           "groupAggregations": [
@@ -2554,9 +2170,8 @@
           "deferred": false,
           "description": "kubernetes.namespace.name",
           "documentId": "kubernetes.namespace.name",
-          "documentTimestamp": 1656660280815,
+          "documentTimestamp": 1657549748358,
           "documentType": "metric",
-          "documented": true,
           "experimental": false,
           "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
           "groupAggregations": [
@@ -2600,9 +2215,8 @@
           "deferred": false,
           "description": "kubernetes.workload.name",
           "documentId": "kubernetes.workload.name",
-          "documentTimestamp": 1656660280815,
+          "documentTimestamp": 1657549748358,
           "documentType": "metric",
-          "documented": true,
           "experimental": false,
           "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
           "groupAggregations": [
@@ -2671,9 +2285,8 @@
           "deferred": false,
           "description": "kubernetes.pod.name",
           "documentId": "kubernetes.pod.name",
-          "documentTimestamp": 1656660280816,
+          "documentTimestamp": 1657549748358,
           "documentType": "metric",
-          "documented": true,
           "experimental": false,
           "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
           "groupAggregations": [
@@ -2742,9 +2355,8 @@
           "deferred": false,
           "description": "service",
           "documentId": "service",
-          "documentTimestamp": 1656660280816,
+          "documentTimestamp": 1657549748358,
           "documentType": "metric",
-          "documented": true,
           "experimental": false,
           "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
           "groupAggregations": [
