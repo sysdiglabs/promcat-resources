@@ -103,8 +103,7 @@ def checkStringNotEmpty(res,element):
         and (element != "") and (element != None)
 
 def checkListNotEmpty(res,element):
-  assert (res['app'] != "") and (res['kind'] != "") and (type(element) == list) \
-        and (len(element) > 0)
+  assert (res['app'] != "") and (res['kind'] != "") and (type(element) == list)
 
 def checkValidJSON(element):
   try:
@@ -216,7 +215,9 @@ def testDescriptionElement():
       
 # Tests for configurations elements
 # For the resources with configurations:
-# Is list not empty
+#   - app is not empty
+#   - kind is not empty
+#   - configuration is list 
 def testConfigurationsElement():
   for kind in all_resources:
     for res in kind:
