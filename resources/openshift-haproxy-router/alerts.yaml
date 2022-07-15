@@ -14,7 +14,7 @@ configurations:
       rules:
         - alert: '[OpenShift-HAProxy-Router] Router Down'
           expr: |
-            absent((count(haproxy_process_start_time_seconds) < 1))
+            absent((count(haproxy_process_start_time_seconds) < 1)) == 1
           for: 10m
           labels:
             severity: critical
@@ -62,7 +62,7 @@ configurations:
             description: This alert triggers when a queue is not empty in a route for 10m.
         - alert: '[OpenShift-HAProxy-Router] High error rate in route'
           expr: |
-            sum by (route) (rate(haproxy_server_http_responses_total{code!="2xx"}[5m])) /sum by (route) (rate(haproxy_server_http_responses_total[5m]))
+            sum by (route) (rate(haproxy_server_http_responses_total{code!="2xx"}[5m])) /sum by (route) (rate(haproxy_server_http_responses_total[5m])) > 0.15
           for: 10m
           labels:
             severity: critical
