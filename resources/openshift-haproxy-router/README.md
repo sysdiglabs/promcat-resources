@@ -5,7 +5,7 @@ OpenShift offers different options as ingress router, one of them is based in HA
 The HAProxy ingress router instruments Prometheus metrics, in OpenShift the endpoint is protected with user and password by default.
 
 ## Number of time series generated
-The HAProxy ingress router generates ~400 time series.
+The HAProxy ingress router generates ~400 time series per HAProxy router pod.
 
 # Attributions
 The configuration files, dashboards, and alerts are maintained by [Sysdig team](https://sysdig.com/).
