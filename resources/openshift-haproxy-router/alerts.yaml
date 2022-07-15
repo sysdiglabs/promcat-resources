@@ -46,7 +46,7 @@ configurations:
             description: This alert detects high latency in at least one server of the route
         - alert: '[OpenShift-HAProxy-Router] Pod Health Check Failure'
           expr: |
-            sum by (namespace,route,pod)(rate(haproxy_server_check_failures_total[5m]) > 0
+            sum by (namespace,route,pod)(rate(haproxy_server_check_failures_total[5m])) > 0
           for: 10m
           labels:
             severity: critical
