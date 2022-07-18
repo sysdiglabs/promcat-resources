@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Dashboard
+app: Istio
+version: 1.0.0
+appVersion:
+- '1.14'
+configurations:
+- name: Istiod Service
+  kind: Sysdig
+  image: istio/images/servicev1.14.png
+  description: |
+    This dashboard offers information on:
+    * 
+  file: include/servicev1.14.json
+- name: Istio Control Plane
+  kind: Sysdig
+  image: istio/images/control_planev1.14.png
+  description: |
+    This dashboard offers information on:
+    * 
+  file: include/control_planev1.14.json
+- name: Istio Envoy
+  kind: Sysdig
+  image: istio/images/istio_envoyv1.14.png
+  description: |
+    This dashboard offers information on:
+    * 
+  file: include/istio_envoyv1.14.json
