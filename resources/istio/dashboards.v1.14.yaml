@@ -7,22 +7,22 @@ appVersion:
 configurations:
 - name: Istiod Service
   kind: Sysdig
-  image: istio/images/workload_sysdig.png
+  image: istio/images/servicev1.14.png
   description: |
     This dashboard offers information on:
-    * Metrics for each workload and also inbound workloads
-  file: include/dashboard-Sysdig-Workload-1.5.json
+    * 
+  file: include/servicev1.14.json
 - name: Istio Control Plane
   kind: Sysdig
-  image: istio/images/service_sysdig.png
+  image: istio/images/control_planev1.14.png
   description: |
     This dashboard offers information on:
-    * Metrics for the service and client workload
-  file: include/dashboard-Sysdig-Service-1.5.json
+    * 
+  file: include/control_planev1.14.json
 - name: Istio Envoy
   kind: Sysdig
-  image: istio/images/service_sysdig.png
+  image: istio/images/istio_envoyv1.14.png
   description: |
     This dashboard offers information on:
-    * Metrics for the service and client workload
-  file: include/dashboard-Sysdig-Service-1.5.json
+    * 
+  file: include/istio_envoyv1.14.json

@@ -1,0 +1,1181 @@
+{
+  "dashboard": {
+    "description": "",
+    "eventDisplaySettings": {
+      "enabled": false,
+      "queryParams": {
+        "alertStatuses": [],
+        "categories": [],
+        "filter": "",
+        "severities": [],
+        "teamScope": false
+      }
+    },
+    "layout": [
+      {
+        "h": 6,
+        "panelId": 1,
+        "w": 8,
+        "x": 0,
+        "y": 3
+      },
+      {
+        "h": 6,
+        "panelId": 2,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      {
+        "h": 6,
+        "panelId": 3,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      {
+        "h": 6,
+        "panelId": 4,
+        "w": 12,
+        "x": 0,
+        "y": 15
+      },
+      {
+        "h": 6,
+        "panelId": 5,
+        "w": 12,
+        "x": 12,
+        "y": 15
+      },
+      {
+        "h": 3,
+        "panelId": 6,
+        "w": 4,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 7,
+        "w": 4,
+        "x": 4,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 8,
+        "w": 4,
+        "x": 8,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 9,
+        "w": 4,
+        "x": 20,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 10,
+        "w": 4,
+        "x": 12,
+        "y": 0
+      },
+      {
+        "h": 3,
+        "panelId": 11,
+        "w": 4,
+        "x": 16,
+        "y": 0
+      },
+      {
+        "h": 6,
+        "panelId": 12,
+        "w": 8,
+        "x": 16,
+        "y": 3
+      },
+      {
+        "h": 6,
+        "panelId": 13,
+        "w": 8,
+        "x": 8,
+        "y": 3
+      }
+    ],
+    "name": "Istio Envoy",
+    "panels": [
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "4xx < Pod < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{response_code}} < {{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "/s",
+              "nullValueDisplayMode": "nullZero",
+              "unit": "numberRate",
+              "yAxis": "auto"
+            },
+            "query": "sum by (kube_cluster_name,kube_namespace_name,kube_workload_name,response_code, kube_pod_name)(irate(istio_requests_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,reporter=\"source\", response_code=~\"4.*\"}[$__interval])) or absent(istio_requests_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,reporter=\"source\", response_code=~\"4.*\"}) -1"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "/s",
+            "maxValue": null,
+            "minInputFormat": "/s",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 1,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "4xx response code",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "p50 < Pod < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "p50 < {{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": false,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.5,sum(rate(envoy_cluster_upstream_cx_connect_ms_bucket{kube_cluster_name=~$cluster}[$__interval])) by (le,kube_cluster_name,kube_pod_name,kube_namespace_name))"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "p95 < Pod < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "p95 <  {{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "ms",
+              "nullValueDisplayMode": "nullZero",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.95,sum(rate(envoy_cluster_upstream_cx_connect_ms_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])) by (le,kube_cluster_name,kube_pod_name,kube_namespace_name))"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "p99 < Pod < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "p99 < {{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": false,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.99,sum(rate(envoy_cluster_upstream_cx_connect_ms_bucket{kube_cluster_name=~$cluster}[$__interval])) by (le,kube_cluster_name,kube_pod_name,kube_namespace_name))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 2,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Upstream Connection Latency",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "p50 < Pod < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "p50 < {{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": false,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.5,sum(rate(istio_request_duration_milliseconds_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])) by (le,kube_cluster_name,kube_pod_name,kube_namespace_name)) or absent(istio_request_duration_milliseconds_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}) -1"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "p95 < Pod < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "p95 < {{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "ms",
+              "nullValueDisplayMode": "nullZero",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.95,sum(rate(istio_request_duration_milliseconds_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])) by (le,kube_cluster_name,kube_pod_name,kube_namespace_name)) or absent(istio_request_duration_milliseconds_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}) -1"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "p99 < Pod < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "p99 < {{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": false,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.99,sum(rate(istio_request_duration_milliseconds_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])) by (le,kube_cluster_name,kube_pod_name,kube_namespace_name)) or absent(istio_request_duration_milliseconds_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}) -1"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 3,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Upstream Request latency",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Pod < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "envoy_server_days_until_first_cert_expiring{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 4,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Days Until Cert expire",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Connection: Pod < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by (kube_cluster_name,kube_namespace_name,kube_pod_name)(envoy_cluster_upstream_cx_active{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod})"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Request: Pod < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by (kube_cluster_name,kube_namespace_name,kube_pod_name)(envoy_cluster_upstream_rq_active{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod})"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Pending: Pod < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by (kube_cluster_name,kube_namespace_name,kube_pod_name)(envoy_cluster_upstream_rq_pending_active{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod})"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 5,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Total connections",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(envoy_cluster_upstream_cx_active{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod})"
+          }
+        ],
+        "description": "",
+        "id": 6,
+        "name": "Active Connections",
+        "nullValueDisplayText": null,
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(envoy_cluster_upstream_rq_active{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod})"
+          }
+        ],
+        "description": "",
+        "id": 7,
+        "name": "Active Requests",
+        "nullValueDisplayText": null,
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(envoy_cluster_upstream_rq_pending_active{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod})"
+          }
+        ],
+        "description": "",
+        "id": 8,
+        "name": "Pending Connections",
+        "nullValueDisplayText": null,
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(delta(envoy_cluster_membership_change{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval]))"
+          }
+        ],
+        "description": "",
+        "id": 9,
+        "name": "Membership Change",
+        "nullValueDisplayText": null,
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(envoy_cluster_membership_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod})"
+          }
+        ],
+        "description": "",
+        "id": 10,
+        "name": "Membership Total",
+        "nullValueDisplayText": null,
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum(envoy_cluster_membership_healthy{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod})"
+          }
+        ],
+        "description": "",
+        "id": 11,
+        "name": "Healthy Members",
+        "nullValueDisplayText": null,
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": []
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Pod < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-1",
+              "nullValueDisplayMode": "connectSolid",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "(sum by (kube_cluster_name,kube_namespace_name,kube_workload_name, kube_pod_name)(rate(istio_requests_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,reporter=\"source\", response_code!=\"5.*\"}[$__interval])) / sum by (kube_cluster_name,kube_namespace_name,kube_workload_name,kube_pod_name)(rate(istio_requests_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,reporter=\"source\"}[$__interval])))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 12,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Success Rate",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "5xx < Pod < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{response_code}} < {{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "/s",
+              "nullValueDisplayMode": "nullZero",
+              "unit": "numberRate",
+              "yAxis": "auto"
+            },
+            "query": "sum by (kube_cluster_name,kube_namespace_name,kube_workload_name,response_code, kube_pod_name)(irate(istio_requests_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,reporter=\"source\", response_code=~\"5.*\"}[$__interval])) or absent(istio_requests_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,reporter=\"source\", response_code=~\"5.*\"}) -1"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "/s",
+            "maxValue": null,
+            "minInputFormat": "/s",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 13,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "5xx response code",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      }
+    ],
+    "publicNotation": false,
+    "schema": 3,
+    "scopeExpressionList": [
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "kubernetes.cluster.name",
+          "documentId": "kubernetes.cluster.name",
+          "documentTimestamp": 1658140077537,
+          "documentType": "metric",
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.cluster.name",
+          "identity": false,
+          "metricType": "tag",
+          "name": "kubernetes.cluster.name",
+          "namespaces": [
+            "kubernetes.cluster"
+          ],
+          "publicId": "kube_cluster_name",
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "cluster",
+        "isVariable": true,
+        "operand": "kubernetes.cluster.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "kubernetes.namespace.name",
+          "documentId": "kubernetes.namespace.name",
+          "documentTimestamp": 1658140077537,
+          "documentType": "metric",
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.namespace.name",
+          "identity": false,
+          "metricType": "tag",
+          "name": "kubernetes.namespace.name",
+          "namespaces": [
+            "kubernetes.namespace"
+          ],
+          "publicId": "kube_namespace_name",
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "namespace",
+        "isVariable": true,
+        "operand": "kubernetes.namespace.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "kubernetes.workload.name",
+          "documentId": "kubernetes.workload.name",
+          "documentTimestamp": 1658140077537,
+          "documentType": "metric",
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.workload.name",
+          "identity": false,
+          "metricType": "tag",
+          "name": "kubernetes.workload.name",
+          "namespaces": [
+            "cloudProvider",
+            "host.container",
+            "ecs",
+            "host.fs",
+            "host.file",
+            "host",
+            "kubernetes",
+            "kubernetes.cluster",
+            "kubernetes.daemonSet",
+            "kubernetes.deployment",
+            "kubernetes.job",
+            "kubernetes.namespace",
+            "kubernetes.node",
+            "kubernetes.pod",
+            "kubernetes.replicaSet",
+            "kubernetes.service",
+            "kubernetes.statefulSet",
+            "kubernetes.resourcequota",
+            "kubernetes.hpa",
+            "link",
+            "mesos",
+            "host.net",
+            "host.process",
+            "prometheus",
+            "swarm",
+            "prombeacon"
+          ],
+          "publicId": "kube_workload_name",
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "workload",
+        "isVariable": true,
+        "operand": "kubernetes.workload.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "kubernetes.pod.name",
+          "documentId": "kubernetes.pod.name",
+          "documentTimestamp": 1658140077537,
+          "documentType": "metric",
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.pod.name",
+          "identity": false,
+          "metricType": "tag",
+          "name": "kubernetes.pod.name",
+          "namespaces": [
+            "cloudProvider",
+            "host.container",
+            "ecs",
+            "host.fs",
+            "host.file",
+            "host",
+            "kubernetes",
+            "kubernetes.cluster",
+            "kubernetes.daemonSet",
+            "kubernetes.deployment",
+            "kubernetes.job",
+            "kubernetes.namespace",
+            "kubernetes.node",
+            "kubernetes.pod",
+            "kubernetes.replicaSet",
+            "kubernetes.service",
+            "kubernetes.statefulSet",
+            "kubernetes.resourcequota",
+            "kubernetes.hpa",
+            "link",
+            "mesos",
+            "host.net",
+            "host.process",
+            "prometheus",
+            "swarm",
+            "prombeacon"
+          ],
+          "publicId": "kube_pod_name",
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "pod",
+        "isVariable": true,
+        "operand": "kubernetes.pod.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      }
+    ]
+  }
+}

@@ -1,19 +1,18 @@
 # Alerts
+## [Istio-Citadel] CSR without success
+Some of the Certificate Signing Request (CSR) were not correctly requested
 
-## No Output Records From Plugin
-No Output Records From Plugin.
+## [Istio-Pilot] Inbound listener rules conflicts
+There are some conflict with inbound listener rules
 
-## Percentage of instances low
-Percentage of instances low
+## [Istio-Pilot] Endpoint found in unready state
+Endpoint found in unready state
 
-## Recently reboot
-Recently reboot
+## [Istio] Unstable requests for sidecar injections
+Sidecar injections requests has no been successfully resolved
 
-## Limit of child proccess exceeded
-Limit of child proccess exceeded
+## [Istio-Envoy] High 4xx RequestError Rate
+High 4xx RequestError Rate
 
-## Reaching limit of queue process
-Reaching limit of queue process
-
-## Requests processed reached timeout limit
-Requests processed reached timeout limit
+## [Istio-Envoy] High Request Latency
+Envoy High Request Latency
