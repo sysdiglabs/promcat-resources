@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Alert
-app: OpenShift HAProxy Router
+app: 'OpenShift HAProxy Router'
 version: 1.0.0
 appVersion:
 - '3.11'
-- '4.3'
+- '4.7'
 descriptionFile: ALERTS.md
 configurations:
 - kind: Prometheus
@@ -12,68 +12,67 @@ configurations:
     groups:
     - name: OpenShift-HAProxy-Router
       rules:
-      - alert: RouterDown
-        expr: |
-          absent((count(haproxy_process_start_time_seconds) < 1))
-        for: 10m
-        labels:
-          severity: page
-        annotations:
-          summary: Router HAProxy down. No instances running.
-      - alert: DownTimeInService
-        expr: |
-          haproxy_backend_downtime_seconds_total > 0
-        for: 10m
-        labels:
-          severity: page
-        annotations:
-          summary: DownTime detected in service. Route {{$labels.route}}, pod {{labels.pod}}
-      - alert: RouteDown
-        expr: |
-          sum by (route) (haproxy_server_up==1) == 0
-        for: 10m
-        labels:
-          severity: page
-        annotations:
-          summary: All servers are down in route {{$labels.route}}
-      - alert: HighLatency
-        expr: |
-          max by (route)(haproxy_server_http_average_response_latency_milliseconds{route!=""}) > 250
-        for: 10m
-        labels:
-          severity: page
-        annotations:
-          summary: High latency in at least one server for the route {{$labels.route}}
-      - alert: PodHealthCheckFailure
-        expr: |
-          rate(haproxy_server_check_failures_total[5m]) > 0
-        for: 10m
-        labels:
-          severity: page
-        annotations:
-          summary: Recurrent health check failure in pod {{$labels.pod}} and route {{$labels.route}}
-      - alert: QueueNotEmptyInRoute
-        expr: |
-          sum by (route)(haproxy_server_current_queue{route!=""}) > 0
-        for: 10m
-        labels:
-          severity: page
-        annotations:
-          summary: Queue not empty in route {{$labels.route}}
-      - alert: HighErrorRateInRoute
-        expr: |
-          sum by (route) (rate(haproxy_server_http_responses_total{code!="2xx"}[5m])) /
-            sum  by (route) (rate(haproxy_server_http_responses_total{}[5m]))
-        for: 10m
-        labels:
-          severity: page
-        annotations:
-          summary: High error rate in route {{$labels.route}}
-      - alert: ConnectionErrorsInRoute
-        expr: |
-          sum by (route)(rate(haproxy_server_connection_errors_total{route!=""}[5m])) > 0
-        for: 10m
-        labels:
-          severity: page
-        annotations:
-          summary: Recurring connection errors in route {{$labels.route}}
+        - alert: '[OpenShift-HAProxy-Router] Router Down'
+          expr: |
+            absent(haproxy_process_start_time_seconds) == 1
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: Router HAProxy down. No instances running.
+        - alert: '[OpenShift-HAProxy-Router] Percentage of routers low'
+          expr: |
+            count (haproxy_process_start_time_seconds)/sum (kube_workload_status_desired) < 0.75
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: Less than 75% Routers are up
+        - alert: '[OpenShift-HAProxy-Router] Route Down'
+          expr: |
+            sum by (namespace,route)(haproxy_server_up) < 1
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: This alert detects if all servers are down in a route
+        - alert: '[OpenShift-HAProxy-Router] High Latency'
+          expr: |
+            max by (namespace,route)(haproxy_server_http_average_response_latency_milliseconds{route!=""}) > 250
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            description: This alert detects high latency in at least one server of the route
+        - alert: '[OpenShift-HAProxy-Router] Pod Health Check Failure'
+          expr: |
+            sum by (namespace,route,pod)(rate(haproxy_server_check_failures_total[5m])) > 0
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: This alert triggers when there is a recurrent pod health check failure.
+        - alert: '[OpenShift-HAProxy-Router] Queue not empty in route'
+          expr: |
+            sum by (namespace,route)(haproxy_server_current_queue{route!=""}) > 0
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            description: This alert triggers when a queue is not empty in a route
+        - alert: '[OpenShift-HAProxy-Router] High error rate in route'
+          expr: |
+            sum by (namespace,route) (rate(haproxy_server_http_responses_total{code!="2xx"}[5m])) /sum by (namespace,route) (rate(haproxy_server_http_responses_total[5m]))> 0.15
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: This alert triggers when there is a high error rate in a route.
+        - alert: '[OpenShift-HAProxy-Router] Connection errors in route'
+          expr: |
+            sum by (namespace,route)(rate(haproxy_server_connection_errors_total{route!=""}[5m])) > 0
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            description: This alert triggers when there are recurring connection errors in a route
