@@ -2,8 +2,8 @@
 ## RouterDown
 Router HAProxy down. No instances running.
 
-## DownTimeInService
-DownTime detected in service. 
+## PercentageOfRoutersLow
+Less than 75% Routers are up. 
 
 ## RouteDown
 All servers are down in route.
