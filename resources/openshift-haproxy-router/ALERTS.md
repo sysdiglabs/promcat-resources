@@ -1,25 +1,22 @@
 # Alerts
-## RouterDown
+## [OpenShift-HAProxy-Router] Router Down
 Router HAProxy down. No instances running.
 
-## PercentageOfRoutersLow
-Less than 75% Routers are up. 
+## [OpenShift-HAProxy-Router] Route Down
+This alert detects if all servers are down in a route
 
-## RouteDown
-All servers are down in route.
+## [OpenShift-HAProxy-Router] High Latency
+This alert detects high latency in at least one server of the route
 
-## HighLatency
-High latency in at least one server for the route.
+## [OpenShift-HAProxy-Router] Pod Health Check Failure
+This alert triggers when there is a recurrent pod health check failure.
 
-## PodHealthCheckFailure
-Recurrent health check failure in pod and route.
+## [OpenShift-HAProxy-Router] Queue not empty in route
+This alert triggers when a queue is not empty in a route
 
-## QueueNotEmptyInRoute
-Queue not empty in route.
+## [OpenShift-HAProxy-Router] High error rate in route
+This alert triggers when the error rate in a route is higher than 15%.
 
-## HighErrorRateInRoute
-High error rate in route.
-
-## ConnectionErrorsInRoute
-Recurring connection errors in route.
+## [OpenShift-HAProxy-Router] Connection errors in route
+This alert triggers when there are recurring connection errors in a route
 
