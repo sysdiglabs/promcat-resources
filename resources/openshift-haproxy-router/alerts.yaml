@@ -20,14 +20,6 @@ configurations:
             severity: critical
           annotations:
             description: Router HAProxy down. No instances running.
-        - alert: '[OpenShift-HAProxy-Router] Percentage of routers low'
-          expr: |
-            count (haproxy_process_start_time_seconds)/sum (kube_workload_status_desired) < 0.75
-          for: 10m
-          labels:
-            severity: critical
-          annotations:
-            description: Less than 75% Routers are up
         - alert: '[OpenShift-HAProxy-Router] Route Down'
           expr: |
             sum by (namespace,route)(haproxy_server_up) < 1
@@ -67,7 +59,7 @@ configurations:
           labels:
             severity: critical
           annotations:
-            description: This alert triggers when there is a high error rate in a route.
+            description: This alert triggers when the error rate in a route is higher than 15%.
         - alert: '[OpenShift-HAProxy-Router] Connection errors in route'
           expr: |
             sum by (namespace,route)(rate(haproxy_server_connection_errors_total{route!=""}[5m])) > 0
