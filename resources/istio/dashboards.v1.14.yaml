@@ -10,19 +10,19 @@ configurations:
   image: istio/images/servicev1.14.png
   description: |
     This dashboard offers information on:
-    * 
+    Istio Service, Request rates and duration for Http and TCP connections.
   file: include/servicev1.14.json
 - name: Istio Control Plane
   kind: Sysdig
   image: istio/images/control_planev1.14.png
   description: |
     This dashboard offers information on:
-    * 
+    Istio Control Plane, Pilot, Galley, Mixer and Citadel.
   file: include/control_planev1.14.json
 - name: Istio Envoy
   kind: Sysdig
   image: istio/images/istio_envoyv1.14.png
   description: |
     This dashboard offers information on:
-    * 
+    Istio Envoy proxy status.
   file: include/istio_envoyv1.14.json
