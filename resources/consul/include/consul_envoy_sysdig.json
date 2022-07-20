@@ -102,6 +102,11 @@
       {
         "advancedQueries": [
           {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
             "displayInfo": {
               "displayName": "Pod < Namespace < Cluster",
               "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
@@ -119,6 +124,11 @@
             "query": "sum by (kube_cluster_name,kube_namespace_name,kube_pod_name)(rate(envoy_cluster_upstream_rq_xx{envoy_response_code_class=~\"4\",kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])) / sum by (kube_cluster_name,kube_namespace_name,kube_pod_name)(rate(envoy_cluster_upstream_rq_xx{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval]))"
           },
           {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
             "displayInfo": {
               "displayName": "Pod < Namespace < Cluster",
               "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
@@ -182,6 +192,11 @@
       {
         "advancedQueries": [
           {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
             "displayInfo": {
               "displayName": "Pod < Namespace < Cluster",
               "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
@@ -199,6 +214,11 @@
             "query": "histogram_quantile(0.95,sum(rate(envoy_cluster_upstream_cx_connect_ms_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])) by (le,kube_cluster_name,kube_pod_name,kube_namespace_name))"
           },
           {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
             "displayInfo": {
               "displayName": "Pod < Namespace < Cluster",
               "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
@@ -216,6 +236,11 @@
             "query": "histogram_quantile(0.99,sum(rate(envoy_cluster_upstream_cx_connect_ms_bucket{kube_cluster_name=~$cluster}[$__interval])) by (le,kube_cluster_name,kube_pod_name,kube_namespace_name))"
           },
           {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
             "displayInfo": {
               "displayName": "Pod < Namespace < Cluster",
               "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
@@ -279,9 +304,14 @@
       {
         "advancedQueries": [
           {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
             "displayInfo": {
-              "displayName": "Pod < Namespace < Cluster",
-              "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "displayName": "Pod < Workload < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
               "type": "lines"
             },
             "enabled": true,
@@ -293,12 +323,17 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "histogram_quantile(0.95,sum(rate(envoy_cluster_upstream_rq_time_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])) by (le,kube_cluster_name,kube_pod_name,kube_namespace_name))"
+            "query": "histogram_quantile(0.95,sum(rate(envoy_cluster_upstream_rq_time_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])) by (le,kube_cluster_name,kube_pod_name,kube_namespace_name, kube_workload_name))"
           },
           {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
             "displayInfo": {
-              "displayName": "Pod < Namespace < Cluster",
-              "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "displayName": "Pod < Workload < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
               "type": "lines"
             },
             "enabled": false,
@@ -310,12 +345,17 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "histogram_quantile(0.99,sum(rate(envoy_cluster_upstream_rq_time_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])) by (le,kube_cluster_name,kube_pod_name,kube_namespace_name))"
+            "query": "histogram_quantile(0.99,sum(rate(envoy_cluster_upstream_rq_time_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])) by (le,kube_cluster_name,kube_pod_name,kube_namespace_name, kube_workload_name))"
           },
           {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
             "displayInfo": {
-              "displayName": "Pod < Namespace < Cluster",
-              "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "displayName": "Pod < Workload < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
               "type": "lines"
             },
             "enabled": false,
@@ -327,7 +367,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "histogram_quantile(0.5,sum(rate(envoy_cluster_upstream_rq_time_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])) by (le,kube_cluster_name,kube_pod_name,kube_namespace_name))"
+            "query": "histogram_quantile(0.5,sum(rate(envoy_cluster_upstream_rq_time_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])) by (le,kube_cluster_name,kube_pod_name,kube_namespace_name, kube_workload_name))"
           }
         ],
         "axesConfiguration": {
@@ -376,6 +416,11 @@
       {
         "advancedQueries": [
           {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
             "displayInfo": {
               "displayName": "Pod < Namespace < Cluster",
               "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
@@ -439,6 +484,11 @@
       {
         "advancedQueries": [
           {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
             "displayInfo": {
               "displayName": "Connection: Pod < Namespace < Cluster",
               "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
@@ -456,6 +506,11 @@
             "query": "sum by (kube_cluster_name,kube_namespace_name,kube_pod_name)(envoy_cluster_upstream_cx_active{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod})"
           },
           {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
             "displayInfo": {
               "displayName": "Request: Pod < Namespace < Cluster",
               "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
@@ -473,6 +528,11 @@
             "query": "sum by (kube_cluster_name,kube_namespace_name,kube_pod_name)(envoy_cluster_upstream_rq_active{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod})"
           },
           {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
             "displayInfo": {
               "displayName": "Pending: Pod < Namespace < Cluster",
               "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
@@ -536,6 +596,11 @@
       {
         "advancedQueries": [
           {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
             "displayInfo": {
               "displayName": "",
               "timeSeriesDisplayNameTemplate": "",
@@ -569,6 +634,11 @@
       {
         "advancedQueries": [
           {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
             "displayInfo": {
               "displayName": "",
               "timeSeriesDisplayNameTemplate": "",
@@ -602,6 +672,11 @@
       {
         "advancedQueries": [
           {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
             "displayInfo": {
               "displayName": "",
               "timeSeriesDisplayNameTemplate": "",
@@ -635,6 +710,11 @@
       {
         "advancedQueries": [
           {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
             "displayInfo": {
               "displayName": "",
               "timeSeriesDisplayNameTemplate": "",
@@ -668,6 +748,11 @@
       {
         "advancedQueries": [
           {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
             "displayInfo": {
               "displayName": "",
               "timeSeriesDisplayNameTemplate": "",
@@ -701,6 +786,11 @@
       {
         "advancedQueries": [
           {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
             "displayInfo": {
               "displayName": "",
               "timeSeriesDisplayNameTemplate": "",
@@ -734,6 +824,11 @@
       {
         "advancedQueries": [
           {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
             "displayInfo": {
               "displayName": "Pod < Namespace < Cluster",
               "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
@@ -807,9 +902,8 @@
           "deferred": false,
           "description": "kubernetes.cluster.name",
           "documentId": "kubernetes.cluster.name",
-          "documentTimestamp": 1647604041120,
+          "documentTimestamp": 1658301451909,
           "documentType": "metric",
-          "documented": true,
           "experimental": false,
           "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
           "groupAggregations": [
@@ -853,9 +947,8 @@
           "deferred": false,
           "description": "kubernetes.namespace.name",
           "documentId": "kubernetes.namespace.name",
-          "documentTimestamp": 1647604041120,
+          "documentTimestamp": 1658301451909,
           "documentType": "metric",
-          "documented": true,
           "experimental": false,
           "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
           "groupAggregations": [
@@ -899,9 +992,8 @@
           "deferred": false,
           "description": "kubernetes.workload.name",
           "documentId": "kubernetes.workload.name",
-          "documentTimestamp": 1647604041120,
+          "documentTimestamp": 1658301451909,
           "documentType": "metric",
-          "documented": true,
           "experimental": false,
           "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
           "groupAggregations": [
@@ -970,9 +1062,8 @@
           "deferred": false,
           "description": "kubernetes.pod.name",
           "documentId": "kubernetes.pod.name",
-          "documentTimestamp": 1647604041120,
+          "documentTimestamp": 1658301451909,
           "documentType": "metric",
-          "documented": true,
           "experimental": false,
           "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
           "groupAggregations": [
