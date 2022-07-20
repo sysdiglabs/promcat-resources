@@ -295,8 +295,8 @@
               "timeFormat": "day"
             },
             "displayInfo": {
-              "displayName": "p50 < Pod < Namespace < Cluster",
-              "timeSeriesDisplayNameTemplate": "p50 < {{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "displayName": "p50 < Pod < Workload< Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "p50 < {{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
               "type": "lines"
             },
             "enabled": false,
@@ -308,7 +308,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "histogram_quantile(0.5,sum(rate(istio_request_duration_milliseconds_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])) by (le,kube_cluster_name,kube_pod_name,kube_namespace_name)) or absent(istio_request_duration_milliseconds_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}) -1"
+            "query": "histogram_quantile(0.5,sum(rate(istio_request_duration_milliseconds_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])) by (le,kube_cluster_name,kube_pod_name,kube_namespace_name,kube_workload_name)) or absent(istio_request_duration_milliseconds_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}) -1"
           },
           {
             "compareTo": {
@@ -317,8 +317,8 @@
               "timeFormat": "day"
             },
             "displayInfo": {
-              "displayName": "p95 < Pod < Namespace < Cluster",
-              "timeSeriesDisplayNameTemplate": "p95 < {{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "displayName": "p95 < Pod < Worfload < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "p95 < {{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
               "type": "lines"
             },
             "enabled": true,
@@ -330,7 +330,7 @@
               "unit": "relativeTime",
               "yAxis": "auto"
             },
-            "query": "histogram_quantile(0.95,sum(rate(istio_request_duration_milliseconds_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])) by (le,kube_cluster_name,kube_pod_name,kube_namespace_name)) or absent(istio_request_duration_milliseconds_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}) -1"
+            "query": "histogram_quantile(0.95,sum(rate(istio_request_duration_milliseconds_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])) by (le,kube_cluster_name,kube_pod_name,kube_namespace_name,kube_workload_name)) or absent(istio_request_duration_milliseconds_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}) -1"
           },
           {
             "compareTo": {
@@ -339,8 +339,8 @@
               "timeFormat": "day"
             },
             "displayInfo": {
-              "displayName": "p99 < Pod < Namespace < Cluster",
-              "timeSeriesDisplayNameTemplate": "p99 < {{kube_pod_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "displayName": "p99 < Pod < Workload < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "p99 < {{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
               "type": "lines"
             },
             "enabled": false,
@@ -352,7 +352,7 @@
               "unit": "number",
               "yAxis": "auto"
             },
-            "query": "histogram_quantile(0.99,sum(rate(istio_request_duration_milliseconds_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])) by (le,kube_cluster_name,kube_pod_name,kube_namespace_name)) or absent(istio_request_duration_milliseconds_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}) -1"
+            "query": "histogram_quantile(0.99,sum(rate(istio_request_duration_milliseconds_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}[$__interval])) by (le,kube_cluster_name,kube_pod_name,kube_namespace_name,kube_workload_name)) or absent(istio_request_duration_milliseconds_bucket{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload,kube_pod_name=~$pod}) -1"
           }
         ],
         "axesConfiguration": {
@@ -955,7 +955,7 @@
           "deferred": false,
           "description": "kubernetes.cluster.name",
           "documentId": "kubernetes.cluster.name",
-          "documentTimestamp": 1658140077537,
+          "documentTimestamp": 1658300425716,
           "documentType": "metric",
           "experimental": false,
           "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
@@ -1000,7 +1000,7 @@
           "deferred": false,
           "description": "kubernetes.namespace.name",
           "documentId": "kubernetes.namespace.name",
-          "documentTimestamp": 1658140077537,
+          "documentTimestamp": 1658300425716,
           "documentType": "metric",
           "experimental": false,
           "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
@@ -1045,7 +1045,7 @@
           "deferred": false,
           "description": "kubernetes.workload.name",
           "documentId": "kubernetes.workload.name",
-          "documentTimestamp": 1658140077537,
+          "documentTimestamp": 1658300425716,
           "documentType": "metric",
           "experimental": false,
           "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
@@ -1115,7 +1115,7 @@
           "deferred": false,
           "description": "kubernetes.pod.name",
           "documentId": "kubernetes.pod.name",
-          "documentTimestamp": 1658140077537,
+          "documentTimestamp": 1658300425716,
           "documentType": "metric",
           "experimental": false,
           "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
