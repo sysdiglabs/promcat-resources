@@ -1,0 +1,1593 @@
+{
+  "dashboard": {
+    "description": "",
+    "eventDisplaySettings": {
+      "enabled": false,
+      "queryParams": {
+        "alertStatuses": [],
+        "categories": [],
+        "filter": "",
+        "severities": [],
+        "teamScope": false
+      }
+    },
+    "layout": [
+      {
+        "h": 4,
+        "panelId": 15,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 2,
+        "panelId": 16,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      {
+        "h": 1,
+        "panelId": 17,
+        "w": 24,
+        "x": 0,
+        "y": 24
+      },
+      {
+        "h": 6,
+        "panelId": 4,
+        "w": 8,
+        "x": 16,
+        "y": 25
+      },
+      {
+        "h": 6,
+        "panelId": 5,
+        "w": 8,
+        "x": 0,
+        "y": 25
+      },
+      {
+        "h": 6,
+        "panelId": 7,
+        "w": 8,
+        "x": 16,
+        "y": 4
+      },
+      {
+        "h": 6,
+        "panelId": 8,
+        "w": 12,
+        "x": 0,
+        "y": 10
+      },
+      {
+        "h": 6,
+        "panelId": 9,
+        "w": 8,
+        "x": 0,
+        "y": 4
+      },
+      {
+        "h": 6,
+        "panelId": 10,
+        "w": 12,
+        "x": 12,
+        "y": 10
+      },
+      {
+        "h": 6,
+        "panelId": 11,
+        "w": 8,
+        "x": 0,
+        "y": 18
+      },
+      {
+        "h": 6,
+        "panelId": 12,
+        "w": 8,
+        "x": 8,
+        "y": 25
+      },
+      {
+        "h": 6,
+        "panelId": 13,
+        "w": 8,
+        "x": 8,
+        "y": 18
+      },
+      {
+        "h": 6,
+        "panelId": 14,
+        "w": 8,
+        "x": 16,
+        "y": 18
+      },
+      {
+        "h": 6,
+        "panelId": 6,
+        "w": 8,
+        "x": 8,
+        "y": 4
+      }
+    ],
+    "name": "Istiod Control Plane",
+    "panels": [
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Injection Failures < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "Injection Failures < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by(kube_cluster_name, kube_namespace_name)(rate(sidecar_injection_failure_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace}[$__interval])) or (absent(sidecar_injection_failure_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace}) - 1)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 4,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Sidecar Injections failures",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Injection Success < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "Injection Success < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by(kube_cluster_name, kube_namespace_name)(rate(sidecar_injection_success_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace}[$__interval])) or (absent(sidecar_injection_success_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace}) - 1)\n"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 5,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Sidecar Injections Success",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "p50 < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "p50 < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.5, sum(rate(pilot_proxy_convergence_time_bucket[1m])) by (le))"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "p90 < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "p90 < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.9, sum(rate(pilot_proxy_convergence_time_bucket[1m])) by (le))"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "p99 < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "p99 < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "histogram_quantile(0.99, sum(rate(pilot_proxy_convergence_time_bucket[1m])) by (le))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 7,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Proxy Push Time",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Virtual Services < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "Virtual Services",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "avg by(kube_cluster_name, kube_namespace_name)(pilot_virt_services{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace})"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Services < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "Services < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "avg by(kube_cluster_name, kube_namespace_name)(pilot_services{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace})"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Connected Endpoints Pod < cluster < namepsace",
+              "timeSeriesDisplayNameTemplate": "Connected Endpoints {{pod}} < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum (pilot_xds{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace}) by (pod, kube_cluster_name, kube_namespace_name)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 8,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "ADS Monitoring",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Cluster < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "Cluster < cluster < namespace",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "sum by(kube_cluster_name, kube_namespace_name)(irate(pilot_xds_pushes{type=\"cds\"}[$__interval]))"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Endpoints < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "Endpoints < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "sum by(kube_cluster_name, kube_namespace_name)(irate(pilot_xds_pushes{type=\"eds\"}[$__interval]))"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Listeners < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "Listeners < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "sum by(kube_cluster_name, kube_namespace_name)(irate(pilot_xds_pushes{type=\"lds\"}[$__interval]))"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Routes < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "Routes < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "sum by(kube_cluster_name, kube_namespace_name)(irate(pilot_xds_pushes{type=\"rds\"}[$__interval]))"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Secrets < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "Secrets < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "sum by(kube_cluster_name, kube_namespace_name)(irate(pilot_xds_pushes{type=\"sds\"}[$__interval]))"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Nametables < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "Nametables < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "sum by(kube_cluster_name, kube_namespace_name)(irate(pilot_xds_pushes{type=\"nds\"}[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 9,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Pilot Pushes",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Inbound Listeners < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "Inbound Listeners < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "pilot_conflict_inbound_listener{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,app=\"istiod\"} or vector(0)"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Outbound Listeners (http over current tcp) < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "Outbound Listeners (http over current tcp) < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "pilot_conflict_outbound_listener_http_over_current_tcp{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,app=\"istiod\"} or vector(0)"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Outbound Listeners (tcp over current tcp) < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "Outbound Listeners (tcp over current tcp) < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "pilot_conflict_outbound_listener_tcp_over_current_tcp{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,app=\"istiod\"} or vector(0)"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Outbound Listeners (tcp over current http) < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "Outbound Listeners (tcp over current http) < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "pilot_conflict_outbound_listener_tcp_over_current_http{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,app=\"istiod\"} or vector(0)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 10,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Conflicts",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "XDS Connections < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "XDS Connections < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by (kube_cluster_name, kube_namespace_name)(irate(envoy_cluster_upstream_cx_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,cluster_name=\"xds-grpc\"}[$__interval]))"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "XDS Connection Failures < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "XDS Connection Failures < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by (kube_cluster_name, kube_namespace_name)(irate(envoy_cluster_upstream_cx_connect_fail{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,cluster_name=\"xds-grpc\"}[$__interval]))"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Envoy Restarts < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "Envoy Restarts < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by (kube_cluster_name, kube_namespace_name)(increase(envoy_server_hot_restart_epoch{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace}[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 11,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Envoy Details",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Validations (Success) < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "Validations (Success) < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by(kube_cluster_name, kube_namespace_name)(rate(galley_validation_passed{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace}[$__interval])) or (absent(galley_validation_passed{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace}) - 1)"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Validation (Failure) < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "Validation (Failure) < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by(kube_cluster_name, kube_namespace_name)(rate(galley_validation_failed{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace}[$__interval])) or (absent(galley_validation_failed{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace}) - 1)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 12,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Configuration validation",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "XDS Active Connections < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "XDS Active Connections < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by(kube_cluster_name, kube_namespace_name)(envoy_cluster_upstream_cx_active{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,cluster_name=\"xds-grpc\"})"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "XDS: X (Resource like endpoint, cluster, listener..) Discovery Service",
+        "id": 13,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "XDS Active Connections",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "XDS Response Bytes Max < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "XDS Response Bytes Max < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "max(rate(envoy_cluster_upstream_cx_rx_bytes_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,cluster_name=\"xds-grpc\"}[$__interval]))"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "XDS Response Bytes Average < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "XDS Response Bytes Average < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "quantile(0.5, rate(envoy_cluster_upstream_cx_rx_bytes_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,cluster_name=\"xds-grpc\"}[$__interval]))"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "XDS Request Bytes Max < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "XDS Request Bytes Max < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "max(rate(envoy_cluster_upstream_cx_tx_bytes_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,cluster_name=\"xds-grpc\"}[$__interval]))"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "XDS Request Bytes Average < cluster < namespace",
+              "timeSeriesDisplayNameTemplate": "XDS Request Bytes Average < {{kube_cluster_name}} < {{kube_namespace_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "quantile(.5, rate(envoy_cluster_upstream_cx_tx_bytes_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,cluster_name=\"xds-grpc\"}[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "XDS: X (Resource like endpoint, cluster, listener..) Discovery Service",
+        "id": 14,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "XDS Requests Size",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "description": "",
+        "id": 15,
+        "markdownSource": "# Pilot Information\n\n\ud83d\udea9 LDS  (Listener Discovery Service) :  The listener discovery service (LDS) is an optional API that Envoy will call to dynamically fetch listeners.\n\n\ud83d\udea9 RDS (Route Discovery Service):  The route discovery service (RDS) API is an optional API that Envoy will call to dynamically fetch route configurations.\n\n\ud83d\udea9 EDS (Endpoint Discovery Service): The endpoint discovery service is a xDS management server based on gRPC or REST-JSON API server used by Envoy to fetch cluster members.\n\n\ud83d\udea9 CDS (Cluster Discovery Service): The cluster discovery service (CDS) is an optional API that Envoy will call to dynamically fetch cluster manager members.\n\n\ud83d\udea9 ADS (Aggregated Discovery Service): Discovery services for endpoints, clusters, routes, and listeners are retained in the package envoy.api.v2 for backwards compatibility with existing management servers.",
+        "name": "Pilot Information",
+        "nullValueDisplayText": null,
+        "panelTitleVisible": false,
+        "textAutosized": false,
+        "transparentBackground": false,
+        "type": "text"
+      },
+      {
+        "description": "",
+        "id": 16,
+        "markdownSource": "# Envoy Information\n\n### xDS Protocol\n\nEnvoy discovers its various dynamic resources via the filesystem or by querying one or more management servers. Collectively, these discovery services and their corresponding APIs are referred to as **xDS**.",
+        "name": "New Panel",
+        "nullValueDisplayText": null,
+        "panelTitleVisible": false,
+        "textAutosized": false,
+        "transparentBackground": false,
+        "type": "text"
+      },
+      {
+        "description": "",
+        "id": 17,
+        "markdownSource": "# Webhook",
+        "name": "New Panel (2)",
+        "nullValueDisplayText": null,
+        "panelTitleVisible": false,
+        "textAutosized": false,
+        "transparentBackground": false,
+        "type": "text"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Write Timeouts < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "Write Timeouts < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by(kube_cluster_name, kube_namespace_name)(rate(pilot_xds_write_timeout{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,app=\"istiod\"}[1m]))"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Push Context Errors < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "Push Context Errors < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by(kube_cluster_name, kube_namespace_name)(rate(pilot_xds_push_context_errors{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,app=\"istiod\"}[1m]))"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Config Rejection Rate < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "Config Rejection Rate < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by(kube_cluster_name, kube_namespace_name)(rate(pilot_total_xds_rejects{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,app=\"istiod\"}[1m]))"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Internal Errors < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "Internal Errors < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by(kube_cluster_name, kube_namespace_name)(rate(pilot_total_xds_internal_errors{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,app=\"istiod\"}[1m]))"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Rejected LDS Configs < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "Rejected LDS Configs < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by(kube_cluster_name, kube_namespace_name)(pilot_xds_lds_reject{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,app=\"istiod\"}) or (absent(pilot_xds_lds_reject{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,app=\"istiod\"}) - 1)"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Rejected RDS Configs < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "Rejected RDS Configs < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by(kube_cluster_name, kube_namespace_name)(pilot_xds_rds_reject{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,app=\"istiod\"}) or (absent(pilot_xds_rds_reject{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,app=\"istiod\"}) - 1)"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Rejected EDS Configs < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "Rejected EDS Configs < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by(kube_cluster_name, kube_namespace_name)(pilot_xds_eds_reject{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,app=\"istiod\"}) or (absent(pilot_xds_eds_reject{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,app=\"istiod\"}) - 1)"
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Rejected CDS Configs < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "Rejects CDS Configs < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by(kube_cluster_name, kube_namespace_name)(pilot_xds_cds_reject{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,app=\"istiod\"}) or (absent(pilot_xds_cds_reject{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,app=\"istiod\"}) - 1)"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 6,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Pilot Errors",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      }
+    ],
+    "publicNotation": false,
+    "schema": 3,
+    "scopeExpressionList": [
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "kube_cluster_name",
+          "documentId": "kube_cluster_name",
+          "documentTimestamp": 1658140079457,
+          "documentType": "metric",
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kube_cluster_name",
+          "identity": false,
+          "metricType": "tag",
+          "name": "kube_cluster_name",
+          "namespaces": [
+            "cloudProvider",
+            "host.container",
+            "ecs",
+            "host.fs",
+            "host.file",
+            "host",
+            "kubernetes",
+            "kubernetes.cluster",
+            "kubernetes.daemonSet",
+            "kubernetes.deployment",
+            "kubernetes.job",
+            "kubernetes.namespace",
+            "kubernetes.node",
+            "kubernetes.pod",
+            "kubernetes.replicaSet",
+            "kubernetes.service",
+            "kubernetes.statefulSet",
+            "kubernetes.resourcequota",
+            "kubernetes.hpa",
+            "link",
+            "mesos",
+            "host.net",
+            "host.process",
+            "prometheus",
+            "swarm",
+            "prombeacon"
+          ],
+          "publicId": "kube_cluster_name",
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "cluster",
+        "isVariable": true,
+        "operand": "kube_cluster_name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "kube_namespace_name",
+          "documentId": "kube_namespace_name",
+          "documentTimestamp": 1658140079457,
+          "documentType": "metric",
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kube_namespace_name",
+          "identity": false,
+          "metricType": "tag",
+          "name": "kube_namespace_name",
+          "namespaces": [
+            "cloudProvider",
+            "host.container",
+            "ecs",
+            "host.fs",
+            "host.file",
+            "host",
+            "kubernetes",
+            "kubernetes.cluster",
+            "kubernetes.daemonSet",
+            "kubernetes.deployment",
+            "kubernetes.job",
+            "kubernetes.namespace",
+            "kubernetes.node",
+            "kubernetes.pod",
+            "kubernetes.replicaSet",
+            "kubernetes.service",
+            "kubernetes.statefulSet",
+            "kubernetes.resourcequota",
+            "kubernetes.hpa",
+            "link",
+            "mesos",
+            "host.net",
+            "host.process",
+            "prometheus",
+            "swarm",
+            "prombeacon"
+          ],
+          "publicId": "kube_namespace_name",
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "namespace",
+        "isVariable": true,
+        "operand": "kube_namespace_name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      }
+    ]
+  }
+}

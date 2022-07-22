@@ -1,0 +1,2130 @@
+{
+  "dashboard": {
+    "description": "",
+    "eventDisplaySettings": {
+      "enabled": true,
+      "queryParams": {
+        "alertStatuses": [],
+        "categories": [],
+        "filter": "",
+        "severities": [],
+        "teamScope": false
+      }
+    },
+    "layout": [
+      {
+        "h": 6,
+        "panelId": 1,
+        "w": 12,
+        "x": 12,
+        "y": 7
+      },
+      {
+        "h": 3,
+        "panelId": 2,
+        "w": 6,
+        "x": 0,
+        "y": 1
+      },
+      {
+        "h": 3,
+        "panelId": 4,
+        "w": 6,
+        "x": 0,
+        "y": 4
+      },
+      {
+        "h": 6,
+        "panelId": 7,
+        "w": 24,
+        "x": 0,
+        "y": 20
+      },
+      {
+        "h": 6,
+        "panelId": 8,
+        "w": 12,
+        "x": 0,
+        "y": 27
+      },
+      {
+        "h": 6,
+        "panelId": 9,
+        "w": 12,
+        "x": 0,
+        "y": 33
+      },
+      {
+        "h": 6,
+        "panelId": 10,
+        "w": 12,
+        "x": 0,
+        "y": 7
+      },
+      {
+        "h": 6,
+        "panelId": 11,
+        "w": 12,
+        "x": 12,
+        "y": 14
+      },
+      {
+        "h": 6,
+        "panelId": 12,
+        "w": 12,
+        "x": 12,
+        "y": 33
+      },
+      {
+        "h": 6,
+        "panelId": 13,
+        "w": 12,
+        "x": 12,
+        "y": 27
+      },
+      {
+        "h": 6,
+        "panelId": 14,
+        "w": 24,
+        "x": 0,
+        "y": 52
+      },
+      {
+        "h": 6,
+        "panelId": 15,
+        "w": 12,
+        "x": 0,
+        "y": 40
+      },
+      {
+        "h": 6,
+        "panelId": 16,
+        "w": 12,
+        "x": 0,
+        "y": 46
+      },
+      {
+        "h": 6,
+        "panelId": 17,
+        "w": 12,
+        "x": 12,
+        "y": 40
+      },
+      {
+        "h": 6,
+        "panelId": 18,
+        "w": 12,
+        "x": 12,
+        "y": 46
+      },
+      {
+        "h": 6,
+        "panelId": 19,
+        "w": 9,
+        "x": 15,
+        "y": 1
+      },
+      {
+        "h": 6,
+        "panelId": 20,
+        "w": 9,
+        "x": 6,
+        "y": 1
+      },
+      {
+        "h": 6,
+        "panelId": 21,
+        "w": 12,
+        "x": 0,
+        "y": 14
+      },
+      {
+        "h": 1,
+        "panelId": 22,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 1,
+        "panelId": 23,
+        "w": 24,
+        "x": 0,
+        "y": 13
+      },
+      {
+        "h": 1,
+        "panelId": 24,
+        "w": 24,
+        "x": 0,
+        "y": 26
+      },
+      {
+        "h": 1,
+        "panelId": 25,
+        "w": 24,
+        "x": 0,
+        "y": 39
+      }
+    ],
+    "name": "OpenShift HAProxy Ingress Overview",
+    "panels": [
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "(min(time() - haproxy_process_start_time_seconds{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload})) "
+          }
+        ],
+        "description": "",
+        "id": 2,
+        "name": "Min UpTime",
+        "nullValueDisplayText": null,
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": [
+            {
+              "displayText": "",
+              "inputFormat": "s",
+              "severity": "ok",
+              "value": 3600.0
+            },
+            {
+              "displayText": "",
+              "inputFormat": "s",
+              "severity": "medium",
+              "value": 300.0
+            },
+            {
+              "displayText": "",
+              "inputFormat": "s",
+              "severity": "high",
+              "value": 0.0
+            }
+          ]
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "count(haproxy_process_start_time_seconds{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload})"
+          }
+        ],
+        "description": "",
+        "id": 4,
+        "name": "Instances",
+        "nullValueDisplayText": null,
+        "numberThresholds": {
+          "base": {
+            "displayText": "",
+            "severity": "none"
+          },
+          "values": [
+            {
+              "displayText": "",
+              "inputFormat": "1",
+              "severity": "ok",
+              "value": 1.0
+            },
+            {
+              "displayText": "",
+              "inputFormat": "1",
+              "severity": "high",
+              "value": 0.0
+            }
+          ]
+        },
+        "type": "advancedNumber"
+      },
+      {
+        "basicQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "displayedValue": null,
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "description": "",
+                  "documentId": "prometheus.haproxy_backend_up",
+                  "documentTimestamp": 1657549748020,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "haproxy_backend_up",
+                  "identity": false,
+                  "lastSeen": 1657544526000,
+                  "legacyId": "haproxy_backend_up",
+                  "metricType": "gauge",
+                  "name": "haproxy_backend_up",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "publicId": "haproxy_backend_up",
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "sum",
+                "id": "haproxy_backend_up",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": true,
+                    "canMonitor": false,
+                    "deferred": false,
+                    "description": "kubernetes.cluster.name",
+                    "documentId": "kubernetes.cluster.name",
+                    "documentTimestamp": 1657549748020,
+                    "documentType": "metric",
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "kubernetes.cluster.name",
+                    "identity": false,
+                    "metricType": "tag",
+                    "name": "kubernetes.cluster.name",
+                    "namespaces": [
+                      "kubernetes.cluster"
+                    ],
+                    "publicId": "kube_cluster_name",
+                    "scale": 0.0,
+                    "scopes": [],
+                    "segment": false,
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": "Cluster",
+                  "id": "kubernetes.cluster.name",
+                  "sorting": null
+                },
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": true,
+                    "canMonitor": false,
+                    "deferred": false,
+                    "description": "kubernetes.namespace.name",
+                    "documentId": "kubernetes.namespace.name",
+                    "documentTimestamp": 1657549748020,
+                    "documentType": "metric",
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "kubernetes.namespace.name",
+                    "identity": false,
+                    "metricType": "tag",
+                    "name": "kubernetes.namespace.name",
+                    "namespaces": [
+                      "kubernetes.namespace"
+                    ],
+                    "publicId": "kube_namespace_name",
+                    "scale": 0.0,
+                    "scopes": [],
+                    "segment": false,
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": "Namespace",
+                  "id": "kubernetes.namespace.name",
+                  "sorting": null
+                },
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": true,
+                    "canMonitor": false,
+                    "deferred": false,
+                    "description": "kubernetes.workload.name",
+                    "documentId": "kubernetes.workload.name",
+                    "documentTimestamp": 1657549748020,
+                    "documentType": "metric",
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "kubernetes.workload.name",
+                    "identity": false,
+                    "metricType": "tag",
+                    "name": "kubernetes.workload.name",
+                    "namespaces": [
+                      "cloudProvider",
+                      "host.container",
+                      "ecs",
+                      "host.fs",
+                      "host.file",
+                      "host",
+                      "kubernetes",
+                      "kubernetes.cluster",
+                      "kubernetes.daemonSet",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.namespace",
+                      "kubernetes.node",
+                      "kubernetes.pod",
+                      "kubernetes.replicaSet",
+                      "kubernetes.service",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.hpa",
+                      "link",
+                      "mesos",
+                      "host.net",
+                      "host.process",
+                      "prometheus",
+                      "swarm",
+                      "prombeacon"
+                    ],
+                    "publicId": "kube_workload_name",
+                    "scale": 0.0,
+                    "scopes": [],
+                    "segment": false,
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": "Workload",
+                  "id": "kubernetes.workload.name",
+                  "sorting": null
+                },
+                {
+                  "descriptor": {
+                    "aggregationForGroup": "none",
+                    "canFilter": true,
+                    "canGroupBy": false,
+                    "canMonitor": false,
+                    "deferred": false,
+                    "description": "route",
+                    "documentId": "route",
+                    "documentTimestamp": 1657549748020,
+                    "documentType": "metric",
+                    "experimental": false,
+                    "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+                    "groupAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "heuristic": false,
+                    "hidden": false,
+                    "id": "route",
+                    "identity": false,
+                    "metricType": "tag",
+                    "name": "route",
+                    "namespaces": [
+                      "cloudProvider",
+                      "host.container",
+                      "ecs",
+                      "host.fs",
+                      "host.file",
+                      "host",
+                      "kubernetes",
+                      "kubernetes.cluster",
+                      "kubernetes.daemonSet",
+                      "kubernetes.deployment",
+                      "kubernetes.job",
+                      "kubernetes.namespace",
+                      "kubernetes.node",
+                      "kubernetes.pod",
+                      "kubernetes.replicaSet",
+                      "kubernetes.service",
+                      "kubernetes.statefulSet",
+                      "kubernetes.resourcequota",
+                      "kubernetes.hpa",
+                      "link",
+                      "mesos",
+                      "host.net",
+                      "host.process",
+                      "prometheus",
+                      "swarm",
+                      "prombeacon"
+                    ],
+                    "publicId": "route",
+                    "scale": 0.0,
+                    "scopes": [],
+                    "segment": false,
+                    "timeAggregations": [
+                      "concat",
+                      "distinct",
+                      "count"
+                    ],
+                    "type": "string"
+                  },
+                  "displayName": "",
+                  "id": "route",
+                  "sorting": null
+                }
+              ],
+              "limit": 10
+            }
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "HTTP response Latency",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "displayedValue": null,
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "ms",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "description": "",
+                  "documentId": "prometheus.haproxy_backend_http_average_response_latency_milliseconds",
+                  "documentTimestamp": 1657549748020,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "haproxy_backend_http_average_response_latency_milliseconds",
+                  "identity": false,
+                  "lastSeen": 1657544526000,
+                  "legacyId": "haproxy_backend_http_average_response_latency_milliseconds",
+                  "metricType": "gauge",
+                  "name": "haproxy_backend_http_average_response_latency_milliseconds",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "publicId": "haproxy_backend_http_average_response_latency_milliseconds",
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "haproxy_backend_http_average_response_latency_milliseconds",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [],
+              "limit": 10
+            }
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "HTTP Connect latency",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "displayedValue": null,
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "ms",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "description": "",
+                  "documentId": "prometheus.haproxy_backend_http_average_connect_latency_milliseconds",
+                  "documentTimestamp": 1657549748021,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "haproxy_backend_http_average_connect_latency_milliseconds",
+                  "identity": false,
+                  "lastSeen": 1657544526000,
+                  "legacyId": "haproxy_backend_http_average_connect_latency_milliseconds",
+                  "metricType": "gauge",
+                  "name": "haproxy_backend_http_average_connect_latency_milliseconds",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "publicId": "haproxy_backend_http_average_connect_latency_milliseconds",
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "haproxy_backend_http_average_connect_latency_milliseconds",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [],
+              "limit": 10
+            }
+          },
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "HTTP queue latency",
+              "timeSeriesDisplayNameTemplate": "",
+              "type": "lines"
+            },
+            "displayedValue": null,
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "metrics": [
+              {
+                "descriptor": {
+                  "aggregationForGroup": "avg",
+                  "canFilter": false,
+                  "canGroupBy": false,
+                  "canMonitor": false,
+                  "category": "prometheus",
+                  "deferred": false,
+                  "description": "",
+                  "documentId": "prometheus.haproxy_backend_http_average_queue_latency_milliseconds",
+                  "documentTimestamp": 1657549748021,
+                  "documentType": "metric",
+                  "experimental": false,
+                  "generatedFrom": "com.draios.model.metrics.custom.PrometheusRawMetric",
+                  "groupAggregations": [
+                    "avg",
+                    "sum",
+                    "min",
+                    "max"
+                  ],
+                  "heuristic": false,
+                  "hidden": false,
+                  "id": "haproxy_backend_http_average_queue_latency_milliseconds",
+                  "identity": false,
+                  "lastSeen": 1657544526000,
+                  "legacyId": "haproxy_backend_http_average_queue_latency_milliseconds",
+                  "metricType": "gauge",
+                  "name": "haproxy_backend_http_average_queue_latency_milliseconds",
+                  "namespaces": [
+                    "host",
+                    "host.process",
+                    "host.container",
+                    "cloudProvider",
+                    "mesos",
+                    "ecs",
+                    "kubernetes.cluster",
+                    "kubernetes.namespace",
+                    "kubernetes.deployment",
+                    "kubernetes.job",
+                    "kubernetes.daemonSet",
+                    "kubernetes.service",
+                    "kubernetes.node",
+                    "kubernetes.replicaSet",
+                    "kubernetes.statefulSet",
+                    "kubernetes.resourcequota",
+                    "kubernetes.persistentvolume",
+                    "kubernetes.persistentvolumeclaim",
+                    "kubernetes.pod"
+                  ],
+                  "publicId": "haproxy_backend_http_average_queue_latency_milliseconds",
+                  "scale": 1.0,
+                  "scopes": [],
+                  "segment": false,
+                  "timeAggregations": [
+                    "avg",
+                    "min",
+                    "max"
+                  ],
+                  "type": "number"
+                },
+                "groupAggregation": "avg",
+                "id": "haproxy_backend_http_average_queue_latency_milliseconds",
+                "sorting": null,
+                "timeAggregation": "avg"
+              }
+            ],
+            "scope": {
+              "expressions": [],
+              "extendsDashboardScope": true
+            },
+            "segmentation": {
+              "direction": "desc",
+              "labels": [],
+              "limit": 10
+            }
+          }
+        ],
+        "description": "",
+        "id": 7,
+        "name": "Backends Latency",
+        "nullValueDisplayText": null,
+        "type": "basicTable"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Cluster < Namespace < Workload < Pod",
+              "timeSeriesDisplayNameTemplate": "{{kube_cluster_name}} < {{kube_namespace_name}} < {{kube_workload_name}}  < {{kube_pod_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "haproxy_process_resident_memory_bytes{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B",
+            "maxValue": null,
+            "minInputFormat": "B",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 8,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Resident memory",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Cluster < Namespace < Workload < Pod",
+              "timeSeriesDisplayNameTemplate": "{{kube_cluster_name}} < {{kube_namespace_name}} < {{kube_workload_name}}  < {{kube_pod_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "haproxy_process_max_fds{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 9,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Max open File Descriptors",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Cluster < Namespace < Workload < Pod",
+              "timeSeriesDisplayNameTemplate": "{{kube_cluster_name}} < {{kube_namespace_name}} < {{kube_workload_name}}  < {{kube_pod_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "ms",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "rate(haproxy_process_cpu_seconds_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}[$__interval])"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 12,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "CPU",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Cluster < Namespace < Workload < Pod",
+              "timeSeriesDisplayNameTemplate": "{{kube_cluster_name}} < {{kube_namespace_name}} < {{kube_workload_name}}  < {{kube_pod_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "byte",
+              "yAxis": "auto"
+            },
+            "query": "haproxy_process_virtual_memory_bytes{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B",
+            "maxValue": null,
+            "minInputFormat": "B",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 13,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Virtual Memory",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Cluster < Namespace < Workload  < Pod < Frontend",
+              "timeSeriesDisplayNameTemplate": "{{kube_cluster_name}} < {{kube_namespace_name}} < {{kube_workload_name}} < {{kube_pod_name}}: {{frontend}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "haproxy_frontend_current_session_rate{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 14,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Frontend sessions rate",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " Frontend: Pod < Workload < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{frontend}}: {{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "stackedArea"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B/s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "byteRate",
+              "yAxis": "auto"
+            },
+            "query": "sum by (frontend,kube_cluster_name,kube_namespace_name,kube_workload_name,kube_pod_name) (rate(haproxy_frontend_bytes_in_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B/s",
+            "maxValue": null,
+            "minInputFormat": "B/s",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 15,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Frontend Bytes In",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " Frontend: Pod < Workload < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{frontend}}: {{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "stackedArea"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "B/s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "byteRate",
+              "yAxis": "auto"
+            },
+            "query": "sum by (frontend,kube_cluster_name,kube_namespace_name,kube_workload_name,kube_pod_name) (rate(haproxy_frontend_bytes_out_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "B/s",
+            "maxValue": null,
+            "minInputFormat": "B/s",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 16,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Frontend Bytes Out",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " Frontend: Pod < Workload < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{frontend}}: Pod < Workload < Namespace < Cluster",
+              "type": "stackedArea"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by (frontend,kube_cluster_name,kube_namespace_name,kube_workload_name,kube_pod_name) (rate(haproxy_frontend_connections_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 17,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Frontend Connections",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " Frontend-Code: Pod < Workload < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{frontend}}-{{code}}: {{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "stackedArea"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "sum by (frontend,code,kube_cluster_name,kube_namespace_name,kube_workload_name,kube_pod_name)(rate(haproxy_frontend_http_responses_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": null,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 18,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Frontend HTTP Requests",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Route: Pod < Workload < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{route}}: {{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "1",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "number",
+              "yAxis": "auto"
+            },
+            "query": "topk(15,rate(haproxy_server_check_failures_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 19,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Failed health checks",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Pod < Workload < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "s",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "topk(15,rate(haproxy_server_downtime_seconds_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}[$__interval]))"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 20,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Down Time",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Route < Pod < Workload < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{route}} < {{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "ms",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "relativeTime",
+              "yAxis": "auto"
+            },
+            "query": "haproxy_server_http_average_response_latency_milliseconds{service!=\"\",kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "ns",
+            "maxValue": null,
+            "minInputFormat": "ns",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 21,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "Avg Response Latency",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "description": "",
+        "id": 22,
+        "markdownSource": "## Health & Errors",
+        "name": "New Panel",
+        "nullValueDisplayText": null,
+        "panelTitleVisible": false,
+        "textAutosized": false,
+        "transparentBackground": true,
+        "type": "text"
+      },
+      {
+        "description": "",
+        "id": 23,
+        "markdownSource": "## Latency",
+        "name": "New Panel (2)",
+        "nullValueDisplayText": null,
+        "panelTitleVisible": false,
+        "textAutosized": false,
+        "transparentBackground": true,
+        "type": "text"
+      },
+      {
+        "description": "",
+        "id": 24,
+        "markdownSource": "## Resource Usage",
+        "name": "New Panel (3)",
+        "nullValueDisplayText": null,
+        "panelTitleVisible": false,
+        "textAutosized": false,
+        "transparentBackground": true,
+        "type": "text"
+      },
+      {
+        "description": "",
+        "id": 25,
+        "markdownSource": "## Networking",
+        "name": "New Panel (4)",
+        "nullValueDisplayText": null,
+        "panelTitleVisible": false,
+        "textAutosized": false,
+        "transparentBackground": true,
+        "type": "text"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " Frontend: Pod < Workload < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{frontend}}: {{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-1",
+              "nullValueDisplayMode": "nullZero",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "rate(haproxy_frontend_http_responses_total{code=~\"4xx|5xx\",kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}[$__interval]) / rate(haproxy_frontend_http_responses_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}[$__interval])"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 10,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "% Response Errors rate",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": " Route: Pod < Workload < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{route}}: {{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-1",
+              "nullValueDisplayMode": "nullZero",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "rate(haproxy_server_connections_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}[$__interval]) - rate(haproxy_server_connection_errors_total{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload}[$__interval])"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 1,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "% Connections error rate",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      },
+      {
+        "advancedQueries": [
+          {
+            "compareTo": {
+              "delta": 1,
+              "enabled": false,
+              "timeFormat": "day"
+            },
+            "displayInfo": {
+              "displayName": "Pod < Workload < Namespace < Cluster",
+              "timeSeriesDisplayNameTemplate": "{{kube_pod_name}} < {{kube_workload_name}} < {{kube_namespace_name}} < {{kube_cluster_name}}",
+              "type": "lines"
+            },
+            "enabled": true,
+            "format": {
+              "decimals": null,
+              "displayFormat": "auto",
+              "inputFormat": "0-100",
+              "nullValueDisplayMode": "nullGap",
+              "unit": "%",
+              "yAxis": "auto"
+            },
+            "query": "topk(15,haproxy_server_current_queue{kube_cluster_name=~$cluster,kube_namespace_name=~$namespace,kube_workload_name=~$workload})"
+          }
+        ],
+        "axesConfiguration": {
+          "bottom": {
+            "enabled": true
+          },
+          "left": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "0-100",
+            "maxValue": null,
+            "minInputFormat": "0-100",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          },
+          "right": {
+            "decimals": null,
+            "displayFormat": "auto",
+            "displayName": null,
+            "enabled": true,
+            "maxInputFormat": "1",
+            "maxValue": null,
+            "minInputFormat": "1",
+            "minValue": 0.0,
+            "scale": "linear",
+            "unit": "auto"
+          }
+        },
+        "description": "",
+        "id": 11,
+        "legendConfiguration": {
+          "enabled": true,
+          "height": null,
+          "layout": "table",
+          "position": "bottom",
+          "showCurrent": true,
+          "width": null
+        },
+        "name": "% Current Queue usage",
+        "nullValueDisplayText": null,
+        "type": "advancedTimechart"
+      }
+    ],
+    "publicNotation": false,
+    "schema": 3,
+    "scopeExpressionList": [
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "kubernetes.cluster.name",
+          "documentId": "kubernetes.cluster.name",
+          "documentTimestamp": 1657549748021,
+          "documentType": "metric",
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.cluster.name",
+          "identity": false,
+          "metricType": "tag",
+          "name": "kubernetes.cluster.name",
+          "namespaces": [
+            "kubernetes.cluster"
+          ],
+          "publicId": "kube_cluster_name",
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "cluster",
+        "isVariable": true,
+        "operand": "kubernetes.cluster.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "kubernetes.namespace.name",
+          "documentId": "kubernetes.namespace.name",
+          "documentTimestamp": 1657549748021,
+          "documentType": "metric",
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.namespace.name",
+          "identity": false,
+          "metricType": "tag",
+          "name": "kubernetes.namespace.name",
+          "namespaces": [
+            "kubernetes.namespace"
+          ],
+          "publicId": "kube_namespace_name",
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "namespace",
+        "isVariable": true,
+        "operand": "kubernetes.namespace.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      },
+      {
+        "descriptor": {
+          "aggregationForGroup": "none",
+          "canFilter": true,
+          "canGroupBy": true,
+          "canMonitor": false,
+          "deferred": false,
+          "description": "kubernetes.workload.name",
+          "documentId": "kubernetes.workload.name",
+          "documentTimestamp": 1657549748021,
+          "documentType": "metric",
+          "experimental": false,
+          "generatedFrom": "com.draios.model.metrics.custom.CustomMetric$Tag",
+          "groupAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "heuristic": false,
+          "hidden": false,
+          "id": "kubernetes.workload.name",
+          "identity": false,
+          "metricType": "tag",
+          "name": "kubernetes.workload.name",
+          "namespaces": [
+            "cloudProvider",
+            "host.container",
+            "ecs",
+            "host.fs",
+            "host.file",
+            "host",
+            "kubernetes",
+            "kubernetes.cluster",
+            "kubernetes.daemonSet",
+            "kubernetes.deployment",
+            "kubernetes.job",
+            "kubernetes.namespace",
+            "kubernetes.node",
+            "kubernetes.pod",
+            "kubernetes.replicaSet",
+            "kubernetes.service",
+            "kubernetes.statefulSet",
+            "kubernetes.resourcequota",
+            "kubernetes.hpa",
+            "link",
+            "mesos",
+            "host.net",
+            "host.process",
+            "prometheus",
+            "swarm",
+            "prombeacon"
+          ],
+          "publicId": "kube_workload_name",
+          "scale": 0.0,
+          "scopes": [],
+          "segment": false,
+          "timeAggregations": [
+            "concat",
+            "distinct",
+            "count"
+          ],
+          "type": "string"
+        },
+        "displayName": "workload",
+        "isVariable": true,
+        "operand": "kubernetes.workload.name",
+        "operator": "in",
+        "value": [],
+        "variable": true
+      }
+    ]
+  }
+}

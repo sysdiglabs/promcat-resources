@@ -4,11 +4,11 @@ app: 'OpenShift HAProxy Router'
 version: 1.0.0
 appVersion:
   - "3.11"
-  - "4.3"
+  - "4.7"
 configurations:
 - name: 'HAProxy OC Ingress Overview'
   kind: Sysdig
-  image: 'openshift-haproxy-router/images/HAProxy_OC_Ingress_Overview-sysdig-dashboard.png'
+  image: 'openshift-haproxy-router/images/HAProxy_OC_Ingress_Overview-sysdig-dashboard-v4.7.png'
   description: |
     This dashboard offers information on:
     * Up Time
@@ -29,10 +29,10 @@ configurations:
     * Frontend Connections
     * Frontend Bytes Out
     * Frontend HTTP Requests
-  file: include/HAProxy_OC_Ingress_Overview-sysdig-dashboard.json
+  file: include/HAProxy_OC_Ingress_Overview-sysdig-dashboard-v4.7.json
 - name: 'HAProxy OC Service Golden Signals'
   kind: Sysdig
-  image: 'openshift-haproxy-router/images/HAProxy_OC_Service_Golden_Signals-sysdig-dashboard.png'
+  image: 'openshift-haproxy-router/images/HAProxy_OC_Service_Golden_Signals-sysdig-dashboard-v4.7.png'
   description: |
     This dashboard offers information on:
     * Servers
@@ -46,7 +46,7 @@ configurations:
     * Responses OK
     * Bytes Inbound
     * Bytes Outbound
-  file: include/HAProxy_OC_Service_Golden_Signals-sysdig-dashboard.json
+  file: include/HAProxy_OC_Service_Golden_Signals-sysdig-dashboard-v4.7.json
 - name: 'HAProxy OC Ingress Overview'
   kind: Grafana
   image: 'openshift-haproxy-router/images/HAProxy_OC_Ingress_Overview-grafana-dashboard.png'

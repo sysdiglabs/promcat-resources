@@ -1,13 +1,13 @@
 # Getting the authentication of the HAProxy router
-The metrics endpoint of the HAProxy router in OpenShift 3.11 has a basic HTTP authentication configuration with username and password.
+The metrics endpoint of the HAProxy router in OpenShift 4.7 has a basic HTTP authentication configuration with username and password.
 
 To retrieve the username and password, run the following commands:
 ```
 # USER
-export USER=`kubectl -n default get deploymentConfig router -o json | jq -r '.spec.template.spec.containers[].env[] | select( .name | contains("STATS_USERNAME")) | .value'`
+export USER=`echo $(kubectl -n openshift-ingress get secret router-stats-default -o json | jq -r '.data.statsUsername') | base64 --decode`
 
 # PASSWORD
-export PASS=`kubectl -n default get deploymentConfig router -o json | jq -r '.spec.template.spec.containers[].env[] | select( .name | contains("STATS_PASSWORD")) | .value'`
+export PASS=`echo $(kubectl -n openshift-ingress get secret router-stats-default -o json | jq -r '.data.statsPassword') | base64 --decode`
 ```
 
 >Note: to execute these commands ou will need the tool [jq](https://stedolan.github.io/jq/)
