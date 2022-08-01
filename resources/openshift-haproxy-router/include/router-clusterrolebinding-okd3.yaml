@@ -1,0 +1,26 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: haproxy-router-monitoring
+rules:
+- apiGroups:
+  - route.openshift.io
+  resources:
+  - routers/metrics
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app: prometheus-k8s
+  name: prometheus-k8s-monitoring
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: haproxy-router-monitoring
+subjects:
+- kind: ServiceAccount
+  name: prometheus-k8s
+  namespace: openshift-monitoring

@@ -1,0 +1,24 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: router-metrics
+  metadata:
+  labels:
+    k8s-app: haproxy-router
+  namespace: openshift-monitoring
+spec:
+  endpoints:
+  - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    interval: 5s
+    path: /metrics
+    port: 1936-tcp
+    scheme: https
+    tlsConfig:
+      insecureSkipVerify: true
+    jobLabel: k8s-app
+  namespaceSelector:
+    matchNames:
+    - default
+  selector:
+    matchLabels:
+      router: router
