@@ -1,21 +1,22 @@
-# Getting the authentication of the HAProxy router
-The metrics endpoint of the HAProxy router in OpenShift 3.11 has a basic HTTP authentication configuration with username and password.
+# Integrating HAProxy router in the Prometheus Cluster Monitoring
+The HAProxy router metrics endpoint is not included in the Prometheus Cluster Monitoring in version 3.11 so you need to create a prometheus job and add some permissions to prometheus service account
 
-To retrieve the username and password, run the following commands:
-```
-# USER
-export USER=`kubectl -n default get deploymentConfig router -o json | jq -r '.spec.template.spec.containers[].env[] | select( .name | contains("STATS_USERNAME")) | .value'`
+Steps to execute:
 
-# PASSWORD
-export PASS=`kubectl -n default get deploymentConfig router -o json | jq -r '.spec.template.spec.containers[].env[] | select( .name | contains("STATS_PASSWORD")) | .value'`
-```
-
->Note: to execute these commands ou will need the tool [jq](https://stedolan.github.io/jq/)
-
-The Prometheus Monitoring stack is installed with OpenShift Container Platform by default so there is no need of additional configuration in prometheus.yml file
-
-You can now check haproxy router metrics (remember to port-forward port 1936):
+1. Create the prometheus job for the HAProxy router executing the following command:
 
 ```
-curl -u $USER:$PASS http://ROUTERIP:1936/metrics
+oc create -n openshift-monitoring -f haproxy-router-job.yaml
+```
+
+2. Give permission to prometheus to scrape router metrics using bearer token:
+
+```
+oc create -n openshift-monitoring -f router-clusterrolebinding-okd3.yaml
+```
+
+Now you can curl the metrics from prometheus pod or from the prometheus console
+
+```
+curl -v -s -k -H "Authorization: Bearer `cat /var/run/secrets/kubernetes.io/serviceaccount/token`" https://router.default.svc:1936/metrics
 ```
