@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: RecordingRule
+app: openshift-state-metrics
+version: 1.0.0
+appVersion:
+- '4.7'
+configurations:
+- name: rules.yaml
+  file: include/rules-v4.3.yaml
+descriptionFile: RECORDING-RULES.md
