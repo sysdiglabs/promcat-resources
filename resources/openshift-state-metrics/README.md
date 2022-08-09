@@ -7,11 +7,10 @@ the Sysdig datasource as a Prometheus datasource.
 
 # Metrics
 The metrics gives you the information about the following:
+- ClusterResourceQuotas
 - BuildConfig
 - DeploymentConfig
-- ClusterResourceQuotas
-- Route
-- Group
+- Routes
 
 # Attributions
 The configuration files and dashboards are maintained by [Sysdig team](https://sysdig.com/).
