@@ -1,0 +1,29 @@
+spec:
+  template:
+    metadata:
+      annotations:
+        promcat.sysdig.com/port: "5556"
+        promcat.sysdig.com/integration_type: "kafka"
+    spec:
+      containers:
+      - name: "kafka-jmx-exporter"
+        image: "quay.io/sysdig/promcat-jmx-exporter:v0.17.3"
+        ports:
+        - containerPort: 5556
+        resources:
+            limits:
+              cpu: 500m
+              memory: 128Mi
+            requests:
+              cpu: 64m
+              memory: 64Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /opt/jmx_exporter/config.yml
+          name: jmx-config
+          subPath: config.yml        
+      volumes:
+        - name: jmx-config
+          configMap:
+              name: jmx-config

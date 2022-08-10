@@ -1,0 +1,245 @@
+---
+# Source: jmx-exporter/templates/jmx-config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jmx-config
+data:
+  config.yml: |
+    jmxUrl: service:jmx:rmi:///jndi/rmi://localhost:9010/jmxrmi
+    lowercaseOutputName: true
+    lowercaseOutputLabelNames: true
+    whitelistObjectNames: [
+      "kafka.log:type=Log,name=Size,topic=*,partition=*",
+      "kafka.server:type=ReplicaManager,name=UnderReplicatedPartitions",
+      "kafka.server:type=ReplicaManager,name=UnderMinIsrPartitionCount",
+      "kafka.server:type=ReplicaManager,name=LeaderCount",
+      "kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec",
+      "kafka.server:type=BrokerTopicMetrics,name=BytesOutPerSec",
+      "kafka.server:type=BrokerTopicMetrics,name=MessagesInPerSec",
+      "kafka.controller:type=KafkaController,name=ActiveControllerCount",
+      "kafka.controller:type=KafkaController,name=OfflinePartitionsCount",
+      "kafka.network:type=RequestMetrics,name=TotalTimeMs,request=FetchConsumer",
+      "kafka.network:type=RequestMetrics,name=TotalTimeMs,request=Produce",
+      "kafka.network:type=RequestMetrics,name=TotalTimeMs,request=FetchFollower",
+      "kafka.server:type=Fetch,user=*",
+      "kafka.server:type=Fetch,client-id=*",
+      "kafka.server:type=Fetch,user=*,client-id=*",
+      "kafka.server:type=Produce,user=*",
+      "kafka.server:type=Produce,client-id=*",
+      "kafka.server:type=Produce,user=*,client-id=*",
+      "kafka.server:type=SessionExpireListener,name=ZooKeeperDisconnectsPerSec",
+      "kafka.server:type=SessionExpireListener,name=ZooKeeperExpiresPerSec",
+      "kafka.server:type=SessionExpireListener,name=ZooKeeperSyncConnectsPerSec",
+      "kafka.server:type=SessionExpireListener,name=ZooKeeperAuthFailuresPerSec",
+      "kafka.server:type=SessionExpireListener,name=ZooKeeperReadOnlyConnectsPerSec",
+      "kafka.server:type=SessionExpireListener,name=ZooKeeperSaslAuthenticationsPerSec"
+    ]
+    rules:
+      - pattern : kafka.log<type=Log, name=Size, topic=(.+), partition=(.*)><>Value
+        name: kafka_log_size
+        type: GAUGE
+        help: "Size of each topic and partition stored in this broker (in Bytes)."
+        labels:
+          topic: "$1"
+          partition: "$2"
+    
+      - pattern : kafka.server<type=ReplicaManager, name=UnderReplicatedPartitions><>Value
+        name: kafka_server_under_replicated_partitions
+        type: GAUGE
+        help: "UnderReplicated partitions that this broker sees in the whole cluster."
+    
+      - pattern : kafka.server<type=ReplicaManager, name=UnderMinIsrPartitionCount><>Value
+        name: kafka_server_under_isr_partitions
+        type: GAUGE
+        help: "Number of partitions whose in-sync replicas count is less than mininum in sync replicas."
+    
+      - pattern : kafka.server<type=ReplicaManager, name=LeaderCount><>Value
+        name: kafka_server_partition_leader_count
+        type: GAUGE
+        help: "Number of partitions this broker leads."
+    
+      - pattern : kafka.server<type=BrokerTopicMetrics, name=BytesInPerSec><>OneMinuteRate
+        name: kafka_server_bytes_in
+        type: GAUGE
+        help: "Bytes in per second into this broker calculated over the last minute."
+    
+      - pattern : kafka.server<type=BrokerTopicMetrics, name=BytesOutPerSec><>OneMinuteRate
+        name: kafka_server_bytes_out
+        type: GAUGE
+        help: "Bytes out per second from this broker calculated over the last minute."
+      - pattern : kafka.server<type=BrokerTopicMetrics, name=MessagesInPerSec><>OneMinuteRate
+        name: kafka_server_messages_in
+        type: GAUGE
+        help: "Messages in per second into this broker calculated over the last minute."
+    
+      - pattern : kafka.controller<type=KafkaController, name=ActiveControllerCount><>Value
+        name: kafka_controller_active_controller
+        type: GAUGE
+        help: "Active Controller count from this brokers perspective."
+    
+      - pattern : kafka.controller<type=KafkaController, name=OfflinePartitionsCount><>Value
+        name: kafka_controller_offline_partitions
+        type: GAUGE
+        help: "Number of partitions that don’t have an active leader and are hence not writable or readable."
+    
+      - pattern: kafka.network<type=RequestMetrics, name=TotalTimeMs, request=FetchConsumer><>95thPercentile
+        name: kafka_network_consumer_request_time_milliseconds
+        type: GAUGE
+        labels:
+          quantile: "0.95"
+        help: "Percentile95th of the total time taken by requests from consumers to get new data."
+    
+      - pattern: kafka.network<type=RequestMetrics, name=TotalTimeMs, request=FetchConsumer><>Mean
+        name: kafka_network_consumer_request_time_milliseconds
+        type: GAUGE
+        labels:
+          quantile: "0.50"
+        help: "Mean of the total time taken by requests from consumers to get new data."
+    
+      - pattern: kafka.network<type=RequestMetrics, name=TotalTimeMs, request=Produce><>95thPercentile
+        name: kafka_network_producer_request_time_milliseconds
+        type: GAUGE
+        labels:
+          quantile: "0.95"
+        help: "Percentile 95th of the total time taken by requests from producers to send data."
+    
+      - pattern: kafka.network<type=RequestMetrics, name=TotalTimeMs, request=Produce><>Mean
+        name: kafka_network_producer_request_time_milliseconds
+        type: GAUGE
+        labels:
+          quantile: "0.50"
+        help: "Mean of the total time taken by requests from producers to send data."
+    
+      - pattern: kafka.network<type=RequestMetrics, name=TotalTimeMs, request=FetchFollower><>95thPercentile
+        name: kafka_network_fetch_follower_time_milliseconds
+        type: GAUGE
+        labels:
+          quantile: "0.95"
+        help: "Percentile95th of the total time taken by requests from brokers that are the followers of a partition to get new data."
+    
+      - pattern: kafka.network<type=RequestMetrics, name=TotalTimeMs, request=FetchFollower><>Mean
+        name: kafka_network_fetch_follower_time_milliseconds
+        type: GAUGE
+        labels:
+          quantile: "0.50"
+        help: "Mean of the total time taken by requests from brokers that are the followers of a partition to get new data."
+    
+      - pattern: kafka.server<type=Fetch, user=(.+)><>byte-rate
+        name: kafka_server_consumer_user_byterate
+        type: GAUGE
+        labels:
+          user: "$1"
+        help: "Consumer Byte rate per user."
+    
+      - pattern: kafka.server<type=Fetch, client-id=(.+)><>byte-rate
+        name: kafka_server_consumer_client_byterate
+        type: GAUGE
+        labels:
+          client_id: "$1"
+        help: "Consumer Byte rate per client-id."
+    
+      - pattern: kafka.server<type=Fetch, user=(.+), client-id=(.+)><>byte-rate
+        name: kafka_server_consumer_user_client_byterate
+        type: GAUGE
+        labels:
+          user: "$1"
+          client_id: "$2"      
+        help: "Consumer Byte rate per user and client-id."
+    
+      - pattern: kafka.server<type=Fetch, user=(.+)><>throttle-time
+        name: kafka_server_consumer_user_throttle_time
+        type: GAUGE
+        labels:
+          user: "$1"
+        help: "Consumer throttle time per user."
+    
+      - pattern: kafka.server<type=Fetch, client-id=(.+)><>throttle-time
+        name: kafka_server_consumer_client_throttle_time
+        type: GAUGE
+        labels:
+          client_id: "$1"
+        help: "Consumer throttle time per client-id."
+    
+      - pattern: kafka.server<type=Fetch, user=(.+), client-id=(.+)><>throttle-time
+        name: kafka_server_consumer_user_client_throttle_time
+        type: GAUGE
+        labels:
+          user: "$1"
+          client_id: "$2"
+        help: "Consumer throttle time per user and client-id."
+    
+      - pattern: kafka.server<type=Produce, user=(.+)><>byte-rate
+        name: kafka_server_producer_user_byterate
+        type: GAUGE
+        labels:
+          user: "$1"
+        help: "Producer Byte rate per user."
+    
+      - pattern: kafka.server<type=Produce, client-id=(.+)><>byte-rate
+        name: kafka_server_producer_client_byterate
+        type: GAUGE
+        labels:
+          client_id: "$1"
+        help: "Producer Byte rate per client-id."
+    
+      - pattern: kafka.server<type=Produce, user=(.+), client-id=(.+)><>byte-rate
+        name: kafka_server_producer_user_client_byterate
+        type: GAUGE
+        labels:
+          user: "$1"
+          client_id: "$2"
+        help: "Producer Byte rate per user and client-id."
+    
+      - pattern: kafka.server<type=Produce, user=(.+)><>throttle-time
+        name: kafka_server_producer_user_throttle_time
+        type: GAUGE
+        labels:
+          user: "$1"
+        help: "Producer throttle time per user."
+    
+      - pattern: kafka.server<type=Produce, client-id=(.+)><>throttle-time
+        name: kafka_server_producer_client_throttle_time
+        type: GAUGE
+        labels:
+          client_id: "$1"
+        help: "Producer throttle time per client-id."
+    
+      - pattern: kafka.server<type=Produce, user=(.+), client-id=(.+)><>throttle-time
+        name: kafka_server_producer_user_client_throttle_time
+        type: GAUGE
+        labels:
+          user: "$1"
+          client_id: "$2"
+        help: "Producer throttle time per user and client-id."
+      # Zookeeper Metrics
+      # The client lost its previous connection to a server and it is currently trying to reconnect.
+      - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperDisconnectsPerSec><>OneMinuteRate
+        name: kafka_server_zookeeper_disconnections
+        type: GAUGE
+        help: "Number of Zookeeper disconnections per second."
+      # The ZooKeeper session has expired
+      - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperExpiresPerSec><>OneMinuteRate
+        name: kafka_server_zookeeper_expired_sessions
+        type: GAUGE
+        help: "Number of Zookeeper expired sessions per second."
+      # ZooKeeper client is connected to the ensemble and ready to execute operations.
+      - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperSyncConnectsPerSec><>OneMinuteRate
+        name: kafka_server_zookeeper_sync_connections
+        type: GAUGE
+        help: "Number of Zookeeper sync connections per second."
+      # An attempt to connect to the ensemble failed because the client has not provided correct credentials.
+      - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperAuthFailuresPerSec><>OneMinuteRate
+        name: kafka_server_zookeeper_auth_failures
+        type: GAUGE
+        help: "Number of Zookeeper authentication failures per second."
+      # The server the client is connected to is currently LOOKING, which means that it is neither FOLLOWING nor LEADING.
+      - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperReadOnlyConnectsPerSec><>OneMinuteRate
+        name: kafka_server_zookeeper_read_only_connections
+        type: GAUGE
+        help: "Number of Zookeeper read only connections per second."
+      # Client has successfully authenticated.
+      - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperSaslAuthenticationsPerSec><>OneMinuteRate
+        name: kafka_server_zookeeper_sasl_authentications
+        type: GAUGE
+        help: "Number of Zookeeper SASL authentications per second."
