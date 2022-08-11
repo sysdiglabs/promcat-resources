@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: Alert
+app: openshift-state-metrics
+version: 1.0.0
+appVersion:
+- '4.7'
+descriptionFile: ALERTS.md
+configurations:
+- kind: Prometheus
+  data: |
+    groups:
+    - name: openshift-state-metrics
+      rules:
+        - alert: '[OpenShift-state-metrics] CPU Resource Request Quota Usage'
+          expr: |
+            sum by (name) (openshift_clusterresourcequota_usage{resource="requests.cpu", type="used"})/sum by (name) (openshift_clusterresourcequota_usage{resource="requests.cpu", type="hard"})> 0.90
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: Resource request CPU usage is over 90% resource quota.
+        - alert: '[OpenShift-state-metrics] CPU Resource Limit Quota Usage'
+          expr: |
+            sum by (name) (openshift_clusterresourcequota_usage{resource="limits.cpu", type="used"})/sum by (name) (openshift_clusterresourcequota_usage{resource="limits.cpu", type="hard"})> 0.90
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: Resource limit CPU usage is over 90% resource limit quota.
+        - alert: '[OpenShift-state-metrics] Memory Resource Request Quota Usage'
+          expr: |
+            sum by (name) (openshift_clusterresourcequota_usage{resource="requests.memory", type="used"})/sum by (name) (openshift_clusterresourcequota_usage{resource="requests.memory", type="hard"})> 0.85
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: Resource request memory usage is over 90% resource quota.
+        - alert: '[OpenShift-state-metrics] Memory Resource Limit Quota Usage'
+          expr: |
+            sum by (name) (openshift_clusterresourcequota_usage{resource="limits.memory", type="used"})/sum by (name) (openshift_clusterresourcequota_usage{resource="limits.memory", type="hard"})> 0.85
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: Resource limit memory usage is over 90% resource limit quota.
+        - alert: '[OpenShift-state-metrics] Routes with issues'
+          expr: |
+            openshift_route_status{status != 'True'} > 0
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: A route status is in error and is having issues.
+        - alert: '[OpenShift-state-metrics] Buid Processes with issues'
+          expr: |
+            sum by (build, buildconfig) (openshift_build_status_phase_total{build_phase=~"failed|error") > 0
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: A build process is in error or failed status.

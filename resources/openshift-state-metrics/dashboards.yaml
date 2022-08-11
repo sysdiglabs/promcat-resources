@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Dashboard
+app: openshift-state-metrics
+version: 1.0.0
+appVersion:
+- '4.7'
+configurations:
+- name: 'OpenShift-state-metrics dashboard'
+  kind: Sysdig
+  image: 'openshift-state-metrics/images/openshift-state-metrics-v4.png'
+  description: |
+    This dashboard offers information on:
+    * CPU Used vs Request Quotas
+    * CPU Used vs Limit Quotas
+    * Memory Used vs Request Quotas
+    * Memory Used vs Limit Quotas
+    * Route list
+    * Routes with issues
+    * Builds
+    * Builds Processes with issues
+  file: 'include/openshift-state-metrics-v4.json'
