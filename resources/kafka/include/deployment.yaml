@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-exporter-kafka-kafka-deploy
+  namespace: kafka
+  labels:
+    helm.sh/chart: kafka-exporter-0.0.1
+    app.kubernetes.io/name: kafka-exporter-kafka-kafka
+    app.kubernetes.io/instance: my-kafka-exporter-release
+    app.kubernetes.io/version: "1.4.2"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kafka-exporter-kafka-kafka
+      app.kubernetes.io/instance: my-kafka-exporter-release
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        promcat.sysdig.com/port: "9308"
+        promcat.sysdig.com/target_ns: "kafka"
+        promcat.sysdig.com/target_workload_type: "statefulset"
+        promcat.sysdig.com/target_workload_name: "kafka"
+        promcat.sysdig.com/integration_type: "kafka"
+      labels:
+        app.kubernetes.io/name: kafka-exporter-kafka-kafka
+        app.kubernetes.io/instance: my-kafka-exporter-release
+    spec:
+      containers:
+      - name: kafka-exporter
+        image: "quay.io/sysdig/kafka-exporter:v1.5.0"
+        args:
+          - '--verbosity=0'
+          - '--kafka.server=kafka-cp-kafka:9092'
+        env:
+        ports:
+          - name: metrics
+            containerPort: 9308
+            protocol: TCP
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: metrics
+            scheme: HTTP
+          initialDelaySeconds: 3
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 9
+        readinessProbe:
+          failureThreshold: 2
+          httpGet:
+            path: /healthz
+            port: metrics
+            scheme: HTTP
+          initialDelaySeconds: 3
+          periodSeconds: 15
+          successThreshold: 1
+          timeoutSeconds: 9
+
+        resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi

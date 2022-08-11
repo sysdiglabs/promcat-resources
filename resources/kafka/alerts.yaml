@@ -1,0 +1,119 @@
+apiVersion: v1
+kind: Alert
+app: kafka
+version: 1.0.0
+appVersion:
+- '2.7'
+descriptionFile: ALERTS.md
+configurations:
+- kind: Prometheus
+  data: |-
+    groups:
+      - name: Kafka
+        rules:
+          - alert: '[Kafka] No Leader'
+            expr: |
+              sum(kafka_controller_active_controller) < 1
+            for: 5m
+            labels:
+              severity: critical
+            annotations:
+              description: There is no ActiveController or 'leader' in the Kafka cluster.
+          - alert: '[Kafka] Too Many Leaders'
+            expr: |
+              sum(kafka_controller_active_controller) > 1
+            for: 10m
+            labels:
+              severity: critical
+            annotations:
+              description: There is more than one ActiveController or 'leader' in the Kafka cluster.
+          - alert: '[Kafka] Offline Partitions'
+            expr: |
+              sum(kafka_controller_offline_partitions) > 0
+            for: 5m
+            labels:
+              severity: critical
+            annotations:
+              description: There are one or more Offline Partitions. These partitions don’t have an active leader and are hence not writable or readable.
+          - alert: '[Kafka] Under Replicated Partitions'
+            expr: |
+              sum(kafka_server_under_replicated_partitions) > 0
+            for: 10m
+            labels:
+              severity: warning
+            annotations:
+              description: There are one or more Under Replicated Partitions.
+          - alert: '[Kafka] Under In-Sync Replicated Partitions'
+            expr: |
+              sum(kafka_server_under_isr_partitions) > 0
+            for: 10m
+            labels:
+              severity: warning
+            annotations:
+              description: There are one or more Under In-Sync Replicated Partitions. These partitions will be unavailable to producers who use 'acks=all'.
+          - alert: '[Kafka] ConsumerGroup Lag Not Decreasing'
+            expr: |
+              (sum by(kube_cluster_name, kube_namespace_name, kube_workload_name, consumergroup, topic)(kafka_consumergroup_lag) > 0)
+              and 
+              (sum by(kube_cluster_name, kube_namespace_name, kube_workload_name, consumergroup, topic)(delta(kafka_consumergroup_lag[2m])) >= 0)
+            for: 15m
+            labels:
+              severity: warning
+            annotations:
+              description: The ConsumerGroup lag is not decreasing. The Consumers might be down, failing to process the messages and continuously retrying, or their consumption rate is lower than the production rate of messages.
+          - alert: '[Kafka] ConsumerGroup Without Members'
+            expr: |
+              sum by(kube_cluster_name, kube_namespace_name, kube_workload_name, consumergroup)(kafka_consumergroup_members) == 0
+            for: 10m
+            labels:
+              severity: info
+            annotations:
+              description: The ConsumerGroup doesn't have any members.
+          - alert: '[Kafka] Producer High ThrottleTime By Client-Id'
+            expr: |
+              max by(kube_cluster_name, kube_namespace_name, kube_workload_name, client_id)(kafka_server_producer_client_throttle_time) > 1000
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              description: The Producer has reached its quota and has high throttle time. Applicable when Client-Id-only quotas are being used.
+          - alert: '[Kafka] Producer High ThrottleTime By User'
+            expr: |
+              max by(kube_cluster_name, kube_namespace_name, kube_workload_name, user)(kafka_server_producer_user_throttle_time) > 1000
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              description: The Producer has reached its quota and has high throttle time. Applicable when User-only quotas are being used.
+          - alert: '[Kafka] Producer High ThrottleTime By User And Client-Id'
+            expr: |
+              max by(kube_cluster_name, kube_namespace_name, kube_workload_name, user, client_id)(kafka_server_producer_user_client_throttle_time) > 1000
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              description: The Producer has reached its quota and has high throttle time. Applicable when Client-Id + User quotas are being used.
+          - alert: '[Kafka] Consumer High ThrottleTime By Client-Id'
+            expr: |
+              max by(kube_cluster_name, kube_namespace_name, kube_workload_name, client_id)(kafka_server_consumer_client_throttle_time) > 1000
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              description: The Consumer has reached its quota and has high throttle time. Applicable when Client-Id-only quotas are being used.
+          - alert: '[Kafka] Consumer High ThrottleTime By User'
+            expr: |
+              max by(kube_cluster_name, kube_namespace_name, kube_workload_name, user)(kafka_server_consumer_user_throttle_time) > 1000
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              description: The Consumer has reached its quota and has high throttle time. Applicable when User-only quotas are being used.
+          - alert: '[Kafka] Consumer High ThrottleTime By User And Client-Id'
+            expr: |
+              max by(kube_cluster_name, kube_namespace_name, kube_workload_name, user, client_id)(kafka_server_consumer_user_client_throttle_time) > 1000
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              description: The Consumer has reached its quota and has high throttle time. Applicable when Client-Id + User quotas are being used.

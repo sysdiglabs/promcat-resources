@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Dashboard
+app: kafka
+version: 1.0.0
+appVersion:
+- '2.7'
+configurations:
+- name: kafka
+  kind: Sysdig
+  image: kafka/images/kafka.png
+  description: |
+    This dashboard offers information on:
+    * Brokers
+    * Network
+    * Topics
+    * ConsumerGroups
+    * Quotas
+    * Zookeeper
+  file: include/Kafka.json
