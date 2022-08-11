@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: SetupGuide
+app: kafka
+version: 1.0.0
+appVersion:
+- '2.7'
+configurations:
+- name: jmx.config.yaml
+  file: include/jmx.config.yaml
+- name: sidecar-patch.yaml
+  file: include/sidecar-patch.yaml
+- name: deployment.yaml
+  file: include/deployment.yaml
+- name: sysdig-agent.yaml
+  file: include/sysdig-agent.yaml
+descriptionFile: INSTALL.md

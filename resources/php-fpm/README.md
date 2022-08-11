@@ -2,7 +2,7 @@
 PHP-FPM (FastCGI Process Manager) is an alternative PHP FastCGI implementation with some additional features useful for sites of any size, especially busier sites.
 
 # Prometheus and exporters
-Since PHP-FPM isn't instrumentalized for Prometheus, so a exporter is needed. Here we're using the [php-fpm_exporter](https://github.com/hipages/php-fpm_exporter)
+Since PHP-FPM isn't instrumentalized for Prometheus, an exporter is needed. Here we're using the [php-fpm_exporter](https://github.com/hipages/php-fpm_exporter)
 
 # Metrics
 
