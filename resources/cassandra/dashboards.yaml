@@ -10,40 +10,18 @@ configurations:
   image: 'cassandra/images/cassandra-sysdig.png'
   description: |
     This dashboard offers information on:
-    * Nodes up
+    * Dropped Messages
     * ClientRead avg duration
     * ClientWrite avg duration
     * JVM Heap usage
     * Pending compactions
-    * Pending tasks
+    * Commitlog tasks
+    * Storage exceptions
     * Unavailable exceptions
-    * Available disk
     * 95thPercentile read latency
     * 95thPercentile write latency
-    * Avaiable disk by instance
     * Users conected
-    * CPU load ratio
-    * JVM usage
-    * Cassandra
+    * Tombstones scanned
+    * CQL statements
+    * Keyspace and tables
   file: include/dashboard-Sysdig--1.0.0.json
-- name: 'Cassandra overview'
-  kind: Grafana
-  image: 'cassandra/images/cassandra-grafana.png'
-  description: |
-    This dashboard offers information on:
-    * Nodes up
-    * ClientRead avg duration
-    * ClientWrite avg duration
-    * JVM Heap usage
-    * Pending compactions
-    * Pending tasks
-    * Unavailable exceptions
-    * Available disk
-    * 95thPercentile read latency
-    * 95thPercentile write latency
-    * Avaiable disk by instance
-    * Users conected
-    * CPU load ratio
-    * JVM usage
-    * Cassandra
-  file: include/dashboard-Grafana--1.0.0.json

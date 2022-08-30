@@ -11,47 +11,59 @@ configurations:
     groups:
     - name: Cassandra
       rules:
-      - alert: HighCpuUtilizationRate
-        expr: avg_over_time(cassandra_table_estimated_pending_compactions:cassandra)[30m] > 100
-        for: 5m
-        labels:
-          severity: warning
-        annotations:
-          summary: "Cassandra compaction task pending (instance {{ $labels.instance }})"
-          description: "Many Cassandra compaction tasks are pending. You might need to increase I/O capacity by adding nodes to the cluster.\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
-
-      - alert: CassandraWriteLatency
-        expr: cassandra_client_request_latency_seconds:cassandra{quantile="0.95", operation="write"} > 100000
-        for: 5m
-        labels:
-          severity: warning
-        annotations:
-          summary: "Cassandra write latency (instance {{ $labels.instance }})"
-          description: "High write latency on {{ $labels.instance }} cassandra node\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
-
-      - alert: CassandraReadLatency
-        expr: cassandra_client_request_latency_seconds:cassandra{quantile="0.95", operation="read"} > 100000
-        for: 5m
-        labels:
-          severity: warning
-        annotations:
-          summary: "Cassandra read latency (instance {{ $labels.instance }})"
-          description: "High read latency on {{ $labels.instance }} cassandra node\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
-
-      - alert: CassandraCommitlogPendingTasks
-        expr: cassandra_commit_log_pending_tasks:cassandra > 15
-        for: 5m
-        labels:
-          severity: warning
-        annotations:
-          summary: "Cassandra commitlog pending tasks (instance {{ $labels.instance }})"
-          description: "Unexpected number of Cassandra commitlog pending tasks\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
-
-      - alert: CassandraConnectionTimeoutsTotal
-        expr: rate(cassandra_client_request_timeouts_total:cassandra[1m]) > 5
-        for: 5m
-        labels:
-          severity: critical
-        annotations:
-          summary: "Cassandra connection timeouts total (instance {{ $labels.instance }})"
-          description: "Some connection between nodes are ending in timeout\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+        - alert: '[Cassandra] Compaction Task Pending'
+          expr: |
+            sum (cassandra_compaction_pending_tasks)> 20
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: There are many Cassandra compaction tasks pending.
+        - alert: '[Cassandra] Commitlog Pending Tasks'
+          expr: |
+            sum (cassandra_commitlog_pending_tasks)> 20
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: There are many Cassandra Commitlog tasks pending.
+        - alert: '[Cassandra] Compaction Executor Blocked Tasks'
+          expr: |
+            sum (rate(cassandra_threadpool_blocked_tasks_total{pool="CompactionExecutor"}[2m]))> 20
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            description: There are many Cassandra compaction executor blocked tasks.
+        - alert: '[Cassandra] Flush Writer Blocked Tasks'
+          expr: |
+            sum (rate(cassandra_threadpool_blocked_tasks_total{pool="MemFlushWriter"}[5m]))> 20
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: There are many Cassandra flush writer blocked tasks.
+        - alert: '[Cassandra] Storage Exceptions'
+          expr: |
+            sum (cassandra_storage_internal_exceptions_total)> 1
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            description: There are storage exceptions in Cassandra node.
+        - alert: '[Cassandra] High Tombstones Scanned'
+          expr: |
+            sum (cassandra__tombstoned_scanned)> 1000
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: There is a high number of tombstones scanned.
+        - alert: '[Cassandra] JVM Heap Memory'
+          expr: |
+            sum (cassandra_jvm_memory_usage_used_bytes{area="Heap"})/ sum (cassandra_jvm_memory_usage_max_bytes{area="Heap"})> 0.90
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: High JVM Heap Memory.
