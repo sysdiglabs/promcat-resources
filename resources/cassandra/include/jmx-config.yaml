@@ -1,0 +1,294 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cassandra-exporter-configmap
+  namespace: cassandra
+data:
+  config.yml: |
+    jmxUrl: service:jmx:rmi:///jndi/rmi://localhost:7199/jmxrmi
+    lowercaseOutputLabelNames: true
+    lowercaseOutputName: true
+    whitelistObjectNames: [
+    "org.apache.cassandra.metrics:type=BufferPool,name=Size,*",
+    "org.apache.cassandra.metrics:type=BufferPool,name=Misses,*",
+    "org.apache.cassandra.metrics:type=Table,name=WriteLatency,*",
+    "org.apache.cassandra.metrics:type=Table,name=ReadLatency,*",
+    "org.apache.cassandra.metrics:type=Table,name=PendingCompactions,*",
+    "org.apache.cassandra.metrics:type=Table,name=TombstoneScannedHistogram,*",
+    "org.apache.cassandra.metrics:type=Table,name=TotalDiskSpaceUsed,*",
+    "org.apache.cassandra.metrics:type=Storage,name=Load,*",
+    "org.apache.cassandra.metrics:type=Storage,name=Exceptions,*",
+    "org.apache.cassandra.metrics:type=Client,name=connectedNativeClients,*",
+    "org.apache.cassandra.metrics:type=ClientRequest,scope=Write,*",
+    "org.apache.cassandra.metrics:type=ClientRequest,scope=Read,*",
+    "org.apache.cassandra.metrics:type=CommitLog,name=PendingTasks",
+    "org.apache.cassandra.metrics:type=CommitLog,name=TotalCommitLogSize",
+    "org.apache.cassandra.metrics:type=CommitLog,name=CompletedTasks",
+    "org.apache.cassandra.metrics:type=Connection,name=TotalTimeouts,*",
+    "org.apache.cassandra.metrics:type=CQL,name=RegularStatementsExecuted,*",
+    "org.apache.cassandra.metrics:type=CQL,name=PreparedStatementsExecuted,*",
+    "org.apache.cassandra.metrics:type=DroppedMessage,scope=MUTATION,name=Dropped",
+    "org.apache.cassandra.metrics:type=DroppedMessage,scope=READ,name=Dropped",
+    "org.apache.cassandra.metrics:type=DroppedMessage,scope=BATCH_STORE,name=Dropped",
+    "org.apache.cassandra.metrics:type=DroppedMessage,scope=BATCH_REMOVE,name=Dropped",
+    "org.apache.cassandra.metrics:type=DroppedMessage,scope=REQUEST_RESPONSE,name=Dropped",
+    "org.apache.cassandra.metrics:type=Compaction,name=PendingTasks",
+    "org.apache.cassandra.metrics:type=Compaction,name=CompletedTasks",
+    "org.apache.cassandra.metrics:type=Compaction,name=BytesCompacted",
+    "org.apache.cassandra.metrics:type=Compaction,name=TotalCompactionsCompleted",
+    "org.apache.cassandra.metrics:type=ThreadPools,scope=Native-Transport-Requests,name=ActiveTasks,*",
+    "org.apache.cassandra.metrics:type=ThreadPools,scope=Native-Transport-Requests,name=PendingTasks,*",
+    "org.apache.cassandra.metrics:type=ThreadPools,scope=Native-Transport-Requests,name=MaxPoolSize,*",
+    "org.apache.cassandra.metrics:type=ThreadPools,name=CompletedTasks,*",
+    "org.apache.cassandra.metrics:type=ThreadPools,name=PendingTasks,*",
+    "org.apache.cassandra.metrics:type=ThreadPools,name=ActiveTasks,*",
+    "org.apache.cassandra.metrics:type=ThreadPools,name=TotalBlockedTasks,*",
+    "org.apache.cassandra.metrics:type=ThreadPools,name=CurrentlyBlockedTasks,*",
+    "java.lang:type=Memory",
+    "java.lang:type=MemoryPool,*",
+    "java.lang:type=GarbageCollector,*",
+    ]
+    # ColumnFamily is an alias for Table metrics
+    blacklistObjectNames: [
+    "org.apache.cassandra.metrics:type=ColumnFamily,*"
+    ]
+    rules:
+    - pattern: org.apache.cassandra.metrics<type=BufferPool, name=Size><>Value
+      name: cassandra_bufferpool_size_total
+      type: GAUGE
+      help: "Size, in bytes, of the managed buffer pool."
+
+    - pattern: org.apache.cassandra.metrics<type=BufferPool, name=Misses><>Mean
+      name: cassandra_bufferpool_misses_total
+      type: GAUGE
+      help: "The rate of misses in the pool. The higher this is the more allocations incurred."
+
+    - pattern: org.apache.cassandra.metrics<type=Table, keyspace=(.+), scope=(.*), name=WriteLatency><>OneMinuteRate
+      name: cassandra_table_write_requests_per_second
+      type: GAUGE
+      labels:
+        keyspace: "$1"
+        table: "$2"
+      help: "Local write latency for this table."
+
+    - pattern: org.apache.cassandra.metrics<type=Table, keyspace=(.+), scope=(.*), name=ReadLatency><>OneMinuteRate
+      name: cassandra_table_read_requests_per_second
+      type: GAUGE
+      labels:
+        keyspace: "$1"
+        table: "$2"
+      help: "Local read latency for this table."
+
+    - pattern: org.apache.cassandra.metrics<type=Table, keyspace=(.+), scope=(.*), name=PendingCompactions><>Value
+      name: cassandra_table_pending_compactions
+      type: GAUGE
+      labels:
+        keyspace: "$1"
+        table: "$2"
+      help: "Estimate of number of pending compactions for this table."
+    
+    - pattern: org.apache.cassandra.metrics<type=Table, keyspace=(.+), scope=(.*), name=TotalDiskSpaceUsed><>Count
+      name: cassandra_table_total_disk_space_used
+      type: COUNTER
+      labels:
+        keyspace: "$1"
+        table: "$2"
+      help: "Total disk space used by SSTables belonging to this table, including obsolete ones waiting to be Garbage Collected."
+
+    - pattern: org.apache.cassandra.metrics<type=Table, keyspace=(.+), scope=(.*), name=TombstoneScannedHistogram><>99thPercentile
+      name: cassandra_table_tombstoned_scanned
+      type: GAUGE
+      labels:
+        keyspace: "$1"
+        table: "$2"
+        quantile: "0.99"
+      help: "Percentile99th of the histogram of tombstones scanned in queries on this table."
+
+    - pattern: org.apache.cassandra.metrics<type=Storage, name=Load><>Count
+      name: cassandra_storage_load_bytes_total
+      type: COUNTER
+      help: "Size, in bytes, of the on disk data size this node manages."
+
+    - pattern: org.apache.cassandra.metrics<type=Storage, name=Exceptions><>Count
+      name: cassandra_storage_internal_exceptions_total
+      type: COUNTER
+      help: "Number of internal exceptions caught. Under normal exceptions this should be zero."
+
+    - pattern: org.apache.cassandra.metrics<type=Client, name=connectedNativeClients><>Value
+      name: cassandra_client_connected_clients
+      type: GAUGE
+      help: "Number of clients connected to this node native protocol server."
+
+    - pattern: org.apache.cassandra.metrics<type=ClientRequest, scope=Write, name=Timeouts><>Count
+      name: cassandra_client_request_write_timeouts
+      type: COUNTER
+      help: "Client Requests Write Timeouts."
+
+    - pattern: org.apache.cassandra.metrics<type=ClientRequest, scope=Read, name=Timeouts><>Count
+      name: cassandra_client_request_read_timeouts
+      type: COUNTER
+      help: "Client Requests Read Timeouts."
+
+    - pattern: org.apache.cassandra.metrics<type=ClientRequest, scope=Write, name=Unavailables><>Count
+      name: cassandra_client_request_write_unavailables
+      type: COUNTER
+      help: "Client Requests Write unavailable exceptions encountered."
+
+    - pattern: org.apache.cassandra.metrics<type=ClientRequest, scope=Read, name=Unavailables><>Count
+      name: cassandra_client_request_read_unavailables
+      type: COUNTER
+      help: "Client Requests Read unavailable exceptions encountered."
+
+    - pattern: org.apache.cassandra.metrics<type=ClientRequest, scope=Write, name=Latency><>95thPercentile
+      name: cassandra_client_request_write_latency
+      type: GAUGE
+      labels:
+        quantile: "0.95"      
+      help: "Percentile 95th Client Requests Write Latency over the last minute."
+
+    - pattern: org.apache.cassandra.metrics<type=ClientRequest, scope=Read, name=Latency><>95thPercentile
+      name: cassandra_client_request_read_latency
+      type: GAUGE
+      labels:
+        quantile: "0.95"
+      help: "Percentile 95th Client Requests Read Latency"      
+
+    - pattern: org.apache.cassandra.metrics<type=CommitLog, name=PendingTasks><>Value
+      name: cassandra_commitlog_pending_tasks
+      type: GAUGE
+      help: "Number of commit log messages written but yet to be sync’d."
+
+    - pattern: org.apache.cassandra.metrics<type=CommitLog, name=TotalCommitLogSize><>Value
+      name: cassandra_commitlog_total_size
+      type: GAUGE
+      help: "Current size, in bytes, used by all the commit log segments."
+
+    - pattern: org.apache.cassandra.metrics<type=CommitLog, name=CompletedTasks><>Value
+      name: cassandra_commitlog_completed_tasks
+      type: GAUGE
+      help: "Total number of commit log messages written since [re]start."
+
+    - pattern: org.apache.cassandra.metrics<type=CQL, name=RegularStatementsExecuted><>Count
+      name: cassandra_cql_regular_statements_executed_total
+      type: COUNTER
+      help: "Number of non prepared statements executed."
+
+    - pattern: org.apache.cassandra.metrics<type=CQL, name=PreparedStatementsExecuted><>Count
+      name: cassandra_cql_prepared_statements_executed_total
+      type: COUNTER
+      help: "Number of prepared statements executed."
+
+    - pattern: org.apache.cassandra.metrics<type=DroppedMessage, scope=MUTATION, name=Dropped><>OneMinuteRate
+      name: cassandra_dropped_messages_mutation
+      type: GAUGE
+      help: "Number of regular writes dropped messages."
+
+    - pattern: org.apache.cassandra.metrics<type=DroppedMessage, scope=READ, name=Dropped><>OneMinuteRate
+      name: cassandra_dropped_messages_read
+      type: GAUGE
+      help: "Number of regular reads dropped messages."
+
+    - pattern: org.apache.cassandra.metrics<type=DroppedMessage, scope=BATCH_STORE, name=Dropped><>OneMinuteRate
+      name: cassandra_dropped_messages_batch_store
+      type: GAUGE
+      help: "Number of batchlog writes dropped messages."
+
+    - pattern: org.apache.cassandra.metrics<type=DroppedMessage, scope=REQUEST_RESPONSE, name=Dropped><>OneMinuteRate
+      name: cassandra_dropped_messages_rpc
+      type: GAUGE
+      help: "Number of RPC Callbacks dropped messages."
+
+    - pattern: org.apache.cassandra.metrics<type=Compaction, name=PendingTasks><>Value
+      name: cassandra_compaction_pending_tasks
+      type: GAUGE
+      help: "Estimated number of compactions remaining to perform."
+
+    - pattern: org.apache.cassandra.metrics<type=Compaction, name=CompletedTasks><>Value
+      name: cassandra_compaction_completed_tasks
+      type: GAUGE
+      help: "Number of completed compactions since server [re]start."
+
+    - pattern: org.apache.cassandra.metrics<type=Compaction, name=BytesCompacted><>Count
+      name: cassandra_compaction_compacted_bytes_total
+      type: COUNTER
+      help: "Total number of bytes compacted since server [re]start."
+
+    - pattern: org.apache.cassandra.metrics<type=Compaction, name=TotalCompactionsCompleted><>Mean
+      name: cassandra_compaction_total_completed
+      type: GAUGE
+      help: "Throughput of completed compactions since server [re]start."
+
+    - pattern: org.apache.cassandra.metrics<type=ThreadPools, path=(.*), scope=(.*), name=ActiveTasks><>Value
+      name: cassandra_threadpool_active_tasks
+      type: GAUGE
+      labels:
+        pool : "$2"
+        #path: "$1"
+      help: "Handles client CQL requests."
+
+    - pattern: org.apache.cassandra.metrics<type=ThreadPools, path=(.*), scope=(.*), name=PendingTasks><>Value
+      name: cassandra_threadpool_pending_tasks
+      type: GAUGE
+      labels:
+        pool: "$2"
+        #path: "$1"
+      help: "Number of queued tasks queued up on this pool."
+
+    - pattern: org.apache.cassandra.metrics<type=ThreadPools, path=(.*), scope=(.*), name=MaxPoolSize><>Value
+      name: cassandra_threadpool_max_pool_size
+      type: GAUGE
+      labels:
+        pool: "$2"
+        #path: "$1"
+      help: "The maximum number of threads in this pool."
+
+    - pattern: org.apache.cassandra.metrics<type=ThreadPools, path=(.*), scope=(.*), name=CurrentlyBlockedTasks><>Count
+      name: cassandra_threadpool_currently_blocked_tasks_total
+      type: COUNTER
+      labels:
+        pool: "$2"
+        #path: "$1"
+      help: "Number of tasks that are currently blocked due to queue saturation but on retry will become unblocked."
+
+    - pattern: org.apache.cassandra.metrics<type=ThreadPools, path=(.*), scope=(.*), name=TotalBlockedTasks><>Count
+      name: cassandra_threadpool_blocked_tasks_total
+      type: COUNTER
+      labels:
+        pool: "$2"
+        #path: "$1"
+      help: "Number of tasks that were blocked due to queue saturation."  
+
+    - pattern: org.apache.cassandra.metrics<type=ThreadPools, path=(.*), scope=(.*), name=CompletedTasks><>Count
+      name: cassandra_threadpool_completed_tasks
+      type: COUNTER
+      labels:
+        pool: "$2"
+        #path: "$1"
+      help: "Number of tasks completed."
+
+    - pattern: 'java.lang<type=MemoryPool, name=(\w*)><>(\w*)'
+      name: cassandra_jvm_memory_pools.$1
+      labels:
+        unit: $2
+
+    - pattern: 'java.lang<type=Memory><(\w+)MemoryUsage>(\w+):'
+      name: cassandra_jvm_memory_usage_$2_bytes
+      type: GAUGE
+      labels:
+        area: "$1"  # Heap/NonHeap
+      help: Java $2 $1 memory usage
+
+    - pattern: 'java.lang<type=GarbageCollector, name=[^>]+><LastGcInfo>duration: (\d+)'
+      name: cassandra_jvm_gc_duration_seconds
+      value: $1
+      type: GAUGE
+      # Convert microseconds to seconds
+      valueFactor: 0.000001
+
+    # java.lang<type=GarbageCollector, name=G1 Young Generation><>CollectionCount
+    - pattern: 'java.lang<type=GarbageCollector, name=([^>]+)><>CollectionCount: (\d+)'
+      name: cassandra_jvm_gc_collection_count
+      value: $2
+      labels:
+        name: $1
+      type: GAUGE
