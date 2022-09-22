@@ -13,7 +13,7 @@ configurations:
       rules:
       - alert: LongCPUThrottling
         expr: |
-          aws_rds_cpuutilization_average > 0.95
+          aws_rds_cpuutilization_average > 95
         for: 10m
         labels:
           severity: page
