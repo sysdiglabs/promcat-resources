@@ -6,20 +6,6 @@ appVersion:
 - '1.5'
 configurations:
 - name: Workload
-  kind: Sysdig
-  image: istio/images/workload_sysdig.png
-  description: |
-    This dashboard offers information on:
-    * Metrics for each workload and also inbound workloads
-  file: include/dashboard-Sysdig-Workload-1.5.json
-- name: Service
-  kind: Sysdig
-  image: istio/images/service_sysdig.png
-  description: |
-    This dashboard offers information on:
-    * Metrics for the service and client workload
-  file: include/dashboard-Sysdig-Service-1.5.json
-- name: Workload
   kind: Grafana
   image: istio/images/workload_grafana.png
   description: |

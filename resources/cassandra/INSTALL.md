@@ -43,16 +43,3 @@ Alternatively, you can download the file and run:
 ```
 kubectl patch deployment NameOfYourDeployment --patch "$(cat patch.yaml)"
 ```
-
-# Sysdig Agent configuration
-To use the Sysdig agent, do the following:
-
-1. Create the recording rules to scrape only the metrics that will be used in the dashboards.
-
-2. Copy the agent configuration provided and save it as `sysdig-agent.yaml`.
-
-3. Apply the configuration:
-
-  ```
-  kubectl apply -f sysdig-agent.yaml
-  ```

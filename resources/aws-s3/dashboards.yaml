@@ -15,13 +15,3 @@ configurations:
     * Bitrate in upstream and downstream
     * Usage and size of the buckets
   file: include/dashboard-Grafana-S3-Golden-Signals-1.0.0.json
-- name: S3 Golden Signals
-  kind: Sysdig
-  image: aws-s3/images/aws-s3-sysdig-golden-signals.png
-  description: |
-    This dashboard offers information on:
-    * Error rate for 4XX and 5XX codes
-    * Latency of the first byte and the total request
-    * Bitrate in upstream and downstream
-    * Usage and size of the buckets
-  file: include/dashboard-Sysdig-S3-Golden-Signals-1.0.0.json

@@ -41,29 +41,3 @@ The Prometheus server provided by Istio includes all the targets with all the as
   ```sh
   kubectl -n istio-system delete pods $(kubectl get pods --namespace istio-system -l "app=prometheus,release=istio" -o jsonpath="{.items[0].metadata.name}")
   ```
-
-5. Gather the metrics with the agent adding the federation job for Istio. Given below is an example of the configmap:
-
-  ```yaml
-  - job_name: 'prometheus' # config for federation
-        honor_labels: true
-        metrics_path: '/federate'
-        metric_relabel_configs:
-        - regex: 'kubernetes_pod_name'
-          action: labeldrop
-        params:
-          'match[]':
-            - '{sysdig="true"}'
-        sysdig_sd_configs:
-        - tags:
-            namespace: istio-system
-            deployment: prometheus
-  ```
-  Use the file named `patch.yaml`  to patch it:
-  ```
-  kubectl -n sysdig-agent patch cm sysdig-agent -p "$(cat patch.yaml)"
-  ```
-  Alternatively, apply the `sysdig-agent` confimap provided:
-  ```
-  kubectl -n sysdig-agent apply -f sysdig-agent.yaml
-  ```

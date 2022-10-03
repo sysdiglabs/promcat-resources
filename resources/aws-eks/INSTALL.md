@@ -37,22 +37,3 @@ kubectl -n monitoring patch sts prometheus-server -p '{"spec":{"template":{"meta
 ```
 kubectl -n monitoring apply -f prometheus-deploy.yaml
 ```
-
-# Configuring the Sysdig Agent
-To install the Sysdig Agent, ensure that you have at least one EC2 instance in your EKS cluster.
-
-1. Install with helm Sysdig Agent in your cluster:
-
-```
-kubectl create ns sysdig-agent
-helm install -n sysdig-agent \
-     --set sysdig.accessKey=<YOUR-ACCESS-KEY> \
-     --set sysdig.settings.k8s_cluster_name=<YOUR-CLUSTER-NAME> \
-     sysdig-agent sysdiglabs/sysdig
-```
-
-2. Download the sample [Sysdig Agent configuration file](include/sysdig-agent-config.yaml) and apply it:
-
-```
-kubectl apply -f sysdig-agent-config.yaml
-```

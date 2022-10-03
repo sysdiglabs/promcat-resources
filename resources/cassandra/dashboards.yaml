@@ -6,27 +6,6 @@ appVersion:
   - '3.11.6'
 configurations:
 - name: 'Cassandra overview'
-  kind: Sysdig
-  image: 'cassandra/images/cassandra-sysdig.png'
-  description: |
-    This dashboard offers information on:
-    * Nodes up
-    * ClientRead avg duration
-    * ClientWrite avg duration
-    * JVM Heap usage
-    * Pending compactions
-    * Pending tasks
-    * Unavailable exceptions
-    * Available disk
-    * 95thPercentile read latency
-    * 95thPercentile write latency
-    * Avaiable disk by instance
-    * Users conected
-    * CPU load ratio
-    * JVM usage
-    * Cassandra
-  file: include/dashboard-Sysdig--1.0.0.json
-- name: 'Cassandra overview'
   kind: Grafana
   image: 'cassandra/images/cassandra-grafana.png'
   description: |
