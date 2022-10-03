@@ -4,5 +4,9 @@ app: 'cassandra'
 version: 1.0.0
 appVersion:
   - '3.11.6'
-configurations: []
+configurations:
+- name: jmx-config.yaml
+  file: include/jmx-config.yaml
+- name: patch.yaml
+  file: include/patch.yaml
 descriptionFile: INSTALL.md

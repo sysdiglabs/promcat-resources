@@ -3,26 +3,49 @@ spec:
     metadata:
       annotations:
         prometheus.io/scrape: "true"
-        prometheus.io/port: "9500"
+        prometheus.io/port: "5556"
     spec:
       containers:
-      - name: cassandra-exporter
-        image: quay.io/sysdig/promcat-cassandra-exporter:v0.9.10
-        imagePullPolicy: Always
-        volumeMounts:
-          - mountPath: /var/lib/cassandra
-            name: data
+      - image: quay.io/sysdig/promcat-jmx-exporter:v0.17.3
+        imagePullPolicy: IfNotPresent
+        name: cassandra-exporter
+        securityContext:
+          runAsUser: 999
+        resources:
+          limits:
+            cpu: 1
+            memory: 1Gi
+          requests:
+            cpu: 300m
+            memory: 500Mi
         ports:
-          - name: metrics
-            containerPort: 9500
+          - containerPort: 5556
+            name: metrics
             protocol: TCP
         livenessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 90
+          periodSeconds: 20
+          successThreshold: 1
           tcpSocket:
-            port: 9500
-          initialDelaySeconds: 180
+            port: 5556
+          timeoutSeconds: 5
         readinessProbe:
           httpGet:
             path: /metrics
-            port: 9500
-          initialDelaySeconds: 180
-          timeoutSeconds: 45
+            port: 5556
+            scheme: HTTP
+          initialDelaySeconds: 90
+          failureThreshold: 3
+          periodSeconds: 20
+          successThreshold: 1
+          timeoutSeconds: 15
+        volumeMounts:
+          - mountPath: /opt/jmx_exporter/config.yml
+            name: cassandra-exporter-configmap
+            subPath: config.yml
+      volumes:
+      - name: cassandra-exporter-configmap
+        configMap:
+          defaultMode: 420
+          name: cassandra-exporter-configmap

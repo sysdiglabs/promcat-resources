@@ -1,16 +1,22 @@
 # Alerts
-## HighCpuUtilizationRate
-Cassandra compaction task pending
+## [Cassandra] Compaction Task Pending
+There are many Cassandra compaction tasks pending.
 
-## CassandraWriteLatency
-Cassandra write latency
+## [Cassandra] Commitlog Pending Tasks
+There are many Cassandra Commitlog tasks pending.
 
-## CassandraReadLatency
-Cassandra read latency
+## [Cassandra] Compaction Executor Blocked Tasks
+There are many Cassandra compaction executor blocked tasks.
 
-## CassandraCommitlogPendingTasks
-Cassandra commitlog pending tasks
+## [Cassandra] Flush Writer Blocked Tasks
+There are many Cassandra flush writer blocked tasks.
 
-## CassandraConnectionTimeoutsTotal
-Cassandra connection timeouts total
+## [Cassandra] Storage Exceptions
+There are storage exceptions in Cassandra node.
+
+## [Cassandra] High Tombstones Scanned
+There is a high number of tombstones scanned.
+
+## [Cassandra] JVM Heap Memory
+High JVM Heap Memory.
 

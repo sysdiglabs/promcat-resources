@@ -5,22 +5,21 @@
 * Request_latency
 * Unavailable_exceptions_total
 * Timeouts_total
-* Jvm_memory_pool_used
-* Jvm_memory_pool_maximum
+* Jvm_memory_used
+* Jvm_memory_maximum
 * Pending_compactions
-* Pending_tasks
-* Disk_space
+* CommitLog_tasks
 * Storage_total
-* Storage_bytes
+* Storage_exceptions
 * Native_connections
-* Load_average
-* Free_memory
-* Memory_total
+* Dropped_messages
+* Keyspace_size
+* Table_size
 
 # Number of time series generated
-The metrics for each instance are around 7k.
+The metrics for each instance are around 850.
 
 # Attributions
-Using the [Cassandra exporter](https://github.com/instaclustr/cassandra-exporter) with license Apache 2.0
+Using the [jmx exporter](https://github.com/sysdiglabs/jmx_exporter) with license Apache 2.0
 
 The configuration files, dashboards, and alerts are maintained by [Sysdig team](https://sysdig.com/).

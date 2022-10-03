@@ -1,45 +1,22 @@
 # Installing the exporter
-Cassandra exposes the metrics with JMX (Java Management Extensions). The exporter gather this metrics and expose them in Prometheus format. Usually JMX is unsecured and it has no authentication methods. In this case, the best way to deploy JMX metrics is to add a sidecar with the exporter.
+Cassandra exposes the metrics via JMX (Java Management Extensions). The exporter filter these metrics using jmx-config file and exposes them in Prometheus format. Usually JMX is unsecured and it has no authentication methods. In this case, the best way to deploy JMX metrics is to add a sidecar with the exporter.
 
-```yaml
-spec:
-  template:
-    metadata:
-      annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "9500"
-    spec:
-      containers:
-      - name: cassandra-exporter
-        image: quay.io/sysdig/promcat-cassandra-exporter:v0.9.10
-        imagePullPolicy: Always
-        volumeMounts:
-          - mountPath: /var/lib/cassandra
-            name: data
-        ports:
-          - name: metrics
-            containerPort: 9500
-            protocol: TCP
-        livenessProbe:
-          tcpSocket:
-            port: 9500
-          initialDelaySeconds: 180
-        readinessProbe:
-          httpGet:
-            path: /metrics
-            port: 9500
-          initialDelaySeconds: 180
-          timeoutSeconds: 45
-```
+## Steps to install
 
-To do so, run the following command:
+1.- Create the following ConfiMap (you must specify the namespace where you have Cassandra deployed inside jmx-config.yaml file):
 
 ```
-kubectl patch deployment NameOfYourDeployment --patch https://raw.githubusercontent.com/sysdiglabs/promcat-resources/master/resources/cassandra/include/patch.yaml
+kubectl apply -f jmx-config.yaml
+```
+
+2.- Deploy exporter as sidecar running the following command:
+
+```
+kubectl patch sts -n cassandra cassandra-sts --patch https://raw.githubusercontent.com/sysdiglabs/promcat-resources/master/resources/cassandra/include/patch.yaml
 ```
 
 Alternatively, you can download the file and run:
 
 ```
-kubectl patch deployment NameOfYourDeployment --patch "$(cat patch.yaml)"
+kubectl patch sts -n cassandra cassandra-sts --patch "$(cat patch.yaml)"
 ```
