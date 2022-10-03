@@ -1,4 +1,4 @@
 # Setup
-Sysdig Admission Controller expose Prometheus metrics natively. 
+Sysdig Admission Controller exposes Prometheus metrics natively. 
 
-As it is annotated with the standard Prometheus annotations, it will be scraped by default for both Prometheus and the Sysdig Agent, so no further configuration is required.
+As it is annotated with the standard Prometheus annotations, it will be scraped by default by Prometheus, so no further configuration is required.

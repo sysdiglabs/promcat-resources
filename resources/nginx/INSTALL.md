@@ -28,9 +28,6 @@ spec:
   template:
     metadata:
       annotations:
-        promcat.sysdig.com/integration_type: nginx
-        promcat.sysdig.com/port: "9113"
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9222"
 ```
-
-# Sysdig Agent configuration
-Below you can find the configuration for the sysdig agent.

@@ -4,15 +4,4 @@ app: memcached
 version: 1.0.0
 appVersion:
 - '1.6'
-configurations:
-- name: Memcached
-  kind: Sysdig
-  image: memcached/images/memcached-sysdig.png
-  description: |
-    This dashboard offers information on:
-    * Connections
-    * Hit and miss rate
-    * Evicts and reclaims
-    * Memory usage
-    * Commands
-  file: include/dashboard-Sysdig-Memcached.json
+configurations: []

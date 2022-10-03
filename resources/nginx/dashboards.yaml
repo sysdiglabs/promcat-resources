@@ -6,18 +6,6 @@ appVersion:
 - '1.17'
 configurations:
 - name: Nginx App Overview
-  kind: Sysdig
-  image: nginx/images/nginx-sysdig-app-overview.png
-  description: |
-    This dashboard offers information on:
-    * Instances Up
-    * HTTP Request per instance
-    * Waiting connections per instance
-    * Not Handled connections per instance
-    * Active, reading and writing connections
-    * Accepted and handled connections
-  file: include/dashboard-Sysdig-Nginx-App-Overview-1.17.json
-- name: Nginx App Overview
   kind: Grafana
   image: nginx/images/nginx-grafana-app-overview.png
   description: |

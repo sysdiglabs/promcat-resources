@@ -45,8 +45,3 @@ ssl-cert=/lib/cert/client-cert.pem
 To install the exporter, you can use the example files provided below.
 
 Use `mysql-exporter.yaml` for basic authentication and `mysql-exporter-ssl.yaml` for ssl authentication.
-
-# Sysdig Agent configuration
-The default configuration of the Sysdig agent will detect the Prometheus annotated pod of the exporter and scrape it automatically.
-
-Also, in the `sysdig-agent-config.yaml` file you can find an example of the minimum configuration needed in the agent.

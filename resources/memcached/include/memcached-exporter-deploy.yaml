@@ -14,11 +14,8 @@ spec:
       labels:
         app: memcached-exporter
       annotations:
-        promcat.sysdig.com/port: "9150"
-        promcat.sysdig.com/target_ns: Your-namespace-name
-        promcat.sysdig.com/target_workload_type: deployment
-        promcat.sysdig.com/target_workload_name: memcached
-        promcat.sysdig.com/integration_type: memcached
+        prometheus.io/port: "9150"
+        prometheus.io/scrape: "true"
     spec:
       containers:
       - name: memcached-exporter
