@@ -47,7 +47,7 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: elasticsearch.adminuser
-              name: sysdigcloud-config
+              name: elasticsearch-config
         - name: ES_URI
           value: https://$(ELASTIC_USER):$(ELASTICSEARCH_ADMIN_PASSWORD)@YOUR-HOST:9200
       envFrom:
