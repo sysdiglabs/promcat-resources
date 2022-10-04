@@ -103,30 +103,3 @@ kubectl create secret generic postgres-exporter-auth \
 ```
 
 You can use the `postgresql-auth-deploy.yaml` file as an example of a deployment with SSL authentication.
-
-# Sysdig Agent configuration
-> Requires Sysdig Agent >= v11.3 
-
-In the Postgres exporter deployment, use the Sysdig annotations to configure the port of the exporter as the scraping port. See the example in the `postgresql-standalone-exporter.yaml` file.
-
-Additionally, you can use the labels to add the namespace, workload type, and name of the database the exporter will take data from.
-This way, you can view the metrics associated directly with the database pods and the exporter in Sysdig Monitor.
-
-```yaml
-spec:
-  template:
-    metadata:
-      annotations:
-        promcat.sysdig.com/port: "9187"
-
-        # Add here the namespace, workload type (deployment, statefulset, replicaset, daemonset)
-        # and workload name of the Postgres database that the exporter will take data from
-        promcat.sysdig.com/target_ns: default
-        promcat.sysdig.com/target_workload_type: deployment
-        promcat.sysdig.com/target_workload_name: postgres
-```
-
-After configuring the Sysdig annotations, download the sample configuration file and apply the changes by:
-```bash
-kubectl apply -f sysdig-agent-config.yaml
-```

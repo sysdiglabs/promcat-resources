@@ -9,6 +9,3 @@ kubectl -n gatekeeper-system patch deploy gatekeeper-controller-manager -p '{"sp
 kubectl -n gatekeeper-system patch deploy gatekeeper-audit -p '{"spec":{"template":{"metadata":{"annotations":{"prometheus.io/scrape": "true", "prometheus.io/port": "8888"}}}}}'
 ```
 
-# Sysdig Agent configuration
-
-If you have configured your Prometheus server or your [Sysdig agent for Prometheus metric collection](https://docs.sysdig.com/en/integrate-prometheus-metrics.html), you should be already ingesting your Gatekeeper metrics.

@@ -4,26 +4,4 @@ app: "rabbitmq"
 version: 1.0.0
 appVersion:
 - '3.8'
-configurations:
-- name: Rabbitmq Overview
-  kind: Sysdig
-  image: rabbitmq/images/rabbitmq_overview_sysdig.png
-  description: |
-    This dashboard offers information on:
-    * Node identity, including RabbitMQ & Erlang/OTP version
-    * Node memory & disk available before publishers blocked (alarm triggers)
-    * Node file descriptors & TCP sockets available
-    * Ready & pending messages
-  file: include/dashboard-Sysdig-rabbitmq-overview.json
-- name: Rabbitmq Usage
-  kind: Sysdig
-  image: rabbitmq/images/rabbitmq_usage_sysdig.png
-  description: |
-    This dashboard offers information on:
-    * Incoming message rates: published / routed to queues / confirmed / unconfirmed / returned / dropped
-    * Outgoing message rated: delivered with auto or manual acks / acknowledged / redelivered
-    * Polling operation with auto or manual acks, as well as empty ops
-    * Queues, including declaration & deletion rates
-    * Channels, including open & close rates
-    * Connections, including open & close rates
-  file: include/dashboard-Sysdig-rabbitmq-usage.json
+configurations: []

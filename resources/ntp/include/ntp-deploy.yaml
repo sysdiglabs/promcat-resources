@@ -12,6 +12,9 @@ spec:
     metadata:
       labels:
         k8s-app: ntp-exporter
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9559"
     spec:
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet

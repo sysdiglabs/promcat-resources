@@ -16,6 +16,9 @@ spec:
       labels:
         app: php-fpm
         pod: php-app
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9253"
     spec:
       containers:
       - image: php:7.2-fpm

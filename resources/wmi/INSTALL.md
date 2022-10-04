@@ -14,16 +14,3 @@ msiexec /i wmi_exporter.msi --collectors.enabled "cpu,cs,logical_disk,os,system,
 # Stand alone:
 .\wmi_exporter.exe --collectors.enabled "cpu,cs,logical_disk,os,system,net"
 ```
-
-To make the Sysdig agent to scrape a remote endpoint from just one of the agents, you have to annotate the node that will host the scraping agent:
-```
-kubectl annotate nodes NODEID sysdig.com/scraper=true
-```
-
-Following is the configuration of the Sysdig agent. Be sure to change this line with the IP and PORT of your windows instance:
-> url: "http://IP:PORT/metrics"
-
-To apply, save the file as `dragent.yaml` and apply:
-```
-kubectl apply -f dragent.yaml
-```
