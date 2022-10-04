@@ -1,5 +1,4 @@
 # Prerequisites
-KSM and cAdvisor generates a high number of metrics. As the Sysdig Agent has a limit of time series that can send to Sysdig Monitor, you have to deploy a Prometheus server and create the recording rules that we provide. This way, you will filter only the metrics that you need.
 
 To deploy a Prometheus server you will need:
 * [helm](https://helm.sh/docs/intro/install/)  
