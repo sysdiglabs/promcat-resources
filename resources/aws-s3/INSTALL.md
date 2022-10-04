@@ -73,13 +73,3 @@ kubectl apply -f s3-deploy.yaml
 ```
 kubectl -n yace get pods
 ```
-
-# Sysdig Agent configuration
-Do the following:
-
-1. In the yace deployment, include the Prometheus annotations. Add the port of the exporter as the scraping port in the annotation.    
-
-2. Download the sample [Sysdig Agent configuration file](include/sysdig-agent-config.yaml) and apply it by:
-```bash
-kubectl apply -f sysdig-agent-config.yaml
-```

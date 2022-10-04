@@ -6,26 +6,6 @@ appVersion:
 - 1.3.0
 configurations:
 - name: Fargate Cluster Overview
-  kind: Sysdig
-  image: aws-fargate/images/fargate-sysdig-cluster-overview.png
-  description: |
-    This dashboard offers information on:
-    * Number of tasks in the cluster by state (desired, pending, running)
-    * CPU utilization by service
-    * Memory utilization by service
-    * Disk read and write throughput
-  file: include/dashboard-Sysdig-Fargate-Cluster-Overview-1.3.0.json
-- name: Fargate Service Detail
-  kind: Sysdig
-  image: aws-fargate/images/fargate-sysdig-service-detail.png
-  description: |
-    This dashboard has variables for cluster and service. It offers information on:
-    * CPU utilization
-    * Memory utilization
-    * Disk read and write throughput
-    * Running and pending tasks
-  file: include/dashboard-Sysdig-Fargate-Service-Detail-1.3.0.json
-- name: Fargate Cluster Overview
   kind: Grafana
   image: aws-fargate/images/fargate-grafana-cluster-overview.jpg
   description: |

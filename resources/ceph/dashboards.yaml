@@ -6,13 +6,6 @@ appVersion:
 - '15.1.1'
 configurations:
 - name: Overview
-  kind: Sysdig
-  image: ceph/images/ceph_sysdig.png
-  description: |
-    This dashboard offers information on:
-    * Overview
-  file: include/ceph_sysdig.json
-- name: Overview
   kind: Grafana
   image: ceph/images/ceph_grafana.png
   description: |

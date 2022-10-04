@@ -6,22 +6,6 @@ appVersion:
 - 1.0.0
 configurations:
 - name: 'AWS SQS'
-  kind: Sysdig
-  image: 'aws-sqs/images/dashboard-sysdig-aws-sqs.png'
-  description: |
-    This dashboard offers information on:
-    * Available
-    * Age of oldest message
-    * Empty Receives
-    * Messages Deleted
-    * Messages Delayed
-    * Messages Not Visible
-    * Messages Visible
-    * Messages Received
-    * Messages Sent
-    * Queue Message Size
-  file: include/dashboard-sysdig-aws-sqs.json
-- name: 'AWS SQS'
   kind: Grafana
   image: 'aws-sqs/images/dashboard-grafana-aws-sqs.png'
   description: |

@@ -2,8 +2,8 @@ spec:
   template:
     metadata:
       annotations:
-        promcat.sysdig.com/port: "5556"
-        promcat.sysdig.com/integration_type: "kafka"
+        prometheus.io/port: "5556"
+        prometheus.io/scrape: "true"
     spec:
       containers:
       - name: "kafka-jmx-exporter"

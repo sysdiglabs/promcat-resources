@@ -76,12 +76,3 @@ To deploy the configuration example in Kubernetes, download the configuration fi
 ```
 kubectl apply -f apache-deploy.yaml
 ```
-
-# Configuring Sysdig Agent
-
-Download the sample [Sysdig Agent configuration file](include/sysdig-agent-config.yaml). By default the job will be in the agent so you don't need to change anything but if you don't have it here you have the way to do that
-
-Apply the changes:
-```bash
-kubectl apply -f sysdig-agent-config.yaml
-```

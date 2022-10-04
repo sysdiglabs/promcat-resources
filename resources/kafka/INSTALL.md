@@ -93,4 +93,4 @@ helm -n kafka install kafka-exporter promcat-charts/kafka-exporter \
   --set sasl.kerberos.secretName="kafka-exporter-sasl-kerberos"
 ```
 
-You can find below ConfigMap with the JMX configurations for Kafka, a patch for the JMX-exporter as a sidecar, a deployment with the Kafka-Exporter without auth, and the Sysdig Agent ConfigMap with the Prometheus job to scrape both exporters.
+You can find below ConfigMap with the JMX configurations for Kafka, a patch for the JMX-exporter as a sidecar and a deployment with the Kafka-Exporter without auth.

@@ -1,14 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kafka-exporter-kafka-kafka-deploy
+  name: kafka-exporter-deploy
   namespace: kafka
-  labels:
-    helm.sh/chart: kafka-exporter-0.0.1
-    app.kubernetes.io/name: kafka-exporter-kafka-kafka
-    app.kubernetes.io/instance: my-kafka-exporter-release
-    app.kubernetes.io/version: "1.4.2"
-    app.kubernetes.io/managed-by: Helm
 spec:
   selector:
     matchLabels:
@@ -18,11 +12,8 @@ spec:
   template:
     metadata:
       annotations:
-        promcat.sysdig.com/port: "9308"
-        promcat.sysdig.com/target_ns: "kafka"
-        promcat.sysdig.com/target_workload_type: "statefulset"
-        promcat.sysdig.com/target_workload_name: "kafka"
-        promcat.sysdig.com/integration_type: "kafka"
+        prometheus.io/port: "9308"
+        prometheus.io/scrape: "true"
       labels:
         app.kubernetes.io/name: kafka-exporter-kafka-kafka
         app.kubernetes.io/instance: my-kafka-exporter-release
@@ -32,7 +23,7 @@ spec:
         image: "quay.io/sysdig/kafka-exporter:v1.5.0"
         args:
           - '--verbosity=0'
-          - '--kafka.server=kafka-cp-kafka:9092'
+          - '--kafka.server=my-kafka-service:9092'
         env:
         ports:
           - name: metrics

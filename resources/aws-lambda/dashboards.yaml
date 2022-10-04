@@ -6,37 +6,6 @@ appVersion:
 - 1.0.0
 configurations:
 - name: Lambda Golden Signals
-  kind: Sysdig
-  image: aws-lambda/images/lambda-sysdig-golden-signals.png
-  description: |
-    This dashboard offers information on:
-    * Error rate
-    * Dead-letter Errors
-    * Destination Delivery Failures
-    * Throttles
-    * Invocations
-    * Duration total
-    * Duration (minimum, average, maximum)
-  file: include/dashboard-Sysdig-Lambda-Golden-Signals-1.0.0.json
-- name: Lambda Function Details
-  kind: Sysdig
-  image: aws-lambda/images/lambda-sysdig-function-details.png
-  description: |
-    This dashboard offers information on:
-    * Error rate
-    * Dead-letter Errors
-    * Destination Delivery Failures
-    * Throttles
-    * Invocations
-    * Concurrent Executions
-    * Unreserved Concurrent Executions
-    * Duration
-    * Iterator Age
-    * Provisioned Concurrency
-    * Provisioned Concurrency Utilization
-    * Provisioned Concurrency Spillover
-  file: include/dashboard-Sysdig-Lambda-Function-Details-1.0.0.json
-- name: Lambda Golden Signals
   kind: Grafana
   image: aws-lambda/images/lambda-grafana-golden-signals.png
   description: |

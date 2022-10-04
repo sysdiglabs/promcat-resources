@@ -22,20 +22,3 @@ configurations:
     * Total requests per second
     * Top healthy hosts (list and graphic)
   file: include/dashboard-Grafana-ELB-Golden-Signals-1.0.0.json
-- name: ELB Golden Signals
-  kind: Sysdig
-  image: aws-elb/images/aws-elb-sysdig-golden-signals.png
-  description: |
-    This dashboard offers information on:
-    * Error from load balancer for 4XX and 5XX codes
-    * Error from the backend for 4XX and 5XX codes
-    * Unhealthy hosts
-    * Queue spillovers rejections
-    * Top 5 response time target groups (list and graphic)
-    * Top surge queue length (list and graphic)
-    * Number of load balancers
-    * Requests per second with 2XX and 3XX code
-    * Top requests / second load balancers
-    * Total requests per second
-    * Top healthy hosts (list and graphic)
-  file: include/dashboard-Sysdig-ELB-Golden-Signals-1.0.0.json

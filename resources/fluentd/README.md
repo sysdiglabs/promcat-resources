@@ -3,7 +3,7 @@ Fluentd is an open source data collector, which lets you unify the data collecti
 
 
 # Prometheus and exporters
-Fluentd already has a Prometheus endpoint with all the metrics exposed on the port 24231. In Kubernetes the pod is already annotated, so with the Sysdig agent you can scrape the endpoint right away.
+Fluentd already has a Prometheus endpoint with all the metrics exposed on the port 24231. In Kubernetes the pod is already annotated, so Prometheus can scrape the endpoint right away.
 
 # Metrics
 - Fluentd internal statistics
