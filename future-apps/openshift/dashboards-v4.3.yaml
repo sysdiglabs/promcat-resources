@@ -5,48 +5,6 @@ version: 1.0.0
 appVersion:
 - '4.3'
 configurations:
-- name: Ocp4 / Controller manager
-  kind: Sysdig
-  image: openshift/images/controller_manager_sysdig.png
-  description: |
-    This dashboard offers information on:
-    * Controller manager
-  file: include/dashboard-Sysdig-Ocp4---Controller-manager-4.3.json
-- name: Ocp4 / Api
-  kind: Sysdig
-  image: openshift/images/api_sysdig.png
-  description: |
-    This dashboard offers information on:
-    * Api Server
-  file: include/dashboard-Sysdig-Ocp4---Api-4.3.json
-- name: Ocp4 / Kubelet
-  kind: Sysdig
-  image: openshift/images/kubelet_sysdig.png
-  description: |
-    This dashboard offers information on:
-    * Kubelet
-  file: include/dashboard-Sysdig-Ocp4---Kubelet-4.3.json
-- name: Ocp4 / Scheduler
-  kind: Sysdig
-  image: openshift/images/scheduler_sysdig.png
-  description: |
-    This dashboard offers information on:
-    * Scheduler
-  file: include/dashboard-Sysdig-Ocp4---Scheduler-4.3.json
-- name: Ocp4 / etcd
-  kind: Sysdig
-  image: openshift/images/etcd_sysdig.png
-  description: |
-    This dashboard offers information on:
-    * etcd
-  file: include/dashboard-Sysdig-Ocp4---etcd-4.3.json
-- name: Ocp4 / coreDNS
-  kind: Sysdig
-  image: openshift/images/coreDNS_sysdig.png
-  description: |
-    This dashboard offers information on:
-    * CoreDNS
-  file: include/dashboard-Sysdig-Ocp4---CoreDNS-4.3.json
 - name: Ocp4 / Api
   kind: Grafana
   image: openshift/images/api_grafana.png

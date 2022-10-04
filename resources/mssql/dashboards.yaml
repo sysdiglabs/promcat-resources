@@ -6,20 +6,6 @@ appVersion:
   - '2019'
 configurations:
 - name: 'MsSQL'
-  kind: Sysdig
-  image: 'mssql/images/mssql-sysdig-dashboard.png'
-  description: |
-    This dashboard offers information on:
-    * Deadlocks
-    * Kill connection
-    * Memory used
-    * Cache hit raio
-    * Connections
-    * Disk Available
-    * Latency
-    * Transactions
-  file: include/mssql-dashboard-sysdig.json
-- name: 'MsSQL'
   kind: Grafana
   image: 'mssql/images/mssql-grafana-dashboard.png'
   description: |

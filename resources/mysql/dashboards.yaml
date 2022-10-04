@@ -5,32 +5,6 @@ version: 1.0.0
 appVersion:
 - '5.7to8.0'
 configurations:
-- name: 'MySQL'
-  kind: Sysdig
-  image: 'mysql/images/dashboard-sysdig-mysql.png'
-  description: |
-    This dashboard offers information on:
-    * % Servers Running
-    * Min. Uptime
-    * Connections Usage
-    * Connection Errors by Type
-    * Connection Error Rate
-    * MySQL Aborted Connections
-    * Slow Queries
-    * MySQL InnoDB log writes stalling
-    * Pool Hit Rate
-    * Pool Utilization
-    * Open Files Usage
-    * Table Open Cache Hit Ratio
-    * MySQL Sorts
-    * MySQL Table Locks
-    * MySQL Select Types
-    * MySQL Questions
-    * MySQL Thread Cache
-    * Network Traffic
-    * MySQL Internal Memory Overview
-    * Top Command Counters
-  file: include/dashboard-sysdig-mysql.json
 - name: 'MySQL Mixins'
   kind: Grafana
   image: 'mysql/images/dashboard-grafana-mysql.png'
