@@ -5,6 +5,8 @@ version: 1.0.0
 appVersion:
   - '3.11.6'
 configurations:
-- name: sysdig-agent.yaml
-  file: include/sysdig-agent.yaml
+- name: jmx-config.yaml
+  file: include/jmx-config.yaml
+- name: patch.yaml
+  file: include/patch.yaml
 descriptionFile: INSTALL.md
