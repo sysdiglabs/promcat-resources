@@ -26,10 +26,3 @@ echo -n YOUR_CONN_STRING | base64
 
 
 A file with custom queries for extra metrics can be found in the `custom-metrics` ConfigMap. You can edit them or add new metrics following the [format defined in the exporter](https://github.com/iamseth/oracledb_exporter/blob/master/multi-metric-dual-example-labels.toml).
-
-# Sysdig Agent configuration
-
-You can download the sample configuration file below and apply the changes by:
-```bash
-kubectl apply -f sysdig-agent-config.yaml
-```

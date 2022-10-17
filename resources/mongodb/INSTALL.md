@@ -87,11 +87,3 @@ kubectl create secret generic mongodb-exporter-auth \
 ```
 kubectl apply -f mongodb-exporter-auth-deploy.yaml
 ```
-
-# SYSDIG AGENT CONFIGURATION
-In the _values.yaml_ of the Helm chart, include the Prometheus annotations to configure the port of the exporter as the scraping port.    
-
-You can download the sample configuration file and apply it by:
-```bash
-kubectl apply -f sysdig-agent-config.yaml
-```

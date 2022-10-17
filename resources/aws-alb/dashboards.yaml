@@ -25,23 +25,3 @@ configurations:
     * Processed requests
     * Responses with codes 2XX and 3XX from the targets
   file: include/dashboard-Grafana-ALB-Golden-Signals-1.0.0.json
-- name: ALB Golden Signals
-  kind: Sysdig
-  image: aws-alb/images/aws-alb-sysdig-golden-signals.png
-  description: |
-    This dashboard offers information on:
-    * Error from load balancer for 4XX and 5XX codes
-    * Error from the target groups for 4XX and 5XX codes
-    * Unhealthy hosts
-    * TLS Negotiation errors
-    * Top 5 response time target groups (list and graphic)
-    * Rejected requests
-    * Top 5 load balancer (in Bytes processed)
-    * Number of load balancers and target groups
-    * Active connections
-    * Bytes processed
-    * Rules evaluated
-    * LCUs Consumed
-    * Processed requests
-    * Responses with codes 2XX and 3XX from the targets
-  file: include/dashboard-Sysdig-ALB-Golden-Signals-1.0.0.json

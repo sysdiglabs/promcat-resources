@@ -7,7 +7,7 @@ Istio can do the following:
 * See what's happening with rich automatic tracing, monitoring, and logging of all your services.
 
 # Prometheus and exporters
-Istio already provides a Prometheus and a Grafana servers with all the metrics you need to monitor. However, Prometheus is not a LTS and you only can get a few hours of metrics because of the retention limit provided by the given Prometheus server. If you want additional hours, use external services such as the Sysdig agent.
+Istio already provides a Prometheus and a Grafana servers with all the metrics you need to monitor.
 
 # Metrics
 - Services

@@ -13,7 +13,6 @@ spec:
       labels:
         app: redis-exporter
       annotations:
-        promcat.sysdig.com/integration_type: redis
         prometheus.io/scrape: "true"
         prometheus.io/port: "9121"
     spec:

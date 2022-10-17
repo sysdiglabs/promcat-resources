@@ -6,21 +6,6 @@ appVersion:
 - 0.20.4
 configurations:
 - name: OPA Gatekeeper
-  kind: Sysdig
-  image: opa/images/opa-sysdig.png
-  description: |
-    This dashboard offers information on:
-    * Time since last audit
-    * Requests rate routed to webhook
-    * Latency of Gatekeeper per action
-    * Violations rate per constraint
-    * Current number of known constraints
-    * Observed constraint templates rate
-    * Latency of audit operation
-    * Constraint template ingestion actions rate
-    * Latency of constraint template ingestion
-  file: include/dashboard-Sysdig-OPA-Gatekeeper-0.20.4.json
-- name: OPA Gatekeeper
   kind: Grafana
   image: opa/images/opa-grafana.png
   description: |

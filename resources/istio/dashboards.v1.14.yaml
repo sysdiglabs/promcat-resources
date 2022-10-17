@@ -4,34 +4,4 @@ app: Istio
 version: 1.0.0
 appVersion:
 - '1.14'
-configurations:
-- name: Istiod Service
-  kind: Sysdig
-  image: istio/images/servicev1.14.png
-  description: |
-    This dashboard offers information on:
-    * Istio Service
-    * Request rates 
-    * Request duration
-    * Http and TCP connections
-  file: include/servicev1.14.json
-- name: Istio Control Plane
-  kind: Sysdig
-  image: istio/images/control_planev1.14.png
-  description: |
-    This dashboard offers information on:
-    * Istio Control Plane
-    * Istio Pilot
-    * Istio Galley
-    * IStio Mixer
-    * Istio Citadel
-  file: include/control_planev1.14.json
-- name: Istio Envoy
-  kind: Sysdig
-  image: istio/images/istio_envoyv1.14.png
-  description: |
-    This dashboard offers information on:
-    * Istio Envoy proxy status
-    * Active connections
-    * 4xx and 5xx response codes
-  file: include/istio_envoyv1.14.json
+configurations: []

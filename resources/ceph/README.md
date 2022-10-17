@@ -5,7 +5,7 @@ Ceph (pronounced /ˈsɛf/) is an open-source software storage platform, implemen
 Ceph replicates data and makes it fault-tolerant, by using commodity hardware and requiring no specific hardware support. As a result of its design, the system is both self-healing and self-managing, aiming to minimize administration time and other costs.
 
 # Prometheus and exporters
-Ceph already has a Prometheus endpoint with all the metrics exposed on the port 9283. In Kubernetes the pod is already annotated, so with the Sysdig agent you can scrape the endpoint right away.
+Ceph already has a Prometheus endpoint with all the metrics exposed on the port 9283. In Kubernetes the pod is already annotated, so Prometheus can scrape the endpoint right away.
 
 # Metrics
 - Overview

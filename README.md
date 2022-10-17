@@ -9,18 +9,16 @@ You can find all the content organized and ready to use in [promcat.io](https://
 <p align="center"><img width="500" src="images/promcat-screenshot.png"></p>
 
 # What can I find?
-PromCat comes as a crossroad for anyone that is looking for how to monitor a cloud application either with Prometheus or with Sysdig Monitor. 
+PromCat comes as a crossroad for anyone that is looking for how to monitor a cloud application with Prometheus. 
 
 Here you will find the following contents for each application: 
 * Setup Guides: A complete step-by-step guide to install and configure the Prometheus exporter or the metrics module of the application.
-* Dashboards: A set of dashboards to monitor for trouble-shooting and metrics exploration of the application. All dashboards are offered in both [Sysdig Monitor](https://sysdig.com/products/monitor/) and [Grafana](https://github.com/grafana/grafana) formats.
+* Dashboards: A set of dashboards to monitor for trouble-shooting and metrics exploration of the application. All dashboards are in [Grafana](https://github.com/grafana/grafana) format.
 * Alerts: A set of curated alerts for the application.
 * Recording Rules: A set of recording rules.
 
 # Who can use the resources?
-PromCat has two main use cases:
-* Sysdig customers: As a Sysdig customer, in PromCat you will find all the resources needed to setup  exporters to be scraped by the Sysdig Agent and a set of ready to use dashboards and alerts.
-* Any Prometheus user: Thanks to the [native compatibility of the Sysdig Agent with Prometheus](https://sysdig.com/opensource/prometheus/), the same setup guides, dashboards and alerts can be used by any Prometheus user that needs to monitor cloud applications.
+The setup guides, dashboards and alerts can be used by any Prometheus user that needs to monitor cloud applications.
 
 # Contributing
 As any open source project, all contributions are welcome. 

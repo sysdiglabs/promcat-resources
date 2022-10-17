@@ -12,8 +12,3 @@ To install the exporter, do the following:
 ```
   kubectl apply -f harbor.yaml
 ```
-3. Apply changes:
-
-```
-  kubectl apply -f sysdig-agent.yaml
-```

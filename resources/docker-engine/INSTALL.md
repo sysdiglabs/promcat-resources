@@ -14,22 +14,3 @@ To do so, you need to specify the `metrics-address`. The best way to do this is 
 }
 ```
 For more information, see [documentation](https://docs.docker.com/config/daemon/prometheus/).
-
-# Sysdig Agent configuration
-For the Sysdig agent to discover and scrape the Docker engine automatically, enable the `use_promscrape` option in the agent configuration. For example:
-
-```yaml
-  prometheus.yaml: |
-    global:
-      scrape_interval: 10s
-    scrape_configs:
-    - job_name: docker
-      static_configs:
-        - targets:
-          - localhost:9323
-  dragent.yaml: |-
-    use_promscrape: true
-    prometheus:
-      enabled: true
-      prom_service_discovery: true
-```

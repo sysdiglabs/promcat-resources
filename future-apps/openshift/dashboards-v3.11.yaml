@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Dashboard
+app: Openshift
+version: 1.0.0
+appVersion:
+- '3.11'
+configurations:
+- name: Ocp3 / Api
+  kind: Grafana
+  image: openshift/images/api_grafana.png
+  description: |
+    This dashboard offers information on:
+    * Api Server
+  file: include/dashboard-Grafana-Ocp3---Api-3.11.json
+- name: Ocp3 / Controller manager
+  kind: Grafana
+  image: openshift/images/controller_manager_grafana.png
+  description: |
+    This dashboard offers information on:
+    * Controller manager
+  file: include/dashboard-Grafana-Ocp3---Controller-manager-3.11.json
+- name: Ocp3 / Kubelet
+  kind: Grafana
+  image: openshift/images/kubelet_grafana.png
+  description: |
+    This dashboard offers information on:
+    * Kubelet
+  file: include/dashboard-Grafana-Ocp3---Kubelet-3.11.json

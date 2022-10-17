@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: SetupGuide
+app: Rancher
+version: 1.0.0
+appVersion:
+  - '2.5.0'
+configurations:
+- name: services.yaml
+  file: include/services.yaml
+- name: service-monitor.yaml
+  file: include/service-monitor.yaml
+- name: installation.sh
+  file: include/installation.sh
+descriptionFile: INSTALL.md

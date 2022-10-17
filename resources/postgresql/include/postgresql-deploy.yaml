@@ -12,13 +12,8 @@ spec:
       labels:
         app: postgres
       annotations:
-        promcat.sysdig.com/port: "9187"
-
-        # Add here the namespace, workload type (deployment, statefulset, replicaset, daemonset) 
-        # and workload name of the Postgres database that the exporter will take data from
-        promcat.sysdig.com/target_ns: default
-        promcat.sysdig.com/target_workload_type: deployment
-        promcat.sysdig.com/target_workload_name: postgres
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9187"
 
     spec:
       containers:

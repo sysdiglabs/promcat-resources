@@ -21,19 +21,3 @@ configurations:
     * Top 5 read/write throughput
     * Top 5 mean read/write operation time
   file: include/dashboard-Grafana-EBS-General-Overview-1.0.0.json
-- name: EBS General Overview
-  kind: Sysdig
-  image: aws-ebs/images/aws-ebs-sysdig-general-overview.png
-  description: |
-    This dashboard offers information on:
-    * Active volumes
-    * Volumes with Queue not empty
-    * Volumes with 100% time idle time
-    * Provisioned IOPS SSD volumes with performance under 99.9%
-    * Volumes with zero bust balance
-    * Top 5 queue length
-    * Bottom 5 burst balance
-    * Top 5 read/write operations per second
-    * Top 5 read/write throughput
-    * Top 5 mean read/write operation time
-  file: include/dashboard-Sysdig-EBS-General-Overview-1.0.0.json

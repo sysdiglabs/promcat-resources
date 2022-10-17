@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Dashboard
+app: Openshift
+version: 1.0.0
+appVersion:
+- '4.3'
+configurations:
+- name: Ocp4 / Api
+  kind: Grafana
+  image: openshift/images/api_grafana.png
+  description: |
+    This dashboard offers information on:
+    * Api Server
+  file: include/dashboard-Grafana-Ocp4---Api-4.3.json
+- name: Ocp4 / Controller manager
+  kind: Grafana
+  image: openshift/images/controller_manager_grafana.png
+  description: |
+    This dashboard offers information on:
+    * Controller manager
+  file: include/dashboard-Grafana-Ocp4---Controller-manager-4.3.json
+- name: Ocp4 / Kubelet
+  kind: Grafana
+  image: openshift/images/kubelet_grafana.png
+  description: |
+    This dashboard offers information on:
+    * Kubelet
+  file: include/dashboard-Grafana-Ocp4---Kubelet-4.3.json
+- name: Ocp4 / Scheduler
+  kind: Grafana
+  image: openshift/images/scheduler_grafana.png
+  description: |
+    This dashboard offers information on:
+    * Scheduler
+  file: include/dashboard-Grafana-Ocp4---Scheduler-4.3.json
+- name: Ocp4 / etcd
+  kind: Grafana
+  image: openshift/images/etcd_grafana.png
+  description: |
+    This dashboard offers information on:
+    * etcd
+  file: include/dashboard-Grafana-Ocp4---etcd-4.3.json
+- name: Ocp4 / coreDNS
+  kind: Grafana
+  image: openshift/images/coreDNS_grafana.png
+  description: |
+    This dashboard offers information on:
+    * CoreDNS
+  file: include/dashboard-Grafana-Ocp4---CoreDNS-4.3.json

@@ -6,19 +6,8 @@ appVersion:
 - '18.09.9'
 configurations:
 - name: Docker engine Overview
-  kind: Sysdig
-  image: docker-engine/images/docker-enginge-overview-sysdig.png
-  description: |
-    This dashboard offers information on:
-    - Container state
-    - Container actions
-    - Builds
-    - Network actions
-  file: include/dashboard-Sysdig-docker-engine.json
-- name: Docker engine Overview
   kind: Grafana
   image: docker-engine/images/docker-enginge-overview-grafana.png
   description: |
     This dashboard offers information on:
-
   file: include/dashboard-Grafana-docker-engine.json

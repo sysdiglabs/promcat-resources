@@ -6,38 +6,6 @@ appVersion:
 - 2-8
 configurations:
 - name: Redis Golden Signals
-  kind: Sysdig
-  image: redis/images/redis-sysdig-golden-signals.png
-  description: |
-    This dashboard offers information on:
-    * Uptime
-    * Connected slaves
-    * Memory Usage (if max memory)
-    * Conns Usage (if max clients defined)
-    * Fragmentation Ratio
-    * Time since last save
-    * Changes since last save
-    * Changes since last save
-    * Hit percentage
-    * Eviction percentage
-    * PubSub Channels
-    * PubSub Patterns
-    * Memory usage vs max
-    * Memory Utilization
-    * Memory fragmentation ratio
-    * Connections usage vs max
-    * Blocked and Rejected clients
-    * Response time
-    * Slowlog increment
-    * Keys / DB
-    * Average TTL
-    * Expired / Evicted keys
-    * CPU Utilization
-    * IOPS
-    * Network Throughput
-    * Connections / sec
-  file: include/dashboard-Sysdig-Redis-Golden-Signals-<=6.json
-- name: Redis Golden Signals
   kind: Grafana
   image: redis/images/redis-grafana-golden-signals.png
   description: |
