@@ -8,8 +8,6 @@ The metrics for AWS ECS are obtained through AWS Cloudwatch by using the [YACE e
 
 See [Monitoring AWS Fargate](https://sysdig.com/blog/monitor-aws-fargate-prometheus/) for information on the main metrics to monitor and alert.
 
-![Monitoring AWS Fargate](https://raw.githubusercontent.com/sysdiglabs/promcat-resources/master/resources/aws-fargate/images/Monitoring-AWS-Fargate-with-Prometheus-and-Sysdig_2.png)
-
 ## Cloudwatch billing considerations
 Using AWS Cloudwatch for monitoring can incur additional costs in your AWS billing.
 See the [AWS Cloudwatch documentation](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_limits.html) for further details.
