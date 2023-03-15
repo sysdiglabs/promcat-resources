@@ -1,8 +1,10 @@
 apiVersion: v1
 kind: SetupGuide
-app: Sysdig Admission Controller
+app: "sysdig-admission-controller"
 version: 1.0.0
 appVersion:
-- '0.0.9'
+- latest
 descriptionFile: INSTALL.md
-configurations: []
+configurations:
+- name: sysdig-admission-controller-deploy.yaml
+  file: include/sysdig-admission-controller-deploy.yaml

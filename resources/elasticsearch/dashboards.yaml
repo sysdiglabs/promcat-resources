@@ -1,26 +1,17 @@
 apiVersion: v1
 kind: Dashboard
-app: Elasticsearch
+app: "elasticsearch"
 version: 1.0.0
 appVersion:
-- '6.8'
+  - latest
 configurations:
-- name: ElasticSearch cluster overview
-  kind: Grafana
-  image: elasticsearch/images/elastic_cluster_grafana.png
-  description: |
-    This dashboard offers information on:
-    * Cluster health
-    * Overview of resources of the cluster
-  file: include/ElasticSearch_cluster_grafana.json
-- name: ElasticSearch infra overview
-  kind: Grafana
-  image: elasticsearch/images/elastic_infra_grafana.png
-  description: |
-    This dashboard offers information on:
-    * Cpu and memory usage
-    * Disk usage
-    * GC information
-    * Network usage
-    * Indices information
-  file: include/ElasticSearch_infra_grafana.json
+  - name: ElasticSearch_Cluster
+    kind: Grafana
+    image: apache/images/ElasticSearch_Cluster.png
+    description: The dashboard provides information on the status of the ElasticSearch cluster health and its usage of resources.
+    file: include/ElasticSearch_Cluster.json
+  - name: ElasticSearch_Infra
+    kind: Grafana
+    image: apache/images/ElasticSearch_Infra.png
+    description: The dashboard provides information on the usage of CPU, memory, disk and networking of ElasticSearch.
+    file: include/ElasticSearch_Infra.json

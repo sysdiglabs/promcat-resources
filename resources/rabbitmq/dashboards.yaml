@@ -3,5 +3,15 @@ kind: Dashboard
 app: "rabbitmq"
 version: 1.0.0
 appVersion:
-- '3.8'
-configurations: []
+  - latest
+configurations:
+  - name: Rabbitmq_Usage
+    kind: Grafana
+    image: apache/images/Rabbitmq_Usage.png
+    description: The dashboard provides information on the usage of each queues, channels and connections.
+    file: include/Rabbitmq_Usage.json
+  - name: Rabbitmq_Overview
+    kind: Grafana
+    image: apache/images/Rabbitmq_Overview.png
+    description: The dashboard provides information on the nodes, queues and erlang of a RabbitMQ cluster.
+    file: include/Rabbitmq_Overview.json

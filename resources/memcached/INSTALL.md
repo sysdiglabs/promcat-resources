@@ -1,10 +1,11 @@
-# Installing the exporter
-You will use the [Prometheus Memcached Metrics Exporter](https://github.com/prometheus/memcached_exporter).
+## Prerequisites
 
-The `memcached-exporter-deploy.yaml` file provides a deployment with the exporter.
 
-To deploy it, download the file and run:
+
+## Installation
+
+You can use our helm-charts in order to install the exporter in your cluster.
+```sh
+helm template memcached memcached-exporter --repo https://sysdiglabs.github.io/integrations-charts > patch.yaml
+kubectl patch -n namespace workloadType workloadName --patch "$(cat patch.yaml)"
 ```
-kubectl apply -f memcached-exporter-deploy.yaml
-```
-> Make sure to edit the argumment `memcached.address` with the proper address name of your memcached instance

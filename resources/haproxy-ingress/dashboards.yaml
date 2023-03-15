@@ -1,50 +1,17 @@
 apiVersion: v1
 kind: Dashboard
-app: HAProxy Ingress
+app: "haproxy-ingress"
 version: 1.0.0
 appVersion:
-- '2.1'
+  - latest
 configurations:
-- name: HAProxy K8s Ingress Overview
-  kind: Grafana
-  image: haproxy-ingress/images/haproxy-grafana-ingress-overview.png
-  description: |
-    This dashboard offers information on:
-    * Up Time
-    * Instances
-    * Frontend OK
-    * Frontend FULL
-    * Frontend STOPPED
-    * Backend DOWN
-    * Connections and Sessions
-    * SSL Connections
-    * Active Jobs
-    * Request and Response Errors
-    * Tasks
-    * Active and Connected Peers
-    * Process Run Queue
-    * Connection ans Session Denied
-    * Frontend Bytes In
-    * Frontend Connections
-    * Frontend Bytes Out
-    * Frontend Requests (TCP and HTTP)
-  file: include/dashboard-Grafana-HAProxy-K8s-Ingress-Overview-2.1.json
-- name: HAProxy Proxy Golden Signals
-  kind: Grafana
-  image: haproxy-ingress/images/haproxy-grafana-proxy-golden-signals.png
-  description: |
-    This dashboard has the option to select a proxy and offers information on:
-    * Instances UP
-    * Instances Down
-    * Sessions Usage
-    * Queued Requests
-    * HTTP Error Rate
-    * Denial Rate
-    * HTTP Error by Code
-    * Data Transfers Aborted
-    * Mean Response Time
-    * Mean Connect and Queue Time
-    * Throughput
-    * IOPS
-    * Request and Response Size
-  file: include/dashboard-Grafana-HAProxy-Proxy-Golden-Signals-2.1.json
+  - name: HAProxy_Ingress_Overview
+    kind: Grafana
+    image: apache/images/HAProxy_Ingress_Overview.png
+    description: The dashboard provides information on the HAProxy Ingress Overview.
+    file: include/HAProxy_Ingress_Overview.json
+  - name: HAProxy_Ingress_Service_Details
+    kind: Grafana
+    image: apache/images/HAProxy_Ingress_Service_Details.png
+    description: The dashboard provides information on the HAProxy Ingress Service Details.
+    file: include/HAProxy_Ingress_Service_Details.json

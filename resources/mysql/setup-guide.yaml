@@ -1,12 +1,10 @@
 apiVersion: v1
 kind: SetupGuide
-app: 'mysql'
+app: "mysql"
 version: 1.0.0
 appVersion:
-- '5.7to8.0'
-configurations:
-- name: mysql-exporter.yaml
-  file: include/mysql-exporter.yaml
-- name: mysql-exporter-ssl.yaml
-  file: include/mysql-exporter-ssl.yaml
+- latest
 descriptionFile: INSTALL.md
+configurations:
+- name: mysql-deploy.yaml
+  file: include/mysql-deploy.yaml

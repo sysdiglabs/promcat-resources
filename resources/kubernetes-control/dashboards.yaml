@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Dashboard
+app: "kubernetes-control"
+version: 1.0.0
+appVersion:
+  - latest
+configurations:
+  - name: Kubernetes Scheduler
+    kind: Grafana
+    image: apache/images/Kubernetes Scheduler.png
+    description: The dashboard provides information on the Kubernetes Scheduler.
+    file: include/Kubernetes Scheduler.json

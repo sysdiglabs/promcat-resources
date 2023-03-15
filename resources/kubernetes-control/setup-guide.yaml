@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: SetupGuide
+app: "kubernetes-control"
+version: 1.0.0
+appVersion:
+- latest
+descriptionFile: INSTALL.md
+configurations:
+- name: k8s-scheduler-deploy.yaml
+  file: include/k8s-scheduler-deploy.yaml

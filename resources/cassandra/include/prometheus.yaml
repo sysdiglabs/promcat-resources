@@ -1,0 +1,59 @@
+groups:
+    - name: Cassandra
+      rules:
+        - alert: '[Cassandra] Compaction Task Pending'
+          expr: |
+            sum (cassandra_compaction_pending_tasks)> 20
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: There are many Cassandra compaction tasks pending.
+        - alert: '[Cassandra] Commitlog Pending Tasks'
+          expr: |
+            sum (cassandra_commitlog_pending_tasks)> 20
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: There are many Cassandra Commitlog tasks pending.
+        - alert: '[Cassandra] Compaction Executor Blocked Tasks'
+          expr: |
+            sum (rate(cassandra_threadpool_blocked_tasks_total{pool="CompactionExecutor"}[2m]))> 20
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            description: There are many Cassandra compaction executor blocked tasks.
+        - alert: '[Cassandra] Flush Writer Blocked Tasks'
+          expr: |
+            sum (rate(cassandra_threadpool_blocked_tasks_total{pool="MemFlushWriter"}[5m]))> 20
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: There are many Cassandra flush writer blocked tasks.
+        - alert: '[Cassandra] Storage Exceptions'
+          expr: |
+            sum (cassandra_storage_internal_exceptions_total)> 1
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            description: There are storage exceptions in Cassandra node.
+        - alert: '[Cassandra] High Tombstones Scanned'
+          expr: |
+            sum (cassandra__tombstoned_scanned)> 1000
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: There is a high number of tombstones scanned.
+        - alert: '[Cassandra] JVM Heap Memory'
+          expr: |
+            sum (cassandra_jvm_memory_usage_used_bytes{area="Heap"})/ sum (cassandra_jvm_memory_usage_max_bytes{area="Heap"})> 0.90
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: High JVM Heap Memory.

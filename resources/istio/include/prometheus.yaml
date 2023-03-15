@@ -1,0 +1,43 @@
+groups:
+    - name: Istio
+      rules:
+        - alert: '[Istio-Citadel] CSR without success'
+          expr: |
+            rate(citadel_server_csr_count[5m]) - rate(citadel_server_success_cert_issuance_count[5m]) > 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Some of the Certificate Signing Request (CSR) were not correctly requested
+        - alert: '[Istio-Pilot] Inbound listener rules conflicts'
+          expr: |
+            pilot_conflict_inbound_listener > 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: There are some conflict with inbound listener rules
+        - alert: '[Istio-Pilot] Endpoint found in unready state'
+          expr: |
+            pilot_endpoint_not_ready > 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Endpoint found in unready state
+        - alert: '[Istio] Unstable requests for sidecar injections'
+          expr: |
+            rate(sidecar_injection_requests_total[5m]) - rate(sidecar_injection_success_total[5m]) > 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Sidecar injections requests are failing
+        - alert: '[Istiod] Istiod Uptime issue'
+          expr: |
+            rate(istiod_uptime_seconds[5m]) < 1
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Istiod UpTime is taking more time than usual

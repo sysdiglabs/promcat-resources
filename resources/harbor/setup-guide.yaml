@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: SetupGuide
+app: "harbor"
+version: 1.0.0
+appVersion:
+- latest
+descriptionFile: INSTALL.md
+configurations:
+- name: harbor-deploy.yaml
+  file: include/harbor-deploy.yaml

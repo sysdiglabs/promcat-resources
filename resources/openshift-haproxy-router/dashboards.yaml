@@ -1,49 +1,17 @@
 apiVersion: v1
 kind: Dashboard
-app: 'OpenShift HAProxy Router'
+app: "openshift-haproxy-router"
 version: 1.0.0
 appVersion:
-  - "3.11"
-  - "4.7"
+  - latest
 configurations:
-- name: 'HAProxy OC Ingress Overview'
-  kind: Grafana
-  image: 'openshift-haproxy-router/images/HAProxy_OC_Ingress_Overview-grafana-dashboard.png'
-  description: |
-    This dashboard offers information on:
-    * Up Time
-    * Instances
-    * Backends OK
-    * Response Errors rate
-    * Down Time
-    * Connections error rate
-    * Failed health checks
-    * Current Queue
-    * Avg Response Latency
-    * Frontend sessions rate
-    * CPU
-    * Virtual Memory
-    * Virtual Memory
-    * Max open File Descriptors
-    * Frontend Bytes In
-    * Frontend Connections
-    * Frontend Bytes Out
-    * Frontend HTTP Requests
-  file: include/HAProxy_OC_Ingress_Overview-grafana-dashboard.json
-- name: 'HAProxy OC Service Golden Signals'
-  kind: Grafana
-  image: 'openshift-haproxy-router/images/HAProxy_OC_Service_Golden_Signals-grafana-dashboard.png'
-  description: |
-    This dashboard offers information on:
-    * Servers
-    * HTTP Error rate
-    * Check Failures
-    * Downtime By Pod
-    * Connection Errors by Pod
-    * Average response latency
-    * Queue
-    * Connections
-    * Responses OK
-    * Bytes Inbound
-    * Bytes Outbound
-  file: include/HAProxy_OC_Service_Golden_Signals-grafana-dashboard.json
+  - name: OpenShift_HAProxy_Ingress_Overview
+    kind: Grafana
+    image: apache/images/OpenShift_HAProxy_Ingress_Overview.png
+    description: The dashboard provides information on the OpenShift HAProxy Ingress overview.
+    file: include/OpenShift_HAProxy_Ingress_Overview.json
+  - name: OpenShift_HAProxy_Ingress_Service_Details
+    kind: Grafana
+    image: apache/images/OpenShift_HAProxy_Ingress_Service_Details.png
+    description: The dashboard provides information on the OpenShift HAProxy Ingress Service golden signals.
+    file: include/OpenShift_HAProxy_Ingress_Service_Details.json

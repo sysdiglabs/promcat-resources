@@ -3,8 +3,8 @@ kind: SetupGuide
 app: "mssql"
 version: 1.0.0
 appVersion:
-  - '2019'
-configurations:
-- name: mssql-exporter-deployment.yaml
-  file: include/mssql-exporter-deployment.yaml
+- latest
 descriptionFile: INSTALL.md
+configurations:
+- name: mssql-deploy.yaml
+  file: include/mssql-deploy.yaml

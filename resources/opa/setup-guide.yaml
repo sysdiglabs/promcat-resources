@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: SetupGuide
-app: Open Policy Agent
+app: "opa"
 version: 1.0.0
 appVersion:
-- 0.20.4
-configurations:
-- name: configuration.yaml
-  file: include/configuration.yaml
+- latest
 descriptionFile: INSTALL.md
+configurations:
+- name: opa-deploy.yaml
+  file: include/opa-deploy.yaml

@@ -1,7 +1,12 @@
 apiVersion: v1
 kind: Dashboard
-app: kafka
+app: "kafka"
 version: 1.0.0
 appVersion:
-- '2.7'
-configurations: []
+  - latest
+configurations:
+  - name: Kafka
+    kind: Grafana
+    image: apache/images/Kafka.png
+    description: The dashboard provides information on the status of Kafka.
+    file: include/Kafka.json

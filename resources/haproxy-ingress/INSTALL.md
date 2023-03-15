@@ -1,15 +1,33 @@
-# Installing HAProxy Ingress
-To install the HAProxy, you can use the [official Helm chart](https://github.com/haproxytech/helm-charts):
-```sh
-helm repo add haproxytech https://haproxytech.github.io/helm-charts
-helm repo update
-helm install haproxy-ingress haproxytech/kubernetes-ingress
+## Prerequisites
+
+
+### Enable Prometheus Metrics
+For HAProxy to expose Prometheus metrics, the following options must be enabled:
+- controller.metrics.enabled = true	
+- controller.stats.enabled = true
+
+You can check all the properties in the [official web page](https://github.com/haproxy-ingress/charts/blob/release-0.13/haproxy-ingress/README.md#configuration).
+
+If you are deploying HAProxy using the [official Helm chart](https://github.com/haproxytech/helm-charts/tree/main/kubernetes-ingress), they can be enabled with the following configurations:
+
+```
+helm install haproxy-ingress haproxy-ingress/haproxy-ingress \
+--set-string "controller.stats.enabled = true" \
+--set-string "controller.metrics.enabled = true"
 ```
 
-# Configuring HAPRoxy metrics
-HAProxy ingress exposes prometheus metrics on the port 1024 of its pods. To scrape them, annotate the deployment with the Prometheus tags for scrape and port:
-```sh
-kubectl patch deployment haproxy-ingress-kubernetes-ingress \
-    -p '{"spec":{"template":{"metadata":{"annotations":{"prometheus.io/scrape": "true", "prometheus.io/port": "1024", "prometheus.io/path": "/metrics"}}}}}'
+This configuration creates the following section in haproxy.cfg file
+
 ```
-After executing this, the pods will automatically restart with the new annotations.
+frontend prometheus
+    mode http
+    bind :9101
+    http-request use-service prometheus-exporter if { path /metrics }
+    http-request use-service lua.send-prometheus-root if { path / }
+    http-request use-service lua.send-404
+    no log
+```
+
+## Installation
+
+You can use our helm-charts in order to install the exporter in your cluster.

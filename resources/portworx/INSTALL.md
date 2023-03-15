@@ -1,2 +1,7 @@
-# Prerequisites
-Portworx instruments Prometheus metrics and annotates the pods with Prometheus annotations. 
+## Prerequisites
+
+
+
+## Installation
+
+You can use our helm-charts in order to install the exporter in your cluster.

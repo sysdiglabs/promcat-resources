@@ -1,0 +1,83 @@
+groups:
+    - name: MySQL
+      rules:
+        - alert: '[MySQL] Mysql Down'
+          expr: |
+            mysql_up == 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: MySQL instance is down
+        - alert: '[MySQL] Mysql Restarted'
+          expr: |
+            mysql_global_status_uptime < 60
+          for: 5m
+          labels:
+            severity: info
+          annotations:
+            description: MySQL has just been restarted, less than one minute ago
+        - alert: '[MySQL] Mysql Too many Connections (>80%)'
+          expr: |
+            avg (mysql_global_status_threads_connected) / avg (mysql_global_variables_max_connections) * 100 > 80
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            description: More than 80% of MySQL connections are in use
+        - alert: '[MySQL] Mysql High Threads Running'
+          expr: |
+            avg by (instance) (mysql_global_status_threads_running) / avg by (instance) (mysql_global_variables_max_connections) * 100 > 60
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            description: More than 60% of MySQL connections are in running state
+        - alert: '[MySQL] Mysql HighOpen Files'
+          expr: |
+            avg by (instance) (mysql_global_variables_innodb_open_files) / avg by (instance)(mysql_global_variables_open_files_limit) * 100 > 80
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            description: More than 80% of MySQL files open
+        - alert: '[MySQL] Mysql Slow Queries'
+          expr: |
+            increase(mysql_global_status_slow_queries[1m]) > 0
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            description: MySQL server mysql has some new slow query
+        - alert: '[MySQL] Mysql Innodb Log Waits'
+          expr: |
+            rate(mysql_global_status_innodb_log_waits[15m]) > 10
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: MySQL innodb log writes stalling
+        - alert: '[MySQL] Mysql Slave Io Thread Not Running'
+          expr: |
+            mysql_slave_status_master_server_id > 0 and ON (instance) mysql_slave_status_slave_io_running == 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: MySQL Slave IO thread not running
+        - alert: '[MySQL] Mysql Slave Sql Thread Not Running'
+          expr: |
+            mysql_slave_status_master_server_id > 0 and ON (instance) mysql_slave_status_slave_sql_running == 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: MySQL Slave SQL thread not running
+        - alert: '[MySQL] Mysql Slave Replication Lag'
+          expr: |
+            mysql_slave_status_master_server_id > 0 and ON (instance) (mysql_slave_status_seconds_behind_master - mysql_slave_status_sql_delay) > 30
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            description: MySQL Slave replication lag

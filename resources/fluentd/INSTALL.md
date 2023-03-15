@@ -1,12 +1,18 @@
-# Prerequisites
-Fluentd instruments Prometheus metrics and annotates the pods with Prometheus annotations. 
+## Prerequisites
 
-For Fluentd to expose Prometheus metrics, the following plugins need to be enabled:
+### OpenShift
+
+If you have installed Fluentd using the OpenShift Logging Operator, no further action is required to enable monitoring.
+
+### Kubernetes
+
+#### Enable Prometheus Metrics
+For Fluentd to expose Prometheus metrics, enable the following plugins:
 - 'prometheus' input plugin
 - 'prometheus_monitor' input plugin
 - 'prometheus_output_monitor' input plugin
 
-As seen in the official plugin documentation (https://github.com/fluent/fluent-plugin-prometheus/blob/master/README.md), they can be enabled with the following configurations:
+As seen in the [official plugin documentation](https://github.com/fluent/fluent-plugin-prometheus/blob/master/README.md), you can enable them with the following configurations:
 ```
 <source>
     @type prometheus
@@ -27,4 +33,9 @@ As seen in the official plugin documentation (https://github.com/fluent/fluent-p
 </source>
 ```
 
-If you are deploying Fluentd using the official Helm chart (https://github.com/fluent/helm-charts/tree/main/charts/fluentd), it already has these plugins enabled by default in its configuration, so no additional actions are needed.
+If you are deploying Fluentd using the [official Helm chart](https://github.com/fluent/helm-charts/tree/main/charts/fluentd), it already has these plugins enabled by default in its configuration, so no additional actions are needed.
+
+
+## Installation
+
+You can use our helm-charts in order to install the exporter in your cluster.

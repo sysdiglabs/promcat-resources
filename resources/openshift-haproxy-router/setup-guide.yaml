@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: SetupGuide
+app: "openshift-haproxy-router"
+version: 1.0.0
+appVersion:
+- latest
+descriptionFile: INSTALL.md
+configurations:
+- name: haproxy-ingress-openshift-deploy.yaml
+  file: include/haproxy-ingress-openshift-deploy.yaml

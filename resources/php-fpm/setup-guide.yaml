@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: SetupGuide
-app: php-fpm
+app: "php-fpm"
 version: 1.0.0
 appVersion:
-- '7.2'
-configurations:
-- name: deployment.yaml
-  file: include/deployment.yaml
+- latest
 descriptionFile: INSTALL.md
+configurations:
+- name: php-fpm-deploy.yaml
+  file: include/php-fpm-deploy.yaml

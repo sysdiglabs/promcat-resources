@@ -3,6 +3,8 @@ kind: SetupGuide
 app: "rabbitmq"
 version: 1.0.0
 appVersion:
-- '3.8'
-configurations: []
+- latest
 descriptionFile: INSTALL.md
+configurations:
+- name: rabbitmq-deploy.yaml
+  file: include/rabbitmq-deploy.yaml
