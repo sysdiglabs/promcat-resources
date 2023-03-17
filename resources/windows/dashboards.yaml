@@ -7,21 +7,21 @@ appVersion:
 configurations:
   - name: Windows_Host_Overview
     kind: Grafana
-    image: apache/images/Windows_Host_Overview.png
+    image: apache/dashboards/images/Windows_Host_Overview.png
     description: The dashboard provides information about the Windows host.
-    file: include/Windows_Host_Overview.json
+    file: include/dashboards/Windows_Host_Overview.json
   - name: Windows_Process_Overview
     kind: Grafana
-    image: apache/images/Windows_Process_Overview.png
+    image: apache/dashboards/images/Windows_Process_Overview.png
     description: The dashboard provides information about the Windows processes.
-    file: include/Windows_Process_Overview.json
+    file: include/dashboards/Windows_Process_Overview.json
   - name: _Windows_Services_Overview
     kind: Grafana
-    image: apache/images/_Windows_Services_Overview.png
+    image: apache/dashboards/images/_Windows_Services_Overview.png
     description: The dashboard provides information about the Windows services.
-    file: include/_Windows_Services_Overview.json
+    file: include/dashboards/_Windows_Services_Overview.json
   - name: Windows_Node_Overview_Legacy
     kind: Grafana
-    image: apache/images/Windows_Node_Overview_Legacy.png
+    image: apache/dashboards/images/Windows_Node_Overview_Legacy.png
     description: The dashboard provides information about the Windows nodes (legacy).
-    file: include/Windows_Node_Overview_Legacy.json
+    file: include/dashboards/Windows_Node_Overview_Legacy.json
