@@ -1,21 +1,11 @@
 # Alerts
-## NoInstanceUpOfApp
-No instances up. You can customize this alert to detect lack of instances of an specific app.
-
-## UpTimeLessThanOneHour
-Instance with UpTime less than one hour in app.
-
-## TimeSinceLastOKRequestMoreThanOneHour
-Time since last OK request higher than one hour in app.
-
-## HighErrorRate
-High error rate in app.
-
-## HighResponseTime
-High response time in app.
-
-## HighRateOfBusyWorkersInInstance
-High rate of busy workers in instance.
-
-## LowOpenSlotsInApp
-Low workers in open_slot state in app.
+## [Apache] No Instance Up
+No instances up
+## [Apache] Up Time Less Than One Hour
+Instance with UpTime less than one hour
+## [Apache] Time Since Last OK Request More Than One Hour
+Time since last OK request higher than one hour
+## [Apache] High Error Rate
+High error rate
+## [Apache] High Rate Of Busy Workers In Instance
+Low workers in open_slot state

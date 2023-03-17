@@ -1,16 +1,9 @@
 # Alerts
-## CephMgrIsAbsent
-Storage metrics collector service not available anymore.
-
-## CephMgrIsMissingReplicas
-Storage metrics collector service doesn't have required no of replicas.
-
-## CephMdsMissingReplicas
-Insufficient replicas for storage metadata service.
-
-## CephMonQuorumAtRisk
-Storage quorum at risk
-
-## CephMonHighNumberOfLeaderChanges
-Storage Cluster has seen many leader changes recently.
-
+## [Ceph] Ceph Manager is absent
+Ceph Manager has disappeared from Prometheus target discovery.
+## [Ceph] Ceph Manager is missing replicas
+Ceph Manager is missing replicas.
+## [Ceph] Ceph quorum at risk
+Storage cluster quorum is low. Contact Support.
+## [Ceph] High number of leader changes
+Ceph Monitor has seen a lot of leader changes per minute recently.
