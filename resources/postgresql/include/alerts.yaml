@@ -1,0 +1,67 @@
+groups:
+    - name: PostgreSQL
+      rules:
+        - alert: '[PostgreSQL] Instance Down'
+          expr: |
+            pg_up == 0
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: PostgreSQL instance is unavailable
+        - alert: '[PostgreSQL] Low UpTime'
+          expr: |
+            (time() - pg_postmaster_start_time_seconds)< 3600
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: The PostgreSQL instance has a UpTime of less than 1 hour
+        - alert: '[PostgreSQL] Max Write Buffer Reached'
+          expr: |
+            rate(pg_stat_bgwriter_maxwritten_clean[5m]) > 0
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: Background writer stops because it reached the maximum write buffers
+        - alert: '[PostgreSQL] High WAL Files Archive Error Rate'
+          expr: |
+            rate(pg_stat_archiver_failed_count[5m]) /(rate(pg_stat_archiver_archived_count[5m]) + rate(pg_stat_archiver_failed_count[5m]))> 0.1
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: High error rate in WAL files archiver
+        - alert: '[PostgreSQL] Low Available Connections'
+          expr: |
+            sum  (pg_stat_activity_count)/( sum  (pg_settings_max_connections) - sum  (pg_settings_superuser_reserved_connections)) > 0.85
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: Low available network connections
+        - alert: '[PostgreSQL] High Response Time'
+          expr: |
+            avg by (datname) (rate(pg_stat_activity_max_tx_duration{datname!~'template.*'}[5m]))> (2 * 60)
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: High response time in at least one of the databases
+        - alert: '[PostgreSQL] Low Cache Hit Rate'
+          expr: |
+            avg  (rate(pg_stat_database_blks_hit{datname!~'template.*'}[5m]) / (rate(pg_stat_database_blks_hit{datname!~'template.*'}[5m]) + rate(pg_stat_database_blks_read{datname!~'template.*'}[5m]) )) < 0.9
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: Low cache hit rate
+        - alert: '[PostgreSQL] DeadLocks In Database'
+          expr: |
+            rate(pg_stat_database_deadlocks{datname!~'template.*'}[5m]) > 0
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: Deadlocks detected in database

@@ -1,25 +1,14 @@
-# PostgreSQL
-[PostgreSQL](https://www.postgresql.org/) (or just _Postgres_) is a powerful, open source object-relational database system with over 30 years
-of active development that has earned it a strong reputation for reliability, feature robustness, and performance.
+# postgresql
 
-To extract metrics, we will use the [Postgres Exporter](https://github.com/wrouesnel/postgres_exporter).
 
-# Metrics
-The metrics available are the ones related to the modules:
-* Settings
-* Locks
-* Activity
-* Archiver
-* Background writer
-* Database statistics
-* Replication
-* User table statistics and I/O stats
+Versions supported: &amp;gt; v9.4
 
-# Number of time series generated
-* Each instance generate ~250 metrics
-* Each database generates ~25 + (30 * number of tables)
+# Type
+This integration uses a standalone exporter that is available in UBI or scratch base image.
+The integration is using the following exporters:
+
 
 # Attributions
-Configuration files, dashboards, and alerts are maintained by [Sysdig team](https://sysdig.com/).
+The configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
 
-The [Postgres Exporter](https://github.com/wrouesnel/postgres_exporter) script for no-admin user creation and user queries is with Apache v2 license.
+# License
