@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Dashboard
+app: "Open Policy Agent"
+version: 1.0.0
+appVersion:
+  - latest
+configurations:
+  - name: OPA_Gatekeeper
+    kind: Grafana
+    image: Open Policy Agent/include/dashboards/images/OPA_Gatekeeper.png
+    description: The dashboard provides information on the requests rate, latency, violations rate per constraint.
+    file: include/dashboards/OPA_Gatekeeper.json

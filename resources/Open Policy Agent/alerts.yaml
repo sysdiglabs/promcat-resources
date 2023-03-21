@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Alert
+app: "Open Policy Agent"
+version: 1.0.0
+appVersion:
+  - latest
+descriptionFile: ALERTS.md
+configurations:
+  - name: alerts.yaml
+    kind: Prometheus
+    file: include/alerts/alerts.yaml
