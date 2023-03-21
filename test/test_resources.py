@@ -48,6 +48,7 @@ def loadYaml(input):
   
 @pytest.fixture(scope="session", autouse=True)
 def loadResources():
+  error = False
   for root, dirs, files in os.walk('apps'):
     for file in files:
       if file.endswith(".yaml"):
@@ -62,7 +63,7 @@ def loadResources():
               ]
           except:
             print("*** Error loading file: " + os.path.join(root, file))
-            exit(1)
+            error = True
 
   for root, dirs, files in os.walk('resources'):
     for file in files:
@@ -84,7 +85,8 @@ def loadResources():
             raise ValueError("File not supported.")
         except:
           print("*** Error loading file: " + os.path.join(root, file))
-          exit(1)
+          error = True
+  assert(not error)
 
 # General tests
 # Checks that a resource name does not exists in a list
@@ -133,11 +135,11 @@ def checkValidYAML(element):
 def checkFileExists(resource, file):
   try:
     with open(file):
-      return True
+      return False
   except IOError:
     print("*** File not found: " + file)
     print("Resource: " + str(resource["app"]) + " - " + str(resource["kind"]))
-  exit(1)
+  return True
 
 # Only 1 description per app
 def testDuplicatedDescriptions(): 
@@ -240,6 +242,7 @@ def testConfigurationsElement():
 #       - is string, not empty
 #       - is valid json  
 def testDashboards():
+  error = False
   for res in dashboards:
     for config in res['configurations']:
       checkStringNotEmpty(res,config['name'])
@@ -247,7 +250,7 @@ def testDashboards():
       assert (res['app'] != "" and res['kind'] != ""
               and config['kind'] in ['Grafana', 'Sysdig'])
       checkStringNotEmpty(res,config['image'])
-      checkFileExists(res, 'resources/' + config['image'])
+      error = True if checkFileExists(res, 'resources/' + config['image']) else error
       checkStringNotEmpty(res,config['description'])
       checkStringNotEmpty(res,config['data'])
       assert ((res['app'] != "") and (config['name'] != "") and (config['kind'] != "") \
@@ -255,6 +258,7 @@ def testDashboards():
       if (config['kind'] == 'Sysdig'):
         assert ((res['app'] != "") and (config['name'] != "") and (config['kind'] != "") \
         and (checkValidSysdigDashboard(config['data']) == True))
+  assert(not error)
 
 # Test in alerts
 # - in configurations:
@@ -265,6 +269,7 @@ def testDashboards():
 #   - data if Sysdig
 #       - error
 def testAlerts():
+  error = False
   for res in alerts:
     for config in res['configurations']:
       checkStringNotEmpty(res,config['kind'])
@@ -273,13 +278,15 @@ def testAlerts():
       checkStringNotEmpty(res,config['data'])
       if (config['kind'] == 'Sysdig'):
         print("*** Error alert type not supported: Sysdig alert found in " + res.app)
-        exit(1)
+        error = True
       if (config['kind'] == 'Prometheus'):
         assert ((res['app'] != "") and (config['kind'] != "") \
           and (checkValidYAML(config['data']) == True))
+  assert(not error)
 
 # Test that for every appVersion exists at least 1 resource
 def testExistResourcesForAllAppVersions():
+  error = False
   for app in apps_versions:
     for appVersionToFind in apps_versions[app]: 
       existsResource = False
@@ -293,4 +300,5 @@ def testExistResourcesForAllAppVersions():
           break
       if not existsResource:
         print("No resource found for app: '" + app + "' version: '" + appVersionToFind + "'")
-        exit (1)
+        error = True
+  assert(not error)

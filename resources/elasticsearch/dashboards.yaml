@@ -7,11 +7,11 @@ appVersion:
 configurations:
   - name: ElasticSearch_Cluster
     kind: Grafana
-    image: apache/dashboards/images/ElasticSearch_Cluster.png
+    image: elasticsearch/include/dashboards/images/ElasticSearch_Cluster.png
     description: The dashboard provides information on the status of the ElasticSearch cluster health and its usage of resources.
     file: include/dashboards/ElasticSearch_Cluster.json
   - name: ElasticSearch_Infra
     kind: Grafana
-    image: apache/dashboards/images/ElasticSearch_Infra.png
+    image: elasticsearch/include/dashboards/images/ElasticSearch_Infra.png
     description: The dashboard provides information on the usage of CPU, memory, disk and networking of ElasticSearch.
     file: include/dashboards/ElasticSearch_Infra.json

@@ -1,36 +1,11 @@
 apiVersion: v1
 kind: Alert
-app: mssql
+app: "mssql"
 version: 1.0.0
 appVersion:
-- '2019'
+  - latest
 descriptionFile: ALERTS.md
 configurations:
-- kind: Prometheus
-  data: |
-    groups:
-    - name: MSSQL
-      rules:
-      - alert: DatabaseDown
-        expr: up{job="mssql"} == 0
-        for: 10m
-        labels:
-          severity: page
-        annotations:
-          summary: Connection with database not available
-      - alert: SqlServerDeadlock
-        expr: increase(mssql_deadlocks[1m]) > 5
-        for: 0m
-        labels:
-          severity: warning
-        annotations:
-          summary: SQL Server deadlock (instance {{ $labels.instance }})
-          description: SQL Server is having some deadlock.
-      - alert: SqlDiskIsRunningOut
-        expr: sum(mssql_disk_space_avaiable_bytes_total{job=~"mssql"})/sum(mssql_disk_space_total_bytes_total{job=~"mssql"}) < 0.15
-        for: 0m
-        labels:
-          severity: warning
-        annotations:
-          summary: SQL disk is running out (instance {{ $labels.instance }})
-          description: SQL disk is running out.
+  - name: alerts.yaml
+    kind: Prometheus
+    file: include/alerts/alerts.yaml

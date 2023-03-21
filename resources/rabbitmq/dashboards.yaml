@@ -7,11 +7,11 @@ appVersion:
 configurations:
   - name: Rabbitmq_Usage
     kind: Grafana
-    image: apache/dashboards/images/Rabbitmq_Usage.png
+    image: rabbitmq/include/dashboards/images/Rabbitmq_Usage.png
     description: The dashboard provides information on the usage of each queues, channels and connections.
     file: include/dashboards/Rabbitmq_Usage.json
   - name: Rabbitmq_Overview
     kind: Grafana
-    image: apache/dashboards/images/Rabbitmq_Overview.png
+    image: rabbitmq/include/dashboards/images/Rabbitmq_Overview.png
     description: The dashboard provides information on the nodes, queues and erlang of a RabbitMQ cluster.
     file: include/dashboards/Rabbitmq_Overview.json

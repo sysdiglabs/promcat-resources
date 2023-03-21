@@ -7,11 +7,11 @@ appVersion:
 configurations:
   - name: HAProxy_Ingress_Overview
     kind: Grafana
-    image: apache/dashboards/images/HAProxy_Ingress_Overview.png
+    image: haproxy-ingress/include/dashboards/images/HAProxy_Ingress_Overview.png
     description: The dashboard provides information on the HAProxy Ingress Overview.
     file: include/dashboards/HAProxy_Ingress_Overview.json
   - name: HAProxy_Ingress_Service_Details
     kind: Grafana
-    image: apache/dashboards/images/HAProxy_Ingress_Service_Details.png
+    image: haproxy-ingress/include/dashboards/images/HAProxy_Ingress_Service_Details.png
     description: The dashboard provides information on the HAProxy Ingress Service Details.
     file: include/dashboards/HAProxy_Ingress_Service_Details.json

@@ -1,21 +1,11 @@
 apiVersion: v1
 kind: Alert
-app: Keda
+app: "keda"
 version: 1.0.0
 appVersion:
-- '2.0'
+  - latest
 descriptionFile: ALERTS.md
 configurations:
-- kind: Prometheus
-  data: |
-    groups:
-    - name: Harbor
-      rules:
-        - alert: "[Keda] Errors in Scaled Object"
-          expr: |
-            rate(keda_metrics_adapter_scaled_object_errors[5m]) > 0
-          for: 10m
-          labels:
-            severity: medium
-          annotations:
-            summary: "[Keda] Errors in Scaled Object"
+  - name: alerts.yaml
+    kind: Prometheus
+    file: include/alerts/alerts.yaml

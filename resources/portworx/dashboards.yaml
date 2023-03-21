@@ -7,11 +7,11 @@ appVersion:
 configurations:
   - name: Portworx Cluster
     kind: Grafana
-    image: apache/dashboards/images/Portworx Cluster.png
+    image: portworx/include/dashboards/images/Portworx Cluster.png
     description: The dashboard provides information on the status of the Portworx cluster.
     file: include/dashboards/Portworx Cluster.json
   - name: Portworx Volumes
     kind: Grafana
-    image: apache/dashboards/images/Portworx Volumes.png
+    image: portworx/include/dashboards/images/Portworx Volumes.png
     description: The dashboard provides information on the status of the Portworx volumes.
     file: include/dashboards/Portworx Volumes.json

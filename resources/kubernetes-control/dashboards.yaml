@@ -5,8 +5,43 @@ version: 1.0.0
 appVersion:
   - latest
 configurations:
+  - name: Kubernetes API Server
+    kind: Grafana
+    image: kubernetes-control/include/dashboards/images/Kubernetes API Server.png
+    description: The dashboard provides information on the Kubernetes API Server.
+    file: include/dashboards/Kubernetes API Server.json
+  - name: Kubernetes Controller Manager
+    kind: Grafana
+    image: kubernetes-control/include/dashboards/images/Kubernetes Controller Manager.png
+    description: The dashboard provides information on the Kubernetes Controller Manager.
+    file: include/dashboards/Kubernetes Controller Manager.json
+  - name: Kubernetes CoreDNS
+    kind: Grafana
+    image: kubernetes-control/include/dashboards/images/Kubernetes CoreDNS.png
+    description: The dashboard provides information on the Kubernetes CoreDNS.
+    file: include/dashboards/Kubernetes CoreDNS.json
+  - name: Kubernetes_Etcd
+    kind: Grafana
+    image: kubernetes-control/include/dashboards/images/Kubernetes_Etcd.png
+    description: The dashboard provides information on the Kubernetes Etcd.
+    file: include/dashboards/Kubernetes_Etcd.json
+  - name: Kubernetes Kubelet
+    kind: Grafana
+    image: kubernetes-control/include/dashboards/images/Kubernetes Kubelet.png
+    description: The dashboard provides information on the Kubernetes Kubelet.
+    file: include/dashboards/Kubernetes Kubelet.json
+  - name: Kubernetes Proxy
+    kind: Grafana
+    image: kubernetes-control/include/dashboards/images/Kubernetes Proxy.png
+    description: The dashboard provides information on the Kubernetes Proxy.
+    file: include/dashboards/Kubernetes Proxy.json
+  - name: Kubernetes_PVC
+    kind: Grafana
+    image: kubernetes-control/include/dashboards/images/Kubernetes_PVC.png
+    description: The dashboard provides information on the Kubernetes PVC and Storage.
+    file: include/dashboards/Kubernetes_PVC.json
   - name: Kubernetes Scheduler
     kind: Grafana
-    image: apache/dashboards/images/Kubernetes Scheduler.png
+    image: kubernetes-control/include/dashboards/images/Kubernetes Scheduler.png
     description: The dashboard provides information on the Kubernetes Scheduler.
     file: include/dashboards/Kubernetes Scheduler.json

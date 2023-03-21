@@ -7,11 +7,11 @@ appVersion:
 configurations:
   - name: OpenShift_HAProxy_Ingress_Overview
     kind: Grafana
-    image: apache/dashboards/images/OpenShift_HAProxy_Ingress_Overview.png
+    image: openshift-haproxy-router/include/dashboards/images/OpenShift_HAProxy_Ingress_Overview.png
     description: The dashboard provides information on the OpenShift HAProxy Ingress overview.
     file: include/dashboards/OpenShift_HAProxy_Ingress_Overview.json
   - name: OpenShift_HAProxy_Ingress_Service_Details
     kind: Grafana
-    image: apache/dashboards/images/OpenShift_HAProxy_Ingress_Service_Details.png
+    image: openshift-haproxy-router/include/dashboards/images/OpenShift_HAProxy_Ingress_Service_Details.png
     description: The dashboard provides information on the OpenShift HAProxy Ingress Service golden signals.
     file: include/dashboards/OpenShift_HAProxy_Ingress_Service_Details.json

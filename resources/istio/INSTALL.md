@@ -1,7 +1,3 @@
-## Prerequisites
-
-
-
 ## Installation
 
-You can use our helm-charts in order to install the exporter in your cluster.
+The application is ready to be scraped

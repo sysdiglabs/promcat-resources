@@ -7,11 +7,11 @@ appVersion:
 configurations:
   - name: consul
     kind: Grafana
-    image: apache/dashboards/images/consul.png
+    image: consul/include/dashboards/images/consul.png
     description: The dashboard provides information on the status and latency of Consul.
     file: include/dashboards/consul.json
   - name: consul envoy
     kind: Grafana
-    image: apache/dashboards/images/consul envoy.png
+    image: consul/include/dashboards/images/consul envoy.png
     description: The dashboard provides information on the Consul Envoy proxies.
     file: include/dashboards/consul envoy.json

@@ -7,11 +7,11 @@ appVersion:
 configurations:
   - name: Postgresql_DB_Golden_Signals
     kind: Grafana
-    image: apache/dashboards/images/Postgresql_DB_Golden_Signals.png
+    image: postgresql/include/dashboards/images/Postgresql_DB_Golden_Signals.png
     description: The dashboard provides information on the status, error rate and resource usage of a PostgreSQL instance.
     file: include/dashboards/Postgresql_DB_Golden_Signals.json
   - name: Postgresql_Instance_Health
     kind: Grafana
-    image: apache/dashboards/images/Postgresql_Instance_Health.png
+    image: postgresql/include/dashboards/images/Postgresql_Instance_Health.png
     description: The dashboard provides information on the connections, cache hit rate, error rate, latency and traffic of one of the databases of the postgreSQL instance.
     file: include/dashboards/Postgresql_Instance_Health.json
