@@ -1,22 +1,15 @@
 # Alerts
-## MongoServerDown
-Mongo server detected down by instance.
-
-## UpTimeLessThanOneHour
-Uptime of less than one hour in instance.
-
-## AssertsDetected
-Asserts detected in instance.
-
-## HighLatency
-High latency in instance.
-
-## HighTicketUtilization
-Ticket usage over 75% in instance.
-
-## RecurrentCursorTimeout
-Recurrent cursors timeout in instance.
-
-## RecurrentMemoryPageFaults
-Recurrent memory page faults in instance.
-
+## [MongoDB] Instance Down
+Mongo server detected down by instance
+## [MongoDB] Uptime less than one hour
+Mongo server detected down by instance
+## [MongoDB] Asserts detected
+Mongo server detected down by instance
+## [MongoDB] High Latency
+High latency in instance
+## [MongoDB] High Ticket Utilization
+Ticket usage over 75% in instance
+## [MongoDB] Recurrent Cursor Timeout
+Recurrent cursors timeout in instance
+## [MongoDB] Recurrent Memory Page Faults
+Recurrent cursors timeout in instance

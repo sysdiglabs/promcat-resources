@@ -1,25 +1,12 @@
 apiVersion: v1
 kind: Dashboard
-app: apache
+app: "apache"
 version: 1.0.0
 appVersion:
-- '2.4'
+  - latest
 configurations:
-- name: Apache App Overview
-  kind: Grafana
-  image: apache/images/apache-grafana-app-overview.png
-  description: |
-    This dashboard offers information on:
-    * Instances Up
-    * Up Time
-    * Time since last OK request
-    * Error Rate
-    * Response Time
-    * % Workers Busy by Instance
-    * Scoreboard status
-    * CPU Load by Instance
-    * Connections by State
-    * Requests per Second by Code
-    * Traffic
-    * Request Size
-  file: include/apache-grafana-app-overview.json
+  - name: Apache
+    kind: Grafana
+    image: apache/include/dashboards/images/Apache.png
+    description: The dashboard provides information on the status of the Apache resources.
+    file: include/dashboards/Apache.json

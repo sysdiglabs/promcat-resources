@@ -1,20 +1,11 @@
 apiVersion: v1
 kind: Alert
-app: NTP
+app: "ntp"
 version: 1.0.0
 appVersion:
-- '4'
+  - latest
 descriptionFile: ALERTS.md
 configurations:
-- kind: Prometheus
-  data: |-
-    groups:
-    - name: NTP
-      rules:
-      - alert: '[NTP] Drift is too high'
-        expr: "ntp_drift_seconds > 10"
-        for: 5m
-        labels:
-          severity: critical
-        annotations:
-          description: Drift is too high.
+  - name: alerts.yaml
+    kind: Prometheus
+    file: include/alerts/alerts.yaml

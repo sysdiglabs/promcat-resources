@@ -1,0 +1,43 @@
+groups:
+    - name: Php-Fpm
+      rules:
+        - alert: '[Php-Fpm] Percentage of instances low'
+          expr: |
+            sum (phpfpm_up)/sum (kube_workload_status_desired) < 0.75
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: Less than 75% of instances are up
+        - alert: '[Php-Fpm] Recently reboot'
+          expr: |
+            (count (phpfpm_start_since < 1800) or vector (0))/sum (phpfpm_up) > 0.4
+          for: 5m
+          labels:
+            severity: info
+          annotations:
+            description: Instances have been recently reboot
+        - alert: '[Php-Fpm] Limit of child proccess exceeded'
+          expr: |
+            sum (rate (phpfpm_max_children_reached[5m])) > 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: Number of childs process have been exceeded
+        - alert: '[Php-Fpm] Reaching limit of queue process'
+          expr: |
+            (phpfpm_listen_queue / phpfpm_listen_queue_length) > 0.8
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Buffer of queue requests reaching its limit
+        - alert: '[Php-Fpm] Too slow requests processing'
+          expr: |
+            rate (phpfpm_slow_requests[5m]) / rate (phpfpm_process_requests[5m]) > 0.1
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Requests have taking too much time to be processed

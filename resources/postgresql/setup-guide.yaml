@@ -1,14 +1,8 @@
 apiVersion: v1
 kind: SetupGuide
-app: postgreSQL
+app: "postgresql"
 version: 1.0.0
 appVersion:
-- "12"
+- latest
 descriptionFile: INSTALL.md
-configurations:
-- name: postgresql-standalone-db.yaml
-  file: include/postgresql-standalone-db.yaml
-- name: postgresql-standalone-exporter.yaml
-  file: include/postgresql-standalone-exporter.yaml
-- name: postgresql-auth-deploy.yaml
-  file: include/postgresql-auth-deploy.yaml
+configurations: []

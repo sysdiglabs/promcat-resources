@@ -1,19 +1,11 @@
 # Alerts
-
-## No Output Records From Plugin
-No Output Records From Plugin.
-
-## Percentage of instances low
-Percentage of instances low
-
-## Recently reboot
-Recently reboot
-
-## Limit of child proccess exceeded
-Limit of child proccess exceeded
-
-## Reaching limit of queue process
-Reaching limit of queue process
-
-## Requests processed reached timeout limit
-Requests processed reached timeout limit
+## [Php-Fpm] Percentage of instances low
+Less than 75% of instances are up
+## [Php-Fpm] Recently reboot
+Instances have been recently reboot
+## [Php-Fpm] Limit of child proccess exceeded
+Number of childs process have been exceeded
+## [Php-Fpm] Reaching limit of queue process
+Buffer of queue requests reaching its limit
+## [Php-Fpm] Too slow requests processing
+Requests have taking too much time to be processed

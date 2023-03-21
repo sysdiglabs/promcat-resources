@@ -1,0 +1,19 @@
+groups:
+    - name: MongoDB
+      rules:
+        - alert: '[MSSQL] SqlServerDeadlock'
+          expr: |
+            increase(mssql_deadlocks[5m]) > 5
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: SQL Server deadlock
+        - alert: '[MSSQL] SqlDiskIsRunningOut'
+          expr: |
+            sum(mssql_disk_space_avaiable_bytes_total)/sum(mssql_disk_space_total_bytes_total) < 0.15
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: SQL disk is running out.

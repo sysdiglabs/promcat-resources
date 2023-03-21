@@ -1,12 +1,11 @@
-# Installing the exporter
-To install the [NTP exporter](https://github.com/sapcc/ntp_exporter) below there is an example of a deployment:
+## Prerequisites
 
 
-In the args, just replace the server for the one you are using
 
+
+## Installation
+
+You can use our helm-charts in order to install the exporter in your cluster.
+```sh
+helm install --repo https://sysdiglabs.github.io/integrations-charts ntp-exporter ntp-exporter
 ```
-args: [
-  "-ntp.server", "Your-ntp-server"
-]
-```
-

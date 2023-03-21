@@ -1,0 +1,177 @@
+groups:
+    - name: Consul
+      rules:
+        - alert: '[Consul] KV Store update time anomaly'
+          expr: |
+            avg( rate(consul_kvs_apply_sum{ kube_pod_label_component="server"}[1m]) > 0 )>( avg_over_time(rate(consul_kvs_apply_sum{ kube_pod_label_component="server"}[1m]) [1h:1m]) + 2* stddev_over_time(rate(consul_kvs_apply_sum{ kube_pod_label_component="server"}[1m]) [1h:1m]) )
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: KV Store update time anomaly
+        - alert: '[Consul] Transaction time anomaly'
+          expr: |
+            avg( rate(consul_txn_apply_sum{ kube_pod_label_component="server"}[1m]) > 0 )>( avg_over_time(rate(consul_txn_apply_sum{ kube_pod_label_component="server"}[1m]) [1h:1m]) + 2* stddev_over_time(rate(consul_txn_apply_sum{ kube_pod_label_component="server"}[1m]) [1h:1m]) )
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Transaction time anomaly
+        - alert: '[Consul] Raft transactions count anomaly'
+          expr: |
+            avg( rate(consul_raft_apply{ kube_pod_label_component="server"}[1m]) > 0 )>( avg_over_time(rate(consul_raft_apply{ kube_pod_label_component="server"}[1m]) [1h:1m]) + 2* stddev_over_time(rate(consul_raft_apply{ kube_pod_label_component="server"}[1m]) [1h:1m]) )
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Raft transactions count anomaly
+        - alert: '[Consul] Raft commit time anomaly'
+          expr: |
+            avg( rate(consul_raft_commitTime_sum{ kube_pod_label_component="server"}[1m]) > 0 )>( avg_over_time(  rate(consul_raft_commitTime_sum{ kube_pod_label_component="server"}[1m]) [1h:1m]) + 2* stddev_over_time(rate(consul_raft_commitTime_sum{ kube_pod_label_component="server"}[1m]) [1h:1m]) )
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Raft commit time anomaly
+        - alert: '[Consul] Leader time to contact followers too high'
+          expr: |
+            consul_raft_leader_lastContact{ quantile="0.9"} > 200
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Leader time to contact followers too high
+        - alert: '[Consul] Flapping leadership'
+          expr: |
+            sum( rate(consul_raft_state_leader{ kube_pod_label_component="server"}[1m] ) )> 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Flapping leadership
+        - alert: '[Consul] Too many elections'
+          expr: |
+            sum( rate(consul_raft_state_candidate{ kube_pod_label_component="server"}[1m] ) )> 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Too many elections
+        - alert: '[Consul] Server cluster unhealthy'
+          expr: |
+            consul_autopilot_healthy == 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: Server cluster unhealthy
+        - alert: '[Consul] Zero failure tolerance'
+          expr: |
+            consul_autopilot_failure_tolerance == 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Zero failure tolerance
+        - alert: '[Consul] Client RPC requests anomaly'
+          expr: |
+            avg( rate(consul_client_rpc[1m]) > 0 )>( avg_over_time(rate(consul_client_rpc[1m]) [1h:1m]) + 2* stddev_over_time(rate(consul_client_rpc[1m]) [1h:1m]) )
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Consul client RPC requests anomaly
+        - alert: '[Consul] Client RPC requests rate limit exceeded'
+          expr: |
+            rate(consul_client_rpc_exceeded[1m])/rate(consul_client_rpc[1m])> 0.1
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Consul client RPC requests rate limit exceeded
+        - alert: '[Consul] Client RPC requests failed'
+          expr: |
+            rate(consul_client_rpc_failed[1m])/rate(consul_client_rpc[1m])> 0.1
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Consul client RPC requests failed
+        - alert: '[Consul] License Expiry'
+          expr: |
+            ( consul_system_licenseExpiration) / 24 < 30
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Consul License Expiry
+        - alert: '[Consul] Garbage Collection pause high'
+          expr: |
+            ( rate(consul_runtime_gc_pause_ns_sum[1m] )) / (1000000000) > 2
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Consul Garbage Collection pause high
+        - alert: '[Consul] Garbage Collection pause too high'
+          expr: |
+            ( min(consul_runtime_gc_pause_ns_sum)) / (1000000000) > 5
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: Consul Garbage Collection pause too high
+        - alert: '[Consul] Raft restore duration too high'
+          expr: |
+            consul_raft_leader_oldestLogAge< 2* max(consul_raft_fsm_lastRestoreDuration{ kube_pod_label_component="server"})
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Consul Raft restore duration too high
+        - alert: '[Consul] RPC requests error rate is high'
+          expr: "sum( rate(consul_rpc_request_error[1m])) /sum( rate(consul_rpc_request[1m])) > 0.05 \n"
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Consul RPC requests error rate is high
+        - alert: '[Consul] Cache hit rate is low'
+          expr: "consul_consul_cache_fetch_success/( consul_consul_cache_fetch_success + ignoring(result_not_modified) group_left consul_consul_cache_fetch_error)< 0.95 \n"
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Consul Cache hit rate is low
+        - alert: '[Consul] High 4xx RequestError Rate'
+          expr: |
+            sum (rate(envoy_cluster_upstream_rq_xx{response_code_class=~"4.."}[5m]))/ sum (rate(envoy_cluster_upstream_rq_xx[5m]))> 0.05
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: High 4xx RequestError Rate
+        - alert: '[Consul] High Request Latency'
+          expr: |
+            histogram_quantile(0.95,sum(rate(envoy_cluster_upstream_cx_connect_ms_bucket[5m])) by (le)) > 0.25
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: Envoy High Request Latency
+        - alert: '[Consul] High Response Latency'
+          expr: |
+            histogram_quantile(0.95,sum(rate(envoy_cluster_upstream_rq_time_bucket[5m])) by (le)) > 0.25
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: Envoy High Response Latency
+        - alert: '[Consul] Certificate close to expire'
+          expr: |
+            envoy_server_days_until_first_cert_expiring < 1
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: Certificate close to expire

@@ -1,19 +1,13 @@
-# Istio
-Istio can do the following:
+# istio
 
-* Intelligently control the flow of traffic and API calls between services, conduct a range of tests, and upgrade gradually with red/black deployments.
-* Automatically secure your services through managed authentication, authorization, and encryption of communication between services.
-* Apply policies and ensure that they are enforced and the resources are fairly distributed among consumers.
-* See what's happening with rich automatic tracing, monitoring, and logging of all your services.
 
-# Prometheus and exporters
-Istio already provides a Prometheus and a Grafana servers with all the metrics you need to monitor.
+Versions supported: 1.14
 
-# Metrics
-- Services
-- Workloads
+# Type
+This integration is out-of-the-box, so it doesn't require any exporter.
+
 
 # Attributions
-Configuration files and dashboards are maintained by [Sysdig team](https://sysdig.com/).
+The configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
 
-All dashboards are modified from the [dashboards provided by Istio](https://grafana.com/orgs/istio/dashboards) as reference.
+# License

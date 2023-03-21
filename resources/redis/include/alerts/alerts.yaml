@@ -1,0 +1,75 @@
+groups:
+    - name: Redis
+      rules:
+        - alert: '[Redis] Low UpTime'
+          expr: |
+            redis_uptime_in_seconds < 3600
+          for: 15m
+          labels:
+            severity: critical
+          annotations:
+            description: Uptime of less than 1 hour in a redis instance
+        - alert: '[Redis] High Memory Usage'
+          expr: |
+            (redis_memory_used_bytes /  redis_memory_max_bytes) > 0.85
+          for: 15m
+          labels:
+            severity: critical
+          annotations:
+            description: High memory usage
+        - alert: '[Redis] High Clients Usage'
+          expr: |
+            (redis_connected_clients /  redis_config_maxclients) > 0.85
+          for: 15m
+          labels:
+            severity: critical
+          annotations:
+            description: High client connections usage
+        - alert: '[Redis] High Response Time'
+          expr: |
+            (sum  (rate(redis_commands_duration_seconds_total[5m])) / sum  (rate(redis_commands_processed_total[5m]))) > 0.250
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: Response time over 250ms
+        - alert: '[Redis] High Fragmentation Ratio'
+          expr: |
+            redis_mem_fragmentation_ratio > 1.5
+          for: 30m
+          labels:
+            severity: critical
+          annotations:
+            description: High fragmentation ratio
+        - alert: '[Redis] High Keys Eviction Ratio'
+          expr: |
+            (sum  (rate(redis_evicted_keys_total[5m])) /  sum  (redis_db_keys)) > 0.1
+          for: 30m
+          labels:
+            severity: critical
+          annotations:
+            description: High keys eviction ratio
+        - alert: '[Redis] Recurrent Rejected Connections'
+          expr: |
+            (rate(redis_rejected_connections_total[5m])) > 0
+          for: 15m
+          labels:
+            severity: critical
+          annotations:
+            description: Recurrent rejected connections
+        - alert: '[Redis] Low Hit Ratio'
+          expr: |
+            (rate(redis_keyspace_hits_total[5m]) / ( rate(redis_keyspace_misses_total[5m]) + rate(redis_keyspace_hits_total[5m]) )) < 0.9
+          for: 30m
+          labels:
+            severity: warning
+          annotations:
+            description: Low keyspace hit ratio
+        - alert: '[Redis] Exporter Process Down'
+          expr: |
+            absent(redis_uptime_in_seconds) > 0
+          for: 30m
+          labels:
+            severity: warning
+          annotations:
+            description: Exporter proccess is not serving metrics

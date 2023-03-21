@@ -1,10 +1,5 @@
 # Alerts
-## DatabaseDown
-Connection with database not available
-
-## SqlServerDeadlock
-SQL Server deadlock (instance {{ $labels.instance }})
-
-## SqlDiskIsRunningOut
-SQL disk is running out (instance {{ $labels.instance }})
-
+## [MSSQL] SqlServerDeadlock
+SQL Server deadlock
+## [MSSQL] SqlDiskIsRunningOut
+SQL disk is running out.

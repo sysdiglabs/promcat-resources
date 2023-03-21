@@ -1,2 +1,3 @@
-# Prerequisites
-Portworx instruments Prometheus metrics and annotates the pods with Prometheus annotations. 
+## Installation
+
+The application is ready to be scraped

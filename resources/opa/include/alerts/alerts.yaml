@@ -1,0 +1,19 @@
+groups:
+    - name: Opa gatekeeper
+      rules:
+        - alert: '[Opa gatekeeper] Too much time since the last audit'
+          expr: |
+            time()-gatekeeper_audit_last_run_time > 120
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: There was more than 120 second since the last audit
+        - alert: '[Opa gatekeeper] Spike of violations'
+          expr: |
+            sum(irate(gatekeeper_violations[5m])) > 30
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: There was more than 30 violations

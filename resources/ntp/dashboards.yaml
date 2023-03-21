@@ -1,7 +1,12 @@
 apiVersion: v1
 kind: Dashboard
-app: 'NTP'
+app: "ntp"
 version: 1.0.0
 appVersion:
-- '4'
-configurations: []
+  - latest
+configurations:
+  - name: ntp
+    kind: Grafana
+    image: ntp/include/dashboards/images/ntp.png
+    description: The dashboard provides information on the drift of each node.
+    file: include/dashboards/ntp.json

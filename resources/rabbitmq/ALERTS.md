@@ -1,22 +1,21 @@
 # Alerts
-## RabbitMQClusterOperatorUnavailableReplicas
-There are pods that are either running but not yet available or pods that still have not been created.
-## InsufficientEstablishedErlangDistributionLinks
-There are only `{{ $value }}` established Erlang distribution links
-## LowDiskWatermarkPredicted
-The predicted free disk space in 24 hours from now is `{{ $value | humanize1024 }}B`
-## HighConnectionChurn
-Over the last 5 minutes, `{{ $value | humanizePercentage }}` of total connections are closed or opened per second in RabbitMQ cluster `{{ $labels.rabbitmq_cluster }}` in namespace `{{ $labels.namespace }}`.
-## NoMajorityOfNodesReady
-Only `{{ $value }}` replicas are ready in StatefulSet `{{ $labels.statefulset }}` of RabbitMQ cluster `{{ $labels.label_app_kubernetes_io_name }}` in namespace `{{ $labels.namespace }}`.
-## PersistentVolumeMissing
-PersistentVolumeClaim `{{ $labels.persistentvolumeclaim }}` of RabbitMQ cluster `{{ $labels.label_app_kubernetes_io_name }}` in namespace `{{ $labels.namespace }}` is not bound.
-## UnroutableMessages
-There were `{{ $value | printf "%.0f" }}` unroutable messages within the last 5 minutes in RabbitMQ cluster `{{ $labels.rabbitmq_cluster }}` in namespace `{{ $labels.namespace }}`.
-## FileDescriptorsNearLimit
-`{{ $value | humanizePercentage }}` file descriptors of file descriptor limit are used in RabbitMQ node `{{ $labels.rabbitmq_node }}`, pod `{{ $labels.pod }}`, RabbitMQ cluster `{{ $labels.rabbitmq_cluster }}`, namespace `{{ $labels.namespace }}`.
-## ContainerRestarts
-Over the last 10 minutes, container `{{ $labels.container }}` restarted `{{ $value | printf "%.0f" }}` times in pod `{{ $labels.pod }}` of RabbitMQ cluster `{{ $labels.rabbitmq_cluster }}` in namespace `{{ $labels.namespace }}`.
-## TCPSocketsNearLimit
-`{{ $value | humanizePercentage }}` TCP sockets of TCP socket limit are open in RabbitMQ node `{{ $labels.rabbitmq_node }}`, pod `{{ $labels.pod }}`, RabbitMQ cluster `{{ $labels.rabbitmq_cluster }}`, namespace `{{ $labels.namespace }}`.
-## 
+## [RabbitMQ] Cluster Operator Unavailable Replicas
+There are kube_pod_names that are either running but not yet available or kube_pod_names that still have not been created.
+## [RabbitMQ] Insufficient Established Erlang Distribution Links
+Insuffient establised erland distribution links
+## [RabbitMQ] Low Disk Watermark Predicted
+The predicted free disk space in 24 hours from now is low
+## [RabbitMQ] High Connection Churn
+There are a high connection churn
+## [RabbitMQ] No MajorityOfNodesReady
+There are so many nodes not ready
+## [RabbitMQ] Persistent Volume Missing
+There is at least one pvc not bound
+## [RabbitMQ] Unroutable Messages
+There were unroutable message within the last 5 minutes in RabbitMQ cluster
+## [RabbitMQ] File Descriptors Near Limit
+The file descriptors are near to the limit
+## [RabbitMQ] Container Restarts
+Over the last 10 minutes a rabbitmq container was restarted
+## [RabbitMQ] TCP Sockets Near Limit
+The TCP sockets are near to the limit

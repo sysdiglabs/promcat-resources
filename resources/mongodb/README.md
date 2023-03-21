@@ -1,21 +1,14 @@
-# MongoDB
-[MongoDB](https://www.mongodb.com/) is a general purpose, document-based, distributed database built for modern application developers and for the cloud era.
+# mongodb
 
-To extract metrics you can use the [Mongo Exporter](https://github.com/percona/mongodb_exporter).
 
-# Metrics
-The metrics available are the ones related to the modules:
-* Asserts, errors and locks
-* Database. documents and collections
-* Network, connections and latency
-* Replication
-* Wiredtiger
+Versions supported: &amp;gt; v4.2
 
-# Number of time series generated
-* Each instance generates ~100 metrics
-* Each database generates ~15 metrics
+# Type
+This integration uses a standalone exporter that is available in UBI or scratch base image.
+The integration is using the following exporters:
+
 
 # Attributions
-The configuration files, dashboards, and alerts maintained by [Sysdig team](https://sysdig.com/).
+The configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
 
-Using [Mongo Exporter](https://github.com/percona/mongodb_exporter) with Apache 2.0 license.
+# License

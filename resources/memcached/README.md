@@ -1,19 +1,14 @@
-# Memcached
-Memcached is an open source in-memory database and cache.
-
-Memcached has an integrated statistics service that provide internal metrics.
-To extract these metrics in Prometheus format, use the [Prometheus Memcached Metrics Exporter](https://github.com/prometheus/memcached_exporter).
-
-# Metrics
-Memcached generates different topics:
+# memcached
 
 
-# Number of time series generated
-Memcached generates around 100 metrics for each Memcached instance.
+Versions supported: &amp;gt; v1.5
 
-For further information, see the [Memcached documentation](https://github.com/memcached/memcached/wiki).
+# Type
+This integration uses a sidecar exporter that is available in UBI or scratch base image.
+The integration is using the following exporters:
+
 
 # Attributions
-Configuration files, alerts, and dashboards are maintained by [Sysdig team](https://sysdig.com/).
+The configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
 
-Using [Prometheus Memcached Metrics Exporter](https://github.com/prometheus/memcached_exporter) with Apache 2 License.
+# License

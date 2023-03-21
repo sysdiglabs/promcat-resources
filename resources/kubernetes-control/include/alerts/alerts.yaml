@@ -1,0 +1,11 @@
+groups:
+    - name: Kubernetes Scheduler
+      rules:
+        - alert: '[Kubernetes Scheduler] Failed Attempts to Schedule Pods'
+          expr: |
+            sum by (result) (rate(scheduler_schedule_attempts_total{result!~"scheduled"}[10m])) / ignoring(result) group_left sum (rate(scheduler_schedule_attempts_total[10m]))> 0.10
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            description: The error rate of attempts to schedule pods is high.

@@ -1,0 +1,11 @@
+groups:
+    - name: Keda
+      rules:
+        - alert: '[Keda] Errors in Scaled Object'
+          expr: |
+            rate(keda_metrics_adapter_scaled_object_errors[5m])> 0
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            description: Errors detected in scaled object
