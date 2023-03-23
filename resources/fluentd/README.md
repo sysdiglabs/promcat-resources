@@ -1,4 +1,4 @@
-# fluentd
+# Fluentd
 
 
 Versions supported: &amp;gt; v1.12.4

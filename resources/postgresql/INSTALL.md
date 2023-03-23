@@ -1,4 +1,4 @@
-## Prerequisites
+# Prerequisites
 
 ### Create Credentials for the Exporter in the Database
 If you want to use a no-admin user for the exporter, you will have to create the user and associated views and permissions to be able to gather the data from the tables.
@@ -78,9 +78,7 @@ kubectl create -n Your-Application-Namespace secret generic postgresql-exporter 
   --from-literal=password=password \
   --from-file=sslRootCert=/path/to/tls/cert
 ```
-
-
-## Installation
+# Installation
 
 You can use our helm-charts in order to install the exporter in your cluster.
 ```sh

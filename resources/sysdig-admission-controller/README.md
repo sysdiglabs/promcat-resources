@@ -1,4 +1,4 @@
-# sysdig-admission-controller
+# Sysdig Admission Controller
 
 
 Versions supported: 

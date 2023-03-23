@@ -1,4 +1,4 @@
-# postgresql
+# PostgreSQL
 
 
 Versions supported: &amp;gt; v9.4

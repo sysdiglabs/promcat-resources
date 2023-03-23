@@ -1,4 +1,4 @@
-# apache
+# Apache
 The [Apache HTTP Server Project](https://httpd.apache.org/) aims to develop and maintain an open-source HTTP server for modern operating systems including UNIX and Windows.
 
 Versions supported: 2.4

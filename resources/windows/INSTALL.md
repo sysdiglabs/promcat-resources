@@ -1,4 +1,4 @@
-## Prerequisites
+# Prerequisites
 
 ### Enable Windows Prometheus Metrics
 
@@ -69,8 +69,6 @@ scrape_configs:
 ```
 
 
-
-
-## Installation
+# Installation
 
 You can use our helm-charts in order to install the exporter in your cluster.

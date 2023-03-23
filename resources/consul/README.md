@@ -1,4 +1,4 @@
-# consul
+# Consul
 
 
 Versions supported: &amp;gt; 1.11.1

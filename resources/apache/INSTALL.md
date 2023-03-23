@@ -1,4 +1,4 @@
-## Prerequisites
+# Prerequisites
 
 ### Create Grok Configuration
 You need to add the Grok configuration in order to parse Apache logs and get metrics from them.
@@ -78,9 +78,7 @@ To configure Apache server to produce common logs, include (or uncomment) the fo
        LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
        CustomLog /usr/local/apache2/logs/accesss.log common
 </IfModule>
-```
-
-## Installation
+```# Installation
 
 You can use our helm-charts in order to install the exporter in your cluster.
 ```sh

@@ -1,4 +1,4 @@
-# kafka
+# Kafka
 
 
 Versions supported: &amp;gt; v2.7.x

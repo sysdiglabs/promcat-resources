@@ -1,4 +1,4 @@
-# k8s-scheduler
+# Kubernetes Scheduler
 
 
 Versions supported: 

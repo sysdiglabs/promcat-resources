@@ -1,4 +1,4 @@
-# keda
+# KEDA
 
 
 Versions supported: &amp;gt; v2.0

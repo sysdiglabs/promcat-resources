@@ -1,4 +1,4 @@
-# ntp
+# NTP
 
 
 Versions supported: &amp;gt; v2

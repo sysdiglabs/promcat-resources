@@ -1,4 +1,4 @@
-# rabbitmq
+# RabbitMQ
 
 
 Versions supported: &amp;gt; v3.8

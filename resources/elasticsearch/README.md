@@ -1,4 +1,4 @@
-# elasticsearch
+# Elasticsearch
 
 
 Versions supported: &amp;gt; v6.8

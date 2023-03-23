@@ -1,4 +1,4 @@
-## Prerequisites
+# Prerequisites
 
 ### Create Credentials for MongoDB Exporter
 
@@ -45,9 +45,7 @@ To configure authentication, do the following:
   kubectl create secret -n Your-Exporter-Namespace generic mongodb-exporter-auth \
     --from-file=mongodb-key=<route-to-your-private-key.pem> \
     --from-file=mongodb-ca=<route-to-your-ca.pem>
-  ```
-
-## Installation
+  ```# Installation
 
 You can use our helm-charts in order to install the exporter in your cluster.
 ```sh

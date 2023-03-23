@@ -1,4 +1,4 @@
-# nginx
+# NGINX
 
 
 Versions supported: &amp;gt; v12

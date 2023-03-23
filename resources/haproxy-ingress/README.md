@@ -1,4 +1,4 @@
-# haproxy-ingress
+# HAProxy Ingress
 
 
 Versions supported: &amp;gt; v0.13

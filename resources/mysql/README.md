@@ -1,4 +1,4 @@
-# mysql
+# MySQL
 
 
 Versions supported: &amp;gt; v5.7

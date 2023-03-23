@@ -1,4 +1,4 @@
-## Prerequisites
+# Prerequisites
 
 ### Installation of the JMX-Exporter as a Sidecar
 The JMX-Exporter can be easily installed in two steps. 
@@ -36,9 +36,7 @@ kubectl create secret generic kafka-exporter-sasl-scram --from-file=username --f
 If using SASL+Kerberos, you'll need to create a Secret which contains the "kerberos.conf". If the 'Kerberos Auth Type' is 'keytabAuth', it should also contain the "kerberos.keytab". Example:
 ```
 kubectl create secret generic kafka-exporter-sasl-kerberos --from-file=./kerberos.conf --from-file=./kerberos.keytab --dry-run=true -o yaml | kubectl apply -f -
-```
-
-## Installation
+```# Installation
 
 You can use our helm-charts in order to install the exporter in your cluster.
 ```sh

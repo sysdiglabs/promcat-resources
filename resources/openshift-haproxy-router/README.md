@@ -1,4 +1,4 @@
-# haproxy-ingress-openshift
+# HAProxy Ingress OpenShift
 
 
 Versions supported: &amp;gt; v3.11

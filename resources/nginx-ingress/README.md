@@ -1,4 +1,4 @@
-# nginx-ingress
+# NGINX Ingress
 
 
 Versions supported: &amp;gt; v1.9.0

@@ -20,7 +20,6 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
     - name: Set up Python 3.10
       uses: actions/setup-python@v4
@@ -61,12 +60,18 @@ jobs:
         chmod +x ./kubectl
         sudo mv ./kubectl /usr/local/bin/kubectl
 
+    - id: 'get-credentials'
+      uses: 'google-github-actions/get-gke-credentials@v1'
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+      with:
+        cluster_name: 'promhub'
+        location: 'us-central1-a'
+        project_id: ${{ secrets.PROJECT_ID }}
+
     - name: Deploy in staging
       env:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
       run: |
-        echo "$GOOGLE_APPLICATION_CREDENTIALS" | base64 --decode > /tmp/config
-        export GOOGLE_APPLICATION_CREDENTIALS=/tmp/config
-        export KUBECONFIG=deployment/promhub_kubeconfig
         chmod +x deployment/staging/deploy.sh
         sh ./deployment/staging/deploy.sh

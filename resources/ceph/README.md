@@ -1,4 +1,4 @@
-# ceph
+# Ceph
 
 
 Versions supported: &amp;gt; v15.2.12

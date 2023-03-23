@@ -1,4 +1,4 @@
-## Prerequisites
+# Prerequisites
 
 ### Create Credentials for MySQL Exporter
 
@@ -44,9 +44,7 @@ host=YOUR-DB-IP
 ssl-ca=/lib/cert/ca.pem
 ssl-key=/lib/cert/client-key.pem
 ssl-cert=/lib/cert/client-cert.pem
-```
-
-## Installation
+```# Installation
 
 You can use our helm-charts in order to install the exporter in your cluster.
 ```sh

@@ -1,4 +1,4 @@
-# opa
+# OPA
 
 
 Versions supported: &amp;gt; v3.5.1

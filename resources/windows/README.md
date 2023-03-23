@@ -1,4 +1,4 @@
-# windows
+# Windows
 
 
 Versions supported: 

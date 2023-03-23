@@ -1,4 +1,4 @@
-# redis
+# Redis
 
 
 Versions supported: &amp;gt; v2

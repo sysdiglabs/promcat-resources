@@ -1,4 +1,4 @@
-## Prerequisites
+# Prerequisites
 
 ### Enable Status Path
 For the exporter to generate metrics, you need to configure some parameters in PHP-FPM to expose the status path. These configuration parameters are:
@@ -57,9 +57,7 @@ spec:
             defaultMode: 420
             name: php-fpm-config
           name: php-fpm-config
-```
-
-## Installation
+```# Installation
 
 You can use our helm-charts in order to install the exporter in your cluster.
 ```sh
