@@ -73,7 +73,7 @@ jobs:
         location: 'us-central1-a'
         project_id: 198600064581
 
-    # - name: Deploy in staging
-    #   run: |
-    #     chmod +x deployment/staging/deploy.sh
-    #     sh ./deployment/staging/deploy.sh
+    - name: Deploy in staging
+      run: |
+        chmod +x deployment/staging/deploy.sh
+        sh ./deployment/staging/deploy.sh
