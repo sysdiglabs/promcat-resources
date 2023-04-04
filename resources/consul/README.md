@@ -1,7 +1,7 @@
 # Consul
 
 
-Versions supported: &amp;gt; 1.11.1
+Versions supported: > 1.11.1
 
 # Type
 This integration is out-of-the-box, so it doesn't require any exporter.

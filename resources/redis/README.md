@@ -1,7 +1,7 @@
 # Redis
 
 
-Versions supported: &amp;gt; v2
+Versions supported: > v2
 
 # Type
 This integration uses a standalone exporter that is available in UBI or scratch base image.

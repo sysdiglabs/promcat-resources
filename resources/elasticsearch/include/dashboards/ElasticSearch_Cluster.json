@@ -9,7 +9,1776 @@
   "hideControls": false,
   "id": null,
   "links": [],
-  "panels": [],
+  "panels": [
+    {
+      "cacheTimeout": null,
+      "datasource": {},
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "log": 2,
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          },
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 4
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 1,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "100*(1-(elasticsearch_filesystem_data_available_bytes/elasticsearch_filesystem_data_size_bytes))",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ handler }}",
+          "metric": "",
+          "refId": "A",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Percentage disk used",
+      "transformations": [],
+      "transparent": false,
+      "type": "timeseries"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": {},
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "log": 2,
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          },
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 4
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 2,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "irate(elasticsearch_indices_search_query_time_seconds[5m])",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ handler }}",
+          "metric": "",
+          "refId": "A",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Query time",
+      "transformations": [],
+      "transparent": false,
+      "type": "timeseries"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": {},
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "log": 2,
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          },
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 10
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 3,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "elasticsearch_jvm_memory_used_bytes",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ handler }}",
+          "metric": "",
+          "refId": "A",
+          "step": 10,
+          "target": ""
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "elasticsearch_jvm_memory_max_bytes",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ handler }}",
+          "metric": "",
+          "refId": "A",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "JVM memory usage",
+      "transformations": [],
+      "transparent": false,
+      "type": "timeseries"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": {},
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "log": 2,
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          },
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 4
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 4,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "irate(elasticsearch_indices_indexing_index_total[5m])",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ handler }}",
+          "metric": "",
+          "refId": "A",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Ingest rate by node",
+      "transformations": [],
+      "transparent": false,
+      "type": "timeseries"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": {},
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "log": 2,
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          },
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 18
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 5,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "elasticsearch_process_cpu_percent",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ handler }}",
+          "metric": "",
+          "refId": "A",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CPU usage",
+      "transformations": [],
+      "transparent": false,
+      "type": "timeseries"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": {},
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "log": 2,
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {},
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          },
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 10
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 6,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(elasticsearch_jvm_memory_max_bytes - on (area,name) group_left sum by (area,name)(elasticsearch_jvm_memory_used_bytes) >0)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ handler }}",
+          "metric": "",
+          "refId": "A",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "JVM Free memory",
+      "transformations": [],
+      "transparent": false,
+      "type": "timeseries"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": {},
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "calcs": [
+            "mean"
+          ],
+          "decimals": null,
+          "limit": null,
+          "links": [],
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "override": {},
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              },
+              {
+                "color": "red",
+                "index": 1,
+                "line": true,
+                "op": "gt",
+                "value": 80.0,
+                "yaxis": "left"
+              }
+            ]
+          },
+          "title": null,
+          "unit": "none",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 0
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 7,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "elasticsearch_cluster_health_status==1 or (elasticsearch_cluster_health_status==1)+4 or (elasticsearch_cluster_health_status==1)+22",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ handler }}",
+          "metric": "",
+          "refId": "A",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Cluster health",
+      "transformations": [],
+      "transparent": false,
+      "type": "gauge"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": {},
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "calcs": [
+            "mean"
+          ],
+          "decimals": null,
+          "limit": null,
+          "links": [],
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "override": {},
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              },
+              {
+                "color": "red",
+                "index": 1,
+                "line": true,
+                "op": "gt",
+                "value": 80.0,
+                "yaxis": "left"
+              }
+            ]
+          },
+          "title": null,
+          "unit": "none",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 14,
+        "y": 0
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 8,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "avg(elasticsearch_process_cpu_percent)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ handler }}",
+          "metric": "",
+          "refId": "A",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CPU usage Avg",
+      "transformations": [],
+      "transparent": false,
+      "type": "gauge"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": {},
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "calcs": [
+            "mean"
+          ],
+          "decimals": null,
+          "limit": null,
+          "links": [],
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "override": {},
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              },
+              {
+                "color": "red",
+                "index": 1,
+                "line": true,
+                "op": "gt",
+                "value": 80.0,
+                "yaxis": "left"
+              }
+            ]
+          },
+          "title": null,
+          "unit": "none",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 11,
+        "y": 0
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 9,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "avg(sum (elasticsearch_jvm_memory_used_bytes) / sum (elasticsearch_jvm_memory_max_bytes) * 100)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ handler }}",
+          "metric": "",
+          "refId": "A",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "JVM memory used Avg",
+      "transformations": [],
+      "transparent": false,
+      "type": "gauge"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": {},
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "calcs": [
+            "mean"
+          ],
+          "decimals": null,
+          "limit": null,
+          "links": [],
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "override": {},
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              },
+              {
+                "color": "red",
+                "index": 1,
+                "line": true,
+                "op": "gt",
+                "value": 80.0,
+                "yaxis": "left"
+              }
+            ]
+          },
+          "title": null,
+          "unit": "none",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 0
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 10,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "sum(elasticsearch_cluster_health_number_of_nodes)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ handler }}",
+          "metric": "",
+          "refId": "A",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Nodes",
+      "transformations": [],
+      "transparent": false,
+      "type": "gauge"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": {},
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "calcs": [
+            "mean"
+          ],
+          "decimals": null,
+          "limit": null,
+          "links": [],
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "override": {},
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              },
+              {
+                "color": "red",
+                "index": 1,
+                "line": true,
+                "op": "gt",
+                "value": 80.0,
+                "yaxis": "left"
+              }
+            ]
+          },
+          "title": null,
+          "unit": "none",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 8,
+        "y": 0
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 11,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "sum(elasticsearch_cluster_health_number_of_data_nodes)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ handler }}",
+          "metric": "",
+          "refId": "A",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Data Nodes",
+      "transformations": [],
+      "transparent": false,
+      "type": "gauge"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": {},
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "calcs": [
+            "mean"
+          ],
+          "decimals": null,
+          "limit": null,
+          "links": [],
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "override": {},
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              },
+              {
+                "color": "red",
+                "index": 1,
+                "line": true,
+                "op": "gt",
+                "value": 80.0,
+                "yaxis": "left"
+              }
+            ]
+          },
+          "title": null,
+          "unit": "none",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 2
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 12,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "sum(elasticsearch_cluster_health_active_shards)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ handler }}",
+          "metric": "",
+          "refId": "A",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Active shards",
+      "transformations": [],
+      "transparent": false,
+      "type": "gauge"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": {},
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "calcs": [
+            "mean"
+          ],
+          "decimals": null,
+          "limit": null,
+          "links": [],
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "override": {},
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              },
+              {
+                "color": "red",
+                "index": 1,
+                "line": true,
+                "op": "gt",
+                "value": 80.0,
+                "yaxis": "left"
+              }
+            ]
+          },
+          "title": null,
+          "unit": "none",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 17,
+        "y": 0
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 13,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "sum(elasticsearch_cluster_health_number_of_pending_tasks)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ handler }}",
+          "metric": "",
+          "refId": "A",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Pending tasks",
+      "transformations": [],
+      "transparent": false,
+      "type": "gauge"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": {},
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "calcs": [
+            "mean"
+          ],
+          "decimals": null,
+          "limit": null,
+          "links": [],
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "override": {},
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              },
+              {
+                "color": "red",
+                "index": 1,
+                "line": true,
+                "op": "gt",
+                "value": 80.0,
+                "yaxis": "left"
+              }
+            ]
+          },
+          "title": null,
+          "unit": "none",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 2
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 14,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "sum(elasticsearch_cluster_health_active_primary_shards)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ handler }}",
+          "metric": "",
+          "refId": "A",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Active primary shards",
+      "transformations": [],
+      "transparent": false,
+      "type": "gauge"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": {},
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "calcs": [
+            "mean"
+          ],
+          "decimals": null,
+          "limit": null,
+          "links": [],
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "override": {},
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              },
+              {
+                "color": "red",
+                "index": 1,
+                "line": true,
+                "op": "gt",
+                "value": 80.0,
+                "yaxis": "left"
+              }
+            ]
+          },
+          "title": null,
+          "unit": "none",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 0
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 15,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "sum(irate(elasticsearch_indices_indexing_index_total[5m]))",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ handler }}",
+          "metric": "",
+          "refId": "A",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Ingest rate",
+      "transformations": [],
+      "transparent": false,
+      "type": "gauge"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": {},
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "calcs": [
+            "mean"
+          ],
+          "decimals": null,
+          "limit": null,
+          "links": [],
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "override": {},
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              },
+              {
+                "color": "red",
+                "index": 1,
+                "line": true,
+                "op": "gt",
+                "value": 80.0,
+                "yaxis": "left"
+              }
+            ]
+          },
+          "title": null,
+          "unit": "none",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 2
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 16,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "sum(elasticsearch_cluster_health_initializing_shards)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ handler }}",
+          "metric": "",
+          "refId": "A",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Initializing shards",
+      "transformations": [],
+      "transparent": false,
+      "type": "gauge"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": {},
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "calcs": [
+            "mean"
+          ],
+          "decimals": null,
+          "limit": null,
+          "links": [],
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "override": {},
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              },
+              {
+                "color": "red",
+                "index": 1,
+                "line": true,
+                "op": "gt",
+                "value": 80.0,
+                "yaxis": "left"
+              }
+            ]
+          },
+          "title": null,
+          "unit": "none",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 2
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 17,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "sum(elasticsearch_cluster_health_relocating_shards)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ handler }}",
+          "metric": "",
+          "refId": "A",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Relocating shards",
+      "transformations": [],
+      "transparent": false,
+      "type": "gauge"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": {},
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "calcs": [
+            "mean"
+          ],
+          "decimals": null,
+          "limit": null,
+          "links": [],
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "override": {},
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              },
+              {
+                "color": "red",
+                "index": 1,
+                "line": true,
+                "op": "gt",
+                "value": 80.0,
+                "yaxis": "left"
+              }
+            ]
+          },
+          "title": null,
+          "unit": "none",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 2
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 18,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "sum(elasticsearch_cluster_health_initializing_shards)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ handler }}",
+          "metric": "",
+          "refId": "A",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Delayed shards",
+      "transformations": [],
+      "transparent": false,
+      "type": "gauge"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": {},
+      "description": null,
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "calcs": [
+            "mean"
+          ],
+          "decimals": null,
+          "limit": null,
+          "links": [],
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "override": {},
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "index": 0,
+                "line": true,
+                "op": "gt",
+                "value": "null",
+                "yaxis": "left"
+              },
+              {
+                "color": "red",
+                "index": 1,
+                "line": true,
+                "op": "gt",
+                "value": 80.0,
+                "yaxis": "left"
+              }
+            ]
+          },
+          "title": null,
+          "unit": "none",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 2
+      },
+      "height": null,
+      "hideTimeOverride": false,
+      "id": 19,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "maxPerRow": null,
+      "minSpan": null,
+      "repeat": null,
+      "repeatDirection": null,
+      "span": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "sum(elasticsearch_cluster_health_unassigned_shards)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ handler }}",
+          "metric": "",
+          "refId": "A",
+          "step": 10,
+          "target": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Unassigned shards",
+      "transformations": [],
+      "transparent": false,
+      "type": "gauge"
+    }
+  ],
   "refresh": "10s",
   "rows": [],
   "schemaVersion": 12,

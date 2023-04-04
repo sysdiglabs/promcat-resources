@@ -1,7 +1,7 @@
 # PostgreSQL
 
 
-Versions supported: &amp;gt; v9.4
+Versions supported: > v9.4
 
 # Type
 This integration uses a standalone exporter that is available in UBI or scratch base image.

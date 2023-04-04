@@ -1,7 +1,7 @@
 # Kafka
 
 
-Versions supported: &amp;gt; v2.7.x
+Versions supported: > v2.7.x
 
 # Type
 This integration uses a standalone exporter that is available in UBI or scratch base image.

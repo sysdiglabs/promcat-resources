@@ -1,7 +1,7 @@
 # Fluentd
 
 
-Versions supported: &amp;gt; v1.12.4
+Versions supported: > v1.12.4
 
 # Type
 This integration is out-of-the-box, so it doesn't require any exporter.

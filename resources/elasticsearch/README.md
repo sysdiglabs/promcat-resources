@@ -1,7 +1,7 @@
 # Elasticsearch
 
 
-Versions supported: &amp;gt; v6.8
+Versions supported: > v6.8
 
 # Type
 This integration uses a standalone exporter that is available in UBI or scratch base image.

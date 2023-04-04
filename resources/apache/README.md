@@ -6,8 +6,8 @@ Versions supported: 2.4
 # Type
 This integration uses a sidecar exporter that is available in UBI or scratch base image.
 The integration is using the following exporters:
-    - apache-exporter: with link link to quay
-    - grok-exporter: with link link to quay
+- apache-exporter: with link link to quay
+- grok-exporter: with link link to quay
 
 
 # Attributions

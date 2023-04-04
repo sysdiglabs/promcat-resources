@@ -1,7 +1,7 @@
 # HAProxy Ingress
 
 
-Versions supported: &amp;gt; v0.13
+Versions supported: > v0.13
 
 # Type
 This integration is out-of-the-box, so it doesn't require any exporter.

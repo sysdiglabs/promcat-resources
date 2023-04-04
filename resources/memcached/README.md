@@ -1,7 +1,7 @@
 # Memcached
 
 
-Versions supported: &amp;gt; v1.5
+Versions supported: > v1.5
 
 # Type
 This integration uses a sidecar exporter that is available in UBI or scratch base image.

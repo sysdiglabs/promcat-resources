@@ -1,7 +1,7 @@
 # OPA
 
 
-Versions supported: &amp;gt; v3.5.1
+Versions supported: > v3.5.1
 
 # Type
 This integration is out-of-the-box, so it doesn't require any exporter.

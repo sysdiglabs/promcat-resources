@@ -1,7 +1,7 @@
 # PHP-FPM
 
 
-Versions supported: &amp;gt; 7.2
+Versions supported: > 7.2
 
 # Type
 This integration uses a sidecar exporter that is available in UBI or scratch base image.
