@@ -6,7 +6,7 @@ Versions supported: > v2
 # Type
 This integration uses a standalone exporter that is available in UBI or scratch base image.
 The integration is using the following exporters:
-- redis-exporter: https://quay.io/repository/sysdig/redis-exporter
+- redis-exporter: [https://quay.io/repository/sysdig/redis-exporter](https://quay.io/repository/sysdig/redis-exporter)
 
 
 # Attributions

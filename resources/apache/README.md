@@ -6,8 +6,8 @@ Versions supported: 2.4
 # Type
 This integration uses a sidecar exporter that is available in UBI or scratch base image.
 The integration is using the following exporters:
-- apache-exporter: https://quay.io/repository/sysdig/apache-exporter
-- grok-exporter: https://quay.io/repository/sysdig/grok-exporter
+- apache-exporter: [https://quay.io/repository/sysdig/apache-exporter](https://quay.io/repository/sysdig/apache-exporter)
+- grok-exporter: [https://quay.io/repository/sysdig/grok-exporter](https://quay.io/repository/sysdig/grok-exporter)
 
 
 # Attributions

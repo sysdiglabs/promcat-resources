@@ -6,7 +6,7 @@ Versions supported: > v5.7
 # Type
 This integration uses a standalone exporter that is available in UBI or scratch base image.
 The integration is using the following exporters:
-- mysql-exporter: https://quay.io/repository/sysdig/mysql-exporter
+- mysql-exporter: [https://quay.io/repository/sysdig/mysql-exporter](https://quay.io/repository/sysdig/mysql-exporter)
 
 
 # Attributions

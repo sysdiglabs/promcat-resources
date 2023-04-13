@@ -6,7 +6,7 @@ Versions supported:
 # Type
 
 The integration is using the following exporters:
-- windows_exporter: https://github.com/prometheus-community/windows_exporter/releases
+- windows_exporter: [https://github.com/prometheus-community/windows_exporter/releases](https://github.com/prometheus-community/windows_exporter/releases)
 
 
 # Attributions

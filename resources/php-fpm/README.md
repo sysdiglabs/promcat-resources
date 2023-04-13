@@ -6,7 +6,7 @@ Versions supported: > 7.2
 # Type
 This integration uses a sidecar exporter that is available in UBI or scratch base image.
 The integration is using the following exporters:
-- php-fpm-exporter: https://quay.io/repository/sysdig/php-fpm-exporter
+- php-fpm-exporter: [https://quay.io/repository/sysdig/php-fpm-exporter](https://quay.io/repository/sysdig/php-fpm-exporter)
 
 
 # Attributions
