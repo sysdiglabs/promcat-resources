@@ -1,5 +1,5 @@
 # Kubernetes Scheduler
-
+Open-source system for automating deployment, scaling, and management of containerized applications.
 
 Versions supported: 
 
@@ -10,5 +10,4 @@ The integration is using the following exporters:
 
 # Attributions
 The configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
-
 # License
