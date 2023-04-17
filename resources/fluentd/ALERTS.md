@@ -1,28 +1,19 @@
 # Alerts
-## No Input From Container
-No Input From Container.
-
-## High Error Ratio
+## [Fluentd] No Input From Container
+No Input From Container. This alert does not work in OpenShift.
+## [Fluentd] High Error Ratio
 High Error Ratio.
-
-## High Retry Ratio
+## [Fluentd] High Retry Ratio
 High Retry Ratio.
-
-## High Retry Wait
+## [Fluentd] High Retry Wait
 High Retry Wait.
-
-## Low Buffer Available Space
+## [Fluentd] Low Buffer Available Space
 Low Buffer Available Space.
-
-## Buffer Queue Length Increasing
+## [Fluentd] Buffer Queue Length Increasing
 Buffer Queue Length Increasing.
-
-## Buffer Total Bytes Increasing
+## [Fluentd] Buffer Total Bytes Increasing
 Buffer Total Bytes Increasing.
-
-## High Slow Flush Ratio
+## [Fluentd] High Slow Flush Ratio
 High Slow Flush Ratio.
-
-## No Output Records From Plugin
+## [Fluentd] No Output Records From Plugin
 No Output Records From Plugin.
-

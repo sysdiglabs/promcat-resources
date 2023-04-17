@@ -3,19 +3,10 @@ kind: Dashboard
 app: "mssql"
 version: 1.0.0
 appVersion:
-  - '2019'
+  - latest
 configurations:
-- name: 'MsSQL'
-  kind: Grafana
-  image: 'mssql/images/mssql-grafana-dashboard.png'
-  description: |
-    This dashboard offers information on:
-    * Deadlocks
-    * Kill connection
-    * Memory used
-    * Cache hit raio
-    * Connections
-    * Disk Available
-    * Latency
-    * Transactions
-  file: include/mssql-dashboard-grafana.json
+  - name: MsSQL
+    kind: Grafana
+    image: mssql/include/dashboards/images/MsSQL.png
+    description: The dashboard provides information on the Microsoft SqlServer integration.
+    file: include/dashboards/MsSQL.json

@@ -1,0 +1,35 @@
+groups:
+    - name: Nginx-Ingress
+      rules:
+        - alert: '[Nginx-Ingress] High Http 4xx Error Rate'
+          expr: |
+            sum(rate(nginx_ingress_controller_requests{status=~'4..'}[1m]))/ sum(rate(nginx_ingress_controller_requests[1m]))* 100 > 5
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: Too many HTTP requests with status 4xx (> 5%)
+        - alert: '[Nginx-Ingress] High Http 5xx Error Rate'
+          expr: |
+            sum(rate(nginx_ingress_controller_requests{status=~'5..'}[1m]))/ sum(rate(nginx_ingress_controller_requests[1m]))* 100 > 5
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: Too many HTTP requests with status 5xx (> 5%)
+        - alert: '[Nginx-Ingress] High Latency'
+          expr: |
+            histogram_quantile(0.99,  sum  (rate(nginx_ingress_controller_request_duration_seconds_bucket[30m]) )) > 10
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Nginx p99 latency is higher than 10 seconds
+        - alert: '[Nginx-Ingress] Ingress Certificate Expiry'
+          expr: |
+            ( avg(nginx_ingress_controller_ssl_expire_time_seconds{host!="_"}) by (host) - time())/ (3600 * 24) < 14
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: Nginx Ingress Certificate will expire in less than 14 days

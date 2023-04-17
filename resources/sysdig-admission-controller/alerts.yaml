@@ -1,85 +1,11 @@
 apiVersion: v1
 kind: Alert
-app: Sysdig Admission Controller
+app: "sysdig-admission-controller"
 version: 1.0.0
 appVersion:
-- '0.0.9'
+  - latest
 descriptionFile: ALERTS.md
 configurations:
-- kind: Prometheus
-  data: |
-    groups:
-    - name: SysdigAdmissionController
-      rules:
-      - alert: "[Sysdig Admission Controller] No K8s Audit Events Received"
-        expr: |
-          sum(rate(k8s_audit_ac_events_received_total[5m])) == 0
-        for: 10m
-        labels:
-          severity: High
-        annotations:
-          summary: The Admission Controller is not receiving Kubernetes Audit events. 
-      - alert: "[Sysdig Admission Controller] K8s Audit Events Throttling"
-        expr: |
-          (sum(rate(k8s_audit_ac_events_processed_total[5m])) 
-            - sum(rate(k8s_audit_ac_events_received_total[5m]))
-          ) > 32
-        for: 15m
-        labels:
-          severity: medium
-        annotations:
-          summary: Kubernetes Audit events is being throttled.
-      - alert: "[Sysdig Admission Controller] Scanning Events Throttling"
-        expr: |
-          (sum(rate(scanning_ac_http_scanning_handler_requests_total[5m])) 
-            - sum(rate(scanning_ac_containers_processed_total[5m]))
-          ) > 32
-        for: 15m
-        labels:
-          severity: medium
-        annotations:
-          summary: Scanning events is being throttled.
-      - alert: "[Sysdig Admission Controller] Inline Scanning Throttling"
-        expr: |
-          sum(queue_length) > 0
-        for: 15m
-        labels:
-          severity: medium
-        annotations:
-          summary: The inline scanning queue is not empty for a long time.
-      - alert: "[Sysdig Admission Controller] High Error Rate In Scan Status From Backend"
-        expr: |
-          sum
-            ( rate(scanner_scan_status_error_from_backend_count[5m]) 
-            / (rate(scanner_scan_status_retrieved_from_backend_count[5m]) 
-              + rate(scanner_scan_status_error_from_backend_count[5m]))
-          ) > 0.15
-        for: 15m
-        labels:
-          severity: high
-        annotations:
-          summary: High Error Rate In Scan Status From Backend.
-      - alert: "[Sysdig Admission Controller] High Error Rate In Scan Report From Backend"
-        expr: |
-          sum
-            ( rate(scanner_scan_report_error_from_backend_count[5m]) 
-            / (rate(scanner_scan_report_retrieved_from_backend_count[5m]) 
-              + rate(scanner_scan_report_error_from_backend_count[5m]))
-          ) > 0.15
-        for: 15m
-        labels:
-          severity: high
-        annotations:
-          summary: High Error Rate In Scan Report From Backend.
-      - alert: "[Sysdig Admission Controller] High Error Rate In Image Scan"
-        expr: |
-          sum
-            ( rate(scanner_scan_errors[5m]) 
-            / (rate(scanner_scan_success[5m]) 
-              + rate(scanner_scan_errors[5m]))
-          ) > 0.15
-        for: 15m
-        labels:
-          severity: high
-        annotations:
-          summary: High Error Rate In Image Scan.
+  - name: alerts.yaml
+    kind: Prometheus
+    file: include/alerts/alerts.yaml

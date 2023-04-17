@@ -1,7 +1,12 @@
 apiVersion: v1
 kind: Dashboard
-app: php-fpm
+app: "php-fpm"
 version: 1.0.0
 appVersion:
-- '7.2'
-configurations: []
+  - latest
+configurations:
+  - name: Php-fpm
+    kind: Grafana
+    image: php-fpm/include/dashboards/images/Php-fpm.png
+    description: The dashboard provides information on the status of Php-fpm.
+    file: include/dashboards/Php-fpm.json

@@ -1,12 +1,8 @@
 apiVersion: v1
 kind: SetupGuide
-app: Elasticsearch
+app: "elasticsearch"
 version: 1.0.0
 appVersion:
-- '6.8'
-configurations:
-- name: exporter_no_credentials.yaml
-  file: include/exporter_no_credentials.yaml
-- name: exporter_with_credentials.yaml
-  file: include/exporter_with_credentials.yaml
+- latest
 descriptionFile: INSTALL.md
+configurations: []

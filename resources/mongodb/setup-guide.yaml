@@ -1,14 +1,8 @@
 apiVersion: v1
 kind: SetupGuide
-app: mongodb
+app: "mongodb"
 version: 1.0.0
 appVersion:
-- '4.2'
+- latest
 descriptionFile: INSTALL.md
-configurations:
-- name: mongodb-deploy.yaml
-  file: include/mongo-deploy.yaml
-- name: mongodb-exporter-auth-deploy.yaml
-  file: include/mongodb-exporter-auth-deploy.yaml
-
-
+configurations: []

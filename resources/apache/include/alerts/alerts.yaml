@@ -1,0 +1,43 @@
+groups:
+    - name: Apache
+      rules:
+        - alert: '[Apache] No Instance Up'
+          expr: |
+            absent(sum (apache_up)) == 1
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: No instances up
+        - alert: '[Apache] Up Time Less Than One Hour'
+          expr: |
+            apache_uptime_seconds_total < 3600
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: Instance with UpTime less than one hour
+        - alert: '[Apache] Time Since Last OK Request More Than One Hour'
+          expr: |
+            min (time() - apache_http_last_request_seconds{code=~"2.."}) > 3600
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: Time since last OK request higher than one hour
+        - alert: '[Apache] High Error Rate'
+          expr: |
+            sum (rate(apache_http_response_codes_total{code=~'4..|5..'}[5m])) /sum (rate(apache_http_response_codes_total[5m])) > 0.1
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: High error rate
+        - alert: '[Apache] High Rate Of Busy Workers In Instance'
+          expr: |
+            sum (apache_scoreboard{state='open_slot'}) /sum (apache_scoreboard) < 0.15
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: Low workers in open_slot state

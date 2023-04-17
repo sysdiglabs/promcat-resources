@@ -1,19 +1,11 @@
 # Istio
-Istio can do the following:
+Istio service mesh. Connect, secure, control, and observe services.
 
-* Intelligently control the flow of traffic and API calls between services, conduct a range of tests, and upgrade gradually with red/black deployments.
-* Automatically secure your services through managed authentication, authorization, and encryption of communication between services.
-* Apply policies and ensure that they are enforced and the resources are fairly distributed among consumers.
-* See what's happening with rich automatic tracing, monitoring, and logging of all your services.
+Versions supported: 1.14
 
-# Prometheus and exporters
-Istio already provides a Prometheus and a Grafana servers with all the metrics you need to monitor.
+# Type
+This integration is out-of-the-box, so it doesn't require any exporter.
 
-# Metrics
-- Services
-- Workloads
 
 # Attributions
-Configuration files and dashboards are maintained by [Sysdig team](https://sysdig.com/).
-
-All dashboards are modified from the [dashboards provided by Istio](https://grafana.com/orgs/istio/dashboards) as reference.
+The configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).

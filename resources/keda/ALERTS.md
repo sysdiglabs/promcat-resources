@@ -1,3 +1,3 @@
 # Alerts
-  ## Errors in Scaled Object
-  Errors in Scaled Object
+## [Keda] Errors in Scaled Object
+Errors detected in scaled object

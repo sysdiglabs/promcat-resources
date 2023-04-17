@@ -1,4 +1,7 @@
-# Setup
-Sysdig Admission Controller exposes Prometheus metrics natively. 
+# Prerequisites
 
-As it is annotated with the standard Prometheus annotations, it will be scraped by default by Prometheus, so no further configuration is required.
+### Install Sysdig Admission Controller
+Install Sysdig Admission Controller following the [official documentation](https://docs.sysdig.com/en/docs/installation/admission-controller-installation/) and make sure to provide a valid Sysdig Secure valid ULR and API token.
+# Installation
+
+You can use our helm-charts in order to install the exporter in your cluster.

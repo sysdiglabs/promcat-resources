@@ -7,9 +7,6 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.6]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -20,12 +17,15 @@ jobs:
         chmod +x ./kubectl
         sudo mv ./kubectl /usr/local/bin/kubectl
 
-    - name: Deploy in production
-      env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-      run: |
-        echo "$GOOGLE_APPLICATION_CREDENTIALS" | base64 --decode > /tmp/config
-        export GOOGLE_APPLICATION_CREDENTIALS=/tmp/config
-        export KUBECONFIG=deployment/promhub_kubeconfig
-        chmod +x deployment/master/deploy.sh
-        sh ./deployment/master/deploy.sh
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+
+    - id: 'get-credentials'
+      uses: 'google-github-actions/get-gke-credentials@v1'
+      with:
+        cluster_name: ${{ secrets.CLUSTER_NAME }}
+        location: 'us-central1-a'
+        project_id: ${{ secrets.PROJECT_ID }}

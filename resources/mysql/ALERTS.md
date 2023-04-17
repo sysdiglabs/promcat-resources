@@ -1,31 +1,21 @@
 # Alerts
-## MysqlDown
-MySQL down (instance {{ $labels.instance }})
-
-## MysqlRestarted
-MySQL restarted (instance {{ $labels.instance }})
-
-## MysqlTooManyConnections(>80%)
-MySQL too many connections (> 80%) (instance {{ $labels.instance }})
-
-## MysqlHighThreadsRunning
-MySQL high threads running (instance {{ $labels.instance }})
-
-## MysqlHighOpenFiles
-MySQL high number of open files (instance {{ $labels.instance }})
-
-## MysqlSlowQueries
-MySQL slow queries (instance {{ $labels.instance }})
-
-## MysqlInnodbLogWaits
-MySQL InnoDB log waits (instance {{ $labels.instance }})
-
-## MysqlSlaveIoThreadNotRunning
-MySQL Slave IO thread not running (instance {{ $labels.instance }})
-
-## MysqlSlaveSqlThreadNotRunning
-MySQL Slave SQL thread not running (instance {{ $labels.instance }})
-
-## MysqlSlaveReplicationLag
-MySQL Slave replication lag (instance {{ $labels.instance }})
-
+## [MySQL] Mysql Down
+MySQL instance is down
+## [MySQL] Mysql Restarted
+MySQL has just been restarted, less than one minute ago
+## [MySQL] Mysql Too many Connections (>80%)
+More than 80% of MySQL connections are in use
+## [MySQL] Mysql High Threads Running
+More than 60% of MySQL connections are in running state
+## [MySQL] Mysql HighOpen Files
+More than 80% of MySQL files open
+## [MySQL] Mysql Slow Queries
+MySQL server mysql has some new slow query
+## [MySQL] Mysql Innodb Log Waits
+MySQL innodb log writes stalling
+## [MySQL] Mysql Slave Io Thread Not Running
+MySQL Slave IO thread not running
+## [MySQL] Mysql Slave Sql Thread Not Running
+MySQL Slave SQL thread not running
+## [MySQL] Mysql Slave Replication Lag
+MySQL Slave replication lag

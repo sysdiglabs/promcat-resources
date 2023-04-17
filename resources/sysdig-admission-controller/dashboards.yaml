@@ -1,7 +1,12 @@
 apiVersion: v1
 kind: Dashboard
-app: Sysdig Admission Controller
+app: "sysdig-admission-controller"
 version: 1.0.0
 appVersion:
-- '0.0.9'
-configurations: []
+  - latest
+configurations:
+  - name: Sysdig_Admission_Controller
+    kind: Grafana
+    image: sysdig-admission-controller/include/dashboards/images/Sysdig_Admission_Controller.png
+    description: The dashboard provides information on the Sysdig Admission Controller integration.
+    file: include/dashboards/Sysdig_Admission_Controller.json

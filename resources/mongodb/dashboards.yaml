@@ -1,48 +1,17 @@
 apiVersion: v1
 kind: Dashboard
-app: 'mongodb'
+app: "mongodb"
 version: 1.0.0
 appVersion:
-- '4.2'
+  - latest
 configurations:
-- name: 'Instance Health'
-  kind: Grafana
-  image: 'mongodb/images/mongodb-grafana-instance-health.png'
-  description: |
-    This dashboard offers information on:
-    * UP
-    * Asserts (errors)
-    * Memory page faults
-    * Uptime
-    * DBs Size
-    * Memory
-    * Response Time
-    * Lock Queue
-    * Lock Clients
-    * Global Lock Ratio
-    * Tickets Usage
-    * Cursors Opened
-    * Cursors Timed Out
-    * Connections
-    * Network I/O
-    * Requests
-    * Operations
-    * Cache Size
-    * Cache I/O
-    * Cache Dirty Pages Rate
-    * Cache Evicted Pages
-  file: include/dashboard-grafana-mongo-instance-health.json
-- name: 'Database Details'
-  kind: Grafana
-  image: 'mongodb/images/mongodb-grafana-db-detail.png'
-  description: |
-    This dashboard offers information on:
-    * Data Size
-    * Index Size
-    * Documents
-    * Index
-    * Collections
-    * Database Size
-    * Objects and Indexes
-    * Collections
-  file: include/dashboard-grafana-mongo-db-details.json
+  - name: MongoDB_Database_Details
+    kind: Grafana
+    image: mongodb/include/dashboards/images/MongoDB_Database_Details.png
+    description: The dashboard provides information on the connections, cache hit rate, error rate, latency and traffic of one of the databases of the MongoDB instance.
+    file: include/dashboards/MongoDB_Database_Details.json
+  - name: MongoDB_Instance_Health
+    kind: Grafana
+    image: mongodb/include/dashboards/images/MongoDB_Instance_Health.png
+    description: The dashboard provides information on the status, error rate and resource usage of a MongoDB instance.
+    file: include/dashboards/MongoDB_Instance_Health.json

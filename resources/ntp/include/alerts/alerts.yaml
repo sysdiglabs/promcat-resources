@@ -1,0 +1,11 @@
+groups:
+    - name: Ntp
+      rules:
+        - alert: '[Ntp] Drift is too high'
+          expr: |
+            ntp_drift_seconds > 10
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: Drift is too high

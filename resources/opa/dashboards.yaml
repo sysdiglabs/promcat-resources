@@ -1,22 +1,12 @@
 apiVersion: v1
 kind: Dashboard
-app: Open Policy Agent
+app: "opa"
 version: 1.0.0
 appVersion:
-- 0.20.4
+  - latest
 configurations:
-- name: OPA Gatekeeper
-  kind: Grafana
-  image: opa/images/opa-grafana.png
-  description: |
-    This dashboard offers information on:
-    * Time since last audit
-    * Requests rate routed to webhook
-    * Latency of Gatekeeper per action
-    * Violations rate per constraint
-    * Current number of known constraints
-    * Observed constraint templates rate
-    * Latency of audit operation
-    * Constraint template ingestion actions rate
-    * Latency of constraint template ingestion
-  file: include/dashboard-Grafana-OPA-Gatekeeper-0.20.4.json
+  - name: OPA_Gatekeeper
+    kind: Grafana
+    image: opa/include/dashboards/images/OPA_Gatekeeper.png
+    description: The dashboard provides information on the requests rate, latency, violations rate per constraint.
+    file: include/dashboards/OPA_Gatekeeper.json

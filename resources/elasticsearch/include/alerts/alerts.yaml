@@ -1,0 +1,91 @@
+groups:
+    - name: ElasticSearch
+      rules:
+        - alert: '[Elasticsearch] Heap Usage Too High'
+          expr: |
+            (elasticsearch_jvm_memory_used_bytes{area='heap'}/ elasticsearch_jvm_memory_max_bytes{area='heap'})* 100 > 90
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: The heap usage is over 90%
+        - alert: '[Elasticsearch] Heap Usage Warning'
+          expr: |
+            (elasticsearch_jvm_memory_used_bytes{area='heap'}/ elasticsearch_jvm_memory_max_bytes{area='heap'})* 100 > 80
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: The heap usage is over 80%
+        - alert: '[Elasticsearch] Disk Space Low'
+          expr: |
+            (elasticsearch_filesystem_data_available_bytes/ elasticsearch_filesystem_data_size_bytes)* 100 < 20
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Disk available less than 20%
+        - alert: '[Elasticsearch] Disk Out Of Space'
+          expr: |
+            (elasticsearch_filesystem_data_available_bytes/ elasticsearch_filesystem_data_size_bytes)* 100 < 10
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: Disk available less than 10%
+        - alert: '[Elasticsearch] Cluster Red'
+          expr: |
+            elasticsearch_cluster_health_status{color='red'} == 1
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: Cluster in Red status
+        - alert: '[Elasticsearch] Cluster Yellow'
+          expr: |
+            elasticsearch_cluster_health_status{color='yellow'} == 1
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: Cluster in Yellow status
+        - alert: '[Elasticsearch] Relocation Shards'
+          expr: |
+            elasticsearch_cluster_health_relocating_shards > 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: Relocating shards for too long
+        - alert: '[Elasticsearch] Initializing Shards'
+          expr: |
+            elasticsearch_cluster_health_initializing_shards > 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Initializing shards takes too long
+        - alert: '[Elasticsearch] Unassigned Shards'
+          expr: |
+            elasticsearch_cluster_health_unassigned_shards > 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: Unassigned shards for long time
+        - alert: '[Elasticsearch] Pending Tasks'
+          expr: |
+            elasticsearch_cluster_health_number_of_pending_tasks > 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Elasticsearch has a high number of pending tasks
+        - alert: '[Elasticsearch] No New Documents'
+          expr: |
+            rate(elasticsearch_indices_docs{es_data_node='true'}[10m]) < 1
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Elasticsearch has no new documents for a period of time

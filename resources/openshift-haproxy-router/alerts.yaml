@@ -1,70 +1,11 @@
 apiVersion: v1
 kind: Alert
-app: 'OpenShift HAProxy Router'
+app: "openshift-haproxy-router"
 version: 1.0.0
 appVersion:
-- '3.11'
-- '4.7'
+  - latest
 descriptionFile: ALERTS.md
 configurations:
-- kind: Prometheus
-  data: |
-    groups:
-    - name: OpenShift-HAProxy-Router
-      rules:
-        - alert: '[OpenShift-HAProxy-Router] Router Down'
-          expr: |
-            absent(haproxy_process_start_time_seconds) == 1
-          for: 10m
-          labels:
-            severity: critical
-          annotations:
-            description: Router HAProxy down. No instances running.
-        - alert: '[OpenShift-HAProxy-Router] Route Down'
-          expr: |
-            sum by (namespace,route)(haproxy_server_up) < 1
-          for: 10m
-          labels:
-            severity: critical
-          annotations:
-            description: This alert detects if all servers are down in a route
-        - alert: '[OpenShift-HAProxy-Router] High Latency'
-          expr: |
-            max by (namespace,route)(haproxy_server_http_average_response_latency_milliseconds{route!=""}) > 250
-          for: 10m
-          labels:
-            severity: warning
-          annotations:
-            description: This alert detects high latency in at least one server of the route
-        - alert: '[OpenShift-HAProxy-Router] Pod Health Check Failure'
-          expr: |
-            sum by (namespace,route,pod)(rate(haproxy_server_check_failures_total[5m])) > 0
-          for: 10m
-          labels:
-            severity: critical
-          annotations:
-            description: This alert triggers when there is a recurrent pod health check failure.
-        - alert: '[OpenShift-HAProxy-Router] Queue not empty in route'
-          expr: |
-            sum by (namespace,route)(haproxy_server_current_queue{route!=""}) > 0
-          for: 10m
-          labels:
-            severity: warning
-          annotations:
-            description: This alert triggers when a queue is not empty in a route
-        - alert: '[OpenShift-HAProxy-Router] High error rate in route'
-          expr: |
-            sum by (namespace,route) (rate(haproxy_server_http_responses_total{code!="2xx"}[5m])) /sum by (namespace,route) (rate(haproxy_server_http_responses_total[5m]))> 0.15
-          for: 10m
-          labels:
-            severity: critical
-          annotations:
-            description: This alert triggers when the error rate in a route is higher than 15%.
-        - alert: '[OpenShift-HAProxy-Router] Connection errors in route'
-          expr: |
-            sum by (namespace,route)(rate(haproxy_server_connection_errors_total{route!=""}[5m])) > 0
-          for: 10m
-          labels:
-            severity: warning
-          annotations:
-            description: This alert triggers when there are recurring connection errors in a route
+  - name: alerts.yaml
+    kind: Prometheus
+    file: include/alerts/alerts.yaml

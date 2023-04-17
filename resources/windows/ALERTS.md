@@ -1,26 +1,21 @@
 # Alerts
-## HighFunctionErrorRate
-A Lambda function can end with an error.
-This alert triggers when the percentage of executions of a function excess a threshold for a certain period of time.
-
-The recommended value for this alert is 15% of the functions ended with error for 10 minutes.
-
-# HighCPUUsage
-This alert triggers when the CPU usage of an instance excess a threshold value.
-The recommended value for this alert is 95% over 15 minutes.
-
-# HighPhysicalMemoryUsage
-This alert triggers when the physical memory usage of an instance excess a threshold value.
-The recommended value for this alert is 95% over 15 minutes.
-
-# LogicalDiskFull
-This alert triggers when the disk available in a volume of an instance is under a threshold value.
-The recommended value for this alert is 95% of the volume full for more than 15 minutes.
-
-# UpTimeLessThanOneHour
-This alert triggers when the uptime of an instance is less than a certain value, meaning that the instance wa restarted.
-The recommended value for this alert is one hour.
-
-# HighInboundErrorRate and HighOutboundErrorRate
-These alerts trigger when the inbound and outbound network rate error of an instance excess a threshold value.
-The recommended value for this alert is 75% over 10 minutes.
+## [Windows] High CPU Usage
+The CPU of the Windows instance reached 95% of use
+## [Windows] High Disk Usage
+Disk full over 95% in instance {{$labels.instance}}
+## [Windows] High Physical Memory Usage
+High physical memory usage in instance
+## [Windows] High Network Inbound Errors
+High inbound network error rate in instance
+## [Windows] High Network Outbound Errors
+High outbound network error rate in instance
+## [Windows] Increase of Disk writes time
+Increase of Disk writes time
+## [Windows] Queue of Writes and reads Disk operations is growing
+The queue for writes and reads disk operations is growing
+## [Windows] High percent of swap space used
+The swap space has reached high amount of used
+## [Windows] Network bandwidth is reaching its limit
+Network Bandwith use is reaching its limit
+## [Windows] High number of transitions virtual addresses into disk
+The rate at which pages transition to resident memory without being written to disk has reached problematic limit

@@ -1,22 +1,15 @@
-# Windows exporter
-The [Windows exporter](https://github.com/prometheus-community/windows_exporter) (former WMI exporter) offers metrics for instances running Windows operative systems.
+# Windows
+Windows machine exporter.
 
-It has a series of different collectors that offer different metrics of the system.
-It can be used as a stand alone application or a Windows service and exposes the metrics in the port 9182 by default.
+Versions supported: 
 
-# Metrics
-The Windows exporter provides metrics on the following collectors:
-* CPU: Metrics about CPU usage
-* CS: Hardware of the computer system
-* Logical Disk: Metrics about logical disks
-* Memory: Metrics about system memory usage
-* Net: Metrics about network interfaces
-* OS: Metrics about the operating system
-* System: Metrics about the system
+# Type
 
-For more information, see the [documentation of the Windows exporter](https://github.com/prometheus-community/windows_exporter/blob/master/docs/README.md).
+The integration is using the following exporters:
+- windows_exporter: [https://github.com/prometheus-community/windows_exporter/releases](https://github.com/prometheus-community/windows_exporter/releases)
+
 
 # Attributions
-Configuration files, dashboards, and alerts are maintained by [Sysdig team](https://sysdig.com/).
-
-Using [Windows Exporter](https://github.com/prometheus-community/windows_exporter) with MIT license.
+The configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
+# License
+- windows_exporter with Apache license.

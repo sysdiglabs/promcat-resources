@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Alert
-app: apache
+app: "apache"
 version: 1.0.0
 appVersion:
-- '2.4'
+  - latest
 descriptionFile: ALERTS.md
 configurations:
-- name: alerts.yaml
-  kind: Prometheus
-  file: include/alerts-rules.yaml
+  - name: alerts.yaml
+    kind: Prometheus
+    file: include/alerts/alerts.yaml

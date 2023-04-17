@@ -1,37 +1,11 @@
 apiVersion: v1
 kind: Alert
-app: "Nginx-Ingress"
+app: "nginx-ingress"
 version: 1.0.0
 appVersion:
-- '2.7.0'
+  - latest
 descriptionFile: ALERTS.md
 configurations:
-- kind: Prometheus
-  data: |
-    groups:
-    - name: Nginx-Ingress
-      rules:
-      - alert: NginxHighHttp4xxErrorRate
-        expr: sum(rate(nginx_ingress_controller_requests{status=~"4.."}[1m])) / sum(rate(nginx_ingress_controller_requests[1m])) * 100 > 5
-        for: 5m
-        labels:
-          severity: critical
-        annotations:
-          summary: Nginx high HTTP 4xx error rate (instance {{ $labels.instance }})
-          description: Too many HTTP requests with status 4xx (> 5%)
-      - alert: NginxHighHttp5xxErrorRate
-        expr: sum(rate(nginx_ingress_controller_requests{status=~"^5.."}[1m])) / sum(rate(nginx_ingress_controller_requests[1m])) * 100 > 5
-        for: 5m
-        labels:
-          severity: critical
-        annotations:
-          summary: Nginx high HTTP 5xx error rate (instance {{ $labels.instance }})
-          description: Too many HTTP requests with status 5xx (> 5%)
-      - alert: NginxLatencyHigh
-        expr: histogram_quantile(0.99, sum(rate(nginx_ingress_controller_request_duration_seconds_bucket[30m])) by (host, node)) > 10
-        for: 5m
-        labels:
-          severity: warning
-        annotations:
-          summary: Nginx latency high (instance {{ $labels.instance }})
-          description: Nginx p99 latency is higher than 10 seconds
+  - name: alerts.yaml
+    kind: Prometheus
+    file: include/alerts/alerts.yaml

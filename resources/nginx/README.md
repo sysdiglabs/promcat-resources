@@ -1,22 +1,15 @@
-# Nginx
-Nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server, and a generic TCP/UDP proxy server,
-originally written by Igor Sysoev.
+# NGINX
+The open source web server that powers 400 million websites.
 
-# Metrics
-Nginx offers the following metrics:
-- nginx_connections_accepted
-- nginx_connections_active
-- nginx_connections_handled
-- nginx_connections_reading
-- nginx_connections_waiting
-- nginx_connections_writing
-- nginx_http_requests_total
-- nginx_up
+Versions supported: > v12
 
-# Number of time series generated
-Nginx generates 8 time series for each Nginx container.
+# Type
+This integration uses a sidecar exporter that is available in UBI or scratch base image.
+The integration is using the following exporters:
+- mysql-exporter: [https://quay.io/repository/sysdig/mysql-exporter](https://quay.io/repository/sysdig/mysql-exporter)
 
-For further information, see the [official Nginx webpage](https://nginx.org/).
 
 # Attributions
-The configuration files and dashboards are maintained by [Sysdig team](https://sysdig.com/).
+The configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
+# License
+- mysql-exporter with Apache license.

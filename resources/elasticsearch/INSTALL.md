@@ -1,62 +1,37 @@
-# Installing the exporter
-## Without credentials
-If it is not secured, download the `exporter_no_credentials.yaml` file and execute:
-```
-kubectl apply -f exporter_no_credentials.yaml
-```
-The exporter will try to connect to the service named `elasticsearch` on the port `9200`. If this is not the port or the service, change these lines:
-```yaml
-- name: ES_URI
-  value: https://elasticsearch:9200
-```
-Located here
-```yaml
-...
-spec:
-  template:
-    spec:
-      containers:
-      - command:
-      ...
-        env:
-          - name: ES_URI
-            value: https://elasticsearch:9200
-      ...
-```
-## With credentials
-If elasticsearch is secured, download the `exporter_with_credentials.yaml` file. 
+# Prerequisites
 
-This configuration will use the user and the password saved as secrets, and will mount a volume with the ca certificate.
+### Create the Secrets
+Keep in mind:
+* If your ElasticSearch cluster is using basic authentication, the secret that contains the url must have the user and password.
+* The secrets need to be created **in the same namespace where the exporter** will be deployed.
+* Use the **same _user name_ and _password_ that you used for the api**.
+* You can change the name of the secret. If you do this, you will need to **select it in the next steps** of the integration.
 
-Create the secret with the ElasticSearch certificates for the exporter and edit in the yaml file:
-* Secrets name (by default `elasticsearch-tls` and `es-certs`)
-* Service
-* Host
-* Port
-
-```yaml
-...
-spec:
-  template:
-    spec:
-      containers:
-      - command:
-      ...
-        env:
-        - name: ELASTIC_USER
-          valueFrom:
-            configMapKeyRef:
-              key: elasticsearch.adminuser
-              name: elasticsearch-config
-        - name: ES_URI
-          value: https://$(ELASTIC_USER):$(ELASTICSEARCH_ADMIN_PASSWORD)@YOUR-HOST:9200
-      envFrom:
-      - secretRef:
-          name: elasticsearch-tls
-      ...
+#### Create the Secret for the URL
+##### Without Authentication
+```sh
+kubectl -n Your-Application-Namespace create secret generic elastic-url-secret \
+  --from-literal=url='http://SERVICE:PORT'
 ```
 
-Apply by configuration changes by executing the following:
+##### With Basic Auth
+```sh
+kubectl -n Your-Application-Namespace create secret generic elastic-url-secret \
+  --from-literal=url='https://USERNAME:PASSWORD@SERVICE:PORT'
 ```
-kubectl apply -f exporter_with_credentials.yaml
+NOTE: You can use either http or https in the URL.
+
+#### Create the Secret for the TLS Certs
+If you are using HTTPS with custom certificates, follow the instructions given below.
+```sh
+kubectl create -n Your-Application-Namespace secret generic elastic-tls-secret \
+  --from-file=root-ca.crt=/path/to/tls/ca-cert \
+  --from-file=root-ca.key=/path/to/tls/ca-key \
+  --from-file=root-ca.pem=/path/to/tls/ca-pem
+```
+# Installation
+
+You can use our helm-charts in order to install the exporter in your cluster.
+```sh
+helm install --repo https://sysdiglabs.github.io/integrations-charts elasticsearch-exporter elasticsearch-exporter
 ```

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Dashboard
+app: "istio"
+version: 1.0.0
+appVersion:
+  - latest
+configurations:
+  - name: Istiod_Control_Plane
+    kind: Grafana
+    image: istio/include/dashboards/images/Istiod_Control_Plane.png
+    description: The dashboard provides information on the Istio Control Plane, Pilot, Galley, Mixer and Citadel.
+    file: include/dashboards/Istiod_Control_Plane.json

@@ -1,14 +1,25 @@
-# Installing the exporter
-Nginx ingress controller is already instrumented so you don't have to add any extra exporter. However, ensure that your nginx ingress controller is already exposing these metrics. Don't forget to include the `prometheus.io/port` and `prometheus.io/scrape` annotations.
+# Prerequisites
 
-For example if you are deploying your nginx ingress controller using the helm chart from Kubernetes, the values would be:
 
-```yaml
-controller:
-  metrics:
-    port: 10254
-    enabled: true
-  podAnnotations:
-    prometheus.io/port: "10254"
-    prometheus.io/scrape: "true"
+### Enable NGINX Ingress metrics
+
+To enable metric scraping, you should add the following line to the NGINX Ingress configuration file:
+
 ```
+controller.metrics.enabled=true
+```
+
+This parameter should be added in the NGINX Ingress section of the values.yaml file if you're using Helm to deploy the NGINX Ingress, or in the nginx-ingress-controller configuration file if you're using a native Kubernetes installation.
+
+Once you've enabled metric scraping with this parameter, the NGINX Ingress will automatically begin exposing its metrics on port 10254.
+
+Another option is adding the following line to the NGINX Ingress configuration file:
+
+```
+controller.metrics.podAnnotations.prometheus.io/scrape=true
+```
+
+
+# Installation
+
+The application is ready to be scraped

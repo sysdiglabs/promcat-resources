@@ -1,13 +1,11 @@
-# OpenShift HAProxy router
-OpenShift offers different options as ingress router, one of them is based in HAProxy 2.0.
+# HAProxy Ingress OpenShift
+HAProxy ingress router for OpenShift
 
-# Metrics
-The HAProxy ingress router instruments Prometheus metrics, in OpenShift the endpoint is protected with RBAC security by default.
+Versions supported: > v3.11
 
-## Number of time series generated
-The HAProxy ingress router generates ~400 time series per HAProxy router pod.
+# Type
+This integration is out-of-the-box, so it doesn't require any exporter.
+
 
 # Attributions
-The configuration files, dashboards, and alerts are maintained by [Sysdig team](https://sysdig.com/).
-
-Using the [HAProxy Kubernetes ingress controller](https://github.com/haproxytech/kubernetes-ingress) and [OpenShift router](https://github.com/openshift/router) with the Apache 2.0 license.
+The configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).

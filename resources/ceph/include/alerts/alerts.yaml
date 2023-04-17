@@ -1,0 +1,35 @@
+groups:
+    - name: Ceph
+      rules:
+        - alert: '[Ceph] Ceph Manager is absent'
+          expr: |
+            absent(ceph_health_status) == 1
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: Ceph Manager has disappeared from Prometheus target discovery.
+        - alert: '[Ceph] Ceph Manager is missing replicas'
+          expr: |
+            sum(ceph_osd_up) < 1
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: Ceph Manager is missing replicas.
+        - alert: '[Ceph] Ceph quorum at risk'
+          expr: |
+            count(ceph_mon_quorum_status == 1) <= ((count(ceph_mon_metadata) % 2) + 1)
+          for: 15m
+          labels:
+            severity: critical
+          annotations:
+            description: Storage cluster quorum is low. Contact Support.
+        - alert: '[Ceph] High number of leader changes'
+          expr: |
+            (ceph_mon_metadata * on () group_left max (rate(ceph_mon_num_elections[5m])) * 60) > 0.95
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: Ceph Monitor has seen a lot of leader changes per minute recently.

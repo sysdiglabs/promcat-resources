@@ -1,0 +1,83 @@
+groups:
+    - name: RabbitMQ
+      rules:
+        - alert: '[RabbitMQ] Cluster Operator Unavailable Replicas'
+          expr: |
+            kube_deployment_status_replicas_unavailable > 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: There are kube_pod_names that are either running but not yet available or kube_pod_names that still have not been created.
+        - alert: '[RabbitMQ] Insufficient Established Erlang Distribution Links'
+          expr: |
+            count (erlang_vm_dist_node_state) == 3< count (rabbitmq_build_info ) *(count (rabbitmq_build_info - 1 ))
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            description: Insuffient establised erland distribution links
+        - alert: '[RabbitMQ] Low Disk Watermark Predicted'
+          expr: |
+            ( predict_linear(rabbitmq_disk_space_available_bytes[24h], 60*60*24) < rabbitmq_disk_space_available_limit_bytes )and( count_over_time(rabbitmq_disk_space_available_limit_bytes[2h] offset 22h) > 0)
+          for: 60m
+          labels:
+            severity: warning
+          annotations:
+            description: The predicted free disk space in 24 hours from now is low
+        - alert: '[RabbitMQ] High Connection Churn'
+          expr: |
+            ( sum(rate(rabbitmq_connections_closed_total[5m]) )  + sum(rate(rabbitmq_connections_opened_total[5m]) ) )/sum (rabbitmq_connections) > 0.1 unless sum (rabbitmq_connections) < 100
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            description: There are a high connection churn
+        - alert: '[RabbitMQ] No MajorityOfNodesReady'
+          expr: |
+            kube_statefulset_status_replicas_ready<=kube_statefulset_replicas/ 2 unless kube_statefulset_replicas== 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: There are so many nodes not ready
+        - alert: '[RabbitMQ] Persistent Volume Missing'
+          expr: |
+            kube_persistentvolumeclaim_status_phase{phase="Bound"} == 0
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: There is at least one pvc not bound
+        - alert: '[RabbitMQ] Unroutable Messages'
+          expr: |
+            sum (increase(rabbitmq_channel_messages_unroutable_dropped_total[5m])) >= 1 or sum (increase(rabbitmq_channel_messages_unroutable_returned_total[5m])) >= 1
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: There were unroutable message within the last 5 minutes in RabbitMQ cluster
+        - alert: '[RabbitMQ] File Descriptors Near Limit'
+          expr: |
+            sum (max_over_time(rabbitmq_process_open_fds[5m]))/sum (rabbitmq_process_max_tcp_sockets)> 0.8
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            description: The file descriptors are near to the limit
+        - alert: '[RabbitMQ] Container Restarts'
+          expr: |
+            increase(kube__container_status_restarts_total[10m]) >= 1
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            description: Over the last 10 minutes a rabbitmq container was restarted
+        - alert: '[RabbitMQ] TCP Sockets Near Limit'
+          expr: |
+            sum (max_over_time(rabbitmq_process_open_tcp_sockets[5m]))/sum (rabbitmq_process_max_tcp_sockets)> 0.8
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            description: The TCP sockets are near to the limit

@@ -1,21 +1,15 @@
 # MongoDB
-[MongoDB](https://www.mongodb.com/) is a general purpose, document-based, distributed database built for modern application developers and for the cloud era.
+MongoDB is a general purpose, document-based, distributed database
 
-To extract metrics you can use the [Mongo Exporter](https://github.com/percona/mongodb_exporter).
+Versions supported: > v4.2
 
-# Metrics
-The metrics available are the ones related to the modules:
-* Asserts, errors and locks
-* Database. documents and collections
-* Network, connections and latency
-* Replication
-* Wiredtiger
+# Type
+This integration uses a standalone exporter that is available in UBI or scratch base image.
+The integration is using the following exporters:
+- mongodb-exporter: [https://quay.io/repository/sysdig/mongodb-exporter](https://quay.io/repository/sysdig/mongodb-exporter)
 
-# Number of time series generated
-* Each instance generates ~100 metrics
-* Each database generates ~15 metrics
 
 # Attributions
-The configuration files, dashboards, and alerts maintained by [Sysdig team](https://sysdig.com/).
-
-Using [Mongo Exporter](https://github.com/percona/mongodb_exporter) with Apache 2.0 license.
+The configuration files and dashboards maintained by [Sysdig team](https://sysdig.com/).
+# License
+- mongodb-exporter with Apache license.

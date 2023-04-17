@@ -1,10 +1,11 @@
 apiVersion: v1
 kind: Alert
-app: mongodb
+app: "mongodb"
 version: 1.0.0
 appVersion:
-- '4.2'
+  - latest
 descriptionFile: ALERTS.md
 configurations:
-- kind: Prometheus
-  file: include/mongo-prometheus-alerts.yaml
+  - name: alerts.yaml
+    kind: Prometheus
+    file: include/alerts/alerts.yaml

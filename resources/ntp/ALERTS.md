@@ -1,3 +1,3 @@
 # Alerts
-## Drift is too high
-The time drift is more than 10s
+## [Ntp] Drift is too high
+Drift is too high
