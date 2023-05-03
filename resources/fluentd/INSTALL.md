@@ -34,7 +34,6 @@ As seen in the [official plugin documentation](https://github.com/fluent/fluent-
 ```
 
 If you are deploying Fluentd using the [official Helm chart](https://github.com/fluent/helm-charts/tree/main/charts/fluentd), it already has these plugins enabled by default in its configuration, so no additional actions are needed.
-
 # Installation
 
 The application is ready to be scraped

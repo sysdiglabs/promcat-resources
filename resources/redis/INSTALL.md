@@ -21,7 +21,6 @@ kubectl create secret -n Your-Application-Namespace generic redis-exporter-auth 
 ```
 Replace `USER` and `PASSWORD` with yours for the Redis instance.
 # Installation
-
 You can use our helm-charts in order to install the exporter in your cluster.
 ```sh
 helm install --repo https://sysdiglabs.github.io/integrations-charts redis-exporter redis-exporter

@@ -7,7 +7,6 @@ Make sure that the prometheus metrics are activated. If you install Keda with He
 ```
 --set prometheus.metricServer.enabled=true
 ```
-
 # Installation
 
 The application is ready to be scraped

@@ -8,7 +8,6 @@ Make sure that Prometheus metrics are activated. If they are not, activate the p
 ```sh
 rabbitmq-plugins enable rabbitmq_prometheus
 ```
-
 # Installation
 
 The application is ready to be scraped

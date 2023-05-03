@@ -22,7 +22,6 @@ kubectl create -n Your-Application-Namespace secret generic elastic-tls-secret \
   --from-file=root-ca.key=/path/to/tls/ca-key \
   --from-file=root-ca.pem=/path/to/tls/ca-pem
 ```
-
 # Installation
 
 You can use our helm-charts in order to install the exporter in your cluster.

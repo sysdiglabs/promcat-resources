@@ -29,3 +29,8 @@ jobs:
         cluster_name: ${{ secrets.CLUSTER_NAME }}
         location: 'us-central1-a'
         project_id: ${{ secrets.PROJECT_ID }}
+    - name: Deploy in production
+      run: |
+        chmod +x deployment/master/deploy.sh
+        sh ./deployment/master/deploy.sh
+

@@ -18,9 +18,6 @@ Another option is adding the following line to the NGINX Ingress configuration f
 ```
 controller.metrics.podAnnotations.prometheus.io/scrape=true
 ```
-
-
-
 # Installation
 
 The application is ready to be scraped

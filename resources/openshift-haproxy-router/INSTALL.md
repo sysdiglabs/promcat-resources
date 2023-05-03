@@ -83,7 +83,6 @@ subjects:
   name: sysdig-agent
   namespace: sysdig-agent   # Remember to change to the namespace where you have the Sysdig agents deployed
 ```
-
 # Installation
 
 The application is ready to be scraped
