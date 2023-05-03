@@ -30,10 +30,10 @@ To configure authentication, do the following:
   mongodb://<YOUR-EXPORTER-USER>:<YOUR-EXPORTER-PASSWORD>@<YOUR-MONGODB-HOST>:<PORT>
 
   # TLS
-  mongodb://<YOUR-EXPORTER-USER>:<YOUR-EXPORTER-PASSWORD>@<YOUR-MONGODB-HOST>:<PORT>/admin?tls=true&amp;tlsCertificateKeyFile=/etc/mongodb/mongodb-exporter-key.pem&amp;tlsAllowInvalidCertificates=true&amp;tlsCAFile=/etc/mongodb/mongodb-exporter-ca.pem
+  mongodb://<YOUR-EXPORTER-USER>:<YOUR-EXPORTER-PASSWORD>@<YOUR-MONGODB-HOST>:<PORT>/admin?tls=true&tlsCertificateKeyFile=/etc/mongodb/mongodb-exporter-key.pem&tlsAllowInvalidCertificates=true&tlsCAFile=/etc/mongodb/mongodb-exporter-ca.pem
 
   # SSL
-  mongodb://<YOUR-EXPORTER-USER>:<YOUR-EXPORTER-PASSWORD>@<YOUR-MONGODB-HOST>:<PORT>/admin?ssl=true&amp;sslclientcertificatekeyfile=/etc/mongodb/mongodb-exporter-key.pem&amp;sslinsecure=true&amp;sslcertificateauthorityfile=/etc/mongodb/mongodb-exporter-ca.pem
+  mongodb://<YOUR-EXPORTER-USER>:<YOUR-EXPORTER-PASSWORD>@<YOUR-MONGODB-HOST>:<PORT>/admin?ssl=true&sslclientcertificatekeyfile=/etc/mongodb/mongodb-exporter-key.pem&sslinsecure=true&sslcertificateauthorityfile=/etc/mongodb/mongodb-exporter-ca.pem
   ```
 2. Create the secret for the connection string:
   ```
@@ -45,7 +45,8 @@ To configure authentication, do the following:
   kubectl create secret -n Your-Exporter-Namespace generic mongodb-exporter-auth \
     --from-file=mongodb-key=<route-to-your-private-key.pem> \
     --from-file=mongodb-ca=<route-to-your-ca.pem>
-  ```# Installation
+  ```
+# Installation
 
 You can use our helm-charts in order to install the exporter in your cluster.
 ```sh

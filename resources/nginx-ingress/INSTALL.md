@@ -20,6 +20,7 @@ controller.metrics.podAnnotations.prometheus.io/scrape=true
 ```
 
 
+
 # Installation
 
 The application is ready to be scraped

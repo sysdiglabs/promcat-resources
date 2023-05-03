@@ -11,6 +11,7 @@ If you install Consul with Helm, you need to use the following flags:
 --set 'global.metrics.enableAgentMetrics=true'
 --set 'server.extraConfig="{"telemetry": {"disable_hostname": true}}"'
 --set 'client.extraConfig="{"telemetry": {"disable_hostname": true}}"'
-```# Installation
+```
+# Installation
 
 The application is ready to be scraped

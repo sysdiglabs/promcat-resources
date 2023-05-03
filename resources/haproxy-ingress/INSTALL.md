@@ -26,6 +26,7 @@ frontend prometheus
     http-request use-service lua.send-prometheus-root if { path / }
     http-request use-service lua.send-404
     no log
-```# Installation
+```
+# Installation
 
 The application is ready to be scraped

@@ -57,7 +57,8 @@ spec:
             defaultMode: 420
             name: php-fpm-config
           name: php-fpm-config
-```# Installation
+```
+# Installation
 
 You can use our helm-charts in order to install the exporter in your cluster.
 ```sh

@@ -19,7 +19,8 @@ kubectl create secret -n Your-Application-Namespace generic redis-exporter-auth 
   --from-literal=user=USER \
   --from-literal=password=PASSWORD
 ```
-Replace `USER` and `PASSWORD` with yours for the Redis instance.# Installation
+Replace `USER` and `PASSWORD` with yours for the Redis instance.
+# Installation
 
 You can use our helm-charts in order to install the exporter in your cluster.
 ```sh

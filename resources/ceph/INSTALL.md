@@ -7,6 +7,7 @@ Make sure that the Prometheus module is activated in the Ceph cluster by running
 
 ```
 ceph mgr module enable prometheus
-```# Installation
+```
+# Installation
 
 The application is ready to be scraped
