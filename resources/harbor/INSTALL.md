@@ -7,6 +7,7 @@ As seen in the Harbor documentation page [Configure the Harbor YML File](https:/
 If you install Harbor with Helm, you need to use the following flag:
 ```
 --set 'metrics.enabled=true'
-```# Installation
+```
+# Installation
 
 The application is ready to be scraped

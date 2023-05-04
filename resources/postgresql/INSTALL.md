@@ -79,7 +79,6 @@ kubectl create -n Your-Application-Namespace secret generic postgresql-exporter 
   --from-file=sslRootCert=/path/to/tls/cert
 ```
 # Installation
-
 You can use our helm-charts in order to install the exporter in your cluster.
 ```sh
 helm install --repo https://sysdiglabs.github.io/integrations-charts postgresql-exporter postgresql-exporter

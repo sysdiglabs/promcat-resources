@@ -35,7 +35,8 @@ data:
         allow all;  # REPLACE with your access policy
       }
     }
-```# Installation
+```
+# Installation
 
 You can use our helm-charts in order to install the exporter in your cluster.
 ```sh

@@ -4,7 +4,7 @@ on:
 
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  deployInProduction:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -29,8 +29,8 @@ jobs:
         cluster_name: ${{ secrets.CLUSTER_NAME }}
         location: 'us-central1-a'
         project_id: ${{ secrets.PROJECT_ID }}
-    
     - name: Deploy in production
       run: |
         chmod +x deployment/master/deploy.sh
         sh ./deployment/master/deploy.sh
+
