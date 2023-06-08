@@ -67,7 +67,7 @@ groups:
             description: Harbor p99 latency is higher than 10 seconds
         - alert: '[Harbor] Harbor Error Rate is High'
           expr: |
-            sum(rate(registry_http_requests_total{code=~"4..|5.."}[5m]))/sum(rate(registry_http_requests_total[5m]))
+            sum(rate(registry_http_requests_total{code=~"4..|5.."}[5m]))/sum(rate(registry_http_requests_total[5m])) > 0.15
           for: 5m
           labels:
             severity: warning
